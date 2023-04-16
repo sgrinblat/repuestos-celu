@@ -13,14 +13,15 @@ import { Usuario } from '../usuario';
 export class ConexionService {
 
   public loginStatus = new Subject<boolean>();
+  private urlBasica = "http://192.168.0.41:8080"
 
-  private cartaURL = "http://localhost:8080/carta/cartas";
-  private expansionURL = "http://localhost:8080/expansion/expansiones"
-  private rarezaURL = "http://localhost:8080/rareza/rarezas"
-  private tipoURL = "http://localhost:8080/tipo/tipos"
-  private usuarioURL = "http://localhost:8080/usuarios/user/"
-  private tokenURL = "http://localhost:8080/generate-token"
-  private tokenObtenerUserURL = "http://localhost:8080/actual-usuario"
+  private cartaURL = `${this.urlBasica}/carta/cartas`;
+  private expansionURL = `${this.urlBasica}/expansion/expansiones`
+  private rarezaURL = `${this.urlBasica}/rareza/rarezas`
+  private tipoURL = `${this.urlBasica}/tipo/tipos`
+  private usuarioURL = `${this.urlBasica}/usuarios/user/`
+  private tokenURL = `${this.urlBasica}/generate-token`
+  private tokenObtenerUserURL = `${this.urlBasica}/actual-usuario`
 
   constructor(private httpClient: HttpClient) { }
 

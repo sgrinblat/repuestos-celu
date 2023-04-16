@@ -31,3 +31,57 @@ docker run -d -p 3308:3306 --net spring-net --name mysqlwp --env-file wpsqlenv -
 docker run -d -p 4040:80 --net spring-net --name lairenwp --env-file wpenv wordpress
 
 docker run -p 4040:80 --name lairenwp --network spring-net -d wordpress
+
+
+
+
+
+ESTO SERÍA EL DOCKER COMPOSE.YML:
+
+
+version: '3.8'
+
+services:
+  mysql:
+    image: 'mysql:8.0'
+    restart: always
+    environment:
+      MYSQL_DATABASE: lairentcg
+      MYSQL_USER: messi
+      MYSQL_PASSWORD: Campeon10+
+      MYSQL_ROOT_PASSWORD: Campeon10+
+    volumes:
+      - 'mysql_data:/var/lib/mysql'
+      - './mysql-config/my.cnf:/etc/mysql/my.cnf'
+    networks:
+      - backend
+
+  spring_app:
+    build: ./backend/lairen-back
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      SPRING_PROFILES_ACTIVE: production
+    volumes:
+      - 'spring_app:/app'
+    networks:
+      - backend
+    ports:
+      - '8080:8080'
+
+  angular_app:
+    build: ./frontend/lairenfrontnuevo
+    restart: always
+    ports:
+      - '4200:4200'
+    networks:
+      - frontend
+
+networks:
+  backend:
+  frontend:
+
+volumes:
+  mysql_data:
+  spring_app:
