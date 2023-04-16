@@ -1,0 +1,133 @@
+.fondo-gris{
+  background-color: #2e3031;
+}
+
+.primer-fondo {
+  background-image: linear-gradient(rgba(14, 13, 13, 0.7), rgba(11, 11, 11, 0.5)), url(https://i.postimg.cc/ZKL48nQ9/jugando-cartas.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  min-height: 70vh;
+  background-attachment: fixed;
+  background-position: center;
+
+}
+
+.header-image {
+  max-height: 500px;
+}
+
+.titulo-inicial {
+  text-shadow: -1px 2px 5px rgba(0,0,0,0.68);
+  margin-top: 30px;
+}
+
+.parrafo{
+  font-size: 30px;
+  font-weight: bolder;
+  text-shadow: -1px 2px 5px rgba(0,0,0,0.88);
+}
+
+.botonTexto{
+  font-size: 25px;
+  text-transform: uppercase;
+}
+
+#botonAcordeon {
+  background-color: #d7a80c;
+  color: #fff;
+  font-weight: bold;
+}
+
+#botonAcordeon:hover {
+  background-color: #967509;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* [data-toggle="collapse"] i:before {
+  content: "\f068";
+}
+
+[data-toggle="collapse"].collapsed i:before {
+  content: "\f067";
+}
+
+  .card-header{
+      margin-bottom: 8px;
+  }
+  .accordion-title{
+      position: relative;
+      display: block;
+      padding:8px 0 8px 50px;
+      background: #213744;
+      border-radius: 8px;
+      overflow: hidden;
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      width: 100%;
+      text-align: left;
+      transition: all .4s ease-in-out;
+  }
+  .accordion-title i{
+    position: absolute;
+    width: 40px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    color: #fff;
+    background: radial-gradient(rgba(#213744, .8), #213744);
+    text-align: center;
+    border-right: 1px solid transparent;
+}
+
+.accordion-title:hover{
+          padding-left: 60px;
+          background: #213744;
+          color: #fff;
+      }
+
+      .accordion-title:hover i {
+        border-right: 1px solid #fff;
+    }
+
+  .accordion-body{
+      padding: 40px 55px;
+  }
+  .accordion-body ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+.accordion-body ul li {
+          padding-left: 1.2rem;
+          text-indent: -1.2rem;
+}
+.accordion-body ul li:before {
+              content: "\f10a";
+              padding-right: 5px;
+              font-family: "Flaticon";
+              font-size: 16px;
+              font-style: normal;
+              color: #213744;
+          } */
+

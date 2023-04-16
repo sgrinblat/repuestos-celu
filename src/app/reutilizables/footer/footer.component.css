@@ -1,0 +1,24 @@
+.logo{
+  max-height: 100px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+.logo:hover {
+  filter: invert(15%);
+}
+
+a:hover {
+  color: #f8a724 !important;
+  font-weight: bold;
+}
+
+a span{
+  color: #f8a724;
+  font-weight: bold;
+}
+
+a span:hover{
+  color: #fff !important;
+}
+

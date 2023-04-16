@@ -1,0 +1,48 @@
+<div class="formulario text-center">
+  <div class="container">
+    <h2 class="m-4">Login de usuario</h2>
+    <div class="row mb-4">
+      <form [formGroup]="contactForm">
+        <div class="col">
+
+          <div class="m-4">
+            <label class="form-label display-text" for="formularioNombreUsuario">Nombre</label><br>
+            <input placeholder="Ingrese su usuario"
+              formControlName="formularioNombreUsuario" name="formularioNombreUsuario"
+              [class.is-invalid]="contactForm.get('formularioNombreUsuario').invalid && contactForm.get('formularioNombreUsuario').touched"
+              type="text" id="formularioNombreUsuario" class="formulario-input bg-light form-control "
+              formControlName="formularioNombreUsuario" required />
+            <div
+              *ngIf="contactForm.get('formularioNombreUsuario')?.touched && contactForm.get('formularioNombreUsuario')?.errors?.['required'] "
+              class="alert alert-danger formulario-error text-center mt-3">*El campo de nombre es obligatorio</div>
+            <div
+              *ngIf="contactForm.get('formularioNombreUsuario')?.touched && contactForm.get('formularioNombreUsuario')?.errors?.['minlength'] "
+              class="alert alert-danger formulario-error mt-3">*El campo de nombre debe contener al menos
+              {{contactForm.get('formularioNombreUsuario')?.errors?.['minlength'].requiredLength}} letras</div>
+          </div>
+
+          <div class="m-4">
+            <label class="form-label display-text" for="formularioPasswordUsuario">Contraseña</label><br>
+            <input placeholder="Ingrese su contraseña"
+              formControlName="formularioPasswordUsuario" name="formularioPasswordUsuario"
+              [class.is-invalid]="contactForm.get('formularioPasswordUsuario').invalid && contactForm.get('formularioPasswordUsuario').touched"
+              type="password" id="formularioPasswordUsuario" class="formulario-input bg-light form-control "
+              formControlName="formularioPasswordUsuario" required />
+            <div
+              *ngIf="contactForm.get('formularioPasswordUsuario')?.touched && contactForm.get('formularioPasswordUsuario')?.errors?.['required'] "
+              class="alert alert-danger formulario-error text-center mt-3">*El campo de contraseña es obligatorio</div>
+            <div
+              *ngIf="contactForm.get('formularioPasswordUsuario')?.touched && contactForm.get('formularioPasswordUsuario')?.errors?.['minlength'] "
+              class="alert alert-danger formulario-error mt-3">*El campo de contraseña debe contener al menos
+              {{contactForm.get('formularioPasswordUsuario')?.errors?.['minlength'].requiredLength}} letras</div>
+          </div>
+
+          <button (click)="onSubmit()"
+            [disabled]="contactForm.invalid" type="submit" id="enviarFormulario"
+            class="btn btn-warning btn-block btn-lg mb-4 mt-4">Iniciar sesión
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

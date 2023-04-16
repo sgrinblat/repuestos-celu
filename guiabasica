@@ -1,0 +1,33 @@
+
+docker run -d -p 3307:3306 --net spring-net --name mysqldb --env-file env -v "db":/var/lib/mysql mysql
+
+docker run -d -p 3307:3306 --name mysqldb -e MYSQL_ROOT_PASSWORD=Campeon10+ -e MYSQL_DATABASE=lairentcg mysql
+
+
+docker run -p 9090:8080 --name lairenback --net spring-net -e MYSQL_HOST=mysqldb -e MYSQL_USER=root -e MYSQL_PASSWORD=Campeon10+ -e MYSQL_PORT=3306 back
+
+
+
+
+____________________________
+
+primer paso instalar docker y git en la vps
+crear carpeta para el back y el front y clonar repositorios en cada uno
+crear los env files que tiene que tener cada uno
+crear docker network para poder conectar todos los containers
+descargar imagen de mysql de docker
+crear imagen para el back y el front
+el front requiere un
+
+docker run -d -p 3307:3306 --net spring-net --name mysqldb --env-file mysqlenv -v "/home/kyle/Desktop/db":/var/lib/mysql mysql
+
+docker run -d -p 9090:8080 --name lairenback --net spring-net --env-file env back
+
+docker run -d -p 4200:80 --name lairenfront front
+
+
+docker run -d -p 3308:3306 --net spring-net --name mysqlwp --env-file wpsqlenv -v "/home/kyle/Desktop/dbwp":/var/lib/mysql mysql
+
+docker run -d -p 4040:80 --net spring-net --name lairenwp --env-file wpenv wordpress
+
+docker run -p 4040:80 --name lairenwp --network spring-net -d wordpress

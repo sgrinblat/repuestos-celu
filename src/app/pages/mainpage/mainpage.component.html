@@ -1,0 +1,132 @@
+<section class="primer-fondo hero-block pb-5 position-relative pt-5 text-white-50">
+  <div class="overlay">
+    <div class="col-lg-8 end-0 h-100 position-absolute top-0"></div>
+    <div class="container pb-5 position-relative pt-5">
+      <div class="align-items-center gy-4 row">
+        <div class="col-lg-6 pb-4">
+          <h1 class="display-3 fw-bold text-uppercase titulo-inicial text-white">Bienvenido al desafío</h1>
+          <p class="lead mb-4 text-white pe-sm-5 parrafo">Lairen es un TCG argentino creado por jugadores apasionados a
+            los juegos de cartas y de mesa. Te invitamos a que nos conozcas!</p>
+        </div>
+
+        <div class="col-lg-6 perspectiva">
+          <div class="ambas">
+            <div class="dorso-carta">
+              <img src="../../../assets/images/dorso.png" class="dorso" alt="dorso de lairen">
+            </div>
+            <div *ngIf="randomNumber == 1" class="frente-carta">
+              <img src="../../../assets/images/bendicion.png" class="dorso" alt="">
+            </div>
+            <div *ngIf="randomNumber == 2" class="frente-carta">
+              <img src="../../../assets/images/afmid.png" class="dorso" alt="">
+            </div>
+            <div *ngIf="randomNumber == 3" class="frente-carta">
+              <img src="../../../assets/images/mente.png" class="dorso" alt="">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="bg-warning text-center divisionNoticia pt-4 pb-4">
+  <h2 class="display-5 titularNoticia fw-bold text-uppercase text-white">Últimas novedades:</h2>
+  <div class="container">
+    <a data-scroll href="#full">
+      <div class="arrow"></div>
+    </a>
+  </div>
+</div>
+<section class="section section-xl text-center card-seccion">
+  <div class="container">
+    <div *ngIf="posts$ | async as blogpost" class="container">
+      <div class="row row-125">
+
+        <div *ngFor="let blogpost of blogpost"
+          class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4 cards-lore">
+          <article class="post-classic">
+            <figure class="post-classic-figure"><a><img [src]="blogpost.fields.featuredImage.fields.file.url"
+                  alt="" /></a></figure>
+            <div class="post-classic-content">
+              <time class="post-classic-time"> {{blogpost.fields.updatedDate | date}} </time>
+              <h5 class="post-classic-title"><a> {{blogpost.fields.title}} </a></h5>
+              <h6 class="mt-3">{{blogpost.fields.summary}}</h6>
+              <a (click)="verEntrada(blogpost.sys.id)" class="post-classic-link">Leer capítulo</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="verNoticiasBanner">
+  <h2 class="text-white noticias" routerLink="/noticias">VER TODAS LAS NOTICIAS</h2>
+</div>
+
+<section id="nuestra-experiencia" class="bg-dark pb-5 pt-5">
+  <div class="container pb-5 pt-5">
+
+    <div class="align-items-center g-4 row">
+      <div data-aos="fade-up" data-aos-offset="10" data-aos-duration="1000" data-aos-easing="ease-in-out"
+        data-aos-anchor-placement="top-center" class="col-lg-5 me-auto ms-auto pb-lg-5 scroll-right">
+        <h2 class="h6 text-uppercase text-white">Conocé la mejor forma de arrancar a jugar</h2>
+        <h3 class="h1 text-dark text-white">Los mazos preconstruidos son la mejor opción para introducirse al juego
+        </h3>
+        <p class="lead mb-4 text-white">El mazo de desertores y el de soldados te están esperando. Con esas primeras
+          cartas,
+          pronto podrás empezar a armar tus propias estrategias personalizadas para ganar</p>
+      </div>
+      <div class="col-lg-6 mb-lg-n4 order-lg-first pe-lg-4 text-center scroll-left">
+        <img src="https://i.postimg.cc/mr6PKq5v/augustus-el-heredero-copia-94.jpg" class="img-fluid cartas" />
+      </div>
+
+      <div data-aos="fade-up" data-aos-offset="10" data-aos-duration="1000" data-aos-easing="ease-in-out"
+        data-aos-anchor-placement="top-center" class="col-lg-5 me-auto ms-auto pt-lg-5 scroll-left">
+        <h2 class="h6 text-uppercase text-white">El estilo de juego que estabas buscando</h2>
+        <h3 class="h1 text-dark text-white">Vas a sentir la adrenalina que Lairen tiene para ofrecerte</h3>
+        <p class="lead mb-4 text-white">Combos peligrosos desde los primeros turnos, estrategias que podrán dar vuelta
+          la partida sorpresivamente. Coleccioná y personalizá tu mazo con cientos de cartas únicas que representan valientes caballeros, poderosos hechiceros y feroces criaturas.</p>
+      </div>
+      <div class="col-lg-6 mt-lg-n4 ps-lg-4 text-center scroll-right">
+        <img src="https://i.postimg.cc/hjdt6Gxm/Medico-de-guerra-copia-90.jpg" class="img-fluid cartas" />
+      </div>
+    </div>
+
+    <div class="align-items-center g-4 row">
+      <div data-aos="fade-up" data-aos-offset="10" data-aos-duration="1000" data-aos-easing="ease-in-out"
+        data-aos-anchor-placement="top-center" class="col-lg-5 me-auto ms-auto pb-lg-5 scroll-right">
+        <h2 class="h6 text-uppercase text-white">Domina el arte de la estrategia y lucha por la supremacía en este mundo mágico!</h2>
+        <h3 class="h1 text-dark text-white">Las puertas del reino de Lairen te están esperando
+        </h3>
+        <p class="lead mb-4 text-white">Vas a desarrollar tácticas ingeniosas y crear combinaciones letales para derrotar a tus oponentes en intensos duelos. Lairen tiene un diseño de cartas detallado y una jugabilidad apasionante, mientras te sumerge en un mundo lleno de aventuras, magia y conflictos.</p>
+      </div>
+      <div class="col-lg-6 mb-lg-n4 order-lg-first pe-lg-4 text-center scroll-left">
+        <img src="https://i.postimg.cc/2jTStgL2/hamira-la-princesa-copias-130.jpg" class="img-fluid cartas" />
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="fondo-ilustracion">
+  <div class="container pb-5 pt-5">
+    <div data-aos="flip-left" data-aos-delay="550" data-aos-duration="1600" data-aos-easing="ease-in-out"
+      class="align-items-center gy-4 row">
+      <div class="col-lg-6 me-lg-auto">
+        <h2 class="h6 text-uppercase text-white">No tenes que seguir buscando más</h2>
+        <h3 class="fw-bold h2 text-warning">Encontrá en nuestras tiendas amigas todos nuestros productos para crear los
+          mazos que necesitas para ganarle a tus oponentes ⚔️ </h3>
+        <p class="mb-4 text-white finaltext">Todo empieza con tu primer mazo construido. A medida que tengas más cartas, más única será tu estrategia para vencer!</p>
+        <a href="./pages/contacto.html" class="btn btn-outline-warning">Tiendas amigas</a>
+      </div>
+      <div *ngIf="randomNumber == 1" class="col-lg-5 mazo-div">
+        <img src="https://i.postimg.cc/Y00bMJrQ/soldadosmazo.png" class="img-fluid mazo" />
+      </div>
+      <div *ngIf="randomNumber > 1" class="col-lg-5 mazo-div">
+        <img src="https://i.postimg.cc/tRvB2Ckk/desertoresfrente.png" class="img-fluid mazo" />
+      </div>
+    </div>
+  </div>

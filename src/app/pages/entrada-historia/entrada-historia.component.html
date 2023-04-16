@@ -1,0 +1,14 @@
+<div *ngIf="blogPost$ | async as blogPost" class="lore-fondo">
+  <div class="container text-center" >
+    <img class="imagen-lore" [src]="blogPost.fields.featuredImage.fields.file.url" alt="imagen principal de la noticia">
+    <hr class="text-white" ><hr class="text-white" >
+    <h1 class="text-white" >
+      {{ blogPost.fields.title }}
+    </h1>
+
+    <div *ngFor="let paragraph of blogPost.fields.content.content">
+      <div class="text-white pt-4" [innerHTML]="paragraph.content[0].value" ></div>
+    </div>
+
+  </div>
+</div>

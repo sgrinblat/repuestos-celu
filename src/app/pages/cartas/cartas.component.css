@@ -1,0 +1,29 @@
+a {
+  color: black !important;
+}
+
+.carta {
+  max-height: 300px;
+}
+
+.formulario-input {
+  margin: 0 auto !important;
+  width: 40%;
+}
+
+.tabCol {
+  display: none;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .current {
+  background-color:#f8c538;
+}
+
+.checkboxColor input[type="checkbox"] {
+  border-color: #f5cc5d;
+}
+
+.checkboxColor input[type="checkbox"]:checked {
+  background-color: #dfaa18;
+  border-color: #f5cc5d;
+}

@@ -1,0 +1,35 @@
+.top-5 {
+  top: 5px;
+}
+
+.fondo-header {
+  background-color: #212529;
+}
+
+a {
+  font-size: 17px;
+}
+
+a:hover {
+  color: #f8a724 !important;
+  font-weight: bold;
+}
+
+a span{
+  color: #f8a724;
+  font-weight: bold;
+}
+
+a span:hover{
+  color: #fff !important;
+}
+
+.logo {
+  max-height: 80px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.logo:hover {
+  filter: invert(15%);
+}

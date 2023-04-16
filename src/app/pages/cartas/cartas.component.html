@@ -1,0 +1,283 @@
+<nav class="navbar scroll-top navbar-dark navbar-expand-lg pb-3 pt-3 text-center">
+  <div class="container">
+    <div class="collapse navbar-collapse text-center" id="navbarNavDropdown-2">
+      <ul class="ms-auto navbar-nav">
+        <li class="nav-item">
+          <button class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-dark btn btn-warning"
+            (click)="deslogear()">Cerrar sesión</button>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3" routerLink="/v1/upload/cartas">Subir cartas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3" routerLink="/v1/upload/expas">Subir expansiones</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3" routerLink="/v1/upload/rarezas">Subir rarezas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3" routerLink="/v1/upload/tipos">Subir tipos de carta</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="formulario text-center">
+  <div class="container">
+    <h2 class="m-4">Registro de una carta nueva</h2>
+    <div class="row mb-4">
+      <form (ngSubmit)="onSubmitCarta()" [formGroup]="contactForm">
+        <div class="col">
+
+          <div class="m-4">
+            <label class="form-label display-text" for="formularioCartaNombre">Nombre</label><br>
+            <input [ngModel]="nombreInput" (ngModelChange)="nombreInput = $event.toUpperCase()"
+              formControlName="formularioCartaNombre" name="formularioCartaNombre"
+              [class.is-invalid]="contactForm.get('formularioCartaNombre').invalid && contactForm.get('formularioCartaNombre').touched"
+              type="text" id="formularioCartaNombre" class="formulario-input bg-light form-control "
+              formControlName="formularioCartaNombre" required />
+            <div
+              *ngIf="contactForm.get('formularioCartaNombre')?.touched && contactForm.get('formularioCartaNombre')?.errors?.['required'] "
+              class="alert alert-danger formulario-error text-center mt-3">*El campo de nombre es obligatorio</div>
+            <div
+              *ngIf="contactForm.get('formularioCartaNombre')?.touched && contactForm.get('formularioCartaNombre')?.errors?.['minlength'] "
+              class="alert alert-danger formulario-error mt-3">*El campo de nombre debe contener al menos
+              {{contactForm.get('formularioCartaNombre')?.errors?.['minlength'].requiredLength}} letras</div>
+          </div>
+
+          <div class="m-4">
+            <label class="form-label display-text" for="formularioCartaCoste">Coste</label><br>
+            <input formControlName="formularioCartaCoste" name="formularioCartaCoste"
+              [class.is-invalid]="contactForm.get('formularioCartaCoste').invalid && contactForm.get('formularioCartaCoste').touched"
+              type="number" id="formularioCartaCoste" class="formulario-input bg-light form-control " required
+              formControlName="formularioCartaCoste" />
+            <div
+              *ngIf="contactForm.get('formularioCartaCoste')?.touched && contactForm.get('formularioCartaCoste')?.errors?.['required'] "
+              class="alert alert-danger formulario-error mt-3">*El campo de coste es obligatorio</div>
+            <div
+              *ngIf="contactForm.get('formularioCartaCoste')?.touched && contactForm.get('formularioCartaCoste')?.errors?.['minlength'] "
+              class="alert alert-danger formulario-error mt-3">*El campo de coste debe contener al menos
+              {{contactForm.get('formularioCartaCoste')?.errors?.['minlength'].requiredLength}} cifra</div>
+          </div>
+
+          <div class="m-4">
+            <label class="form-label display-text" for="formularioCartaCoste">Expansion</label><br>
+            <select formControlName="formularioCartaExpansion" class="formulario-input bg-light form-control "
+              name="formularioCartaExpansion" id="formularioCartaExpansion">
+              <option *ngFor="let expa of expansiones | async" [ngValue]="expa">
+                {{expa.nombreExpansion}}
+              </option>
+            </select>
+            <div
+              *ngIf="contactForm.get('formularioCartaExpansion')?.touched && contactForm.get('formularioCartaExpansion')?.errors?.['required'] "
+              class="alert alert-danger formulario-error mt-3">*El campo de Expansion es obligatorio
+            </div>
+          </div>
+
+          <div class="m-4">
+            <label class="form-label display-text" for="formularioCartaRareza">Rareza</label><br>
+            <select formControlName="formularioCartaRareza" class="formulario-input bg-light form-control "
+              name="formularioCartaExpansion" id="formularioCartaExpansion">
+              <option *ngFor="let rare of rarezas | async" [ngValue]="rare">
+                {{rare.nombreRareza}}
+              </option>
+            </select>
+            <div
+              *ngIf="contactForm.get('formularioCartaRareza')?.touched && contactForm.get('formularioCartaRareza')?.errors?.['required'] "
+              class="alert alert-danger formulario-error mt-3">*El campo de Rareza es obligatorio
+            </div>
+
+            <div class="m-4">
+              <label class="form-label display-text" for="formularioCartaTipo">Tipo</label><br>
+              <select formControlName="formularioCartaTipo" class="formulario-input bg-light form-control "
+                name="formularioCartaExpansion" id="formularioCartaExpansion">
+                <option *ngFor="let type of tipos | async" [ngValue]="type">
+                  {{type.nombreTipo}}
+                </option>
+              </select>
+              <div
+                *ngIf="contactForm.get('formularioCartaTipo')?.touched && contactForm.get('formularioCartaTipo')?.errors?.['required'] "
+                class="alert alert-danger formulario-error mt-3">*El campo de Tipo es obligatorio
+              </div>
+            </div>
+
+            <div class="m-4">
+              <label class="form-label display-text" for="formularioCartaURL">URL de la imagen</label><br>
+              <input formControlName="formularioCartaURL" name="formularioCartaURL"
+                [class.is-invalid]="contactForm.get('formularioCartaURL').invalid && contactForm.get('formularioCartaURL').touched"
+                type="text" id="formularioCartaURL" class="formulario-input bg-light form-control " required
+                formControlName="formularioCartaURL" />
+              <div
+                *ngIf="contactForm.get('formularioCartaURL')?.touched && contactForm.get('formularioCartaURL')?.errors?.['required'] "
+                class="alert alert-danger formulario-error mt-3">*El campo de URL es obligatorio
+              </div>
+              <div
+                *ngIf="contactForm.get('formularioCartaURL')?.touched && contactForm.get('formularioCartaURL')?.errors?.['minlength'] "
+                class="alert alert-danger formulario-error mt-3">*El campo de URL debe contener al menos
+                {{contactForm.get('formularioCartaURL')?.errors?.['minlength'].requiredLength}} letras
+              </div>
+            </div>
+
+            <button (click)="onSubmitCarta()" [swal]="['Hecho!', 'Has registrado una nueva carta', 'success']"
+              [disabled]="contactForm.invalid" type="submit" id="enviarFormulario"
+              class="btn btn-warning btn-block btn-lg mb-4 mt-4">Registrar carta
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 class="text-center display-text pt-5">Lista de cartas subidas a la base</h1>
+  </div>
+
+  <div class="container">
+    <h2 class="text-center display-text mt-4 mb-4">Buscador de cartas</h2>
+
+    <!-- <div class="m-3">
+      <input [ngModel]="nombreInput" placeholder="Ingrese el nombre de la carta que quiere buscar..."
+        (ngModelChange)="nombreInput = $event.toUpperCase()" name="buscadorNombre" type="text"
+        id="buscadorNombre" class="formulario-input bg-light form-control " />
+      <button (click)="buscarPorNombre(nombreInput)" class="btn btn-primary m-3">Buscar</button>
+    </div> -->
+
+    <!-- <div class="m-3">
+      <input [(ngModel)]="valorIngresado" placeholder="Ingrese el nombre de la carta que quiere buscar..."
+        (ngModelChange)="valorIngresado = $event.toUpperCase()" (input)="busquedaDeTexto()" name="buscadorNombre"
+        type="text" id="buscadorNombre" class="formulario-input bg-light form-control " />
+      <button class="btn btn-primary m-3">Aplicar filtros</button>
+    </div> -->
+
+    <div class="m-3">
+      <input [(ngModel)]="searchText" placeholder="Ingrese el nombre de la carta que quiere buscar..."
+        (ngModelChange)="searchText = $event.toUpperCase()" name="buscadorNombre" type="text" id="buscadorNombre"
+        class="formulario-input bg-light form-control " />
+    </div>
+
+    <div [hidden]="true" class="m-3">
+      <input [(ngModel)]="searchByExpa" placeholder="Ingrese el nombre de la carta que quiere buscar..."
+        name="buscadorNombre" type="text" id="buscadorNombre" class="formulario-input bg-light form-control " />
+    </div>
+
+    <div [hidden]="true" class="m-3">
+      <input [(ngModel)]="searchByRare" placeholder="Ingrese el nombre de la carta que quiere buscar..."
+        name="buscadorNombre" type="text" id="buscadorNombre" class="formulario-input bg-light form-control " />
+    </div>
+
+    <div [hidden]="true" class="m-3">
+      <input [(ngModel)]="searchByType" placeholder="Ingrese el nombre de la carta que quiere buscar..."
+        name="buscadorNombre" type="text" id="buscadorNombre" class="formulario-input bg-light form-control " />
+    </div>
+
+    <!-- <div class="m-3">
+      <input [(ngModel)]="nombreInput" placeholder="Ingrese el nombre de la carta que quiere buscar..."
+        (ngModelChange)="nombreInput = $event.toUpperCase()" name="buscadorNombre" type="text"
+        id="buscadorNombre" class="formulario-input bg-light form-control " />
+      <button (click)="buscarPorNombre(nombreInput)" class="btn btn-primary m-3">Buscar</button>
+    </div> -->
+
+    <div class="mb-5">
+      <div class="form-check form-check-inline">
+        <h4>Expansiones</h4>
+        <tr *ngFor="let expa of expansiones | async">
+          <td>
+            <div class="form-check checkboxColor">
+              <label class="form-check-label mb-2">
+                <input (change)="buscarPorExpansion($event, expa.idExpansion)" class="form-check-input"
+                  type="checkbox" />
+                {{expa.nombreExpansion}}
+              </label>
+            </div>
+          </td>
+        </tr>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <h4>Rarezas</h4>
+        <tr *ngFor="let rare of rarezas | async">
+          <td>
+            <div class="form-check checkboxColor">
+              <label class="form-check-label mb-2">
+                <input name="rarezaCheckbox" (change)="buscarPorRareza($event, rare.idRareza)" class="form-check-input"
+                  type="checkbox" />
+                {{rare.nombreRareza}}
+              </label>
+            </div>
+          </td>
+        </tr>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <h4>Tipos de carta</h4>
+        <tr *ngFor="let type of tipos | async">
+          <td>
+            <div class="form-check checkboxColor">
+              <label class="form-check-label mb-2">
+                <input (change)="buscarPorTipo($event, type.idTipo)" class="form-check-input" type="checkbox" />
+                {{type.nombreTipo}}
+              </label>
+            </div>
+          </td>
+        </tr>
+      </div>
+    </div>
+
+    <table class="table table-striped mb-4 text-center">
+      <thead class="table">
+        <tr>
+          <th class="display-text">Imagen</th>
+          <th class="display-text">ID</th>
+          <th class="display-text">Nombre</th>
+          <th class="display-text">Coste</th>
+          <th class="display-text">Expansion</th>
+          <th class="display-text">Rareza</th>
+          <th class="display-text">Tipo</th>
+          <th class="display-text">Comandos</th>
+        </tr>
+      </thead>
+      <tbody
+        *ngFor="let card of cartas | filter: searchText | filter: searchByExpa | filter: searchByRare | filter: searchByType | paginate: { itemsPerPage: 10, currentPage: p } ">
+        <tr>
+          <td class="display-text">
+            <img class="carta" src="{{card.urlImagen}}" alt="">
+          </td>
+          <td class="display-text">{{card.idCarta}}</td>
+          <td class="display-text">{{card.nombreCarta}}</td>
+          <td class="display-text">{{card.costeCarta}}</td>
+          <td class="display-text">{{card.expansion.nombreExpansion}}</td>
+          <td class="display-text">{{card.rareza.nombreRareza}}</td>
+          <td class="display-text">{{card.tipo.nombreTipo}}</td>
+
+          <td>
+            <button type="button" class="btn btn-outline-warning m-2"
+              [swal]="{ title: '¿Estás seguro que quieres editar la carta?', showDenyButton: true, denyButtonText: 'Cancelar', icon: 'question'}"
+              (confirm)="actualizarCarta(card.idCarta)" (deny)="limpiarFormulario()" (dismiss)="obtenerCartas()">
+              Editar
+            </button>
+
+            <button type="button" class="btn btn-outline-danger m-2"
+              [swal]="{ title: '¿Estás seguro que quieres eliminar esta carta?', showDenyButton: true, denyButtonText: 'Cancelar', icon: 'question'}"
+              (confirm)="eliminarCarta(card.idCarta)" (deny)="limpiarFormulario()" (dismiss)="obtenerCartas()">
+              Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" class="m-5 my-pagination"
+      (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>
+
+
+  <!-- <tr *ngFor="let card of carta | keyvalue"> -->
+  <!-- <td class="display-text">
+            <img class="carta" src="{{card.value['urlImagen']}}" alt="">
+          </td>
+          <td class="display-text">{{card.value["idCarta"]}}</td>
+          <td class="display-text">{{card.value["nombreCarta"]}}</td>
+          <td class="display-text">{{card.value["costeCarta"]}}</td>
+          <td class="display-text">{{card.value["expansion"].nombreExpansion}}</td>
+          <td class="display-text">{{card.value["rareza"].nombreRareza}}</td>
+          <td class="display-text">{{card.value["tipo"].nombreTipo}}</td> -->

@@ -1,0 +1,93 @@
+<nav class="navbar scroll-top navbar-dark navbar-expand-lg pb-3 pt-3 text-center">
+  <div class="container">
+    <div class="collapse navbar-collapse text-center" id="navbarNavDropdown-2">
+      <ul class="ms-auto navbar-nav">
+        <li class="nav-item">
+          <button class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-dark btn btn-warning"
+            (click)="deslogear()">Cerrar sesión</button>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3" routerLink="/v1/upload/cartas">Subir cartas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3" routerLink="/v1/upload/expas">Subir Rarezaes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3" routerLink="/v1/upload/rarezas">Subir rarezas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3" routerLink="/v1/upload/tipos">Subir tipos</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="formulario text-center">
+  <div class="container">
+    <h2 class="m-4">Registro de una rareza nueva</h2>
+    <div class="row mb-4">
+      <form (ngSubmit)="onSubmitRareza()" [formGroup]="contactForm">
+        <div class="col">
+          <div class="m-4">
+            <label class="form-label display-text" for="formularioRarezaNombre">Nombre</label><br>
+            <input [ngModel]="nombreInput" (ngModelChange)="nombreInput = $event.toUpperCase()"
+              formControlName="formularioRarezaNombre" name="formularioRarezaNombre"
+              [class.is-invalid]="contactForm.get('formularioRarezaNombre').invalid && contactForm.get('formularioRarezaNombre').touched"
+              type="text" id="formularioRarezaNombre" class="formulario-input bg-light form-control "
+              formControlName="formularioRarezaNombre" required />
+            <div
+              *ngIf="contactForm.get('formularioRarezaNombre')?.touched && contactForm.get('formularioRarezaNombre')?.errors?.['required'] "
+              class="alert alert-danger formulario-error text-center mt-3">*El campo de nombre es obligatorio</div>
+            <div
+              *ngIf="contactForm.get('formularioRarezaNombre')?.touched && contactForm.get('formularioRarezaNombre')?.errors?.['minlength'] "
+              class="alert alert-danger formulario-error mt-3">*El campo de nombre debe contener al menos
+              {{contactForm.get('formularioRarezaNombre')?.errors?.['minlength'].requiredLength}} letras</div>
+          </div>
+          <button (click)="onSubmitRareza()" [swal]="['Hecho!', 'Has registrado una nueva rareza', 'success']"
+            [disabled]="contactForm.invalid" type="submit" id="enviarFormulario"
+            class="btn btn-warning btn-block btn-lg mb-4 mt-4">Registrar Rareza
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h1 class="text-center display-text pt-5">Lista de Rarezas subidas a la base</h1>
+</div>
+
+<div class="container">
+  <h2 class="text-center display-text mt-4 mb-4">Buscador de Rarezas</h2>
+
+  <table class="table table-striped mb-4 text-center">
+    <thead class="table">
+      <tr>
+        <th class="display-text">ID</th>
+        <th class="display-text">Nombre</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let rare of rarezas | paginate: { itemsPerPage: 2, currentPage: p } ">
+      <tr>
+        <td class="display-text">{{rare.idRareza}}</td>
+        <td class="display-text">{{rare.nombreRareza}}</td>
+
+        <td>
+          <button type="button" class="btn btn-outline-warning m-2"
+            [swal]="{ title: '¿Estás seguro que quieres editar la carta?', showDenyButton: true, denyButtonText: 'Cancelar', icon: 'question'}"
+            (confirm)="actualizarRareza(rare.idRareza)" (deny)="limpiarFormulario()" (dismiss)="obtenerRarezas()">
+            Editar
+          </button>
+
+          <button type="button" class="btn btn-outline-danger m-2"
+            [swal]="{ title: '¿Estás seguro que quieres eliminar esta Rareza?', showDenyButton: true, denyButtonText: 'Cancelar', icon: 'question'}"
+            (confirm)="eliminarRareza(rare.idRareza)" (deny)="limpiarFormulario()" (dismiss)="obtenerRarezas()">
+            Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" class="m-5 my-pagination"
+    (pageChange)="p = $event"></pagination-controls>
+</div>

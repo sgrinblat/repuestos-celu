@@ -1,0 +1,104 @@
+<section class="primer-fondo hero-block pb-5 position-relative pt-5 text-white-50">
+  <div class="col-lg-8 end-0 h-100 position-absolute top-0">
+  </div>
+  <div class="container pb-5 position-relative pt-5">
+    <div class="align-items-center gy-4 row">
+      <div class="col-lg-12 text-center textos pb-4">
+        <h1 class="display-3 fw-bold text-uppercase titulo-inicial text-white">buscador de cartas</h1>
+        <p class="lead mb-4 text-white pe-sm-5 parrafo">Aquí vas a poder ver todas las cartas de Lairen, para armar tus
+          mejores estrategias</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fondo-gris text-white" >
+  <div class="container">
+    <h1 class="text-center display-text pt-5">Lista de cartas subidas a la base</h1>
+  </div>
+
+  <div class="container text-center">
+    <h2 class="text-center display-text mt-4 mb-4">Buscador de cartas</h2>
+
+    <div class="m-3">
+      <input [(ngModel)]="searchText" placeholder="Ingrese el nombre de la carta que quiere buscar..."
+        (ngModelChange)="searchText = $event.toUpperCase()" name="buscadorNombre" type="text" id="buscadorNombre"
+        class="formulario-input bg-light form-control " />
+    </div>
+
+    <div [hidden]="true" class="m-3">
+      <input [(ngModel)]="searchByExpa" placeholder="Ingrese el nombre de la carta que quiere buscar..."
+        name="buscadorNombre" type="text" id="buscadorNombre" class="formulario-input bg-light form-control " />
+    </div>
+
+    <div [hidden]="true" class="m-3">
+      <input [(ngModel)]="searchByRare" placeholder="Ingrese el nombre de la carta que quiere buscar..."
+        name="buscadorNombre" type="text" id="buscadorNombre" class="formulario-input bg-light form-control " />
+    </div>
+
+    <div [hidden]="true" class="m-3">
+      <input [(ngModel)]="searchByType" placeholder="Ingrese el nombre de la carta que quiere buscar..."
+        name="buscadorNombre" type="text" id="buscadorNombre" class="formulario-input bg-light form-control " />
+    </div>
+
+    <div class="mb-5">
+      <div class="form-check form-check-inline">
+        <h4>Expansiones</h4>
+        <tr *ngFor="let expa of expansiones | async">
+          <td>
+            <div class="form-check checkboxColor">
+              <label class="form-check-label mb-2">
+                <input (change)="buscarPorExpansion($event, expa.idExpansion)" class="form-check-input"
+                  type="checkbox" />
+                {{expa.nombreExpansion}}
+              </label>
+            </div>
+          </td>
+        </tr>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <h4>Rarezas</h4>
+        <tr *ngFor="let rare of rarezas | async">
+          <td>
+            <div class="form-check checkboxColor">
+              <label class="form-check-label mb-2">
+                <input name="rarezaCheckbox" (change)="buscarPorRareza($event, rare.idRareza)" class="form-check-input"
+                  type="checkbox" />
+                {{rare.nombreRareza}}
+              </label>
+            </div>
+          </td>
+        </tr>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <h4>Tipos de carta</h4>
+        <tr *ngFor="let type of tipos | async">
+          <td>
+            <div class="form-check checkboxColor">
+              <label class="form-check-label mb-2">
+                <input (change)="buscarPorTipo($event, type.idTipo)" class="form-check-input" type="checkbox" />
+                {{type.nombreTipo}}
+              </label>
+            </div>
+          </td>
+        </tr>
+      </div>
+    </div>
+
+    <section class="section section-xl text-center card-seccion">
+      <div class="container">
+        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+          <div
+            *ngFor="let card of cartas | filter: searchText | filter: searchByExpa | filter: searchByRare | filter: searchByType | paginate: { itemsPerPage: 10, currentPage: p } ">
+            <img class="carta" src="{{card.urlImagen}}" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" class="m-5 my-pagination"
+      (pageChange)="p = $event"></pagination-controls>
+  </div>
+</section>
