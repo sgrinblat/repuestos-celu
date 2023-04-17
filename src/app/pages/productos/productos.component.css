@@ -3,15 +3,16 @@
 }
 
 .primer-fondo {
-  background-image: linear-gradient(rgba(14, 13, 13, 0.5), rgba(11, 11, 11, 0.3)), url(https://i.postimg.cc/d0kCn613/2022-11-27-13-35-33-002-two-medieval-soldiers-playing-with-cards-on-a-table-digital-painting-trend-o.png);
+  background-image: linear-gradient(rgba(14, 13, 13, 0.5), rgba(11, 11, 11, 0.3)), url(../../../assets/images/productos.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
   min-height: 70vh;
   background-attachment: fixed;
   background-position: center;
-
 }
+
+
 
 .textos {
   margin-top: 160px;

@@ -16,7 +16,6 @@ export class LoreComponent implements OnInit {
   posts$: Observable<any>;
 
   ngOnInit() {
-    //this.posts$ = this.contentfulService.getAllEntries();
     this.posts$ = from(this.contentfulService.getBlogEntriesByCategory("lore"));
   }
 

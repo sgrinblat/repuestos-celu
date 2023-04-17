@@ -11,31 +11,12 @@
   </div>
 </section>
 
-<!-- <section class="section section-xl text-center card-seccion">
-  <div class="container">
-    <div class="row row-125">
-
-      <div *ngFor="let post of posts$ | async | paginate: { itemsPerPage: 6, currentPage: p } " class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4 cards-lore">
-        <article class="post-classic">
-          <figure class="post-classic-figure"><a (click)="verEntrada(post.id)"><img [src]="post.better_featured_image.source_url" alt="" /></a></figure>
-          <div class="post-classic-content">
-            <time class="post-classic-time" > {{post.date_gmt | date}} </time>
-            <h5 class="post-classic-title"><a (click)="verEntrada(post.id)"> {{post.title.rendered}} </a></h5><a class="post-classic-link" (click)="verEntrada(post.id)">Leer capítulo</a>
-          </div>
-        </article>
-      </div>
-      <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" class="m-5 my-pagination text-white"
-      (pageChange)="p = $event"></pagination-controls>
-
-    </div>
-  </div>
-</section> -->
 <section class="section section-xl text-center card-seccion">
   <div class="container">
     <div *ngIf="posts$ | async as blogpost" class="container">
       <div class="row row-125">
 
-        <div *ngFor="let blogpost of blogpost | paginate: { itemsPerPage: 6, currentPage: p } " class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4 cards-lore">
+        <div *ngFor="let blogpost of blogpost | paginate: { itemsPerPage: 1, currentPage: p } " class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4 cards-lore">
           <article class="post-classic">
             <figure class="post-classic-figure"><a ><img [src]="blogpost.fields.featuredImage.fields.file.url" alt="" /></a></figure>
             <div class="post-classic-content">
@@ -46,8 +27,8 @@
             </div>
           </article>
         </div>
-        <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" class="m-5 my-pagination text-white"
-        (pageChange)="p = $event"></pagination-controls>
+          <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" class="my-pagination text-white"
+          (pageChange)="p = $event"></pagination-controls>
       </div>
     </div>
   </div>

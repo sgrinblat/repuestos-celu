@@ -35,7 +35,6 @@ import { ContentfulService } from '../contentful.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
-import { DataWpService } from '../data-wp.service';
 
 @Component({
   selector: 'app-lista-entradas',

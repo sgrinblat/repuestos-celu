@@ -3,15 +3,21 @@
 }
 
 .primer-fondo {
-  background-image: url(https://i.postimg.cc/BZgHsB0R/mente-mejor.jpg);
+  background-image: url(../../../assets/images/lore.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
   min-height: 70vh;
   background-attachment: fixed;
-  background-position: center;
-
 }
+
+@media (min-width: 250px) and (max-width: 1550px) {
+  .primer-fondo {
+    background-position: center bottom;
+  }
+}
+
+
 
 .header-image {
   max-height: 500px;
@@ -479,9 +485,7 @@ img + .custom-title {
 }
 
 @media (min-width: 1200px) {
-  .primer-fondo {
-    background-position: 0 -200px;
-  }
+
 
 	.post-creative-horizont-start {
 		flex-direction: row;

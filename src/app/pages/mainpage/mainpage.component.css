@@ -3,7 +3,7 @@
 }
 
 .primer-fondo {
-  background-image: url('https://i.postimg.cc/q70H39qT/bendbetter.jpg');
+  background-image: url(../../../assets/images/main.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0px;
@@ -697,12 +697,6 @@ img + .custom-title {
 	}
 }
 
-@media (min-width: 1600px) {
-  .primer-fondo {
-    background-position: 0 -600px;
-  }
-}
-
 .post-creative-figure {
 	max-width: 100%;
 	position: relative;
@@ -792,6 +786,13 @@ img + .custom-title {
 		margin-bottom: 0;
 	}
 }
+
+@media (min-width: 250px) and (max-width: 1550px) {
+  .primer-fondo {
+    background-position: center bottom;
+  }
+}
+
 
 .post-creative-link::before {
 	content: '\f14f';
