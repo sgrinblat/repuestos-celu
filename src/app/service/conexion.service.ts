@@ -13,7 +13,7 @@ import { Usuario } from '../usuario';
 export class ConexionService {
 
   public loginStatus = new Subject<boolean>();
-  private urlBasica = "http://89.116.225.248:8080"
+  private urlBasica = "https://89.116.225.248:8080"
 
   private cartaURL = `${this.urlBasica}/carta/cartas`;
   private expansionURL = `${this.urlBasica}/expansion/expansiones`
