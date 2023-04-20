@@ -65,16 +65,17 @@ services:
       SPRING_PROFILES_ACTIVE: production
     volumes:
       - 'spring_app:/app'
+      - ./backend/certs:/app/certs
     networks:
       - backend
     ports:
-      - '8080:8080'
+      - '443:443'
 
   angular_app:
     build: ./frontend/lairenfrontnuevo
     restart: always
     ports:
-      - '4200:4200'
+      - '80:80'
     networks:
       - frontend
 
@@ -85,3 +86,18 @@ networks:
 volumes:
   mysql_data:
   spring_app:
+
+
+
+
+
+
+
+
+sudo cp /etc/letsencrypt/live/lairentcg.com.ar/fullchain.pem /home/maximus/proyecto/backend/certs
+sudo cp /etc/letsencrypt/live/lairentcg.com.ar/privkey.pem /home/maximus/proyecto/backend/certs
+
+
+
+sudo openssl pkcs12 -export -in /home/maximus/proyecto/backend/certs/fullchain.pem -inkey /home/maximus/proyecto/backend/certs/privkey.pem -out /home/maximus/proyecto/backend/certs/keystore.p12 -name lairentcg.com.ar -password pass:lairen77
+
