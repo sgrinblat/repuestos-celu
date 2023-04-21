@@ -1,5 +1,6 @@
-import { Component, ViewEncapsulation, ViewChild } from "@angular/core";
+import { Component, ViewEncapsulation, ViewChild, Inject, OnInit, PLATFORM_ID } from "@angular/core";
 import { SwiperComponent } from "swiper/angular";
+import { isPlatformBrowser } from '@angular/common';
 
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Navigation } from "swiper";
@@ -16,7 +17,13 @@ SwiperCore.use([Pagination, Navigation]);
 })
 export class TiendasComponent {
 
-  constructor() { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+
+  ngOnInit() {
+    if(isPlatformBrowser(this.platformId)) {
+      window.scrollTo(0, 0);
+    }
+  }
 
   mostrarRefugio () {
     Swal.fire({

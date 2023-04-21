@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Notify } from 'notiflix';
 import { Observable } from 'rxjs';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { ContentfulService } from '../posts/contentful.service';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-entrada-historia',
@@ -13,10 +15,15 @@ import { ContentfulService } from '../posts/contentful.service';
 export class EntradaHistoriaComponent implements OnInit {
   id: string;
   blogPost$: Observable<any>;
+  posts$: Observable<any[]>;
 
-  constructor(private contentfulService: ContentfulService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private contentfulService: ContentfulService, private router: Router, private route: ActivatedRoute, @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngOnInit() {
+
+    if(isPlatformBrowser(this.platformId)) {
+      window.scrollTo(0, 0);
+    }
 
     Loading.hourglass();
 
@@ -29,5 +36,14 @@ export class EntradaHistoriaComponent implements OnInit {
       }
     )
 
+    this.posts$ = from(this.contentfulService.getBlogEntriesByCategoryAndOnlyThree("lore"));
   }
+
+  verEntrada(id: number) {
+    if(isPlatformBrowser(this.platformId)) {
+      this.router.navigate(['lore', id]);
+      window.scrollTo(0, 0);
+    }
+  }
+
 }

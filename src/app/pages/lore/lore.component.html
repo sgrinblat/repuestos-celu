@@ -16,9 +16,9 @@
     <div *ngIf="posts$ | async as blogpost" class="container">
       <div class="row row-125">
 
-        <div *ngFor="let blogpost of blogpost | paginate: { itemsPerPage: 1, currentPage: p } " class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4 cards-lore">
+        <div *ngFor="let blogpost of blogpost | paginate: { itemsPerPage: 6, currentPage: p } " class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4 cards-lore">
           <article class="post-classic">
-            <figure class="post-classic-figure"><a ><img [src]="blogpost.fields.featuredImage.fields.file.url" alt="" /></a></figure>
+            <figure (click)="verEntrada(blogpost.sys.id)" class="post-classic-figure"><a ><img [src]="blogpost.fields.featuredImage.fields.file.url" alt="" /></a></figure>
             <div class="post-classic-content">
               <time class="post-classic-time" > {{blogpost.fields.updatedDate | date}} </time>
             <h5 class="post-classic-title"><a > {{blogpost.fields.title}} </a></h5>

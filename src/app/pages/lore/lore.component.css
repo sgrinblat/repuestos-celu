@@ -34,6 +34,16 @@
   text-shadow: -1px 2px 5px rgba(0,0,0,0.88);
 }
 
+.lore-fondo{
+  padding: 20px 0;
+  background-color: #2e3031;
+}
+
+.imagen-lore {
+  padding: 30px 0;
+  max-height: 500px;
+}
+
 
 /** @section Posts */
 .post-classic {
@@ -66,6 +76,7 @@
 .post-classic-figure img {
 	width: 100%;
   cursor: pointer;
+  max-height: 300px;
 }
 
 .post-classic-content {
@@ -75,6 +86,7 @@
 	-ms-flex-pack: center;
 	align-items: center;
 	padding: 0 30px 59px;
+  margin: -15px 0 0 0;
 	background-color: #ffffff;
 	text-align: center;
 	text-transform: uppercase;
@@ -486,7 +498,6 @@ img + .custom-title {
 
 @media (min-width: 1200px) {
 
-
 	.post-creative-horizont-start {
 		flex-direction: row;
 	}
@@ -523,6 +534,10 @@ img + .custom-title {
 .post-creative-figure {
 	max-width: 100%;
 	position: relative;
+}
+
+.finaltext {
+  font-size: 24px;
 }
 
 @media (min-width: 1200px) {
@@ -606,6 +621,13 @@ img + .custom-title {
 	}
 }
 
+@media (min-width: 250px) and (max-width: 1550px) {
+  .primer-fondo {
+    background-position: center bottom;
+  }
+}
+
+
 .post-creative-link::before {
 	content: '\f14f';
 	font-family: "Material Design Icons";
@@ -627,12 +649,13 @@ img + .custom-title {
 
 .card-seccion {
   padding: 80px 0;
-  background-color: #2e3031;
+  background-color: #1b1c1c;
 }
 
 .cards-lore {
   padding: 60px 0;
 }
+
 
 .my-pagination ::ng-deep .ngx-pagination .current {
   background-color:#f8c538;

@@ -69,7 +69,7 @@ services:
     networks:
       - backend
     ports:
-      - '443:443'
+      - '8443:8443'
 
   angular_app:
     build: ./frontend/lairenfrontnuevo
@@ -78,6 +78,8 @@ services:
       - '80:80'
     networks:
       - frontend
+    volumes:
+      - ./backend/certs:/app/certs
 
 networks:
   backend:

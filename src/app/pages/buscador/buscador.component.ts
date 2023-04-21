@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -35,7 +36,7 @@ export class BuscadorComponent implements OnInit {
 
   resultados: number;
 
-  constructor(private conexion: ConexionService, private activatedRoute: ActivatedRoute, private route: Router) { }
+  constructor(private conexion: ConexionService, private activatedRoute: ActivatedRoute, private route: Router, @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngOnInit(): void {
     this.obtenerCartas();
@@ -45,6 +46,10 @@ export class BuscadorComponent implements OnInit {
   }
 
   obtenerCartas() {
+    if(isPlatformBrowser(this.platformId)) {
+      window.scrollTo(0, 0);
+    }
+
     this.conexion.getTodasLasCartasOrdenadas().subscribe((dato) => {
       this.cartas = dato;
     });

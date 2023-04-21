@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
 
@@ -11,11 +12,15 @@ export class ProductosComponent implements OnInit {
   images;
     responsiveOptions;
 
-  constructor() {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   seleccionado: string;
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(isPlatformBrowser(this.platformId)) {
+      window.scrollTo(0, 0);
+    }
+  }
 
   mostrarFundamentos() {
     Loading.hourglass();
