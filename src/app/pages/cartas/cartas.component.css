@@ -4,6 +4,7 @@ a {
 
 .carta {
   max-height: 300px;
+  border-radius: 2rem;
 }
 
 .formulario-input {

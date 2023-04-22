@@ -68,7 +68,7 @@
         <th class="display-text">Nombre</th>
       </tr>
     </thead>
-    <tbody *ngFor="let type of tipos | paginate: { itemsPerPage: 2, currentPage: p } ">
+    <tbody *ngFor="let type of tipos | paginate: { itemsPerPage: 10, currentPage: p } ">
       <tr>
         <td class="display-text">{{type.idTipo}}</td>
         <td class="display-text">{{type.nombreTipo}}</td>

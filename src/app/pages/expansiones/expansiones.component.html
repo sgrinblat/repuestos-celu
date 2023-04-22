@@ -69,7 +69,7 @@
         <th class="display-text">Fecha de lanzamiento</th>
       </tr>
     </thead>
-    <tbody *ngFor="let expa of expansiones | paginate: { itemsPerPage: 2, currentPage: p } ">
+    <tbody *ngFor="let expa of expansiones | paginate: { itemsPerPage: 10, currentPage: p } ">
       <tr>
         <td class="display-text">{{expa.idExpansion}}</td>
         <td class="display-text">{{expa.nombreExpansion}}</td>

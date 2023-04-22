@@ -136,20 +136,6 @@
   <div class="container">
     <h2 class="text-center display-text mt-4 mb-4">Buscador de cartas</h2>
 
-    <!-- <div class="m-3">
-      <input [ngModel]="nombreInput" placeholder="Ingrese el nombre de la carta que quiere buscar..."
-        (ngModelChange)="nombreInput = $event.toUpperCase()" name="buscadorNombre" type="text"
-        id="buscadorNombre" class="formulario-input bg-light form-control " />
-      <button (click)="buscarPorNombre(nombreInput)" class="btn btn-primary m-3">Buscar</button>
-    </div> -->
-
-    <!-- <div class="m-3">
-      <input [(ngModel)]="valorIngresado" placeholder="Ingrese el nombre de la carta que quiere buscar..."
-        (ngModelChange)="valorIngresado = $event.toUpperCase()" (input)="busquedaDeTexto()" name="buscadorNombre"
-        type="text" id="buscadorNombre" class="formulario-input bg-light form-control " />
-      <button class="btn btn-primary m-3">Aplicar filtros</button>
-    </div> -->
-
     <div class="m-3">
       <input [(ngModel)]="searchText" placeholder="Ingrese el nombre de la carta que quiere buscar..."
         (ngModelChange)="searchText = $event.toUpperCase()" name="buscadorNombre" type="text" id="buscadorNombre"
@@ -170,13 +156,6 @@
       <input [(ngModel)]="searchByType" placeholder="Ingrese el nombre de la carta que quiere buscar..."
         name="buscadorNombre" type="text" id="buscadorNombre" class="formulario-input bg-light form-control " />
     </div>
-
-    <!-- <div class="m-3">
-      <input [(ngModel)]="nombreInput" placeholder="Ingrese el nombre de la carta que quiere buscar..."
-        (ngModelChange)="nombreInput = $event.toUpperCase()" name="buscadorNombre" type="text"
-        id="buscadorNombre" class="formulario-input bg-light form-control " />
-      <button (click)="buscarPorNombre(nombreInput)" class="btn btn-primary m-3">Buscar</button>
-    </div> -->
 
     <div class="mb-5">
       <div class="form-check form-check-inline">

@@ -13,6 +13,10 @@ body {
   max-height: 500px;
 }
 
+.tamañoTexto{
+  font-size: 19px;
+}
+
 
 /** @section Posts */
 .post-classic {

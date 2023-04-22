@@ -68,7 +68,7 @@
         <th class="display-text">Nombre</th>
       </tr>
     </thead>
-    <tbody *ngFor="let rare of rarezas | paginate: { itemsPerPage: 2, currentPage: p } ">
+    <tbody *ngFor="let rare of rarezas | paginate: { itemsPerPage: 10, currentPage: p } ">
       <tr>
         <td class="display-text">{{rare.idRareza}}</td>
         <td class="display-text">{{rare.nombreRareza}}</td>
