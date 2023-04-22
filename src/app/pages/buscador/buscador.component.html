@@ -54,7 +54,7 @@
         <h4 class="mt-2 mb-2">Tipos</h4>
         <select [(ngModel)]="selectedTipo" (change)="onTipoChange(selectedTipo)">
           <option value="">Selecciona un tipo de carta</option>
-          <option *ngFor="let type of tipos | async" [value]="type.idTipo">{{type.nombreTipo}}</option>
+          <option *ngFor="let type of tipos" [value]="type.idTipo">{{type.nombreTipo}}</option>
         </select>
       </div>
 

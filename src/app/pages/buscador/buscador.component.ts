@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { ConexionService } from 'src/app/service/conexion.service';
@@ -24,7 +24,7 @@ export class BuscadorComponent implements OnInit {
   cartas!: Carta[];
   expansiones: Observable<Expansion[]>;
   rarezas: Observable<Rareza[]>;
-  tipos: Observable<Tipo[]>;
+  tipos: Tipo[] = [];
 
 
   constructor(private conexion: ConexionService, private activatedRoute: ActivatedRoute, private route: Router) { }
@@ -33,7 +33,11 @@ export class BuscadorComponent implements OnInit {
     this.obtenerCartas();
     this.expansiones = this.conexion.getTodasLasExpas();
     this.rarezas = this.conexion.getTodasLasRarezas();
-    this.tipos = this.conexion.getTodasLosTipos();
+    this.conexion.getTodasLosTipos().pipe(
+      map(tipos => tipos.sort((a, b) => a.nombreTipo.localeCompare(b.nombreTipo)))
+    ).subscribe(tipos => {
+      this.tipos = tipos;
+    });
   }
 
   onRarezaChange(selectedRareza: number) {
