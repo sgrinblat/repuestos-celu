@@ -15,6 +15,7 @@ import { authInterceptorProviders } from './service/auth.interceptor';
 import { RedirectGuard } from './redirectGuard';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 
 registerLocaleData(localeEs);
 
@@ -34,6 +35,8 @@ registerLocaleData(localeEs);
     AppRoutingModule,
     ReutilizablesModule,
     PagesModule,
+    NgxGoogleAnalyticsModule.forRoot('G-WVZ0L9PZXQ'),
+    NgxGoogleAnalyticsRouterModule
   ],
   exports: [
     ReactiveFormsModule,

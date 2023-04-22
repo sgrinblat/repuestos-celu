@@ -51,14 +51,6 @@ const routes: Routes = [
       path: "tiendas",
       component: TiendasComponent
     },
-    // {
-    //   path: "politica",
-    //   canActivate: [RedirectGuard],
-    //   component: RedirectGuard,
-    //   data: {
-    //     externalUrl: 'http://localhost/wordpress/politica-privacidad/'
-    //   }
-    // },
     {
       path: "tutorial",
       component: TutorialComponent
@@ -131,7 +123,7 @@ const routes: Routes = [
   imports: [
     ReactiveFormsModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })]
   ],
   exports: [
     RouterModule,

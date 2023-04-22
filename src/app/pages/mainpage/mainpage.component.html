@@ -120,8 +120,8 @@
         <h3 class="fw-bold h2 text-warning">Encontrá en nuestras tiendas amigas todos nuestros productos para crear los
           mazos que necesitas para ganarle a tus oponentes ⚔️ </h3>
         <p class="mb-4 text-white finaltext">Todo empieza con tu primer mazo construido. A medida que tengas más cartas, más única será tu estrategia para vencer!</p>
-        <a routerLink="productos" class="btn btn-outline-warning me-4">Conocé los mazos iniciales</a>
-        <a routerLink="tiendas" class="btn btn-outline-warning">Tiendas amigas</a>
+        <a (click)="onButtonClick('botonProductos')" routerLink="productos" class="btn btn-outline-warning me-4">Conocé los mazos iniciales</a>
+        <a (click)="onButtonClick('botonTiendas')" routerLink="tiendas" class="btn btn-outline-warning">Tiendas amigas</a>
       </div>
       <div *ngIf="randomNumber == 1" class="col-lg-5 mazo-div">
         <img src="../../../assets/images/soldadosmazo.png" class="img-fluid mazo" />

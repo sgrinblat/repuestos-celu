@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ContentfulService } from '../posts/contentful.service';
 import { from } from 'rxjs';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
+
 
 
 @Component({
@@ -13,7 +15,7 @@ import { from } from 'rxjs';
 })
 export class MainpageComponent implements OnInit {
 
-  constructor(private contentfulService: ContentfulService, private route: Router, @Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(private contentfulService: ContentfulService, private route: Router, @Inject(PLATFORM_ID) private platformId: Object, private gaService: GoogleAnalyticsService) { }
   posts$: Observable<any[]>;
   randomNumber: number;
 
@@ -28,5 +30,10 @@ export class MainpageComponent implements OnInit {
   verEntrada(id: number) {
     this.route.navigate(['noticias', id]);
   }
+
+  onButtonClick(buttonLabel: string) {
+    this.gaService.event('click', 'Buttons', buttonLabel);
+  }
+
 
 }
