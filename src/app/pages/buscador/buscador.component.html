@@ -12,7 +12,7 @@
   </div>
 </section>
 
-<section class="fondo-gris text-white" >
+<section class="fondo-gris text-white pb-5" >
   <div class="container">
     <h1 class="text-center display-text pt-5">Lista de cartas subidas a la base</h1>
   </div>
@@ -21,84 +21,71 @@
     <h2 class="text-center display-text mt-4 mb-4">Buscador de cartas</h2>
 
     <div class="m-3">
-      <input [(ngModel)]="searchText" placeholder="Ingrese el nombre de la carta que quiere buscar..."
+      <input [(ngModel)]="searchText" placeholder="Ingrese el nombre de la carta que quieres buscar..."
         (ngModelChange)="searchText = $event.toUpperCase()" name="buscadorNombre" type="text" id="buscadorNombre"
         class="formulario-input bg-light form-control " />
+        <button (click)="searchByText()" class="btn btn-outline-warning mt-3">Buscar por nombre</button>
     </div>
 
-    <div [hidden]="true" class="m-3">
-      <input [(ngModel)]="searchByExpa" placeholder="Ingrese el nombre de la carta que quiere buscar..."
-        name="buscadorNombre" type="text" id="buscadorNombre" class="formulario-input bg-light form-control " />
-    </div>
-
-    <div [hidden]="true" class="m-3">
-      <input [(ngModel)]="searchByRare" placeholder="Ingrese el nombre de la carta que quiere buscar..."
-        name="buscadorNombre" type="text" id="buscadorNombre" class="formulario-input bg-light form-control " />
-    </div>
-
-    <div [hidden]="true" class="m-3">
-      <input [(ngModel)]="searchByType" placeholder="Ingrese el nombre de la carta que quiere buscar..."
-        name="buscadorNombre" type="text" id="buscadorNombre" class="formulario-input bg-light form-control " />
-    </div>
+    <h5 class="mt-4 mb-4" >Ó puedes buscar seleccionando los siguientes filtros:</h5>
 
     <div class="mb-5">
-      <div class="form-check form-check-inline">
-        <h4>Expansiones</h4>
-        <tr *ngFor="let expa of expansiones | async">
-          <td>
-            <div class="form-check checkboxColor">
-              <label class="form-check-label mb-2">
-                <input (change)="buscarPorExpansion($event, expa.idExpansion)" class="form-check-input"
-                  type="checkbox" />
-                {{expa.nombreExpansion}}
-              </label>
-            </div>
-          </td>
-        </tr>
+
+      <!-- Filtro de expansión -->
+      <div class="form-group">
+        <h4 class="mt-2 mb-2">Expansiones</h4>
+        <select [(ngModel)]="selectedExpansion" (change)="onExpansionChange(selectedExpansion)">
+          <option value="">Selecciona una expansión</option>
+          <option *ngFor="let expa of expansiones | async" [value]="expa.idExpansion">{{expa.nombreExpansion}}</option>
+        </select>
       </div>
 
-      <div class="form-check form-check-inline">
-        <h4>Rarezas</h4>
-        <tr *ngFor="let rare of rarezas | async">
-          <td>
-            <div class="form-check checkboxColor">
-              <label class="form-check-label mb-2">
-                <input name="rarezaCheckbox" (change)="buscarPorRareza($event, rare.idRareza)" class="form-check-input"
-                  type="checkbox" />
-                {{rare.nombreRareza}}
-              </label>
-            </div>
-          </td>
-        </tr>
+      <!-- Filtro de rareza -->
+      <div class="form-group">
+        <h4 class="mt-2 mb-2">Rarezas</h4>
+        <select [(ngModel)]="selectedRareza" (change)="onRarezaChange(selectedRareza)">
+          <option value="">Selecciona una rareza</option>
+          <option *ngFor="let rare of rarezas | async" [value]="rare.idRareza">{{rare.nombreRareza}}</option>
+        </select>
       </div>
 
-      <div class="form-check form-check-inline">
-        <h4>Tipos de carta</h4>
-        <tr *ngFor="let type of tipos | async">
-          <td>
-            <div class="form-check checkboxColor">
-              <label class="form-check-label mb-2">
-                <input (change)="buscarPorTipo($event, type.idTipo)" class="form-check-input" type="checkbox" />
-                {{type.nombreTipo}}
-              </label>
-            </div>
-          </td>
-        </tr>
+      <!-- Filtro de tipo -->
+      <div class="form-group">
+        <h4 class="mt-2 mb-2">Tipos</h4>
+        <select [(ngModel)]="selectedTipo" (change)="onTipoChange(selectedTipo)">
+          <option value="">Selecciona un tipo de carta</option>
+          <option *ngFor="let type of tipos | async" [value]="type.idTipo">{{type.nombreTipo}}</option>
+        </select>
       </div>
+
     </div>
 
     <section class="section section-xl text-center card-seccion">
       <div class="container">
         <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
           <div
-            *ngFor="let card of cartas | filter: searchText | filter: searchByExpa | filter: searchByRare | filter: searchByType | paginate: { itemsPerPage: 10, currentPage: p } ">
+            *ngFor="let carta of filteredCartas">
+            <img class="carta" src="{{carta.urlImagen}}" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section *ngIf="selectedRareza == null && selectedExpansion == null && selectedTipo == null && (searchText == '' || searchText == null)" class="section section-xl text-center card-seccion">
+      <div class="container">
+        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+          <div
+            *ngFor="let card of cartas">
             <img class="carta" src="{{card.urlImagen}}" alt="">
           </div>
         </div>
       </div>
     </section>
 
-    <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" class="m-5 my-pagination"
-      (pageChange)="p = $event"></pagination-controls>
+    <section *ngIf="filteredCartas.length == 0 && (selectedRareza !== null || selectedExpansion !== null || selectedTipo !== null || searchText !== null)" class="section section-xl text-center card-seccion">
+      <h2 > No se han encontrado cartas con los filtros seleccionados.</h2>
+    </section>
+
   </div>
 </section>

@@ -1,5 +1,4 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -17,26 +16,18 @@ import { Tipo } from '../../tipo';
 })
 export class BuscadorComponent implements OnInit {
 
+  searchText: string | null = null;
+  selectedRareza: number | null = null;
+  selectedExpansion: number | null = null;
+  selectedTipo: number | null = null;
+  filteredCartas: Carta[] = [];
   cartas!: Carta[];
   expansiones: Observable<Expansion[]>;
   rarezas: Observable<Rareza[]>;
   tipos: Observable<Tipo[]>;
 
-  carta: Carta = new Carta();
-  expansion: Expansion = new Expansion();
-  rareza: Rareza = new Rareza();
-  tipo: Tipo = new Tipo();
 
-
-  p: number = 1;
-  searchText: any;
-  searchByExpa: any;
-  searchByRare: any;
-  searchByType: any;
-
-  resultados: number;
-
-  constructor(private conexion: ConexionService, private activatedRoute: ActivatedRoute, private route: Router, @Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(private conexion: ConexionService, private activatedRoute: ActivatedRoute, private route: Router) { }
 
   ngOnInit(): void {
     this.obtenerCartas();
@@ -45,63 +36,112 @@ export class BuscadorComponent implements OnInit {
     this.tipos = this.conexion.getTodasLosTipos();
   }
 
-  obtenerCartas() {
-    if(isPlatformBrowser(this.platformId)) {
-      window.scrollTo(0, 0);
-    }
+  onRarezaChange(selectedRareza: number) {
+    this.selectedRareza = selectedRareza;
+    console.log(this.selectedRareza);
+    this.filterCartas();
+  }
 
+  onExpansionChange(selectedExpansion: number) {
+    this.selectedExpansion = selectedExpansion;
+    console.log(this.selectedExpansion);
+    this.filterCartas();
+  }
+
+  onTipoChange(selectedTipo: number) {
+    this.selectedTipo = selectedTipo;
+    console.log(this.selectedTipo);
+    this.filterCartas();
+  }
+
+  searchByText() {
+    this.filteredCartas = this.cartas.filter(carta => {
+      if(carta.nombreCarta.includes(this.searchText)) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+
+  filterCartas() {
+    this.filteredCartas = this.cartas.filter(carta => {
+
+      if(this.selectedExpansion !== null && this.selectedRareza !== null && this.selectedTipo !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza
+          && carta.tipo.idTipo == this.selectedTipo
+          && carta.expansion.idExpansion == this.selectedExpansion)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedExpansion !== null && this.selectedRareza !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza
+          && carta.expansion.idExpansion == this.selectedExpansion)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedExpansion !== null && this.selectedTipo !== null) {
+        if(carta.tipo.idTipo == this.selectedTipo
+          && carta.expansion.idExpansion == this.selectedExpansion)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedRareza !== null && this.selectedTipo !== null) {
+        if(carta.tipo.idTipo == this.selectedTipo
+          && carta.rareza.idRareza == this.selectedRareza)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedRareza !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+      if(this.selectedExpansion !== null) {
+        if(carta.expansion.idExpansion == this.selectedExpansion)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+      if(this.selectedTipo !== null) {
+        if(carta.tipo.idTipo == this.selectedTipo)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      return false;
+    });
+  }
+
+
+  obtenerCartas() {
     this.conexion.getTodasLasCartasOrdenadas().subscribe((dato) => {
       this.cartas = dato;
     });
   }
 
-  buscarPorExpansion(e, id: number) {
-    if(e.target.checked) {
-      this.buscarExpansion(id);
-      this.resultados = document.querySelectorAll('.idCartaBuscada').length;
-    } else {
-      this.searchByExpa = "";
-    }
-  }
-
-  buscarPorRareza(e, id: number) {
-    if(e.target.checked) {
-      this.buscarRareza(id);
-      this.resultados = document.querySelectorAll('.idCartaBuscada').length;
-    } else {
-      this.searchByRare = "";
-    }
-  }
-
-  buscarPorTipo(e, id: number) {
-    if(e.target.checked) {
-      this.buscarTipo(id);
-    } else {
-      this.searchByType = "";
-    }
-  }
-
-  buscarExpansion(id: number) {
-    this.conexion.getCartaByExpansion(id).subscribe((dato) => {
-      this.searchByExpa = dato[0].expansion.nombreExpansion;
-    }, (error) => console.log("Qué estás buscando, picaron?"));
-  }
-
-  buscarRareza(id: number) {
-    this.conexion.getCartaByRareza(id).subscribe((dato) => {
-      this.searchByRare = dato[0].rareza.nombreRareza;
-    }, (error) => console.log("Qué estás buscando, picaron?"));
-  }
-
-  buscarTipo(id: number) {
-    this.conexion.getCartaByTipo(id).subscribe((dato) => {
-      this.searchByType = dato[0].tipo.nombreTipo;
-    }, (error) => console.log("Qué estás buscando, picaron?"));
-  }
-
 }
-
-
-
-
-

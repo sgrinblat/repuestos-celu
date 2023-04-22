@@ -25,25 +25,19 @@ export class CartasComponent implements OnInit {
   expansiones: Observable<Expansion[]>;
   rarezas: Observable<Rareza[]>;
   tipos: Observable<Tipo[]>;
+  searchText: string | null = null;
+  selectedRareza: number | null = null;
+  selectedExpansion: number | null = null;
+  selectedTipo: number | null = null;
+  filteredCartas: Carta[] = [];
 
   carta: Carta = new Carta();
-  expansion: Expansion = new Expansion();
-  rareza: Rareza = new Rareza();
-  tipo: Tipo = new Tipo();
 
   @Input()
   nombreInput: string;
 
   @Output()
   nombreInputChange = new EventEmitter<string>();
-
-  p: number = 1;
-  searchText: any;
-  searchByExpa: any;
-  searchByRare: any;
-  searchByType: any;
-
-  resultados: number;
 
   constructor(private conexion: ConexionService, private readonly fb: FormBuilder, private activatedRoute: ActivatedRoute, private route: Router) {
     this.contactForm = fb.group({
@@ -115,65 +109,105 @@ export class CartasComponent implements OnInit {
     this.route.navigate(['v1/login']);
   }
 
-  // buscarPorNombre(name: string) {
-  //   name = this.nombreInput;
-  //   this.conexion.getCartaByPartialName(name).subscribe((dato) => {
-  //     console.log(dato);
-  //   }, (error) => console.log(error));
-  // }
-
-  // valorIngresado: string = "";
-
-  // @Output()
-  // valorBuscado: EventEmitter<string> = new EventEmitter<string>();
-
-  // busquedaDeTexto() {
-  //   this.valorBuscado.emit(this.valorIngresado);
-  // }
-
-
-  buscarPorExpansion(e, id: number) {
-    if(e.target.checked) {
-      this.buscarExpansion(id);
-      this.resultados = document.querySelectorAll('.idCartaBuscada').length;
-    } else {
-      this.searchByExpa = "";
-    }
+  onRarezaChange(selectedRareza: number) {
+    this.selectedRareza = selectedRareza;
+    console.log(this.selectedRareza);
+    this.filterCartas();
   }
 
-  buscarPorRareza(e, id: number) {
-    if(e.target.checked) {
-      this.buscarRareza(id);
-      this.resultados = document.querySelectorAll('.idCartaBuscada').length;
-    } else {
-      this.searchByRare = "";
-    }
+  onExpansionChange(selectedExpansion: number) {
+    this.selectedExpansion = selectedExpansion;
+    console.log(this.selectedExpansion);
+    this.filterCartas();
   }
 
-  buscarPorTipo(e, id: number) {
-    if(e.target.checked) {
-      this.buscarTipo(id);
-    } else {
-      this.searchByType = "";
-    }
+  onTipoChange(selectedTipo: number) {
+    this.selectedTipo = selectedTipo;
+    console.log(this.selectedTipo);
+    this.filterCartas();
   }
 
-  buscarExpansion(id: number) {
-    this.conexion.getCartaByExpansion(id).subscribe((dato) => {
-      this.searchByExpa = dato[0].expansion.nombreExpansion;
-    }, (error) => console.log("Qué estás buscando, picaron?"));
+  searchByText() {
+    this.filteredCartas = this.cartas.filter(carta => {
+      if(carta.nombreCarta.includes(this.searchText)) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   }
 
-  buscarRareza(id: number) {
-    this.conexion.getCartaByRareza(id).subscribe((dato) => {
-      this.searchByRare = dato[0].rareza.nombreRareza;
-    }, (error) => console.log("Qué estás buscando, picaron?"));
-  }
+  filterCartas() {
+    this.filteredCartas = this.cartas.filter(carta => {
 
-  buscarTipo(id: number) {
-    this.conexion.getCartaByTipo(id).subscribe((dato) => {
-      this.searchByType = dato[0].tipo.nombreTipo;
-    }, (error) => console.log("Qué estás buscando, picaron?"));
+      if(this.selectedExpansion !== null && this.selectedRareza !== null && this.selectedTipo !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza
+          && carta.tipo.idTipo == this.selectedTipo
+          && carta.expansion.idExpansion == this.selectedExpansion)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedExpansion !== null && this.selectedRareza !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza
+          && carta.expansion.idExpansion == this.selectedExpansion)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedExpansion !== null && this.selectedTipo !== null) {
+        if(carta.tipo.idTipo == this.selectedTipo
+          && carta.expansion.idExpansion == this.selectedExpansion)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedRareza !== null && this.selectedTipo !== null) {
+        if(carta.tipo.idTipo == this.selectedTipo
+          && carta.rareza.idRareza == this.selectedRareza)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedRareza !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+      if(this.selectedExpansion !== null) {
+        if(carta.expansion.idExpansion == this.selectedExpansion)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+      if(this.selectedTipo !== null) {
+        if(carta.tipo.idTipo == this.selectedTipo)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      return false;
+    });
   }
 
 }
