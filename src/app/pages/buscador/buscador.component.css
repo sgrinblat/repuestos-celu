@@ -39,6 +39,23 @@ a {
   color: black !important;
 }
 
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-grid > div {
+  flex-basis: calc(50% - 20px); /* 50% para 2 elementos por fila y 20px de espacio entre elementos */
+  margin: 10px; /* 10px alrededor de cada elemento, lo que dará un total de 20px entre elementos */
+}
+
+@media (min-width: 992px) { /* Punto de interrupción para pantallas grandes (lg) */
+  .card-grid > div {
+    flex-basis: calc(20% - 20px); /* 20% para 5 elementos por fila y 20px de espacio entre elementos */
+  }
+}
+
 .carta {
   max-height: 300px;
   transform: scale(1.0);
