@@ -62,9 +62,8 @@
 
     <section class="section section-xl text-center card-seccion">
       <div class="container">
-        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-          <div
-            *ngFor="let carta of filteredCartas">
+        <div class="card-grid">
+          <div *ngFor="let carta of filteredCartas">
             <img class="carta" src="{{carta.urlImagen}}" alt="">
           </div>
         </div>
@@ -74,10 +73,9 @@
 
     <section *ngIf="selectedRareza == null && selectedExpansion == null && selectedTipo == null && (searchText == '' || searchText == null)" class="section section-xl text-center card-seccion">
       <div class="container">
-        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-          <div
-            *ngFor="let card of cartas">
-            <img class="carta" src="{{card.urlImagen}}" alt="">
+        <div class="card-grid">
+          <div *ngFor="let card of cartas">
+            <img class="carta" src="{{card.urlImagen}}" alt="imagen de una carta">
           </div>
         </div>
       </div>
