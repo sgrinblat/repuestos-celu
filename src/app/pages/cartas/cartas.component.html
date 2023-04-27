@@ -239,7 +239,7 @@
         *ngFor="let card of filteredCartas">
         <tr>
           <td class="display-text">
-            <img class="carta" src="{{card.urlImagen}}" alt="">
+            <img class="carta" [lazyLoad]="card.urlImagen" alt="">
           </td>
           <td class="display-text">{{card.idCarta}}</td>
           <td class="display-text">{{card.nombreCarta}}</td>

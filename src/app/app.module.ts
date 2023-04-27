@@ -16,6 +16,7 @@ import { RedirectGuard } from './redirectGuard';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 registerLocaleData(localeEs);
 
@@ -34,6 +35,7 @@ registerLocaleData(localeEs);
     SwiperModule,
     AppRoutingModule,
     ReutilizablesModule,
+    LazyLoadImageModule,
     PagesModule,
     NgxGoogleAnalyticsModule.forRoot('G-WVZ0L9PZXQ'),
     NgxGoogleAnalyticsRouterModule

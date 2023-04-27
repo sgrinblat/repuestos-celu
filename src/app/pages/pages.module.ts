@@ -8,6 +8,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SwiperModule } from "swiper/angular";
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 import { MainpageComponent } from './mainpage/mainpage.component';
 import { BuscadorComponent } from './buscador/buscador.component';
@@ -88,7 +89,8 @@ import { ReutilizablesModule } from '../reutilizables/reutilizables.module';
     SwiperModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
-    ReutilizablesModule
+    ReutilizablesModule,
+    LazyLoadImageModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }]
 })

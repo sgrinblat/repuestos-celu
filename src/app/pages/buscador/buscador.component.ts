@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { ElementRef } from '@angular/core';
 
 import { ConexionService } from 'src/app/service/conexion.service';
 import { Carta } from '../../carta';
@@ -146,6 +147,12 @@ export class BuscadorComponent implements OnInit {
     this.conexion.getTodasLasCartasOrdenadas().subscribe((dato) => {
       this.cartas = dato;
     });
+  }
+
+  onImageLoad(event: Event) {
+    const imageElement = event.target as HTMLImageElement;
+    const elementRef = new ElementRef(imageElement);
+    elementRef.nativeElement.classList.add('fade-in');
   }
 
 }
