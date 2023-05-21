@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, ViewChild, Inject, OnInit, PLATFORM_ID } from "@angular/core";
 import { SwiperComponent } from "swiper/angular";
 import { isPlatformBrowser } from '@angular/common';
+import { ElementRef } from '@angular/core';
 
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Navigation } from "swiper";
@@ -51,6 +52,12 @@ export class TiendasComponent {
       color: "#fff",
       background: "#2e3031"
     })
+  }
+
+  onImageLoad(event: Event) {
+    const imageElement = event.target as HTMLImageElement;
+    const elementRef = new ElementRef(imageElement);
+    elementRef.nativeElement.classList.add('fade-in');
   }
 
   // mostrarRefugio () {
