@@ -20,7 +20,7 @@ export class ConexionService {
   private expansionURL = `${this.urlBasica}/expansion/expansiones`
   private rarezaURL = `${this.urlBasica}/rareza/rarezas`
   private tipoURL = `${this.urlBasica}/tipo/tipos`
-  private tiendaURL = `${this.urlBasica}/tiendas/tienda`
+  private tiendaURL = `${this.urlBasica}/tienda/tiendas`
   private usuarioURL = `${this.urlBasica}/usuarios/user/`
   private tokenURL = `${this.urlBasica}/generate-token`
   private tokenObtenerUserURL = `${this.urlBasica}/actual-usuario`

@@ -18,6 +18,9 @@
         <li class="nav-item">
           <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3" routerLink="/v1/upload/tipos">Subir tipos</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3" routerLink="/v1/upload/subirTiendas">Subir tiendas</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -25,7 +28,7 @@
 
 <div class="formulario text-center">
   <div class="container">
-    <h2 class="m-4">Registro de una rareza nueva</h2>
+    <h2 class="m-4">Registro de un tipo nuevo</h2>
     <div class="row mb-4">
       <form (ngSubmit)="onSubmitTipo()" [formGroup]="contactForm">
         <div class="col">
