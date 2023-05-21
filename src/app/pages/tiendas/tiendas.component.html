@@ -19,23 +19,13 @@
 
   <div  class="container text-center">
 
-    <swiper [slidesPerView]="3" [spaceBetween]="30" [slidesPerGroup]="3" [loop]="true" [loopFillGroupWithBlank]="true"
+    <swiper [slidesPerView]="3" [spaceBetween]="30"  [loop]="true" [loopFillGroupWithBlank]="true"
       [pagination]="{clickable: true}" [navigation]="true" class="mySwiper">
 
       <ng-template *ngFor="let tienda of tiendas" swiperSlide>
         <img class="imagenClickeable" (click)="mostrarDatosTienda(tienda)" [lazyLoad]="tienda.logoTienda" (onLoad)="onImageLoad($event)"
         [alt]="tienda.nombreTienda">
       </ng-template>
-
-      <!-- <ng-template swiperSlide>
-          <img class="imagenClickeable" (click)="mostrarRefugio()" src="../../../assets/images/refugiologo2.png" alt="el refugio store">
-      </ng-template>
-      <ng-template swiperSlide>
-          <img class="imagenClickeable" (click)="mostrarZ()" src="../../../assets/images/magicz.png" alt="magic z">
-      </ng-template>
-      <ng-template swiperSlide>
-          <img class="imagenClickeable" (click)="mostrarLair()" src="../../../assets/images/magiclair.png" alt="magic lair">
-      </ng-template> -->
 
     </swiper>
 

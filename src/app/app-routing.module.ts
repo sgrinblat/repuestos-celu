@@ -111,7 +111,7 @@ const routes: Routes = [
       canActivate: [AdminGuard]
     },
     {
-      path: `v1/upload/actualizar/subirCartas/:id`,
+      path: `v1/upload/actualizar/subirTienda/:id`,
       component: ActualizarTiendaComponent,
       canActivate: [AdminGuard]
     },
