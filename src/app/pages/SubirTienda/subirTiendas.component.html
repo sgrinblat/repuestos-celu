@@ -51,8 +51,7 @@
 
           <div class="m-4">
             <label class="form-label display-text" for="formularioTiendaLogo">Logo</label><br>
-            <input [ngModel]="nombreInput" (ngModelChange)="nombreInput = $event.toUpperCase()"
-              formControlName="formularioTiendaLogo" name="formularioTiendaLogo"
+            <input formControlName="formularioTiendaLogo" name="formularioTiendaLogo"
               [class.is-invalid]="contactForm.get('formularioTiendaLogo').invalid && contactForm.get('formularioTiendaLogo').touched"
               type="text" id="formularioTiendaLogo" class="formulario-input bg-light form-control "
               formControlName="formularioTiendaLogo" required />
@@ -67,8 +66,7 @@
 
           <div class="m-4">
             <label class="form-label display-text" for="formularioTiendaMapa">Mapa</label><br>
-            <input [ngModel]="nombreInput" (ngModelChange)="nombreInput = $event.toUpperCase()"
-              formControlName="formularioTiendaMapa" name="formularioTiendaMapa"
+            <input formControlName="formularioTiendaMapa" name="formularioTiendaMapa"
               [class.is-invalid]="contactForm.get('formularioTiendaMapa').invalid && contactForm.get('formularioTiendaMapa').touched"
               type="text" id="formularioTiendaMapa" class="formulario-input bg-light form-control "
               formControlName="formularioTiendaMapa" required />
@@ -83,8 +81,7 @@
 
           <div class="m-4">
             <label class="form-label display-text" for="formularioTiendaDireccion">Direccion</label><br>
-            <input [ngModel]="nombreInput" (ngModelChange)="nombreInput = $event.toUpperCase()"
-              formControlName="formularioTiendaDireccion" name="formularioTiendaDireccion"
+            <input formControlName="formularioTiendaDireccion" name="formularioTiendaDireccion"
               [class.is-invalid]="contactForm.get('formularioTiendaDireccion').invalid && contactForm.get('formularioTiendaDireccion').touched"
               type="text" id="formularioTiendaDireccion" class="formulario-input bg-light form-control "
               formControlName="formularioTiendaDireccion" required />
