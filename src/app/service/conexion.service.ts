@@ -6,6 +6,7 @@ import { Expansion } from '../expansion';
 import { Rareza } from '../rareza';
 import { Tipo } from '../tipo';
 import { Usuario } from '../usuario';
+import { Tienda } from '../tienda';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class ConexionService {
   private expansionURL = `${this.urlBasica}/expansion/expansiones`
   private rarezaURL = `${this.urlBasica}/rareza/rarezas`
   private tipoURL = `${this.urlBasica}/tipo/tipos`
+  private tiendaURL = `${this.urlBasica}/tiendas/tienda`
   private usuarioURL = `${this.urlBasica}/usuarios/user/`
   private tokenURL = `${this.urlBasica}/generate-token`
   private tokenObtenerUserURL = `${this.urlBasica}/actual-usuario`
@@ -123,7 +125,7 @@ export class ConexionService {
     return this.httpClient.get<Rareza>(`${this.rarezaURL}/nombre/${nombre}`);
   }
 
-  // este método nos sirve para registrar una expansion
+  // este método nos sirve para registrar una rareza
   postRareza(rareza: Rareza) : Observable<Object> {
     return this.httpClient.post(`${this.rarezaURL}/crear`, rareza);
   }
@@ -150,7 +152,7 @@ export class ConexionService {
     return this.httpClient.get<Tipo>(`${this.tipoURL}/nombre/${nombre}`);
   }
 
-  // este método nos sirve para registrar una expansion
+  // este método nos sirve para registrar un tipo de carta
   postTipo(tipo: Tipo) : Observable<Object> {
     return this.httpClient.post(`${this.tipoURL}/crear`, tipo);
   }
@@ -161,6 +163,29 @@ export class ConexionService {
 
   putTipo(id: number, tipo: Tipo, ): Observable<Object> {
     return this.httpClient.put(`${this.tipoURL}/actualizar/${id}`, tipo);
+  }
+
+  // ---------------------- TIENDAS ----------------------
+
+  getTodasLasTiendas():Observable<Tienda[]> {
+    return this.httpClient.get<Tienda[]>(`${this.tiendaURL}`);
+  }
+
+  getTiendaById(id:number): Observable<Tienda> {
+    return this.httpClient.get<Tienda>(`${this.tiendaURL}/${id}`);
+  }
+
+  // este método nos sirve para registrar una tienda
+  postTienda(tienda: Tienda) : Observable<Object> {
+    return this.httpClient.post(`${this.tiendaURL}/crear`, tienda);
+  }
+
+  deleteTienda(id: number): Observable<Object> {
+    return this.httpClient.delete(`${this.tiendaURL}/eliminar/${id}`);
+  }
+
+  putTienda(id: number, tienda: Tienda, ): Observable<Object> {
+    return this.httpClient.put(`${this.tiendaURL}/actualizar/${id}`, tienda);
   }
 
   // ---------------------- USUARIOS ----------------------

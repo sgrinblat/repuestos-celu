@@ -17,11 +17,16 @@
     <h1 class="text-center display-text pt-5 pb-5">Tiendas donde podrás conseguir cartas de Lairen</h1>
   </div>
 
-  <div class="container text-center">
+  <div *ngFor="let tienda of tiendas" class="container text-center">
 
     <swiper [slidesPerView]="3" [spaceBetween]="30" [slidesPerGroup]="3" [loop]="true" [loopFillGroupWithBlank]="true"
       [pagination]="{clickable: true}" [navigation]="true" class="mySwiper">
+
       <ng-template swiperSlide>
+        <img class="imagenClickeable" (click)="mostrarDatosTienda(tienda)" src="tienda.logoTienda" alt="tienda.nombreTienda">
+    </ng-template>
+
+      <!-- <ng-template swiperSlide>
           <img class="imagenClickeable" (click)="mostrarRefugio()" src="../../../assets/images/refugiologo2.png" alt="el refugio store">
       </ng-template>
       <ng-template swiperSlide>
@@ -29,7 +34,7 @@
       </ng-template>
       <ng-template swiperSlide>
           <img class="imagenClickeable" (click)="mostrarLair()" src="../../../assets/images/magiclair.png" alt="magic lair">
-      </ng-template>
+      </ng-template> -->
 
     </swiper>
 

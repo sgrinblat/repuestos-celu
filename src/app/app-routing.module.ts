@@ -23,6 +23,8 @@ import { EntradasComponent } from "./pages/posts/entradas/entradas.component";
 import { RedirectGuard } from './redirectGuard';
 import { EntradaHistoriaComponent } from './pages/entrada-historia/entrada-historia.component';
 import { Page404Component } from './reutilizables/page404/page404.component';
+import { SubirTiendasComponent } from "./pages/SubirTienda/subirTiendas.component";
+import { ActualizarTiendaComponent } from "./pages/actualizar-tienda/actualizar-tienda.component";
 
 
 const routes: Routes = [
@@ -84,6 +86,11 @@ const routes: Routes = [
       canActivate: [AdminGuard]
     },
     {
+      path: "v1/upload/subirTiendas",
+      component: SubirTiendasComponent,
+      canActivate: [AdminGuard]
+    },
+    {
       path: `v1/upload/actualizar/carta/:id`,
       component: ActualizarCartaComponent,
       canActivate: [AdminGuard]
@@ -101,6 +108,11 @@ const routes: Routes = [
     {
       path: `v1/upload/actualizar/tipo/:id`,
       component: ActualizarTipoComponent,
+      canActivate: [AdminGuard]
+    },
+    {
+      path: `v1/upload/actualizar/subirCartas/:id`,
+      component: ActualizarTiendaComponent,
       canActivate: [AdminGuard]
     },
     {

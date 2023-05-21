@@ -5,6 +5,8 @@ import { isPlatformBrowser } from '@angular/common';
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Navigation } from "swiper";
 import Swal from "sweetalert2";
+import { ConexionService } from "src/app/service/conexion.service";
+import { Tienda } from "src/app/tienda";
 
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation]);
@@ -17,19 +19,29 @@ SwiperCore.use([Pagination, Navigation]);
 })
 export class TiendasComponent {
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+  tiendas!: Tienda[];
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private conexion: ConexionService) { }
 
   ngOnInit() {
+    this.obtenerTiendas();
+
     if(isPlatformBrowser(this.platformId)) {
       window.scrollTo(0, 0);
     }
   }
 
-  mostrarRefugio () {
+  obtenerTiendas() {
+    this.conexion.getTodasLasTiendas().subscribe((dato) => {
+      this.tiendas = dato;
+    });
+  }
+
+  mostrarDatosTienda(tienda: Tienda) {
     Swal.fire({
-      title: 'El Refugio Store',
-      text: 'Av. Cabildo 2040 Local 88, CABA',
-      imageUrl: '../../../assets/images/refudire.png',
+      title: tienda.nombreTienda,
+      text: tienda.direccionTienda,
+      imageUrl: tienda.mapaTienda,
       width: 700,
       imageWidth: 700,
       imageHeight: 400,
@@ -41,37 +53,53 @@ export class TiendasComponent {
     })
   }
 
-  mostrarZ () {
-    Swal.fire({
-      title: 'Magic Z',
-      text: 'Yerbal 2250 Local 12, CABA',
-      imageUrl: '../../../assets/images/zdire.png',
-      width: 700,
-      imageWidth: 700,
-      imageHeight: 400,
-      imageAlt: 'Custom image',
-      showCloseButton: true,
-      showConfirmButton: false,
-      color: "#fff",
-      background: "#2e3031"
-    })
-  }
+  // mostrarRefugio () {
+  //   Swal.fire({
+  //     title: 'El Refugio Store',
+  //     text: 'Av. Cabildo 2040 Local 88, CABA',
+  //     imageUrl: '../../../assets/images/refudire.png',
+  //     width: 700,
+  //     imageWidth: 700,
+  //     imageHeight: 400,
+  //     imageAlt: 'Custom image',
+  //     showCloseButton: true,
+  //     showConfirmButton: false,
+  //     color: "#fff",
+  //     background: "#2e3031"
+  //   })
+  // }
 
-  mostrarLair () {
-    Swal.fire({
-      title: 'Magic Lair',
-      text: 'Av. Alberdi 1170, CABA',
-      imageUrl: '../../../assets/images/lairdire.png',
-      width: 700,
-      imageWidth: 700,
-      imageHeight: 400,
-      imageAlt: 'Custom image',
-      showCloseButton: true,
-      showConfirmButton: false,
-      color: "#fff",
-      background: "#2e3031"
-    })
-  }
+  // mostrarZ () {
+  //   Swal.fire({
+  //     title: 'Magic Z',
+  //     text: 'Yerbal 2250 Local 12, CABA',
+  //     imageUrl: '../../../assets/images/zdire.png',
+  //     width: 700,
+  //     imageWidth: 700,
+  //     imageHeight: 400,
+  //     imageAlt: 'Custom image',
+  //     showCloseButton: true,
+  //     showConfirmButton: false,
+  //     color: "#fff",
+  //     background: "#2e3031"
+  //   })
+  // }
+
+  // mostrarLair () {
+  //   Swal.fire({
+  //     title: 'Magic Lair',
+  //     text: 'Av. Alberdi 1170, CABA',
+  //     imageUrl: '../../../assets/images/lairdire.png',
+  //     width: 700,
+  //     imageWidth: 700,
+  //     imageHeight: 400,
+  //     imageAlt: 'Custom image',
+  //     showCloseButton: true,
+  //     showConfirmButton: false,
+  //     color: "#fff",
+  //     background: "#2e3031"
+  //   })
+  // }
 
 
 }

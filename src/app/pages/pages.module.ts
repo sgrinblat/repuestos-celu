@@ -31,6 +31,8 @@ import { EntradaHistoriaComponent } from './entrada-historia/entrada-historia.co
 import { FundamentosComponent } from './productos/fundamentos/fundamentos.component';
 import { ExpansionAComponent } from './productos/expansionA/expansionA.component';
 import { ReutilizablesModule } from '../reutilizables/reutilizables.module';
+import { SubirTiendasComponent } from './SubirTienda/subirTiendas.component';
+import { ActualizarTiendaComponent } from './actualizar-tienda/actualizar-tienda.component';
 
 @NgModule({
   declarations: [
@@ -43,11 +45,13 @@ import { ReutilizablesModule } from '../reutilizables/reutilizables.module';
     RarezasComponent,
     TiendasComponent,
     TiposComponent,
+    SubirTiendasComponent,
     TutorialComponent,
     ActualizarCartaComponent,
     ActualizarExpansionComponent,
     ActualizarRarezaComponent,
     ActualizarTipoComponent,
+    ActualizarTiendaComponent,
     LoginUsuarioComponent,
     EntradasComponent,
     ListaEntradasComponent,
@@ -65,11 +69,13 @@ import { ReutilizablesModule } from '../reutilizables/reutilizables.module';
     RarezasComponent,
     TiendasComponent,
     TiposComponent,
+    SubirTiendasComponent,
     TutorialComponent,
     ActualizarCartaComponent,
     ActualizarExpansionComponent,
     ActualizarRarezaComponent,
     ActualizarTipoComponent,
+    ActualizarTiendaComponent,
     LoginUsuarioComponent,
     EntradasComponent,
     EntradaHistoriaComponent,
