@@ -19,10 +19,10 @@
 
   <div  class="container text-center">
 
-    <swiper [slidesPerView]="3" [spaceBetween]="30"  [loop]="true" [loopFillGroupWithBlank]="true"
+    <swiper *ngFor="let tienda of tiendas" [slidesPerView]="3" [spaceBetween]="30"  [loop]="true" [loopFillGroupWithBlank]="true"
       [pagination]="{clickable: true}" [navigation]="true" class="mySwiper">
 
-      <ng-template *ngFor="let tienda of tiendas" swiperSlide>
+      <ng-template  swiperSlide>
         <img class="imagenClickeable" (click)="mostrarDatosTienda(tienda)" [lazyLoad]="tienda.logoTienda" (onLoad)="onImageLoad($event)"
         [alt]="tienda.nombreTienda">
       </ng-template>
