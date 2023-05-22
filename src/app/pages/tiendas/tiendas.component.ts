@@ -22,9 +22,6 @@ export class TiendasComponent {
 
   tiendas!: Tienda[];
 
-  tiendas1!: Tienda[];
-
-
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private conexion: ConexionService) { }
 
   ngOnInit() {
