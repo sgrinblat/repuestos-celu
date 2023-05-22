@@ -34,6 +34,7 @@ export class ActualizarTiendaComponent implements OnInit {
       formularioTiendaLogo: ['', [Validators.required, Validators.minLength(3)]],
       formularioTiendaMapa: ['', [Validators.required, Validators.minLength(3)]],
       formularioTiendaDireccion: ['', [Validators.required, Validators.minLength(3)]],
+      formularioTiendaUrl: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
@@ -66,6 +67,7 @@ export class ActualizarTiendaComponent implements OnInit {
     this.tienda.logoTienda = this.contactForm.value.formularioTiendaLogo;
     this.tienda.mapaTienda = this.contactForm.value.formularioTiendaMapa;
     this.tienda.direccionTienda = this.contactForm.value.formularioTiendaDireccion;
+    this.tienda.urlTienda = this.contactForm.value.formularioTiendaUrl;
 
     this.conexion.putTienda(this.id, this.tienda).subscribe((dato) => {
       console.log(dato);

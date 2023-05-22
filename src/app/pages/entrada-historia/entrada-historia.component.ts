@@ -39,10 +39,12 @@ export class EntradaHistoriaComponent implements OnInit {
     this.posts$ = from(this.contentfulService.getBlogEntriesByCategoryAndOnlyThree("lore"));
   }
 
-  verEntrada(id: number) {
+  verEntrada(id: string) {
     if(isPlatformBrowser(this.platformId)) {
-      this.router.navigate(['lore', id]);
+      this.router.navigate(['lore/entrada', id]);
+      Loading.hourglass();
       window.scrollTo(0, 0);
+      Loading.remove(500);
     }
   }
 

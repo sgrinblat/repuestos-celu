@@ -36,10 +36,12 @@ export class ListaEntradasComponent implements OnInit {
     this.posts$ = from(this.contentfulService.getBlogEntriesByCategoryAndOnlyThree("noticia"));
   }
 
-  verEntrada(id: number) {
+  verEntrada(id: string) {
     if(isPlatformBrowser(this.platformId)) {
       this.router.navigate(['noticias', id]);
+      Loading.hourglass();
       window.scrollTo(0, 0);
+      Loading.remove(500);
     }
 
   }

@@ -4,4 +4,5 @@ export class Tienda {
   direccionTienda!: string;
   logoTienda!: string;
   mapaTienda!: string;
+  urlTienda!: string;
 }

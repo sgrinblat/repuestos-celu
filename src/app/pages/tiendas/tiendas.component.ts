@@ -22,6 +22,9 @@ export class TiendasComponent {
 
   tiendas!: Tienda[];
 
+  tiendas1!: Tienda[];
+
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private conexion: ConexionService) { }
 
   ngOnInit() {
@@ -36,6 +39,7 @@ export class TiendasComponent {
     this.conexion.getTodasLasTiendas().subscribe((dato) => {
       this.tiendas = dato;
     });
+
   }
 
   mostrarDatosTienda(tienda: Tienda) {
@@ -48,9 +52,14 @@ export class TiendasComponent {
       imageHeight: 400,
       imageAlt: 'Custom image',
       showCloseButton: true,
-      showConfirmButton: false,
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Visitar web!',
       color: "#fff",
       background: "#2e3031"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        location.assign(tienda.urlTienda);
+      }
     })
   }
 

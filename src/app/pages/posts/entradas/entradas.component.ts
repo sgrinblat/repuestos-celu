@@ -24,7 +24,7 @@ export class EntradasComponent implements OnInit {
     this.posts$ = from(this.contentfulService.getBlogEntriesByCategory("noticia"));
   }
 
-  verEntrada(id: number) {
+  verEntrada(id: string) {
     this.route.navigate(['noticias', id]);
   }
 

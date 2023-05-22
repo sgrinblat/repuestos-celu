@@ -24,6 +24,14 @@ export class ContentfulService {
     return from(promise);
   }
 
+  getEntryByUrlHandle(urlHande: string) {
+    return this.client.getEntries({
+      content_type: 'blogPost',
+      'fields.urlHandle': urlHande
+    })
+    .then(response => response.items);
+  }
+
   getBlogEntriesByCategory(categoryName: string) {
     return this.client.getEntries({
       content_type: 'blogPost',

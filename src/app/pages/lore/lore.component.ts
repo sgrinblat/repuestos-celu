@@ -23,7 +23,7 @@ export class LoreComponent implements OnInit {
     this.posts$ = from(this.contentfulService.getBlogEntriesByCategory("lore"));
   }
 
-  verEntrada(id: number) {
+  verEntrada(id: string) {
     this.route.navigate(['lore/entrada', id]);
   }
 }

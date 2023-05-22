@@ -31,6 +31,7 @@ export class SubirTiendasComponent implements OnInit {
       formularioTiendaLogo: ['', [Validators.required, Validators.minLength(3)]],
       formularioTiendaMapa: ['', [Validators.required, Validators.minLength(3)]],
       formularioTiendaDireccion: ['', [Validators.required, Validators.minLength(3)]],
+      formularioTiendaUrl: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
   ngOnInit() {
@@ -54,6 +55,7 @@ export class SubirTiendasComponent implements OnInit {
     this.tienda.logoTienda = this.contactForm.value.formularioTiendaLogo;
     this.tienda.mapaTienda = this.contactForm.value.formularioTiendaMapa;
     this.tienda.direccionTienda = this.contactForm.value.formularioTiendaDireccion;
+    this.tienda.urlTienda = this.contactForm.value.formularioTiendaUrl;
 
     this.conexion.postTienda(this.tienda).subscribe(
       (dato) => {
