@@ -49,7 +49,7 @@ export class TiendasComponent {
       imageHeight: 400,
       imageAlt: 'Custom image',
       showCloseButton: true,
-      confirmButtonColor: '#fec713',
+      confirmButtonColor: '#d3a613',
       confirmButtonText: 'Visitar web!',
       color: "#fff",
       background: "#2e3031"
