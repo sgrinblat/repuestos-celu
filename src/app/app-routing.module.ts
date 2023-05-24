@@ -25,6 +25,7 @@ import { EntradaHistoriaComponent } from './pages/entrada-historia/entrada-histo
 import { Page404Component } from './reutilizables/page404/page404.component';
 import { SubirTiendasComponent } from "./pages/SubirTienda/subirTiendas.component";
 import { ActualizarTiendaComponent } from "./pages/actualizar-tienda/actualizar-tienda.component";
+import { DecklistComponent } from './pages/decklist/decklist.component';
 
 
 const routes: Routes = [
@@ -64,6 +65,10 @@ const routes: Routes = [
     {
       path: `noticias/:id`,
       component: ListaEntradasComponent
+    },
+    {
+      path: `decklists`,
+      component: DecklistComponent
     },
     {
       path: "v1/upload/cartas",

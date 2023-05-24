@@ -33,6 +33,7 @@ import { ExpansionAComponent } from './productos/expansionA/expansionA.component
 import { ReutilizablesModule } from '../reutilizables/reutilizables.module';
 import { SubirTiendasComponent } from './SubirTienda/subirTiendas.component';
 import { ActualizarTiendaComponent } from './actualizar-tienda/actualizar-tienda.component';
+import { DecklistComponent } from './decklist/decklist.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ActualizarTiendaComponent } from './actualizar-tienda/actualizar-tienda
     LoginUsuarioComponent,
     EntradasComponent,
     ListaEntradasComponent,
+    DecklistComponent,
     EntradaHistoriaComponent,
     FundamentosComponent,
     ExpansionAComponent
@@ -80,6 +82,7 @@ import { ActualizarTiendaComponent } from './actualizar-tienda/actualizar-tienda
     EntradasComponent,
     EntradaHistoriaComponent,
     ListaEntradasComponent,
+    DecklistComponent,
     ExpansionAComponent,
     FundamentosComponent,
     ReactiveFormsModule,

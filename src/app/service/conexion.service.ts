@@ -7,6 +7,7 @@ import { Rareza } from '../rareza';
 import { Tipo } from '../tipo';
 import { Usuario } from '../usuario';
 import { Tienda } from '../tienda';
+import { Decklist } from '../decklist';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,15 @@ import { Tienda } from '../tienda';
 export class ConexionService {
 
   public loginStatus = new Subject<boolean>();
-  private urlBasica = "https://lairentcg.com.ar:8443/api"
+  //private urlBasica = "https://lairentcg.com.ar:8443/api"
+  private urlBasica = "http://localhost:8080"
 
   private cartaURL = `${this.urlBasica}/carta/cartas`;
   private expansionURL = `${this.urlBasica}/expansion/expansiones`
   private rarezaURL = `${this.urlBasica}/rareza/rarezas`
   private tipoURL = `${this.urlBasica}/tipo/tipos`
   private tiendaURL = `${this.urlBasica}/tienda/tiendas`
+  private decklistURL = `${this.urlBasica}/decklist/decklists/`
   private usuarioURL = `${this.urlBasica}/usuarios/user/`
   private tokenURL = `${this.urlBasica}/generate-token`
   private tokenObtenerUserURL = `${this.urlBasica}/actual-usuario`
@@ -186,6 +189,29 @@ export class ConexionService {
 
   putTienda(id: number, tienda: Tienda, ): Observable<Object> {
     return this.httpClient.put(`${this.tiendaURL}/actualizar/${id}`, tienda);
+  }
+
+  // ---------------------- DECKLISTS ----------------------
+
+  getTodasLasDecklists():Observable<Decklist[]> {
+    return this.httpClient.get<Decklist[]>(`${this.decklistURL}`);
+  }
+
+  getDecklistById(id:number): Observable<Decklist> {
+    return this.httpClient.get<Decklist>(`${this.decklistURL}/${id}`);
+  }
+
+  // este método nos sirve para registrar una decklist
+  postDecklist(decklist: Decklist) : Observable<Object> {
+    return this.httpClient.post(`${this.decklistURL}/crear`, decklist);
+  }
+
+  deleteDecklist(id: number): Observable<Object> {
+    return this.httpClient.delete(`${this.decklistURL}/eliminar/${id}`);
+  }
+
+  putDecklist(id: number, decklist: Decklist, ): Observable<Object> {
+    return this.httpClient.put(`${this.decklistURL}/actualizar/${id}`, decklist);
   }
 
   // ---------------------- USUARIOS ----------------------
