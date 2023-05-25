@@ -1,13 +1,15 @@
 import { Carta } from "./carta";
 
 export class Decklist {
-  public id!: number;
-  public nombreDecklist!: string;
-  public fechaDecklist!: Date;
+  id!: number;
+  nombreDecklist!: string;
+  fechaDecklist!: Date;
 
-  public jugador!: string;
+  jugador!: string;
 
-  public lista!: Carta[];
+  reino!: Carta[];
+  boveda!: Carta[];
+  sideck!: Carta[];
 
 
 }

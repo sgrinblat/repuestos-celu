@@ -4,6 +4,8 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ElementRef } from '@angular/core';
 
+import Swal from 'sweetalert2';
+
 import { ConexionService } from 'src/app/service/conexion.service';
 import { Carta } from '../../carta';
 import { Rareza } from 'src/app/rareza';
@@ -25,14 +27,22 @@ export class DecklistComponent implements OnInit {
   filteredCartas: Carta[] = [];
   cartas!: Carta[];
   decklists!: Decklist[];
-  nuevaLista: Carta[];
+
   expansiones: Observable<Expansion[]>;
   rarezas: Observable<Rareza[]>;
   tipos: Tipo[] = [];
 
+  reino: Carta[];
+  boveda: Carta[];
+  sidedeck: Carta[];
+
+  banderaLista = true;
+
 
   constructor(private conexion: ConexionService, private activatedRoute: ActivatedRoute, private route: Router) {
-    this.nuevaLista = new Array<Carta>();
+    this.reino = new Array<Carta>();
+    this.boveda = new Array<Carta>();
+    this.sidedeck = new Array<Carta>();
   }
 
   ngOnInit(): void {
@@ -165,42 +175,195 @@ export class DecklistComponent implements OnInit {
   }
 
 
-  getCartasUnicas(): Carta[] {
-    return this.nuevaLista.filter((carta, i, self) =>
+  getCartasUnicas(lista: Carta[]): Carta[] {
+    return lista.filter((carta, i, self) =>
       i === self.findIndex((c) => c.nombreCarta === carta.nombreCarta)
     );
   }
 
-  getCantidad(carta: Carta): number {
-    return this.nuevaLista.filter((c) => c.nombreCarta === carta.nombreCarta).length;
+  getCantidad(carta: Carta, lista: Carta[]): number {
+    return lista.filter((c) => c.nombreCarta === carta.nombreCarta).length;
   }
 
 
   agregarCarta(carta: Carta) {
 
-    const cantidad = this.getCantidad(carta);
-    if (cantidad >= 4) {
-      alert("No puedes agregar más de 4 copias de la misma carta.");
-      return;
+    if(this.banderaLista) {
+      if(carta.tipo.nombreTipo == "TESORO") {
+        const cantidadPrincipal = this.getCantidad(carta, this.boveda);
+        const cantidadSide = this.getCantidad(carta, this.sidedeck);
+        if((cantidadPrincipal + cantidadSide) > 1) {
+          Swal.fire({
+            icon: 'error',
+            title: 'No tan rápido, general',
+            text: 'No puedes agregar a tu Bóveda más de 2 copias del mismo Tesoro!',
+            background: '#2e3031',
+            color: '#fff'
+          })
+          return;
+        }
+        this.boveda.push(carta);
+        this.boveda.sort((a, b) => {
+          if(a.nombreCarta < b.nombreCarta) { return -1; }
+          if(a.nombreCarta > b.nombreCarta) { return 1; }
+          return 0;
+        });
+      } else {
+        const cantidadPrincipal = this.getCantidad(carta, this.reino);
+        const cantidadSide = this.getCantidad(carta, this.sidedeck);
+        if ((cantidadPrincipal + cantidadSide) > 3) {
+          Swal.fire({
+            icon: 'error',
+            title: 'No tan rápido, general',
+            text: 'No puedes agregar a tu Reino más de 4 copias de la misma carta!',
+            background: '#2e3031',
+            color: '#fff'
+          })
+          return;
+        }
+
+        this.reino.push(carta);
+        this.reino.sort((a, b) => {
+          if(a.nombreCarta < b.nombreCarta) { return -1; }
+          if(a.nombreCarta > b.nombreCarta) { return 1; }
+          return 0;
+        });
+      }
+    } else {
+      if (carta.tipo.nombreTipo == "TESORO") {
+        const cantidadPrincipal = this.getCantidad(carta, this.boveda);
+        const cantidadSide = this.getCantidad(carta, this.sidedeck);
+        if((cantidadPrincipal + cantidadSide) > 1) {
+          Swal.fire({
+            icon: 'error',
+            title: 'No tan rápido, general',
+            text: 'No puedes agregar a tu Side Deck más de 2 copias del mismo Tesoro!',
+            background: '#2e3031',
+            color: '#fff'
+          })
+          return;
+        }
+      } else if (carta.tipo.nombreTipo != "TESORO") {
+        const cantidadPrincipal = this.getCantidad(carta, this.reino);
+        const cantidadSide = this.getCantidad(carta, this.sidedeck);
+        if((cantidadPrincipal + cantidadSide) > 3) {
+          Swal.fire({
+            icon: 'error',
+            title: 'No tan rápido, general',
+            text: 'No puedes agregar a tu Reino más de 4 copias de la misma carta!',
+            background: '#2e3031',
+            color: '#fff'
+          })
+          return;
+        }
+      }
+
+      this.sidedeck.push(carta);
+      this.sidedeck.sort((a, b) => {
+        if(a.nombreCarta < b.nombreCarta) { return -1; }
+        if(a.nombreCarta > b.nombreCarta) { return 1; }
+        return 0;
+      });
     }
-    this.nuevaLista.push(carta);
-    console.log(this.nuevaLista);
 
   }
 
-  eliminarCarta(carta: Carta) {
-    //this.nuevaLista.lista = this.nuevaLista.lista.filter(item => item !== carta);
+  eliminarCarta(carta: Carta, lista: Carta[]) {
+    //this.nuevaLista = this.nuevaLista.filter(item => item !== carta);
+    const index = lista.findIndex(item => item === carta);
+    if (index !== -1) {
+      lista.splice(index, 1);
+    }
   }
+
+  getTotalCartas(lista: Carta[]) {
+    return lista.length;
+  }
+
+  switchearEntreMainAndSidedeck() {
+    this.banderaLista = !this.banderaLista;
+
+    if(this.banderaLista) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Cambiando!',
+        text: 'Ahora las cartas que clickes estarás agregandolas a tu mazo principal',
+        background: '#2e3031',
+        color: '#fff'
+      })
+    } else {
+      Swal.fire({
+        icon: 'info',
+        title: 'Cambiando!',
+        text: 'Ahora las cartas que clickes estarás agregandolas a tu Side Deck',
+        background: '#2e3031',
+        color: '#fff'
+      })
+    }
+
+  }
+
 
   guardarDecklist() {
-    // this.conexion.postDecklist(this.nuevaLista).subscribe(
-    //   (dato) => {
-    //     this.obtenerDecklists();
-    //     this.nuevaLista = new Decklist();
-    //   },
-    //   (error) => console.log("Qué estás buscando, picaron?")
-    // );
+        // if(this.getTotalCartas("TESORO") > 3) {
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'No tan rápido, general',
+    //     text: 'El máximo de tu Bóveda es de 15 Tesoros!',
+    //     background: '#2e3031',
+    //     color: '#fff'
+    //   })
+    //   return;
+    // } else if (this.getTotalCartas("NON_TESORO") > 5) {
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'No tan rápido, general',
+    //     text: 'El máximo de tu Reino es de 60 cartas!',
+    //     background: '#2e3031',
+    //     color: '#fff'
+    //   })
+    // } else {
+
+    // }
   }
+
+  copyToClipboard() {
+    let str = "Reino: (total: " + this.getTotalCartas(this.reino) + ")\n";
+    this.getCartasUnicas(this.reino).forEach(carta => {
+      str += carta.nombreCarta + " x" + this.getCantidad(carta, this.reino) + "\n";
+    });
+    // this.reino.forEach(carta => {
+    //   str += carta.nombreCarta + " x" + this.getCantidad(carta, this.reino) + "\n";
+    // });
+
+    str += `\n Bóveda: (total: ${this.getTotalCartas(this.boveda)}) \n`
+    this.getCartasUnicas(this.boveda).forEach(carta => {
+      str += carta.nombreCarta + " x" + this.getCantidad(carta, this.boveda) + "\n";
+    });
+
+    str += `\n Side Deck: (total: ${this.getTotalCartas(this.sidedeck)}) \n`
+    this.getCartasUnicas(this.sidedeck).forEach(carta => {
+      str += carta.nombreCarta + " x" + this.getCantidad(carta, this.sidedeck) + "\n";
+    });
+
+    navigator.clipboard.writeText(str).then(function() {
+      Swal.fire({
+        icon: 'success',
+        title: 'Copiado!',
+        text: 'Ya tienes toda la lista copiada en tu portapapeles!',
+        background: '#2e3031',
+        color: '#fff'
+      })
+    }, function(err) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Esto es culpa del rey!',
+        text: 'Algo salió mal, no se pudo copiar la lista',
+        background: '#2e3031',
+        color: '#fff'
+      })
+    });
+}
 
   onImageLoad(event: Event) {
     const imageElement = event.target as HTMLImageElement;
