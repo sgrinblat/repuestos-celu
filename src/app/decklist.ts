@@ -11,5 +11,4 @@ export class Decklist {
   boveda!: Carta[];
   sideck!: Carta[];
 
-
 }

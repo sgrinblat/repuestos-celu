@@ -8,6 +8,7 @@ import { Tipo } from '../tipo';
 import { Usuario } from '../usuario';
 import { Tienda } from '../tienda';
 import { Decklist } from '../decklist';
+import { Role } from '../role';
 
 @Injectable({
   providedIn: 'root'
@@ -215,6 +216,22 @@ export class ConexionService {
   }
 
   // ---------------------- USUARIOS ----------------------
+
+  private user!: Usuario;
+  private roles: Role[] = [];
+
+  setUsuario(user: Usuario) {
+    this.user = user;
+  }
+
+  setRoles(roles: Role[]) {
+    this.roles = roles;
+  }
+
+  // Este método te permitirá verificar el rol en cualquier parte de tu aplicación.
+  isAdmin(): boolean {
+    return this.roles.some(role => role.name === 'ADMIN');
+  }
 
   postUsuario(user: Usuario) : Observable<Object> {
     return this.httpClient.post(`${this.usuarioURL}/crear`, user);
