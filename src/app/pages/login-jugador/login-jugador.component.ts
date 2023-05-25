@@ -4,16 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ConexionService } from 'src/app/service/conexion.service';
 import Swal from 'sweetalert2';
-
 import { Usuario } from '../../usuario';
 
 @Component({
-  selector: 'app-login-usuario',
-  templateUrl: './login-usuario.component.html',
-  styleUrls: ['./login-usuario.component.css']
+  selector: 'app-login-jugador',
+  templateUrl: './login-jugador.component.html',
+  styleUrls: ['./login-jugador.component.css']
 })
-
-export class LoginUsuarioComponent implements OnInit {
+export class LoginJugadorComponent implements OnInit {
 
   contactForm!: FormGroup;
   user: Usuario = new Usuario();
@@ -37,15 +35,14 @@ export class LoginUsuarioComponent implements OnInit {
       (dato:any) => {
         this.conexion.iniciarSesion(dato.token);
         this.conexion.getCurrentUser().subscribe((user: any) => {
-          if(user.authorities[0].authority == "ADMIN") {
+          if(user.authorities[0].authority == "JUGADOR") {
             this.conexion.setUser(user);
-            localStorage.setItem('location', '5');
-            Swal.fire('Login exitoso',`Bienvenido papu 😎`, `success`);
-            this.route.navigate(['v1/upload/cartas']);
+            localStorage.setItem('location', '0');
+            Swal.fire('Login exitoso',`Bienvenido ${user.username} 😎`, `success`);
+            this.route.navigate(['']);
             this.conexion.loginStatus.next(true);
           } else {
             Swal.fire('Login fallido',`Quien te conoce rey?`, `error`);
-            this.route.navigate(['v1/upload/login']);
             this.conexion.loginStatus.next(false);
           }
         })

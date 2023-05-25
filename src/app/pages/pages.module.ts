@@ -34,6 +34,8 @@ import { ReutilizablesModule } from '../reutilizables/reutilizables.module';
 import { SubirTiendasComponent } from './SubirTienda/subirTiendas.component';
 import { ActualizarTiendaComponent } from './actualizar-tienda/actualizar-tienda.component';
 import { DecklistComponent } from './decklist/decklist.component';
+import { LoginJugadorComponent } from './login-jugador/login-jugador.component';
+import { RegistroJugadorComponent } from './registro-jugador/registro-jugador.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { DecklistComponent } from './decklist/decklist.component';
     ActualizarTipoComponent,
     ActualizarTiendaComponent,
     LoginUsuarioComponent,
+    LoginJugadorComponent,
+    RegistroJugadorComponent,
     EntradasComponent,
     ListaEntradasComponent,
     DecklistComponent,
@@ -79,6 +83,8 @@ import { DecklistComponent } from './decklist/decklist.component';
     ActualizarTipoComponent,
     ActualizarTiendaComponent,
     LoginUsuarioComponent,
+    LoginJugadorComponent,
+    RegistroJugadorComponent,
     EntradasComponent,
     EntradaHistoriaComponent,
     ListaEntradasComponent,

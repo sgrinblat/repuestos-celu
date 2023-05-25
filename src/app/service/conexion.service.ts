@@ -24,7 +24,7 @@ export class ConexionService {
   private rarezaURL = `${this.urlBasica}/rareza/rarezas`
   private tipoURL = `${this.urlBasica}/tipo/tipos`
   private tiendaURL = `${this.urlBasica}/tienda/tiendas`
-  private decklistURL = `${this.urlBasica}/decklist/decklists/`
+  private decklistURL = `${this.urlBasica}/decklist/decklists`
   private usuarioURL = `${this.urlBasica}/usuarios/user/`
   private tokenURL = `${this.urlBasica}/generate-token`
   private tokenObtenerUserURL = `${this.urlBasica}/actual-usuario`
@@ -204,7 +204,7 @@ export class ConexionService {
 
   // este método nos sirve para registrar una decklist
   postDecklist(decklist: Decklist) : Observable<Object> {
-    return this.httpClient.post(`${this.decklistURL}/crear`, decklist);
+    return this.httpClient.post(`${this.decklistURL}crear`, decklist);
   }
 
   deleteDecklist(id: number): Observable<Object> {
@@ -234,7 +234,7 @@ export class ConexionService {
   }
 
   postUsuario(user: Usuario) : Observable<Object> {
-    return this.httpClient.post(`${this.usuarioURL}/crear`, user);
+    return this.httpClient.post(`${this.usuarioURL}crear`, user);
   }
 
   generateToken(loginData: any) {
@@ -249,9 +249,22 @@ export class ConexionService {
     localStorage.setItem("token", token);
   }
 
-  sesionIniciada() {
+
+
+  sesionIniciadaAdmin() {
     let tokenStr = localStorage.getItem("token");
-    if (tokenStr == undefined || tokenStr == "" || tokenStr == null) {
+    let tokenStrLocation = localStorage.getItem("location");
+    if (tokenStr == undefined || tokenStr == "" || tokenStr == null || tokenStrLocation != '5') {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  sesionIniciadaJugador() {
+    let tokenStr = localStorage.getItem("token");
+    let tokenStrLocation = localStorage.getItem("location");
+    if (tokenStr == undefined || tokenStr == "" || tokenStr == null || tokenStrLocation != '0') {
       return false;
     } else {
       return true;
@@ -279,6 +292,7 @@ export class ConexionService {
   deslogear() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("location");
     return true;
   }
 
