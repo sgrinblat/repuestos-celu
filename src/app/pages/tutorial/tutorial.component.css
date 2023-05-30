@@ -28,6 +28,15 @@
   text-shadow: -1px 2px 5px rgba(0,0,0,0.88);
 }
 
+.linkardo {
+  color: #fff;
+  text-decoration: none;
+}
+
+.linkardo:hover {
+  color: #d7a80c;
+}
+
 .botonTexto{
   font-size: 25px;
   text-transform: uppercase;
