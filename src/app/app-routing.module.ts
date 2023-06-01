@@ -29,6 +29,7 @@ import { DecklistComponent } from './pages/decklist/decklist.component';
 import { LoginJugadorComponent } from "./pages/login-jugador/login-jugador.component";
 import { RegistroJugadorComponent } from "./pages/registro-jugador/registro-jugador.component";
 import { JugadorGuard } from "./service/jugador.guard";
+import { DecklistsComponent } from "./pages/decklists/decklists.component";
 
 
 const routes: Routes = [
@@ -71,6 +72,16 @@ const routes: Routes = [
     },
     {
       path: `decklists`,
+      component: DecklistsComponent,
+      canActivate: [JugadorGuard]
+    },
+    {
+      path: `decklist`,
+      component: DecklistComponent,
+      canActivate: [JugadorGuard]
+    },
+    {
+      path: `decklist/:id`,
       component: DecklistComponent,
       canActivate: [JugadorGuard]
     },

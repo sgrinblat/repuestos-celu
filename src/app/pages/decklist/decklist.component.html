@@ -1,129 +1,148 @@
-<section class="primer-fondo hero-block pb-5 position-relative pt-5 text-white-50">
-  <div class="col-lg-8 end-0 h-100 position-absolute top-0">
-  </div>
-  <div class="container pb-5 position-relative pt-5">
-    <div class="align-items-center gy-4 row">
-      <div class="col-lg-12 text-center textos pb-4">
-        <h1 class="display-3 fw-bold text-uppercase titulo-inicial text-white">Creador de decklist</h1>
-        <p class="lead mb-4 text-white pe-sm-5 parrafo">Aquí podras crear una decklist usando todas las cartas de Lairen</p>
+  <section class="primer-fondo hero-block pb-5 position-relative pt-5 text-white-50">
+    <div class="overlay">
+      <div class="col-lg-8 end-0 h-100 position-absolute top-0">
+      </div>
+      <div class="container pb-5 position-relative pt-5">
+        <div class="align-items-center gy-4 row">
+          <div class="col-lg-12 text-center textos pb-4">
+            <h1 class="display-3 fw-bold text-uppercase titulo-inicial text-white">Creador de decklist</h1>
+            <p class="lead mb-4 text-white pe-sm-5 parrafo">Aquí podras crear una decklist usando todas las cartas de
+              Lairen</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="row">
+  <div class="row">
 
-  <section class="separador-vertical fondo-gris text-white pb-5 col">
+    <section class="separador-vertical fondo-gris text-white pb-5 col">
 
-    <div class="container text-center">
-      <h2 class="text-center display-text mt-4 mb-4">Buscador de cartas</h2>
+      <div class="container text-center">
+        <h2 class="text-center display-text mt-4 mb-4">Buscador de cartas</h2>
 
-      <div class="m-3">
-        <input [(ngModel)]="searchText" placeholder="Ingrese el nombre de la carta que quieres buscar..."
-          (ngModelChange)="searchText = $event.toUpperCase()" name="buscadorNombre" type="text" id="buscadorNombre"
-          class="formulario-input bg-light form-control " />
+        <div class="m-3">
+          <input [(ngModel)]="searchText" placeholder="Ingrese el nombre de la carta que quieres buscar..."
+            (ngModelChange)="searchText = $event.toUpperCase()" name="buscadorNombre" type="text" id="buscadorNombre"
+            class="formulario-input bg-light form-control " />
           <button (click)="searchByText()" class="btn btn-outline-warning mt-3">Buscar por nombre</button>
-      </div>
-
-      <h5 class="mt-4 mb-4" >Ó puedes buscar seleccionando los siguientes filtros:</h5>
-
-      <div class="mb-5 row">
-
-        <!-- Filtro de expansión -->
-        <div class="form-group col">
-          <h4 class="mt-2 mb-2">Expansiones</h4>
-          <select [(ngModel)]="selectedExpansion" (change)="onExpansionChange(selectedExpansion)">
-            <option value="">Selecciona una expansión</option>
-            <option *ngFor="let expa of expansiones | async" [value]="expa.idExpansion">{{expa.nombreExpansion}}</option>
-          </select>
         </div>
 
-        <!-- Filtro de rareza -->
-        <div class="form-group col">
-          <h4 class="mt-2 mb-2">Rarezas</h4>
-          <select [(ngModel)]="selectedRareza" (change)="onRarezaChange(selectedRareza)">
-            <option value="">Selecciona una rareza</option>
-            <option *ngFor="let rare of rarezas | async" [value]="rare.idRareza">{{rare.nombreRareza}}</option>
-          </select>
+        <h5 class="mt-4 mb-4">Ó puedes buscar seleccionando los siguientes filtros:</h5>
+
+        <div class="mb-5 row">
+
+          <!-- Filtro de expansión -->
+          <div class="form-group col">
+            <h4 class="mt-2 mb-2">Expansiones</h4>
+            <select [(ngModel)]="selectedExpansion" (change)="onExpansionChange(selectedExpansion)">
+              <option value="">Selecciona una expansión</option>
+              <option *ngFor="let expa of expansiones | async" [value]="expa.idExpansion">{{expa.nombreExpansion}}
+              </option>
+            </select>
+          </div>
+
+          <!-- Filtro de rareza -->
+          <div class="form-group col">
+            <h4 class="mt-2 mb-2">Rarezas</h4>
+            <select [(ngModel)]="selectedRareza" (change)="onRarezaChange(selectedRareza)">
+              <option value="">Selecciona una rareza</option>
+              <option *ngFor="let rare of rarezas | async" [value]="rare.idRareza">{{rare.nombreRareza}}</option>
+            </select>
+          </div>
+
+          <!-- Filtro de tipo -->
+          <div class="form-group col">
+            <h4 class="mt-2 mb-2">Tipos</h4>
+            <select [(ngModel)]="selectedTipo" (change)="onTipoChange(selectedTipo)">
+              <option value="">Selecciona un tipo de carta</option>
+              <option *ngFor="let type of tipos" [value]="type.idTipo">{{type.nombreTipo}}</option>
+            </select>
+          </div>
+
         </div>
 
-        <!-- Filtro de tipo -->
-        <div class="form-group col">
-          <h4 class="mt-2 mb-2">Tipos</h4>
-          <select [(ngModel)]="selectedTipo" (change)="onTipoChange(selectedTipo)">
-            <option value="">Selecciona un tipo de carta</option>
-            <option *ngFor="let type of tipos" [value]="type.idTipo">{{type.nombreTipo}}</option>
-          </select>
-        </div>
-
-      </div>
-
-      <section class="section section-xl text-center card-seccion">
-        <div class="container">
-          <div class="card-grid">
-            <div *ngFor="let carta of filteredCartas">
-              <img (click)="agregarCarta(carta)" class="carta" [lazyLoad]="carta.urlImagen" (onLoad)="onImageLoad($event)" [alt]="carta.nombreCarta">
+        <section class="section section-xl text-center card-seccion">
+          <div class="container">
+            <div class="card-grid">
+              <div *ngFor="let carta of filteredCartas">
+                <img (click)="agregarCarta(carta)" class="carta" [lazyLoad]="carta.urlImagen"
+                  (onLoad)="onImageLoad($event)" [alt]="carta.nombreCarta">
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
 
-      <section *ngIf="selectedRareza == null && selectedExpansion == null && selectedTipo == null && (searchText == '' || searchText == null)" class="section section-xl text-center card-seccion">
-        <div class="container">
-          <div class="card-grid">
-            <div *ngFor="let card of cartas">
-              <img (click)="agregarCarta(card)" class="carta" [lazyLoad]="card.urlImagen" (onLoad)="onImageLoad($event)" [alt]="card.nombreCarta">
+        <section
+          *ngIf="selectedRareza == null && selectedExpansion == null && selectedTipo == null && (searchText == '' || searchText == null)"
+          class="section section-xl text-center card-seccion">
+          <div class="container">
+            <div class="card-grid">
+              <div *ngFor="let card of cartas">
+                <img (click)="agregarCarta(card)" class="carta" [lazyLoad]="card.urlImagen"
+                  (onLoad)="onImageLoad($event)" [alt]="card.nombreCarta">
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section *ngIf="filteredCartas.length == 0 && (selectedRareza !== null || selectedExpansion !== null || selectedTipo !== null || searchText !== null)" class="section section-xl text-center card-seccion">
-        <h2>No se han encontrado cartas con los filtros seleccionados.</h2>
-      </section>
+        <section
+          *ngIf="filteredCartas.length == 0 && (selectedRareza !== null || selectedExpansion !== null || selectedTipo !== null || searchText !== null)"
+          class="section section-xl text-center card-seccion">
+          <h2>No se han encontrado cartas con los filtros seleccionados.</h2>
+        </section>
 
-    </div>
-  </section>
+      </div>
+    </section>
 
 
-  <section class="seccion fondo-gris text-white pb-5 col">
-    <div class="container">
-      <h1 class="text-center display-text pt-5">Decklist</h1>
-    </div>
+    <section class="seccion fondo-gris text-white pb-5 col">
+      <div class="container">
+        <h1 class="text-center display-text pt-5">Decklist</h1>
+      </div>
 
-    <h2 class="text-center mt-4 mb-2">Reino: <span class="font-italic">(total: {{getTotalCartas(reino)}})</span></h2>
-    <div *ngFor="let carta of getCartasUnicas(reino)" class="container text-center d-flex align-items-center justify-content-center">
-      <ng-container *ngIf="carta.tipo.nombreTipo != 'TESORO'">
-        <p class="mb-0 me-3">{{carta.nombreCarta}} x{{getCantidad(carta, reino)}}</p>
-        <button (click)="eliminarCarta(carta, reino)" class="btn btn-danger mb-2 ms-4" >Eliminar</button>
-      </ng-container>
-    </div>
+      <h2 class="text-center mt-4 mb-2">Reino: <span class="font-italic">(total: {{getTotalCartas(reino)}})</span></h2>
+      <div *ngFor="let carta of getCartasUnicas(reino)"
+        class="container text-center d-flex align-items-center justify-content-center">
+        <ng-container *ngIf="carta.tipo.nombreTipo != 'TESORO'">
+          <p class="mb-0 me-3">{{carta.nombreCarta}} x{{getCantidad(carta, reino)}}</p>
+          <button (click)="eliminarCarta(carta, reino)" class="btn btn-danger mb-2 ms-4">Eliminar</button>
+        </ng-container>
+      </div>
 
-    <h2 class="text-center mt-5 mb-2">Bóveda: <span class="font-italic">(total: {{getTotalCartas(boveda)}})</span></h2>
-    <div *ngFor="let carta of getCartasUnicas(boveda)" class="container text-center d-flex align-items-center justify-content-center">
-      <ng-container *ngIf="carta.tipo.nombreTipo == 'TESORO'">
-        <p class="mb-0 me-3">{{carta.nombreCarta}} x{{getCantidad(carta, boveda)}}</p>
-        <button (click)="eliminarCarta(carta, boveda)" class="btn btn-danger mb-2 ms-4" >Eliminar</button>
-      </ng-container>
-    </div>
+      <h2 class="text-center mt-5 mb-2">Bóveda: <span class="font-italic">(total: {{getTotalCartas(boveda)}})</span>
+      </h2>
+      <div *ngFor="let carta of getCartasUnicas(boveda)"
+        class="container text-center d-flex align-items-center justify-content-center">
+        <ng-container *ngIf="carta.tipo.nombreTipo == 'TESORO'">
+          <p class="mb-0 me-3">{{carta.nombreCarta}} x{{getCantidad(carta, boveda)}}</p>
+          <button (click)="eliminarCarta(carta, boveda)" class="btn btn-danger mb-2 ms-4">Eliminar</button>
+        </ng-container>
+      </div>
 
-    <div class="container d-flex align-items-center justify-content-center">
-      <button (click)="switchearEntreMainAndSidedeck()" class="btn btn-warning mb-2 mt-5" >Agregar cartas al Side deck</button>
-    </div>
+      <div class="container d-flex align-items-center justify-content-center">
+        <button (click)="switchearEntreMainAndSidedeck()" class="btn btn-warning mb-2 mt-5">Agregar cartas al Side
+          deck</button>
+      </div>
 
-    <h2 class="text-center mt-5 mb-2">Side deck: <span class="font-italic">(total: {{getTotalCartas(sidedeck)}})</span></h2>
-    <div *ngFor="let carta of getCartasUnicas(sidedeck)" class="container text-center d-flex align-items-center justify-content-center">
-      <ng-container >
-        <p class="mb-0 me-3">{{carta.nombreCarta}} x{{getCantidad(carta, sidedeck)}}</p>
-        <button (click)="eliminarCarta(carta, sidedeck)" class="btn btn-danger mb-2 ms-4" >Eliminar</button>
-      </ng-container>
-    </div>
+      <h2 class="text-center mt-5 mb-2">Side deck: <span class="font-italic">(total:
+          {{getTotalCartas(sidedeck)}})</span></h2>
+      <div *ngFor="let carta of getCartasUnicas(sidedeck)"
+        class="container text-center d-flex align-items-center justify-content-center">
+        <ng-container>
+          <p class="mb-0 me-3">{{carta.nombreCarta}} x{{getCantidad(carta, sidedeck)}}</p>
+          <button (click)="eliminarCarta(carta, sidedeck)" class="btn btn-danger mb-2 ms-4">Eliminar</button>
+        </ng-container>
+      </div>
 
-    <div class="container d-flex align-items-center justify-content-center">
-      <button (click)="copyToClipboard()" class="btn btn-warning mb-2 mt-5" >Copiar al portapapeles</button>
-    </div>
+      <div class="container d-flex align-items-center justify-content-center">
+        <button (click)="copyToClipboard()" class="btn btn-warning mb-2 mt-5">Copiar al portapapeles</button>
+      </div>
+      <div class="container d-flex align-items-center justify-content-center">
+        <button (click)="guardarDecklist()" class="btn btn-warning mb-2 mt-5">Guardar decklist</button>
+      </div>
 
-  </section>
+    </section>
 
-</div>
+  </div>

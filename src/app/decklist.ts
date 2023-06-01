@@ -1,14 +1,15 @@
-import { Carta } from "./carta";
+import { DeckListCarta } from "./deckListCarta";
 
 export class Decklist {
   id!: number;
   nombreDecklist!: string;
+  portadaDecklist!: string;
   fechaDecklist!: Date;
 
   jugador!: string;
 
-  reino!: Carta[];
-  boveda!: Carta[];
-  sideck!: Carta[];
+  reino!: DeckListCarta[];
+  boveda!: DeckListCarta[];
+  sidedeck!: DeckListCarta[];
 
 }

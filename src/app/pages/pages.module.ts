@@ -36,6 +36,7 @@ import { ActualizarTiendaComponent } from './actualizar-tienda/actualizar-tienda
 import { DecklistComponent } from './decklist/decklist.component';
 import { LoginJugadorComponent } from './login-jugador/login-jugador.component';
 import { RegistroJugadorComponent } from './registro-jugador/registro-jugador.component';
+import { DecklistsComponent } from './decklists/decklists.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { RegistroJugadorComponent } from './registro-jugador/registro-jugador.co
     EntradasComponent,
     ListaEntradasComponent,
     DecklistComponent,
+    DecklistsComponent,
     EntradaHistoriaComponent,
     FundamentosComponent,
     ExpansionAComponent
@@ -89,6 +91,7 @@ import { RegistroJugadorComponent } from './registro-jugador/registro-jugador.co
     EntradaHistoriaComponent,
     ListaEntradasComponent,
     DecklistComponent,
+    DecklistsComponent,
     ExpansionAComponent,
     FundamentosComponent,
     ReactiveFormsModule,

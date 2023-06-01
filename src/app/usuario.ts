@@ -13,4 +13,8 @@ export class Usuario {
   roles!: Role[];
 
   decklists!: Decklist[];
+
+  getDecklists() {
+    return this.decklists;
+  }
 }

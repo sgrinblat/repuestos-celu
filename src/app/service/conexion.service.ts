@@ -198,13 +198,21 @@ export class ConexionService {
     return this.httpClient.get<Decklist[]>(`${this.decklistURL}`);
   }
 
+  getTodasLasDecklistsDeJugador(id:number):Observable<Decklist[]> {
+    return this.httpClient.get<Decklist[]>(`${this.decklistURL}/mostrar/${id}`);
+  }
+
   getDecklistById(id:number): Observable<Decklist> {
     return this.httpClient.get<Decklist>(`${this.decklistURL}/${id}`);
   }
 
   // este método nos sirve para registrar una decklist
   postDecklist(decklist: Decklist) : Observable<Object> {
-    return this.httpClient.post(`${this.decklistURL}crear`, decklist);
+    return this.httpClient.post(`${this.decklistURL}/crear`, decklist);
+  }
+
+  crearDecklistJugador(decklist: Decklist, id: number) : Observable<Object> {
+    return this.httpClient.post(`${this.decklistURL}/crear/${id}`, decklist);
   }
 
   deleteDecklist(id: number): Observable<Object> {
@@ -243,6 +251,10 @@ export class ConexionService {
 
   public getCurrentUser(){
     return this.httpClient.get(`${this.tokenObtenerUserURL}`);
+  }
+
+  public getUsuarioActual(){
+    return this.httpClient.get(`${this.usuarioURL}actual`);
   }
 
   iniciarSesion(token: any) {
