@@ -51,25 +51,49 @@ export class DecklistComponent implements OnInit {
     this.sidedeck = new Array<Carta>();
   }
 
-  // @Input()
-  // decklistId: number | null = null;
-
-  // decklist: Decklist | null = null;
+  @Input()
+  decklistId: number | null = null;
 
   ngOnInit(): void {
 
-    // if (this.decklistId !== null) {
-    //   this.activatedRoute.params.subscribe(params => {
-    //     this.decklistId = params['id'];
+    this.activatedRoute.params.subscribe((params) => {
+      this.decklistId = params['id'];
 
-    //       this.conexion.getDecklistById(this.decklistId).subscribe((decklist) => {
-    //         this.boveda = decklist.boveda;
-    //         this.reino = decklist.reino;
-    //         this.sidedeck = decklist.sidedeck;
-    //         this.banderaEdicion = true;
-    //       });
-    //   });
-    //}
+      if(this.decklistId != null) {
+        this.conexion.getDecklistById(this.decklistId).subscribe((decklist) => {
+          this.conexion.getUsuarioActual().subscribe((usuario: Usuario) => {
+            if(decklist.usuario.id == usuario.id) {
+
+              let deckReino: DeckListCarta[] = decklist.reino;
+              let deckBoveda: DeckListCarta[] = decklist.boveda;
+              let deckSidedeck: DeckListCarta[] = decklist.sidedeck;
+
+              deckReino.forEach((element) => {
+                if(element.tipo == 'reino') {
+                  this.reino.push(element.carta);
+                }
+              });
+
+              deckBoveda.forEach((element) => {
+                if(element.tipo == 'boveda') {
+                  this.boveda.push(element.carta);
+                }
+              });
+
+              deckSidedeck.forEach((element) => {
+                if(element.tipo == 'sidedeck') {
+                  this.sidedeck.push(element.carta);
+                }
+              });
+
+              this.banderaEdicion = true;
+            }
+          });
+
+        });
+      }
+
+    });
 
     this.obtenerCartas();
     this.expansiones = this.conexion.getTodasLasExpas();
@@ -84,7 +108,6 @@ export class DecklistComponent implements OnInit {
       .subscribe((tipos) => {
         this.tipos = tipos;
       });
-
   }
 
   onRarezaChange(selectedRareza: number) {
@@ -309,7 +332,6 @@ export class DecklistComponent implements OnInit {
   }
 
   eliminarCarta(carta: Carta, lista: Carta[]) {
-    //this.nuevaLista = this.nuevaLista.filter(item => item !== carta);
     const index = lista.findIndex((item) => item === carta);
     if (index !== -1) {
       lista.splice(index, 1);
@@ -327,7 +349,7 @@ export class DecklistComponent implements OnInit {
       Swal.fire({
         icon: 'info',
         title: 'Cambiando!',
-        text: 'Ahora las cartas que clickes estarás agregandolas a tu mazo principal',
+        text: 'Ahora las cartas que clickees estarás agregandolas a tu mazo principal',
         background: '#2e3031',
         color: '#fff',
       });
@@ -343,70 +365,32 @@ export class DecklistComponent implements OnInit {
   }
 
   guardarDecklist() {
-
     let deck: Decklist = new Decklist();
     deck.reino = [];
     deck.boveda = [];
     deck.sidedeck = [];
-
     deck.fechaDecklist = new Date();
-    console.log("el deck ahora esta así: " + deck);
 
-    console.log("CONFORMACION PREVIA DE LOS ARRAYS: ");
-    console.log(this.reino);
-    console.log(this.boveda);
-    console.log(this.sidedeck);
-
-    this.reino.forEach(element => {
-
+    this.reino.forEach((element) => {
       let deckListCarta: DeckListCarta = new DeckListCarta();
-      console.log("Entramos al for de REINO");
-      console.log(element);
-
       deckListCarta.carta = element;
-      deckListCarta.tipo = "reino";
-      console.log("Decklist armado para REINO: " + deckListCarta.carta);
-      console.log("Decklist armado para REINO: " + deckListCarta.decklist);
-      console.log("Decklist armado para REINO: " + deckListCarta.tipo);
-      console.log(deckListCarta);
-
+      deckListCarta.tipo = 'reino';
       deck.reino.push(deckListCarta);
     });
 
-    console.log("Deck: " + deck);
-    console.log("Reino: " + deck.reino);
-    console.log(deck.reino);
-
-    this.boveda.forEach(element => {
-
+    this.boveda.forEach((element) => {
       let deckListCarta: DeckListCarta = new DeckListCarta();
-      console.log("Entramos al for de boveda");
       deckListCarta.carta = element;
-      deckListCarta.tipo = "boveda";
-      console.log("Decklist armado para boveda: " + deckListCarta);
+      deckListCarta.tipo = 'boveda';
       deck.boveda.push(deckListCarta);
     });
 
-    console.log("Deck: " + deck);
-    console.log("boveda: " + deck.boveda);
-
-    this.sidedeck.forEach(element => {
+    this.sidedeck.forEach((element) => {
       let deckListCarta: DeckListCarta = new DeckListCarta();
-      console.log("Entramos al for de sidedeck");
       deckListCarta.carta = element;
-      deckListCarta.tipo = "sidedeck";
-      console.log("Decklist armado para sidedeck: " + deckListCarta);
+      deckListCarta.tipo = 'sidedeck';
       deck.sidedeck.push(deckListCarta);
     });
-
-    console.log("Deck: " + deck);
-    console.log("sidedeck: " + deck.sidedeck);
-
-    // let deck = new Decklist();
-    // deck.reino = this.reino;
-    // deck.boveda = this.boveda;
-    // deck.sidedeck = this.sidedeck;
-    // deck.fechaDecklist = new Date();
 
     Swal.fire({
       title:
@@ -443,7 +427,6 @@ export class DecklistComponent implements OnInit {
               if (!this.banderaEdicion) {
                 this.conexion.crearDecklistJugador(deck, usuario.id).subscribe(
                   (dato) => {
-                    console.log(dato);
                     Swal.fire({
                       icon: 'success',
                       title: 'Guardado!',
@@ -463,9 +446,8 @@ export class DecklistComponent implements OnInit {
                   }
                 );
               } else {
-                this.conexion.putDecklist(usuario.id, deck).subscribe(
+                this.conexion.putDecklist(this.decklistId, deck).subscribe(
                   (dato) => {
-                    console.log(dato);
                     Swal.fire({
                       icon: 'success',
                       title: 'Guardado!',

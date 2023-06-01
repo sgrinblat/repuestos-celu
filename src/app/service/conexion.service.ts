@@ -219,7 +219,7 @@ export class ConexionService {
     return this.httpClient.delete(`${this.decklistURL}/eliminar/${id}`);
   }
 
-  putDecklist(id: number, decklist: Decklist, ): Observable<Object> {
+  putDecklist(id: number, decklist: Decklist): Observable<Object> {
     return this.httpClient.put(`${this.decklistURL}/actualizar/${id}`, decklist);
   }
 

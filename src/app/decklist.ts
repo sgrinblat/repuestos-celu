@@ -1,4 +1,5 @@
 import { DeckListCarta } from "./deckListCarta";
+import { Usuario } from "./usuario";
 
 export class Decklist {
   id!: number;
@@ -6,7 +7,7 @@ export class Decklist {
   portadaDecklist!: string;
   fechaDecklist!: Date;
 
-  jugador!: string;
+  usuario!: Usuario;
 
   reino!: DeckListCarta[];
   boveda!: DeckListCarta[];

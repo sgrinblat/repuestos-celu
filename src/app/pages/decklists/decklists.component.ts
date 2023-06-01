@@ -44,11 +44,9 @@ export class DecklistsComponent implements OnInit {
     });
   }
 
-  selectedDecklistId: number | null = null;
 
   editarDecklist(deck: Decklist) {
-    this.selectedDecklistId = deck.id;
-    this.route.navigate(['decklist', this.selectedDecklistId]);
+    this.route.navigate(['decklist', deck.id]);
   }
 
   eliminarDecklist(deck: Decklist) {
