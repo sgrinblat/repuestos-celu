@@ -74,7 +74,10 @@ export class LoginJugadorComponent implements OnInit {
                   );
                 }
               },
-              (error) => {}
+              (error) => {
+                Swal.fire('Login fallido', `Quien te conoce papá?`, `error`);
+                this.conexion.loginStatus.next(false);
+              }
             );
           } else {
             Swal.fire('Login fallido', `Quien te conoce papá?`, `error`);
@@ -82,7 +85,10 @@ export class LoginJugadorComponent implements OnInit {
           }
         });
       },
-      (error) => {}
+      (error) => {
+        Swal.fire('Login fallido', `Quien te conoce papá?`, `error`);
+        this.conexion.loginStatus.next(false);
+      }
     );
   }
 }

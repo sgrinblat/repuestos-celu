@@ -5,9 +5,6 @@ import { Observable } from 'rxjs';
 import { ElementRef } from '@angular/core';
 
 import Swal from 'sweetalert2';
-import Chart from 'chart.js/auto';
-import { getRelativePosition } from 'chart.js/helpers';
-
 
 import { ConexionService } from 'src/app/service/conexion.service';
 import { Carta } from '../../carta';
@@ -344,7 +341,7 @@ export class DecklistComponent implements OnInit {
 
   agregarCarta(carta: Carta) {
     if (this.banderaLista) {
-      if (carta.tipo.nombreTipo == 'TESORO') {
+      if (carta.tipo.nombreTipo == 'TESORO' || carta.tipo.nombreTipo == 'TESORO - SAGRADO') {
         const cantidadPrincipal = this.getCantidad(carta, this.boveda);
         const cantidadSide = this.getCantidad(carta, this.sidedeck);
         if (cantidadPrincipal + cantidadSide > 1) {
@@ -394,7 +391,7 @@ export class DecklistComponent implements OnInit {
         });
       }
     } else {
-      if (carta.tipo.nombreTipo == 'TESORO') {
+      if (carta.tipo.nombreTipo == 'TESORO' || carta.tipo.nombreTipo == 'TESORO - SAGRADO') {
         const cantidadPrincipal = this.getCantidad(carta, this.boveda);
         const cantidadSide = this.getCantidad(carta, this.sidedeck);
         if (cantidadPrincipal + cantidadSide > 1) {
@@ -407,7 +404,7 @@ export class DecklistComponent implements OnInit {
           });
           return;
         }
-      } else if (carta.tipo.nombreTipo != 'TESORO') {
+      } else if (carta.tipo.nombreTipo != 'TESORO' && carta.tipo.nombreTipo != 'TESORO - SAGRADO') {
         const cantidadPrincipal = this.getCantidad(carta, this.reino);
         const cantidadSide = this.getCantidad(carta, this.sidedeck);
         if (cantidadPrincipal + cantidadSide > 3) {
