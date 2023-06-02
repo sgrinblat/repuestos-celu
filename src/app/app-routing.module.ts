@@ -26,6 +26,11 @@ import { Page404Component } from './reutilizables/page404/page404.component';
 import { SubirTiendasComponent } from "./pages/SubirTienda/subirTiendas.component";
 import { ActualizarTiendaComponent } from "./pages/actualizar-tienda/actualizar-tienda.component";
 import { DecklistComponent } from './pages/decklist/decklist.component';
+import { LoginJugadorComponent } from "./pages/login-jugador/login-jugador.component";
+import { RegistroJugadorComponent } from "./pages/registro-jugador/registro-jugador.component";
+import { JugadorGuard } from "./service/jugador.guard";
+import { DecklistsComponent } from "./pages/decklists/decklists.component";
+import { VerifyEmailComponent } from "./pages/VerifyEmailComponent/VerifyEmailComponent.component";
 
 
 const routes: Routes = [
@@ -68,7 +73,18 @@ const routes: Routes = [
     },
     {
       path: `decklists`,
-      component: DecklistComponent
+      component: DecklistsComponent,
+      canActivate: [JugadorGuard]
+    },
+    {
+      path: `decklist`,
+      component: DecklistComponent,
+      canActivate: [JugadorGuard]
+    },
+    {
+      path: `decklist/:id`,
+      component: DecklistComponent,
+      canActivate: [JugadorGuard]
     },
     {
       path: "v1/upload/cartas",
@@ -123,6 +139,18 @@ const routes: Routes = [
     {
       path: `v1/login`,
       component: LoginUsuarioComponent
+    },
+    {
+      path: `iniciarsesion`,
+      component: LoginJugadorComponent
+    },
+    {
+      path: `registrarse`,
+      component: RegistroJugadorComponent
+    },
+    {
+      path: `verify`,
+      component: VerifyEmailComponent
     },
     {
       path: `error`,

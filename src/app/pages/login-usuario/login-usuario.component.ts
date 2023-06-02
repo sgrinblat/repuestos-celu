@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ConexionService } from 'src/app/service/conexion.service';
 import Swal from 'sweetalert2';
+
 import { Usuario } from '../../usuario';
 
 @Component({
@@ -35,11 +36,18 @@ export class LoginUsuarioComponent implements OnInit {
     this.conexion.generateToken(this.user).subscribe(
       (dato:any) => {
         this.conexion.iniciarSesion(dato.token);
-        this.conexion.getCurrentUser().subscribe((user:any) => {
-          this.conexion.setUser(user);
-          Swal.fire('Login exitoso',`Bienvenido papu 😎`, `success`);
-          this.route.navigate(['v1/upload/cartas']);
-          this.conexion.loginStatus.next(true);
+        this.conexion.getCurrentUser().subscribe((user: any) => {
+          if(user.authorities[0].authority == "ADMIN") {
+            this.conexion.setUser(user);
+            localStorage.setItem('location', '5');
+            Swal.fire('Login exitoso',`Bienvenido papu 😎`, `success`);
+            this.route.navigate(['v1/upload/cartas']);
+            this.conexion.loginStatus.next(true);
+          } else {
+            Swal.fire('Login fallido',`Quien te conoce rey?`, `error`);
+            this.route.navigate(['v1/upload/login']);
+            this.conexion.loginStatus.next(false);
+          }
         })
       },
       (error) => console.log(error)

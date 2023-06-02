@@ -21,11 +21,13 @@ export class BuscadorComponent implements OnInit {
   selectedRareza: number | null = null;
   selectedExpansion: number | null = null;
   selectedTipo: number | null = null;
+  selectedCoste: number | null = null;
   filteredCartas: Carta[] = [];
   cartas!: Carta[];
   expansiones: Observable<Expansion[]>;
   rarezas: Observable<Rareza[]>;
   tipos: Tipo[] = [];
+  costes: number[] = [];
 
 
   constructor(private conexion: ConexionService, private activatedRoute: ActivatedRoute, private route: Router) { }
@@ -41,24 +43,6 @@ export class BuscadorComponent implements OnInit {
     });
   }
 
-  onRarezaChange(selectedRareza: number) {
-    this.selectedRareza = selectedRareza;
-    console.log(this.selectedRareza);
-    this.filterCartas();
-  }
-
-  onExpansionChange(selectedExpansion: number) {
-    this.selectedExpansion = selectedExpansion;
-    console.log(this.selectedExpansion);
-    this.filterCartas();
-  }
-
-  onTipoChange(selectedTipo: number) {
-    this.selectedTipo = selectedTipo;
-    console.log(this.selectedTipo);
-    this.filterCartas();
-  }
-
   searchByText() {
     this.filteredCartas = this.cartas.filter(carta => {
       if(carta.nombreCarta.includes(this.searchText)) {
@@ -69,19 +53,91 @@ export class BuscadorComponent implements OnInit {
     });
   }
 
+  onRarezaChange(selectedRareza: number) {
+    this.selectedRareza = selectedRareza;
+    this.filterCartas();
+  }
+
+  onExpansionChange(selectedExpansion: number) {
+    this.selectedExpansion = selectedExpansion;
+    this.filterCartas();
+  }
+
+  onTipoChange(selectedTipo: number) {
+    this.selectedTipo = selectedTipo;
+    this.filterCartas();
+  }
+
+  onCosteChange(selectedCoste: number) {
+    this.selectedCoste = selectedCoste;
+    this.filterCartas();
+  }
+
+
   filterCartas() {
     this.filteredCartas = this.cartas.filter(carta => {
 
-      if(this.selectedExpansion !== null && this.selectedRareza !== null && this.selectedTipo !== null) {
+      if(this.selectedExpansion !== null && this.selectedRareza !== null && this.selectedTipo !== null && this.selectedCoste !== null) {
         if(carta.rareza.idRareza == this.selectedRareza
           && carta.tipo.idTipo == this.selectedTipo
-          && carta.expansion.idExpansion == this.selectedExpansion)
+          && carta.expansion.idExpansion == this.selectedExpansion
+          && carta.costeCarta == this.selectedCoste
+          )
           {
             return true;
           } else {
             return false;
           }
       }
+
+      if(this.selectedExpansion !== null && this.selectedRareza !== null && this.selectedTipo !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza
+          && carta.tipo.idTipo == this.selectedTipo
+          && carta.expansion.idExpansion == this.selectedExpansion
+          )
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedRareza !== null && this.selectedTipo !== null && this.selectedCoste !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza
+          && carta.tipo.idTipo == this.selectedTipo
+          && carta.costeCarta == this.selectedCoste
+          )
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedExpansion !== null && this.selectedTipo !== null && this.selectedCoste !== null) {
+        if(carta.tipo.idTipo == this.selectedTipo
+          && carta.expansion.idExpansion == this.selectedExpansion
+          && carta.costeCarta == this.selectedCoste
+          )
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedExpansion !== null && this.selectedRareza !== null && this.selectedCoste !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza
+          && carta.expansion.idExpansion == this.selectedExpansion
+          && carta.costeCarta == this.selectedCoste
+          )
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
 
       if(this.selectedExpansion !== null && this.selectedRareza !== null) {
         if(carta.rareza.idRareza == this.selectedRareza
@@ -96,6 +152,36 @@ export class BuscadorComponent implements OnInit {
       if(this.selectedExpansion !== null && this.selectedTipo !== null) {
         if(carta.tipo.idTipo == this.selectedTipo
           && carta.expansion.idExpansion == this.selectedExpansion)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedTipo !== null && this.selectedCoste !== null) {
+        if(carta.tipo.idTipo == this.selectedTipo
+          && carta.costeCarta == this.selectedCoste)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedExpansion !== null && this.selectedCoste !== null) {
+        if(carta.expansion.idExpansion == this.selectedExpansion
+          && carta.costeCarta == this.selectedCoste)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedRareza !== null && this.selectedCoste !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza
+          && carta.costeCarta == this.selectedCoste)
           {
             return true;
           } else {
@@ -138,6 +224,15 @@ export class BuscadorComponent implements OnInit {
           }
       }
 
+      if(this.selectedCoste !== null) {
+        if(carta.costeCarta == this.selectedCoste)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
       return false;
     });
   }
@@ -146,7 +241,14 @@ export class BuscadorComponent implements OnInit {
   obtenerCartas() {
     this.conexion.getTodasLasCartasOrdenadas().subscribe((dato) => {
       this.cartas = dato;
+      this.costes = this.getUniqueCostesCartas(this.cartas);
     });
+  }
+
+  getUniqueCostesCartas(cartas: Carta[]): number[] {
+    let costes: number[] = cartas.map(carta => carta.costeCarta);
+    let uniqueCostes: number[] = [...new Set(costes)];
+    return uniqueCostes;
   }
 
   onImageLoad(event: Event) {

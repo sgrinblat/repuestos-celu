@@ -8,6 +8,7 @@ import { Tipo } from '../tipo';
 import { Usuario } from '../usuario';
 import { Tienda } from '../tienda';
 import { Decklist } from '../decklist';
+import { Role } from '../role';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class ConexionService {
   private rarezaURL = `${this.urlBasica}/rareza/rarezas`
   private tipoURL = `${this.urlBasica}/tipo/tipos`
   private tiendaURL = `${this.urlBasica}/tienda/tiendas`
-  private decklistURL = `${this.urlBasica}/decklist/decklists/`
+  private decklistURL = `${this.urlBasica}/decklist/decklists`
   private usuarioURL = `${this.urlBasica}/usuarios/user/`
   private tokenURL = `${this.urlBasica}/generate-token`
   private tokenObtenerUserURL = `${this.urlBasica}/actual-usuario`
@@ -197,6 +198,10 @@ export class ConexionService {
     return this.httpClient.get<Decklist[]>(`${this.decklistURL}`);
   }
 
+  getTodasLasDecklistsDeJugador(id:number):Observable<Decklist[]> {
+    return this.httpClient.get<Decklist[]>(`${this.decklistURL}/mostrar/${id}`);
+  }
+
   getDecklistById(id:number): Observable<Decklist> {
     return this.httpClient.get<Decklist>(`${this.decklistURL}/${id}`);
   }
@@ -206,18 +211,38 @@ export class ConexionService {
     return this.httpClient.post(`${this.decklistURL}/crear`, decklist);
   }
 
+  crearDecklistJugador(decklist: Decklist, id: number) : Observable<Object> {
+    return this.httpClient.post(`${this.decklistURL}/crear/${id}`, decklist);
+  }
+
   deleteDecklist(id: number): Observable<Object> {
     return this.httpClient.delete(`${this.decklistURL}/eliminar/${id}`);
   }
 
-  putDecklist(id: number, decklist: Decklist, ): Observable<Object> {
+  putDecklist(id: number, decklist: Decklist): Observable<Object> {
     return this.httpClient.put(`${this.decklistURL}/actualizar/${id}`, decklist);
   }
 
   // ---------------------- USUARIOS ----------------------
 
+  private user!: Usuario;
+  private roles: Role[] = [];
+
+  setUsuario(user: Usuario) {
+    this.user = user;
+  }
+
+  setRoles(roles: Role[]) {
+    this.roles = roles;
+  }
+
+  // Este método te permitirá verificar el rol en cualquier parte de tu aplicación.
+  isAdmin(): boolean {
+    return this.roles.some(role => role.name === 'ADMIN');
+  }
+
   postUsuario(user: Usuario) : Observable<Object> {
-    return this.httpClient.post(`${this.usuarioURL}/crear`, user);
+    return this.httpClient.post(`${this.usuarioURL}crear`, user);
   }
 
   generateToken(loginData: any) {
@@ -228,13 +253,32 @@ export class ConexionService {
     return this.httpClient.get(`${this.tokenObtenerUserURL}`);
   }
 
+  public getUsuarioActual(){
+    return this.httpClient.get(`${this.usuarioURL}actual`);
+  }
+
   iniciarSesion(token: any) {
     localStorage.setItem("token", token);
   }
 
-  sesionIniciada() {
+  verifyEmail(token: string): Observable<any> {
+    return this.httpClient.get(`${this.usuarioURL}verify?token=${token}`);
+  }
+
+  sesionIniciadaAdmin() {
     let tokenStr = localStorage.getItem("token");
-    if (tokenStr == undefined || tokenStr == "" || tokenStr == null) {
+    let tokenStrLocation = localStorage.getItem("location");
+    if (tokenStr == undefined || tokenStr == "" || tokenStr == null || tokenStrLocation != '5') {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  sesionIniciadaJugador() {
+    let tokenStr = localStorage.getItem("token");
+    let tokenStrLocation = localStorage.getItem("location");
+    if (tokenStr == undefined || tokenStr == "" || tokenStr == null || tokenStrLocation != '0') {
       return false;
     } else {
       return true;
@@ -262,6 +306,7 @@ export class ConexionService {
   deslogear() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("location");
     return true;
   }
 
