@@ -3,11 +3,12 @@
 }
 
 .primer-fondo {
-  background-image: linear-gradient(rgba(14, 13, 13, 0.8), rgba(11, 11, 11, 0.6)), url(../../../assets/images/buscador.jpg);
+  background-image: linear-gradient(rgba(14, 13, 13, 0.8), rgba(11, 11, 11, 0.6)), url(https://i.postimg.cc/gkjfnBxm/bibliotecaria.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
   min-height: 70vh;
+  background-attachment: fixed;
 }
 
 @media (min-width: 250px) and (max-width: 1550px) {
