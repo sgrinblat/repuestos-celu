@@ -261,7 +261,9 @@ export class ConexionService {
     localStorage.setItem("token", token);
   }
 
-
+  verifyEmail(token: string): Observable<any> {
+    return this.httpClient.get(`${this.usuarioURL}verify?token=${token}`);
+  }
 
   sesionIniciadaAdmin() {
     let tokenStr = localStorage.getItem("token");

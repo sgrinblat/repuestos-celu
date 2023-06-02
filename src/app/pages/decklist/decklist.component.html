@@ -28,22 +28,21 @@
           <button (click)="searchByText()" class="btn btn-outline-warning mt-3">Buscar por nombre</button>
         </div>
 
-        <h5 class="mt-4 mb-4">Ó puedes buscar seleccionando los siguientes filtros:</h5>
+        <h5 class="mt-4 mb-4" >Ó puedes buscar seleccionando los siguientes filtros:</h5>
 
-        <div class="mb-5 row">
+        <div class="mb-5">
 
           <!-- Filtro de expansión -->
-          <div class="form-group col">
+          <div class="form-group">
             <h4 class="mt-2 mb-2">Expansiones</h4>
             <select [(ngModel)]="selectedExpansion" (change)="onExpansionChange(selectedExpansion)">
               <option value="">Selecciona una expansión</option>
-              <option *ngFor="let expa of expansiones | async" [value]="expa.idExpansion">{{expa.nombreExpansion}}
-              </option>
+              <option *ngFor="let expa of expansiones | async" [value]="expa.idExpansion">{{expa.nombreExpansion}}</option>
             </select>
           </div>
 
           <!-- Filtro de rareza -->
-          <div class="form-group col">
+          <div class="form-group">
             <h4 class="mt-2 mb-2">Rarezas</h4>
             <select [(ngModel)]="selectedRareza" (change)="onRarezaChange(selectedRareza)">
               <option value="">Selecciona una rareza</option>
@@ -52,11 +51,19 @@
           </div>
 
           <!-- Filtro de tipo -->
-          <div class="form-group col">
+          <div class="form-group">
             <h4 class="mt-2 mb-2">Tipos</h4>
             <select [(ngModel)]="selectedTipo" (change)="onTipoChange(selectedTipo)">
               <option value="">Selecciona un tipo de carta</option>
               <option *ngFor="let type of tipos" [value]="type.idTipo">{{type.nombreTipo}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <h4 class="mt-2 mb-2">Coste</h4>
+            <select [(ngModel)]="selectedCoste" (change)="onCosteChange(selectedCoste)">
+              <option value="default">Selecciona un tipo de carta</option>
+              <option *ngFor="let coste of costes" [value]="coste">{{coste}}</option>
             </select>
           </div>
 
@@ -66,30 +73,24 @@
           <div class="container">
             <div class="card-grid">
               <div *ngFor="let carta of filteredCartas">
-                <img (click)="agregarCarta(carta)" class="carta" [lazyLoad]="carta.urlImagen"
-                  (onLoad)="onImageLoad($event)" [alt]="carta.nombreCarta">
+                <img class="carta" [lazyLoad]="carta.urlImagen" (onLoad)="onImageLoad($event)" [alt]="carta.nombreCarta">
               </div>
             </div>
           </div>
         </section>
 
 
-        <section
-          *ngIf="selectedRareza == null && selectedExpansion == null && selectedTipo == null && (searchText == '' || searchText == null)"
-          class="section section-xl text-center card-seccion">
+        <section *ngIf="selectedRareza == null && selectedExpansion == null && selectedTipo == null && selectedCoste == null && (searchText == '' || searchText == null)" class="section section-xl text-center card-seccion">
           <div class="container">
             <div class="card-grid">
               <div *ngFor="let card of cartas">
-                <img (click)="agregarCarta(card)" class="carta" [lazyLoad]="card.urlImagen"
-                  (onLoad)="onImageLoad($event)" [alt]="card.nombreCarta">
+                <img class="carta" [lazyLoad]="card.urlImagen" (onLoad)="onImageLoad($event)" [alt]="card.nombreCarta">
               </div>
             </div>
           </div>
         </section>
 
-        <section
-          *ngIf="filteredCartas.length == 0 && (selectedRareza !== null || selectedExpansion !== null || selectedTipo !== null || searchText !== null)"
-          class="section section-xl text-center card-seccion">
+        <section *ngIf="filteredCartas.length == 0 && (selectedRareza !== null || selectedExpansion !== null || selectedTipo !== null || selectedCoste !== null || searchText !== null)" class="section section-xl text-center card-seccion">
           <h2>No se han encontrado cartas con los filtros seleccionados.</h2>
         </section>
 

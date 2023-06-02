@@ -1,5 +1,5 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ConexionService } from 'src/app/service/conexion.service';
@@ -19,8 +19,8 @@ export class RegistroJugadorComponent implements OnInit {
   constructor(private conexion: ConexionService, private readonly fb: FormBuilder, private activatedRoute: ActivatedRoute, private route: Router) {
     this.contactForm = fb.group({
       formularioUsernameUsuario: ['', [Validators.required, Validators.minLength(5)]],
-      formularioPasswordUsuario: ['', [Validators.required, Validators.minLength(6)]],
-      formularioEmailUsuario: ['', [Validators.required, Validators.minLength(6)]],
+      formularioPasswordUsuario: ['', [Validators.required, Validators.minLength(6), PasswordStrengthValidator()]],
+      formularioEmailUsuario: ['', [Validators.required, Validators.minLength(6), Validators.email]],
       formularioNombreUsuario: ['', [Validators.required, Validators.minLength(3)]],
       formularioApellidoUsuario: ['', [Validators.required, Validators.minLength(3)]],
     });
@@ -29,6 +29,8 @@ export class RegistroJugadorComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
 
   registrarse() {
     this.user.username = this.contactForm.value.formularioUsernameUsuario;
@@ -52,3 +54,15 @@ export class RegistroJugadorComponent implements OnInit {
   }
 
 }
+
+export function PasswordStrengthValidator(): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    let password = control.value;
+    let regExp = /^(?=.*?[A-Z])(?=.*?[0-9]).{6,}$/;
+    if (password && !regExp.test(password)) {
+      return { 'passwordStrength': true };
+    }
+    return null;
+  };
+}
+

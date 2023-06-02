@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 import { ElementRef } from '@angular/core';
 
 import Swal from 'sweetalert2';
+import Chart from 'chart.js/auto';
+import { getRelativePosition } from 'chart.js/helpers';
+
 
 import { ConexionService } from 'src/app/service/conexion.service';
 import { Carta } from '../../carta';
@@ -22,13 +25,16 @@ import { DeckListCarta } from 'src/app/deckListCarta';
   styleUrls: ['./decklist.component.css'],
 })
 export class DecklistComponent implements OnInit {
+  private chart: any = null;
   searchText: string | null = null;
   selectedRareza: number | null = null;
   selectedExpansion: number | null = null;
   selectedTipo: number | null = null;
+  selectedCoste: number | null = null;
   filteredCartas: Carta[] = [];
   cartas!: Carta[];
   decklists!: Decklist[];
+  costes: number[] = [];
 
   expansiones: Observable<Expansion[]>;
   rarezas: Observable<Rareza[]>;
@@ -55,6 +61,7 @@ export class DecklistComponent implements OnInit {
   decklistId: number | null = null;
 
   ngOnInit(): void {
+
 
     this.activatedRoute.params.subscribe((params) => {
       this.decklistId = params['id'];
@@ -110,21 +117,24 @@ export class DecklistComponent implements OnInit {
       });
   }
 
+
   onRarezaChange(selectedRareza: number) {
     this.selectedRareza = selectedRareza;
-    console.log(this.selectedRareza);
     this.filterCartas();
   }
 
   onExpansionChange(selectedExpansion: number) {
     this.selectedExpansion = selectedExpansion;
-    console.log(this.selectedExpansion);
     this.filterCartas();
   }
 
   onTipoChange(selectedTipo: number) {
     this.selectedTipo = selectedTipo;
-    console.log(this.selectedTipo);
+    this.filterCartas();
+  }
+
+  onCosteChange(selectedCoste: number) {
+    this.selectedCoste = selectedCoste;
     this.filterCartas();
   }
 
@@ -139,86 +149,180 @@ export class DecklistComponent implements OnInit {
   }
 
   filterCartas() {
-    this.filteredCartas = this.cartas.filter((carta) => {
-      if (
-        this.selectedExpansion !== null &&
-        this.selectedRareza !== null &&
-        this.selectedTipo !== null
-      ) {
-        if (
-          carta.rareza.idRareza == this.selectedRareza &&
-          carta.tipo.idTipo == this.selectedTipo &&
-          carta.expansion.idExpansion == this.selectedExpansion
-        ) {
-          return true;
-        } else {
-          return false;
-        }
+    this.filteredCartas = this.cartas.filter(carta => {
+
+      if(this.selectedExpansion !== null && this.selectedRareza !== null && this.selectedTipo !== null && this.selectedCoste !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza
+          && carta.tipo.idTipo == this.selectedTipo
+          && carta.expansion.idExpansion == this.selectedExpansion
+          && carta.costeCarta == this.selectedCoste
+          )
+          {
+            return true;
+          } else {
+            return false;
+          }
       }
 
-      if (this.selectedExpansion !== null && this.selectedRareza !== null) {
-        if (
-          carta.rareza.idRareza == this.selectedRareza &&
-          carta.expansion.idExpansion == this.selectedExpansion
-        ) {
-          return true;
-        } else {
-          return false;
-        }
+      if(this.selectedExpansion !== null && this.selectedRareza !== null && this.selectedTipo !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza
+          && carta.tipo.idTipo == this.selectedTipo
+          && carta.expansion.idExpansion == this.selectedExpansion
+          )
+          {
+            return true;
+          } else {
+            return false;
+          }
       }
 
-      if (this.selectedExpansion !== null && this.selectedTipo !== null) {
-        if (
-          carta.tipo.idTipo == this.selectedTipo &&
-          carta.expansion.idExpansion == this.selectedExpansion
-        ) {
-          return true;
-        } else {
-          return false;
-        }
+      if(this.selectedRareza !== null && this.selectedTipo !== null && this.selectedCoste !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza
+          && carta.tipo.idTipo == this.selectedTipo
+          && carta.costeCarta == this.selectedCoste
+          )
+          {
+            return true;
+          } else {
+            return false;
+          }
       }
 
-      if (this.selectedRareza !== null && this.selectedTipo !== null) {
-        if (
-          carta.tipo.idTipo == this.selectedTipo &&
-          carta.rareza.idRareza == this.selectedRareza
-        ) {
-          return true;
-        } else {
-          return false;
-        }
+      if(this.selectedExpansion !== null && this.selectedTipo !== null && this.selectedCoste !== null) {
+        if(carta.tipo.idTipo == this.selectedTipo
+          && carta.expansion.idExpansion == this.selectedExpansion
+          && carta.costeCarta == this.selectedCoste
+          )
+          {
+            return true;
+          } else {
+            return false;
+          }
       }
 
-      if (this.selectedRareza !== null) {
-        if (carta.rareza.idRareza == this.selectedRareza) {
-          return true;
-        } else {
-          return false;
-        }
+      if(this.selectedExpansion !== null && this.selectedRareza !== null && this.selectedCoste !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza
+          && carta.expansion.idExpansion == this.selectedExpansion
+          && carta.costeCarta == this.selectedCoste
+          )
+          {
+            return true;
+          } else {
+            return false;
+          }
       }
-      if (this.selectedExpansion !== null) {
-        if (carta.expansion.idExpansion == this.selectedExpansion) {
-          return true;
-        } else {
-          return false;
-        }
+
+
+      if(this.selectedExpansion !== null && this.selectedRareza !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza
+          && carta.expansion.idExpansion == this.selectedExpansion)
+          {
+            return true;
+          } else {
+            return false;
+          }
       }
-      if (this.selectedTipo !== null) {
-        if (carta.tipo.idTipo == this.selectedTipo) {
-          return true;
-        } else {
-          return false;
-        }
+
+      if(this.selectedExpansion !== null && this.selectedTipo !== null) {
+        if(carta.tipo.idTipo == this.selectedTipo
+          && carta.expansion.idExpansion == this.selectedExpansion)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedTipo !== null && this.selectedCoste !== null) {
+        if(carta.tipo.idTipo == this.selectedTipo
+          && carta.costeCarta == this.selectedCoste)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedExpansion !== null && this.selectedCoste !== null) {
+        if(carta.expansion.idExpansion == this.selectedExpansion
+          && carta.costeCarta == this.selectedCoste)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedRareza !== null && this.selectedCoste !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza
+          && carta.costeCarta == this.selectedCoste)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedRareza !== null && this.selectedTipo !== null) {
+        if(carta.tipo.idTipo == this.selectedTipo
+          && carta.rareza.idRareza == this.selectedRareza)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedRareza !== null) {
+        if(carta.rareza.idRareza == this.selectedRareza)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+      if(this.selectedExpansion !== null) {
+        if(carta.expansion.idExpansion == this.selectedExpansion)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+      if(this.selectedTipo !== null) {
+        if(carta.tipo.idTipo == this.selectedTipo)
+          {
+            return true;
+          } else {
+            return false;
+          }
+      }
+
+      if(this.selectedCoste !== null) {
+        if(carta.costeCarta == this.selectedCoste)
+          {
+            return true;
+          } else {
+            return false;
+          }
       }
 
       return false;
     });
   }
 
+
   obtenerCartas() {
     this.conexion.getTodasLasCartasOrdenadas().subscribe((dato) => {
       this.cartas = dato;
+      this.costes = this.getUniqueCostesCartas(this.cartas);
     });
+  }
+
+  getUniqueCostesCartas(cartas: Carta[]): number[] {
+    let costes: number[] = cartas.map(carta => carta.costeCarta);
+    let uniqueCostes: number[] = [...new Set(costes)];
+    return uniqueCostes;
   }
 
   obtenerDecklists() {
@@ -365,6 +469,18 @@ export class DecklistComponent implements OnInit {
   }
 
   guardarDecklist() {
+
+    if((this.reino.length < 45 || this.reino.length > 60) || this.boveda.length != 15 || this.sidedeck.length != 10) {
+      Swal.fire({
+        icon: 'error',
+        title: 'La cantidad de cartas está mal!',
+        text: 'Ten en cuenta que tu reino debe tener mínimo 45 cartas, máximo 60 cartas. Tu bóveda es de 15 cartas, y tu sidedeck es de 10 cartas.',
+        background: '#2e3031',
+        color: '#fff',
+      });
+      return;
+    }
+
     let deck: Decklist = new Decklist();
     deck.reino = [];
     deck.boveda = [];
@@ -391,6 +507,7 @@ export class DecklistComponent implements OnInit {
       deckListCarta.tipo = 'sidedeck';
       deck.sidedeck.push(deckListCarta);
     });
+
 
     Swal.fire({
       title:
@@ -480,9 +597,6 @@ export class DecklistComponent implements OnInit {
       str +=
         carta.nombreCarta + ' x' + this.getCantidad(carta, this.reino) + '\n';
     });
-    // this.reino.forEach(carta => {
-    //   str += carta.nombreCarta + " x" + this.getCantidad(carta, this.reino) + "\n";
-    // });
 
     str += `\n Bóveda: (total: ${this.getTotalCartas(this.boveda)}) \n`;
     this.getCartasUnicas(this.boveda).forEach((carta) => {

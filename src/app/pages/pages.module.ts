@@ -37,6 +37,7 @@ import { DecklistComponent } from './decklist/decklist.component';
 import { LoginJugadorComponent } from './login-jugador/login-jugador.component';
 import { RegistroJugadorComponent } from './registro-jugador/registro-jugador.component';
 import { DecklistsComponent } from './decklists/decklists.component';
+import { VerifyEmailComponent } from './VerifyEmailComponent/VerifyEmailComponent.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { DecklistsComponent } from './decklists/decklists.component';
     LoginUsuarioComponent,
     LoginJugadorComponent,
     RegistroJugadorComponent,
+    VerifyEmailComponent,
     EntradasComponent,
     ListaEntradasComponent,
     DecklistComponent,
@@ -87,6 +89,7 @@ import { DecklistsComponent } from './decklists/decklists.component';
     LoginUsuarioComponent,
     LoginJugadorComponent,
     RegistroJugadorComponent,
+    VerifyEmailComponent,
     EntradasComponent,
     EntradaHistoriaComponent,
     ListaEntradasComponent,

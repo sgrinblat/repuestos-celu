@@ -51,6 +51,9 @@
                 *ngIf="contactForm.get('formularioPasswordUsuario')?.touched && contactForm.get('formularioPasswordUsuario')?.errors?.['minlength'] "
                 class="alert alert-danger formulario-error mt-3">*El campo de contraseña debe contener al menos
                 {{contactForm.get('formularioPasswordUsuario')?.errors?.['minlength'].requiredLength}} letras</div>
+                <div
+                *ngIf="contactForm.get('formularioPasswordUsuario')?.touched && contactForm.get('formularioPasswordUsuario')?.errors?.['passwordStrength'] "
+                class="alert alert-danger formulario-error mt-3">*El campo de contraseña debe tener mínimo una mayúscula y un número</div>
             </div>
 
             <div class="m-4">
@@ -67,6 +70,9 @@
                 *ngIf="contactForm.get('formularioEmailUsuario')?.touched && contactForm.get('formularioEmailUsuario')?.errors?.['minlength'] "
                 class="alert alert-danger formulario-error mt-3">*El campo de Email debe contener al menos
                 {{contactForm.get('formularioEmailUsuario')?.errors?.['minlength'].requiredLength}} letras</div>
+                <div
+                *ngIf="contactForm.get('formularioEmailUsuario')?.touched && contactForm.get('formularioEmailUsuario')?.errors?.['email'] "
+                class="alert alert-danger formulario-error mt-3">*El campo de Email debe ser un email</div>
             </div>
 
             <div class="m-4">
