@@ -39,9 +39,6 @@ export class RegistroJugadorComponent implements OnInit {
     this.user.nombre = this.contactForm.value.formularioNombreUsuario;
     this.user.apellido = this.contactForm.value.formularioApellidoUsuario;
 
-    console.log(this.user);
-
-
     this.conexion.postUsuario(this.user).subscribe(
       (dato) => {
         Swal.fire('Registro exitoso',`Ya podes iniciar sesión!`, `success`);

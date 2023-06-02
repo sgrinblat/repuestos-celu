@@ -73,7 +73,8 @@
           <div class="container">
             <div class="card-grid">
               <div *ngFor="let carta of filteredCartas">
-                <img class="carta" [lazyLoad]="carta.urlImagen" (onLoad)="onImageLoad($event)" [alt]="carta.nombreCarta">
+                <img (click)="agregarCarta(carta)" class="carta" [lazyLoad]="carta.urlImagen"
+                  (onLoad)="onImageLoad($event)" [alt]="carta.nombreCarta">
               </div>
             </div>
           </div>
@@ -84,7 +85,8 @@
           <div class="container">
             <div class="card-grid">
               <div *ngFor="let card of cartas">
-                <img class="carta" [lazyLoad]="card.urlImagen" (onLoad)="onImageLoad($event)" [alt]="card.nombreCarta">
+                <img (click)="agregarCarta(card)" class="carta" [lazyLoad]="card.urlImagen"
+                  (onLoad)="onImageLoad($event)" [alt]="card.nombreCarta">
               </div>
             </div>
           </div>
