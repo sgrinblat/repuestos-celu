@@ -16,8 +16,8 @@ import { Role } from '../role';
 export class ConexionService {
 
   public loginStatus = new Subject<boolean>();
-  private urlBasica = "https://lairentcg.com.ar:8443/api"
-  //private urlBasica = "http://localhost:8080"
+  //private urlBasica = "https://lairentcg.com.ar:8443/api"
+  private urlBasica = "http://localhost:8080"
 
   private cartaURL = `${this.urlBasica}/carta/cartas`;
   private expansionURL = `${this.urlBasica}/expansion/expansiones`
@@ -245,6 +245,14 @@ export class ConexionService {
     return this.httpClient.post(`${this.usuarioURL}crear`, user);
   }
 
+  requestPasswordReset(email: string): Observable<any> {
+    return this.httpClient.post(`${this.usuarioURL}reset_password_request`, email);
+  }
+
+  resetPassword(token: string, username: string, newPassword: string): Observable<any> {
+    return this.httpClient.post(`${this.usuarioURL}reset_password`, { token, username, newPassword });
+  }
+
   generateToken(loginData: any) {
     return this.httpClient.post(`${this.tokenURL}`, loginData);
   }
@@ -309,6 +317,8 @@ export class ConexionService {
     localStorage.removeItem("location");
     return true;
   }
+
+
 
 
   /*

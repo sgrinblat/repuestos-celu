@@ -85,4 +85,49 @@ export class LoginJugadorComponent implements OnInit {
       (error) => {}
     );
   }
+
+
+  recuperarPass() {
+
+    Swal.fire({
+      title: 'Ingresa el email con el que registraste tu cuenta)',
+      input: 'text',
+      background: '#2e3031',
+      color: '#fff',
+      inputAttributes: {
+        autocapitalize: 'off',
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      showLoaderOnConfirm: true,
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log(result.value);
+
+        this.conexion.requestPasswordReset(result.value).subscribe(
+          response => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Email enviado!',
+              text: 'Revisá tu mail para restaurar tu contraseña',
+              background: '#2e3031',
+              color: '#fff',
+            });
+          },
+          error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'El mail no existe',
+              text: 'Si sigues teniendo problemas, ponte en contacto con nosotros!',
+              background: '#2e3031',
+              color: '#fff',
+            });
+          }
+        );
+      }
+    });
+
+  }
+
 }

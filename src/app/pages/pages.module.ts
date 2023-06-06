@@ -38,6 +38,7 @@ import { LoginJugadorComponent } from './login-jugador/login-jugador.component';
 import { RegistroJugadorComponent } from './registro-jugador/registro-jugador.component';
 import { DecklistsComponent } from './decklists/decklists.component';
 import { VerifyEmailComponent } from './VerifyEmailComponent/VerifyEmailComponent.component';
+import { ResetPasswordComponent } from './login-jugador/resetPassword/resetPassword.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { VerifyEmailComponent } from './VerifyEmailComponent/VerifyEmailComponen
     ActualizarTipoComponent,
     ActualizarTiendaComponent,
     LoginUsuarioComponent,
+    ResetPasswordComponent,
     LoginJugadorComponent,
     RegistroJugadorComponent,
     VerifyEmailComponent,
@@ -87,6 +89,7 @@ import { VerifyEmailComponent } from './VerifyEmailComponent/VerifyEmailComponen
     ActualizarTipoComponent,
     ActualizarTiendaComponent,
     LoginUsuarioComponent,
+    ResetPasswordComponent,
     LoginJugadorComponent,
     RegistroJugadorComponent,
     VerifyEmailComponent,

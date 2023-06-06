@@ -31,6 +31,7 @@ import { RegistroJugadorComponent } from "./pages/registro-jugador/registro-juga
 import { JugadorGuard } from "./service/jugador.guard";
 import { DecklistsComponent } from "./pages/decklists/decklists.component";
 import { VerifyEmailComponent } from "./pages/VerifyEmailComponent/VerifyEmailComponent.component";
+import { ResetPasswordComponent } from "./pages/login-jugador/resetPassword/resetPassword.component";
 
 
 const routes: Routes = [
@@ -151,6 +152,14 @@ const routes: Routes = [
     {
       path: `verify`,
       component: VerifyEmailComponent
+    },
+    {
+      path: `reset_password`,
+      component: ResetPasswordComponent
+    },
+    {
+      path: `reset_password/:token`,
+      component: ResetPasswordComponent
     },
     {
       path: `error`,
