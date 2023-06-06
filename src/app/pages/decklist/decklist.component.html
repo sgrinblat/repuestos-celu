@@ -102,6 +102,7 @@
     <section class="seccion fondo-gris text-white pb-5 col">
       <div class="container">
         <h1 class="text-center display-text pt-5">Decklist</h1>
+        <h2 class="text-center display-text pt-2 pb-3" *ngIf="deck != null" > {{deck.nombreDecklist | uppercase}} </h2>
       </div>
 
       <h2 class="text-center mt-4 mb-2">Reino: <span class="font-italic">(total: {{getTotalCartas(reino)}})</span></h2>

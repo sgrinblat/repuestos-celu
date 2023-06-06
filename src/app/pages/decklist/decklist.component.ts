@@ -32,6 +32,7 @@ export class DecklistComponent implements OnInit {
   cartas!: Carta[];
   decklists!: Decklist[];
   costes: number[] = [];
+  deck: Decklist;
 
   expansiones: Observable<Expansion[]>;
   rarezas: Observable<Rareza[]>;
@@ -65,6 +66,7 @@ export class DecklistComponent implements OnInit {
 
       if(this.decklistId != null) {
         this.conexion.getDecklistById(this.decklistId).subscribe((decklist) => {
+          this.deck = decklist;
           this.conexion.getUsuarioActual().subscribe((usuario: Usuario) => {
             if(decklist.usuario.id == usuario.id) {
 

@@ -59,13 +59,17 @@
                 [disabled]="contactForm.invalid" type="submit" id="enviarFormulario"
                 class="btn btn-warning btn-block btn-lg mb-4 mt-4">Iniciar sesión
               </button>
-              <button routerLink="/registrarse" class="btn btn-warning btn-block btn-lg mb-4 mt-4 ms-4">
-                Registrarse
-              </button>
-              <button (click)="recuperarPass()" class="btn btn-warning btn-block btn-lg mb-4 mt-4 ms-4">
+              <button (click)="recuperarPass()" class="btn btn-danger btn-block btn-lg mb-4 mt-4 ms-4">
                 Recuperar contraseña
               </button>
             </div>
+
+            <div>
+              <button routerLink="/registrarse" class="btn btn-warning btn-block btn-lg mb-4 mt-4 ms-4">
+                Registrarse
+              </button>
+            </div>
+
           </form>
         </div>
       </div>
