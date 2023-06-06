@@ -107,7 +107,7 @@
       <h2 class="text-center mt-4 mb-2">Reino: <span class="font-italic">(total: {{getTotalCartas(reino)}})</span></h2>
       <div *ngFor="let carta of getCartasUnicas(reino)"
         class="container text-center d-flex align-items-center justify-content-center">
-        <ng-container *ngIf="carta.tipo.nombreTipo != 'TESORO'">
+        <ng-container *ngIf="carta.tipo.nombreTipo != 'TESORO' && carta.tipo.nombreTipo != 'TESORO - SAGRADO' ">
           <p class="mb-0 me-3">{{carta.nombreCarta}} x{{getCantidad(carta, reino)}}</p>
           <button (click)="eliminarCarta(carta, reino)" class="btn btn-danger mb-2 ms-4">Eliminar</button>
         </ng-container>
@@ -117,7 +117,7 @@
       </h2>
       <div *ngFor="let carta of getCartasUnicas(boveda)"
         class="container text-center d-flex align-items-center justify-content-center">
-        <ng-container *ngIf="carta.tipo.nombreTipo == 'TESORO'">
+        <ng-container *ngIf="carta.tipo.nombreTipo == 'TESORO' || carta.tipo.nombreTipo == 'TESORO - SAGRADO' ">
           <p class="mb-0 me-3">{{carta.nombreCarta}} x{{getCantidad(carta, boveda)}}</p>
           <button (click)="eliminarCarta(carta, boveda)" class="btn btn-danger mb-2 ms-4">Eliminar</button>
         </ng-container>
