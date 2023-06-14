@@ -17,6 +17,16 @@ body {
   font-size: 19px;
 }
 
+img {
+  height: auto;
+  width: 100%;
+  max-width: 650px;
+  margin: auto;
+  display: block;
+  margin-top: 30px;
+  margin-bottom: 90px;
+}
+
 
 /** @section Posts */
 .post-classic {
