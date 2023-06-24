@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ElementRef } from '@angular/core';
 
 import { ConexionService } from 'src/app/service/conexion.service';
 import { Carta } from '../../carta';
@@ -30,7 +29,32 @@ export class BuscadorComponent implements OnInit {
   costes: number[] = [];
 
 
-  constructor(private conexion: ConexionService, private activatedRoute: ActivatedRoute, private route: Router) { }
+  constructor(private conexion: ConexionService, private activatedRoute: ActivatedRoute, private route: Router, private renderer: Renderer2) { }
+
+  // El evento se activa cuando el mouse está sobre la imagen.
+  onMouseEnter(event: MouseEvent): void {
+    let imagen = event.target as HTMLElement;
+
+    // Definir la función de 'mousemove' para esta imagen en particular.
+    this.renderer.listen(imagen, 'mousemove', (e: MouseEvent) => {
+      // Calcular la posición del cursor con respecto al centro de la imagen
+      let rect = imagen.getBoundingClientRect();
+      let x = (e.clientX - rect.left - rect.width / 2.5) / rect.width * 1.2;
+      let y = (e.clientY - rect.top - rect.height / 2.5) / rect.height * 1.2;
+
+      // Actualizar la transformación de la imagen
+      imagen.style.transform = `rotateX(${y * 80}deg) rotateY(${-x * 40}deg) scale(1.1)`; // Agregado scale(1.2)
+    });
+  }
+
+  // El evento se activa cuando el mouse sale de la imagen.
+  onMouseLeave(event: MouseEvent): void {
+    let imagen = event.target as HTMLElement;
+
+    // Reiniciar la transformación cuando el mouse sale de la imagen
+    imagen.style.transform = 'rotateX(0) rotateY(0) scale(1)'; // Agregado scale(1)
+  }
+
 
   ngOnInit(): void {
     this.obtenerCartas();

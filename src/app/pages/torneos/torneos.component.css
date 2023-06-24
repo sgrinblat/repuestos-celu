@@ -1,0 +1,12 @@
+a {
+  color: black !important;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .current {
+  background-color:#f8c538;
+}
+
+.formulario-input {
+  margin: 0 auto !important;
+  width: 40%;
+}

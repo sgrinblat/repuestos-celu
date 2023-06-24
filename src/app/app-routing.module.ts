@@ -32,6 +32,8 @@ import { JugadorGuard } from "./service/jugador.guard";
 import { DecklistsComponent } from "./pages/decklists/decklists.component";
 import { VerifyEmailComponent } from "./pages/VerifyEmailComponent/VerifyEmailComponent.component";
 import { ResetPasswordComponent } from "./pages/login-jugador/resetPassword/resetPassword.component";
+import { TorneosComponent } from "./pages/torneos/torneos.component";
+import { ActualizarJugadorComponent } from "./pages/actualizar-jugador/actualizar-jugador.component";
 
 
 const routes: Routes = [
@@ -108,6 +110,11 @@ const routes: Routes = [
       canActivate: [AdminGuard]
     },
     {
+      path: "v1/upload/ranking",
+      component: TorneosComponent,
+      canActivate: [AdminGuard]
+    },
+    {
       path: "v1/upload/subirTiendas",
       component: SubirTiendasComponent,
       canActivate: [AdminGuard]
@@ -130,6 +137,11 @@ const routes: Routes = [
     {
       path: `v1/upload/actualizar/tipo/:id`,
       component: ActualizarTipoComponent,
+      canActivate: [AdminGuard]
+    },
+    {
+      path: `v1/upload/actualizar/jugador/:id`,
+      component: ActualizarJugadorComponent,
       canActivate: [AdminGuard]
     },
     {

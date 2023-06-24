@@ -68,11 +68,22 @@
 
     </div>
 
-    <section class="section section-xl text-center card-seccion">
+    <!-- <section class="section section-xl text-center card-seccion">
       <div class="container">
         <div class="card-grid">
           <div *ngFor="let carta of filteredCartas">
             <img class="carta" [lazyLoad]="carta.urlImagen" (onLoad)="onImageLoad($event)" [alt]="carta.nombreCarta">
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <section class="section section-xl text-center card-seccion">
+      <div class="container">
+        <div class="card-grid">
+          <div *ngFor="let carta of filteredCartas">
+            <img class="carta" [lazyLoad]="carta.urlImagen" (onLoad)="onImageLoad($event)" [alt]="carta.nombreCarta"
+                (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)">
           </div>
         </div>
       </div>
@@ -83,11 +94,23 @@
       <div class="container">
         <div class="card-grid">
           <div *ngFor="let card of cartas">
-            <img class="carta" [lazyLoad]="card.urlImagen" (onLoad)="onImageLoad($event)" [alt]="card.nombreCarta">
+            <img class="carta" [lazyLoad]="card.urlImagen" (onLoad)="onImageLoad($event)" [alt]="card.nombreCarta"
+            (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)">
           </div>
         </div>
       </div>
     </section>
+
+
+    <!-- <section *ngIf="selectedRareza == null && selectedExpansion == null && selectedTipo == null && selectedCoste == null && (searchText == '' || searchText == null)" class="section section-xl text-center card-seccion">
+      <div class="container">
+        <div class="card-grid">
+          <div *ngFor="let card of cartas">
+            <img class="carta" [lazyLoad]="card.urlImagen" (onLoad)="onImageLoad($event)" [alt]="card.nombreCarta">
+          </div>
+        </div>
+      </div>
+    </section> -->
 
     <section *ngIf="filteredCartas.length == 0 && (selectedRareza !== null || selectedExpansion !== null || selectedTipo !== null || selectedCoste !== null || searchText !== null)" class="section section-xl text-center card-seccion">
       <h2>No se han encontrado cartas con los filtros seleccionados.</h2>

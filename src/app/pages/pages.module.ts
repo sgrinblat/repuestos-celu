@@ -39,6 +39,8 @@ import { RegistroJugadorComponent } from './registro-jugador/registro-jugador.co
 import { DecklistsComponent } from './decklists/decklists.component';
 import { VerifyEmailComponent } from './VerifyEmailComponent/VerifyEmailComponent.component';
 import { ResetPasswordComponent } from './login-jugador/resetPassword/resetPassword.component';
+import { TorneosComponent } from './torneos/torneos.component';
+import { ActualizarJugadorComponent } from './actualizar-jugador/actualizar-jugador.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,7 @@ import { ResetPasswordComponent } from './login-jugador/resetPassword/resetPassw
     ActualizarRarezaComponent,
     ActualizarTipoComponent,
     ActualizarTiendaComponent,
+    ActualizarJugadorComponent,
     LoginUsuarioComponent,
     ResetPasswordComponent,
     LoginJugadorComponent,
@@ -65,6 +68,7 @@ import { ResetPasswordComponent } from './login-jugador/resetPassword/resetPassw
     VerifyEmailComponent,
     EntradasComponent,
     ListaEntradasComponent,
+    TorneosComponent,
     DecklistComponent,
     DecklistsComponent,
     EntradaHistoriaComponent,
@@ -88,6 +92,7 @@ import { ResetPasswordComponent } from './login-jugador/resetPassword/resetPassw
     ActualizarRarezaComponent,
     ActualizarTipoComponent,
     ActualizarTiendaComponent,
+    ActualizarJugadorComponent,
     LoginUsuarioComponent,
     ResetPasswordComponent,
     LoginJugadorComponent,
@@ -96,6 +101,7 @@ import { ResetPasswordComponent } from './login-jugador/resetPassword/resetPassw
     EntradasComponent,
     EntradaHistoriaComponent,
     ListaEntradasComponent,
+    TorneosComponent,
     DecklistComponent,
     DecklistsComponent,
     ExpansionAComponent,

@@ -9,6 +9,7 @@ import { Usuario } from '../usuario';
 import { Tienda } from '../tienda';
 import { Decklist } from '../decklist';
 import { Role } from '../role';
+import { Jugador } from '../jugador';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class ConexionService {
   private rarezaURL = `${this.urlBasica}/rareza/rarezas`
   private tipoURL = `${this.urlBasica}/tipo/tipos`
   private tiendaURL = `${this.urlBasica}/tienda/tiendas`
+  private torneoURL = `${this.urlBasica}/competidor/competidores`
   private decklistURL = `${this.urlBasica}/decklist/decklists`
   private usuarioURL = `${this.urlBasica}/usuarios/user/`
   private tokenURL = `${this.urlBasica}/generate-token`
@@ -141,6 +143,57 @@ export class ConexionService {
   putRareza(id: number, rareza: Rareza, ): Observable<Object> {
     return this.httpClient.put(`${this.rarezaURL}/actualizar/${id}`, rareza);
   }
+
+
+  // ---------------------- TORNEOS ----------------------
+
+  getTodosLosJugadores():Observable<Jugador[]> {
+    return this.httpClient.get<Jugador[]>(`${this.torneoURL}`);
+  }
+
+  getJugadorById(id:number): Observable<Jugador> {
+    return this.httpClient.get<Jugador>(`${this.torneoURL}/${id}`);
+  }
+
+  getJugadorByDni(dni: string): Observable<Jugador> {
+    return this.httpClient.get<Jugador>(`${this.torneoURL}/dni/${dni}`);
+  }
+
+  getJugadoresPorPuntos():Observable<Jugador[]> {
+    return this.httpClient.get<Jugador[]>(`${this.torneoURL}/puntos`);
+  }
+
+  getJugadoresPorRangos():Observable<Jugador[]> {
+    return this.httpClient.get<Jugador[]>(`${this.torneoURL}/rangos`);
+  }
+
+  getJugadoresPorNombre():Observable<Jugador[]> {
+    return this.httpClient.get<Jugador[]>(`${this.torneoURL}/nombre`);
+  }
+
+  getJugadorPorNombreAndApellido(nombre: string, apellido: string): Observable<Jugador> {
+    return this.httpClient.get<Jugador>(`${this.torneoURL}/nombrecompleto/${nombre}/${apellido}`);
+  }
+
+  saveJugador(jugador: Jugador) : Observable<Object> {
+    return this.httpClient.post(`${this.torneoURL}/crear`, jugador);
+  }
+
+  deleteJugador(dni: string): Observable<Object> {
+    return this.httpClient.delete(`${this.torneoURL}/eliminar/${dni}`);
+  }
+
+  putJugador(id: string, jugador: Jugador, ): Observable<Object> {
+    return this.httpClient.put(`${this.torneoURL}/actualizar/${id}`, jugador);
+  }
+
+  registrarResultadoPartido(id: number, id2: number): Observable<Object> {
+    return this.httpClient.get(`${this.torneoURL}/partido/${id}/vs/${id2}`);
+  }
+
+
+
+
 
   // ---------------------- TIPOS ----------------------
 
