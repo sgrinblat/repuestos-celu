@@ -109,10 +109,7 @@
               class="alert alert-danger formulario-error mt-3">*El campo de Puntos debe contener al menos
               {{contactForm.get('formularioPuntos')?.errors?.['minlength'].requiredLength}} letras</div>
           </div>
-
-
-          <button (click)="onSubmitJugador()"
-            [disabled]="contactForm.invalid" type="submit" id="enviarFormulario"
+          <button [disabled]="contactForm.invalid" type="submit" id="enviarFormulario"
             class="btn btn-warning btn-block btn-lg mb-4 mt-4">Registrar Jugador
           </button>
         </div>
@@ -129,7 +126,7 @@
       <div class="col">
           <label for="ganadorSelect">Ganador:</label>
           <select formControlName="formularioJugadorGanador" class="form-control" id="formularioJugadorGanador" >
-              <option *ngFor="let jugador of jugadores" [ngValue]="jugador">
+              <option *ngFor="let jugador of jugadoresPorNombre" [ngValue]="jugador">
                 {{jugador.nombre}} {{jugador.apellido}}
               </option>
           </select>
@@ -138,7 +135,7 @@
       <div class="col">
           <label for="perdedorSelect">Perdedor:</label>
           <select class="form-control" id="formularioJugadorPerdedor" formControlName="formularioJugadorPerdedor">
-              <option *ngFor="let jugador of jugadores" [ngValue]="jugador">
+              <option *ngFor="let jugador of jugadoresPorNombre" [ngValue]="jugador">
                 {{jugador.nombre}} {{jugador.apellido}}
               </option>
           </select>

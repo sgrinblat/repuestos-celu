@@ -39,11 +39,11 @@ export class BuscadorComponent implements OnInit {
     this.renderer.listen(imagen, 'mousemove', (e: MouseEvent) => {
       // Calcular la posición del cursor con respecto al centro de la imagen
       let rect = imagen.getBoundingClientRect();
-      let x = (e.clientX - rect.left - rect.width / 2.5) / rect.width * 1.2;
-      let y = (e.clientY - rect.top - rect.height / 2.5) / rect.height * 1.2;
+      let x = (e.clientX - rect.left - rect.width / 1.5) / rect.width * 0.4;
+      let y = (e.clientY - rect.top - rect.height / 1.5) / rect.height * 0.4;
 
       // Actualizar la transformación de la imagen
-      imagen.style.transform = `rotateX(${y * 80}deg) rotateY(${-x * 40}deg) scale(1.1)`; // Agregado scale(1.2)
+      imagen.style.transform = `rotateX(${y * 80}deg) rotateY(${-x * 40}deg) scale(1.25)`; // Agregado scale(1.2)
     });
   }
 

@@ -17,6 +17,7 @@ export class TorneosComponent implements OnInit {
   contactFormPartidos!: FormGroup;
   p: number = 1;
   jugadores: Jugador[];
+  jugadoresPorNombre: Jugador[];
 
   jugador: Jugador = new Jugador();
   jugadorGanador: Jugador = new Jugador();
@@ -53,11 +54,15 @@ export class TorneosComponent implements OnInit {
     this.conexion.getJugadoresPorPuntos().subscribe((dato) => {
       this.jugadores = dato;
     });
+
+    this.conexion.getJugadoresPorNombre().subscribe((dato) => {
+      this.jugadoresPorNombre = dato;
+    });
   }
 
   onSubmitJugador() {
     this.subirJugador();
-    //this.limpiarFormulario();
+    this.limpiarFormulario();
   }
 
   subirJugador() {
