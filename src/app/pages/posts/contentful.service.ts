@@ -50,4 +50,14 @@ export class ContentfulService {
     .then(response => response.items);
   }
 
+  getBlogEntriesByCategoryAndOnlyOne(categoryName: string) {
+    return this.client.getEntries({
+      content_type: 'blogPost',
+      'fields.category': categoryName,
+      limit: 1,
+      order: '-sys.createdAt'
+    })
+    .then(response => response.items);
+  }
+
 }

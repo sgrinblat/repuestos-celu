@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConexionService } from 'src/app/service/conexion.service';
 import Swal from 'sweetalert2';
 import { Usuario } from '../../usuario';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
 @Component({
   selector: 'app-registro-jugador',
@@ -33,6 +34,7 @@ export class RegistroJugadorComponent implements OnInit {
 
 
   registrarse() {
+    Loading.hourglass();
     this.user.username = this.contactForm.value.formularioUsernameUsuario;
     this.user.password = this.contactForm.value.formularioPasswordUsuario;
     this.user.email = this.contactForm.value.formularioEmailUsuario;
@@ -41,12 +43,16 @@ export class RegistroJugadorComponent implements OnInit {
 
     this.conexion.postUsuario(this.user).subscribe(
       (dato) => {
+        Loading.remove(500);
         Swal.fire('Registro exitoso',`Ya podes iniciar sesión!`, `success`);
         this.route.navigate(['/iniciarsesion']);
       },
-      (error: Error) => console.log("Qué estás buscando, picaron? " + error.message)
+      (error: Error) => {
+        Loading.remove(500);
+        Swal.fire('No se ha podido registrar',`Contactanos para ver porqué no pudiste registrarte`, `error`);
+        console.log("Qué estás buscando, picaron? " + error.message)
+      }
     );
-
 
   }
 

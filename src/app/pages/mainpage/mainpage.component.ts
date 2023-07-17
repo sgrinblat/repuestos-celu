@@ -24,7 +24,18 @@ export class MainpageComponent implements OnInit {
     if(isPlatformBrowser(this.platformId)) {
       window.scrollTo(0, 0);
     }
-    this.posts$ = from(this.contentfulService.getBlogEntriesByCategoryAndOnlyThree("noticia"));
+
+    const width = window.innerWidth;
+
+    if (width < 768) {
+      // Función para dispositivos móviles
+      this.posts$ = from(this.contentfulService.getBlogEntriesByCategoryAndOnlyOne("noticia"));
+    } else {
+      // Función para dispositivos no móviles
+      this.posts$ = from(this.contentfulService.getBlogEntriesByCategoryAndOnlyThree("noticia"));
+    }
+
+    //this.posts$ = from(this.contentfulService.getBlogEntriesByCategoryAndOnlyThree("noticia"));
     this.randomNumber = Math.floor(Math.random() * 7) + 1;
     this.randomNumber1 = Math.floor(Math.random() * 2) + 1;
   }
