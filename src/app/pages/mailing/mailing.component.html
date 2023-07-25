@@ -17,7 +17,7 @@
         <th class="display-text">Mail</th>
       </tr>
     </thead>
-    <tbody *ngFor="let user of usuarios | paginate: { itemsPerPage: 10, currentPage: p } ">
+    <tbody *ngFor="let user of usuarios | paginate: { itemsPerPage: 100, currentPage: p } ">
       <tr>
         <td class="display-text">{{user.id}}</td>
         <td class="display-text">{{user.nombre}}</td>

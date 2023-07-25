@@ -23,8 +23,16 @@ export class MailingComponent implements OnInit {
 
   obtenerUsuarios() {
     this.conexion.getTodosLosUsers().subscribe((dato) => {
-      this.usuarios = dato;
+      let emails = new Set(); // Usamos un Set para almacenar los emails. Un Set solo permite valores únicos
+      this.usuarios = dato.filter(usuario => {
+        if (!emails.has(usuario.email)) {
+          emails.add(usuario.email);
+          return true; // Si el correo no estaba presente en el Set, se añade y se incluye el usuario
+        }
+        return false; // Si el correo ya estaba en el Set, se excluye el usuario
+      });
     });
   }
+
 
 }
