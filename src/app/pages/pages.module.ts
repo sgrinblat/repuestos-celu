@@ -41,6 +41,8 @@ import { VerifyEmailComponent } from './VerifyEmailComponent/VerifyEmailComponen
 import { ResetPasswordComponent } from './login-jugador/resetPassword/resetPassword.component';
 import { TorneosComponent } from './torneos/torneos.component';
 import { ActualizarJugadorComponent } from './actualizar-jugador/actualizar-jugador.component';
+import { AdminnavbarComponent } from './adminnavbar/adminnavbar.component';
+import { MailingComponent } from './mailing/mailing.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,8 @@ import { ActualizarJugadorComponent } from './actualizar-jugador/actualizar-juga
     LoginUsuarioComponent,
     ResetPasswordComponent,
     LoginJugadorComponent,
+    MailingComponent,
+    AdminnavbarComponent,
     RegistroJugadorComponent,
     VerifyEmailComponent,
     EntradasComponent,
@@ -87,6 +91,8 @@ import { ActualizarJugadorComponent } from './actualizar-jugador/actualizar-juga
     TiposComponent,
     SubirTiendasComponent,
     TutorialComponent,
+    MailingComponent,
+    AdminnavbarComponent,
     ActualizarCartaComponent,
     ActualizarExpansionComponent,
     ActualizarRarezaComponent,

@@ -34,6 +34,7 @@ import { VerifyEmailComponent } from "./pages/VerifyEmailComponent/VerifyEmailCo
 import { ResetPasswordComponent } from "./pages/login-jugador/resetPassword/resetPassword.component";
 import { TorneosComponent } from "./pages/torneos/torneos.component";
 import { ActualizarJugadorComponent } from "./pages/actualizar-jugador/actualizar-jugador.component";
+import { MailingComponent } from "./pages/mailing/mailing.component";
 
 
 const routes: Routes = [
@@ -112,6 +113,11 @@ const routes: Routes = [
     {
       path: "v1/upload/ranking",
       component: TorneosComponent,
+      canActivate: [AdminGuard]
+    },
+    {
+      path: "v1/upload/mailing",
+      component: MailingComponent,
       canActivate: [AdminGuard]
     },
     {

@@ -289,6 +289,10 @@ export class ConexionService {
     this.roles = roles;
   }
 
+  getTodosLosUsers():Observable<Usuario[]> {
+    return this.httpClient.get<Usuario[]>(`${this.usuarioURL}mails`);
+  }
+
   // Este método te permitirá verificar el rol en cualquier parte de tu aplicación.
   isAdmin(): boolean {
     return this.roles.some(role => role.name === 'ADMIN');

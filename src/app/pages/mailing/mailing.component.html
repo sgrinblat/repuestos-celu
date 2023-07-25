@@ -1,0 +1,33 @@
+<app-adminnavbar></app-adminnavbar>
+
+<div class="container">
+  <h1 class="text-center display-text pt-5">Lista de Usuarios registrados y sus mails</h1>
+</div>
+
+<div class="container">
+  <h2 class="text-center display-text mt-4 mb-4">Buscador de usuarios</h2>
+
+  <table class="table table-striped mb-4 text-center">
+    <thead class="table">
+      <tr>
+        <th class="display-text">ID</th>
+        <th class="display-text">Nombre</th>
+        <th class="display-text">Apellido</th>
+        <th class="display-text">Username</th>
+        <th class="display-text">Mail</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let user of usuarios | paginate: { itemsPerPage: 10, currentPage: p } ">
+      <tr>
+        <td class="display-text">{{user.id}}</td>
+        <td class="display-text">{{user.nombre}}</td>
+        <td class="display-text">{{user.apellido}}</td>
+        <td class="display-text">{{user.username}}</td>
+        <td class="display-text">{{user.email}}</td>
+
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" class="m-5 my-pagination"
+    (pageChange)="p = $event"></pagination-controls>
+</div>
