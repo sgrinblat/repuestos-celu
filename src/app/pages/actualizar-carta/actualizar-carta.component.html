@@ -37,8 +37,9 @@
 
           <div class="m-4">
             <label class="form-label display-text" for="formularioCartaCoste">Expansion</label><br>
-            <select [ngModel]="carta.expansion.nombreExpansion" formControlName="formularioCartaExpansion" class="formulario-input bg-light form-control" name="formularioCartaExpansion" id="formularioCartaExpansion">
-              <option *ngFor="let expa of expansiones | async" [ngValue]="expa" [selected]="carta.expansion.nombreExpansion">
+            <select [ngModel]="carta.expansion" formControlName="formularioCartaExpansion" class="formulario-input bg-light form-control "
+              name="formularioCartaExpansion" id="formularioCartaExpansion">
+              <option *ngFor="let expa of expansiones | async" [ngValue]="expa">
                 {{expa.nombreExpansion}}
               </option>
             </select>
@@ -52,7 +53,7 @@
             <label class="form-label display-text" for="formularioCartaRareza">Rareza</label><br>
             <select [ngModel]="carta.rareza" formControlName="formularioCartaRareza" class="formulario-input bg-light form-control "
               name="formularioCartaExpansion" id="formularioCartaExpansion">
-              <option *ngFor="let rare of rarezas | async" [ngValue]="rare" [selected]="carta.rareza.nombreRareza">
+              <option *ngFor="let rare of rarezas | async" [ngValue]="rare">
                 {{rare.nombreRareza}}
               </option>
             </select>
@@ -65,15 +66,18 @@
               <label class="form-label display-text" for="formularioCartaTipo">Tipo</label><br>
               <select [(ngModel)]="carta.tipo.nombreTipo" formControlName="formularioCartaTipo" class="formulario-input bg-light form-control "
                 name="formularioCartaExpansion" id="formularioCartaExpansion" >
-                <option *ngFor="let type of tipos | async" [ngValue]="type" [selected]="carta.tipo.nombreTipo">
-                  {{type.nombreTipo}}
-                </option>
+                <ng-container *ngIf="{ data: tipos | async } as result">
+                  <option *ngFor="let type of result.data | orderBy:'nombreTipo'" [ngValue]="type">
+                    {{type.nombreTipo}}
+                  </option>
+                </ng-container>
               </select>
               <div
                 *ngIf="contactForm.get('formularioCartaTipo')?.touched && contactForm.get('formularioCartaTipo')?.errors?.['required'] "
                 class="alert alert-danger formulario-error mt-3">*El campo de Tipo es obligatorio
               </div>
             </div>
+
 
               <div class="m-4">
                 <label class="form-label display-text" for="formularioCartaURL">URL de la imagen</label><br>

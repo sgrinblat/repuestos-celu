@@ -66,7 +66,6 @@ export class ActualizarCartaComponent implements OnInit {
         this.esverdad = true;
       }
     );
-
   }
 
   onSubmit(){

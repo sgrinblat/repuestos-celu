@@ -43,6 +43,7 @@ import { TorneosComponent } from './torneos/torneos.component';
 import { ActualizarJugadorComponent } from './actualizar-jugador/actualizar-jugador.component';
 import { AdminnavbarComponent } from './adminnavbar/adminnavbar.component';
 import { MailingComponent } from './mailing/mailing.component';
+import { OrderByPipe } from '../order-by.pipe';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { MailingComponent } from './mailing/mailing.component';
     DecklistsComponent,
     EntradaHistoriaComponent,
     FundamentosComponent,
-    ExpansionAComponent
+    ExpansionAComponent,
+    OrderByPipe
   ],
   exports: [
     MainpageComponent,

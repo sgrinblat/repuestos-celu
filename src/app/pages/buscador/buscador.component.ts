@@ -24,7 +24,7 @@ export class BuscadorComponent implements OnInit {
   filteredCartas: Carta[] = [];
   cartas!: Carta[];
   expansiones: Observable<Expansion[]>;
-  rarezas: Observable<Rareza[]>;
+  rarezas: Rareza[] = [];
   tipos: Tipo[] = [];
   costes: number[] = [];
 
@@ -59,7 +59,17 @@ export class BuscadorComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerCartas();
     this.expansiones = this.conexion.getTodasLasExpas();
-    this.rarezas = this.conexion.getTodasLasRarezas();
+
+    this.conexion.getTodasLasRarezas().pipe(
+      map(rarezas => {
+        const order = ['BRONCE', 'PLATA', 'ORO', 'DIAMANTE'];
+        return rarezas.sort((a, b) => order.indexOf(a.nombreRareza) - order.indexOf(b.nombreRareza));
+      })
+    ).subscribe(rarezas => {
+      this.rarezas = rarezas;
+    });
+
+
     this.conexion.getTodasLosTipos().pipe(
       map(tipos => tipos.sort((a, b) => a.nombreTipo.localeCompare(b.nombreTipo)))
     ).subscribe(tipos => {

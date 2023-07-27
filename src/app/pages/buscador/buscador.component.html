@@ -45,7 +45,7 @@
         <h4 class="mt-2 mb-2">Rarezas</h4>
         <select [(ngModel)]="selectedRareza" (change)="onRarezaChange(selectedRareza)">
           <option value="">Selecciona una rareza</option>
-          <option *ngFor="let rare of rarezas | async" [value]="rare.idRareza">{{rare.nombreRareza}}</option>
+          <option *ngFor="let rare of rarezas" [value]="rare.idRareza">{{rare.nombreRareza}}</option>
         </select>
       </div>
 
