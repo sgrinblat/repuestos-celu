@@ -35,10 +35,12 @@ export class ContentfulService {
   getBlogEntriesByCategory(categoryName: string) {
     return this.client.getEntries({
       content_type: 'blogPost',
-      'fields.category': categoryName
+      'fields.category': categoryName,
+      order: '-fields.updatedDate'
     })
     .then(response => response.items);
   }
+
 
   getBlogEntriesByCategoryAndOnlyThree(categoryName: string) {
     return this.client.getEntries({
