@@ -9,6 +9,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SwiperModule } from "swiper/angular";
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { MainpageComponent } from './mainpage/mainpage.component';
 import { BuscadorComponent } from './buscador/buscador.component';
@@ -129,6 +130,7 @@ import { OrderByPipe } from '../order-by.pipe';
     Ng2SearchPipeModule,
     ReutilizablesModule,
     LazyLoadImageModule,
+    DragDropModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }]
 })

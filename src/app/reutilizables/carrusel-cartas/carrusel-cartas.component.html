@@ -1,39 +1,7 @@
 <swiper [effect]="'cards'" [grabCursor]="true" class="mySwiper">
 
-  <ng-template swiperSlide>
-    <img class="carta-carrusel" src="https://i.postimg.cc/909cSHnB/Mesa-de-trabajo-1.png" alt="carta">
-  </ng-template>
-
-  <ng-template swiperSlide>
-    <img class="carta-carrusel" src="https://i.postimg.cc/T3fTkSqr/Mesa-de-trabajo-13.png" alt="carta">
-  </ng-template>
-
-  <ng-template swiperSlide>
-    <img class="carta-carrusel" src="https://i.postimg.cc/vZ0w0mms/Mesa-de-trabajo-22.png" alt="carta">
-  </ng-template>
-
-  <ng-template swiperSlide>
-    <img class="carta-carrusel" src="https://i.postimg.cc/d0Qt0Xhq/Mesa-de-trabajo-3.png" alt="carta">
-  </ng-template>
-
-  <ng-template swiperSlide>
-    <img class="carta-carrusel" src="https://i.postimg.cc/gjVf8z71/Mesa-de-trabajo-28.png" alt="carta">
-  </ng-template>
-
-  <ng-template swiperSlide>
-    <img class="carta-carrusel" src="https://i.postimg.cc/PJsgCpSm/Mesa-de-trabajo-26.png" alt="carta">
-  </ng-template>
-
-  <ng-template swiperSlide>
-    <img class="carta-carrusel" src="https://i.postimg.cc/ht53JQjf/Mesa-de-trabajo-42.png" alt="carta">
-  </ng-template>
-
-  <ng-template swiperSlide>
-    <img class="carta-carrusel" src="https://i.postimg.cc/yY6fvy3D/Mesa-de-trabajo-49.png" alt="carta">
-  </ng-template>
-
-  <ng-template swiperSlide>
-    <img class="carta-carrusel" src="https://i.postimg.cc/8zSz2sDf/Mesa-de-trabajo-7.png" alt="carta">
+  <ng-template *ngFor="let card of cartas" swiperSlide>
+    <img class="carta-carrusel" [src]="card.urlImagen" alt="carta">
   </ng-template>
 
 </swiper>

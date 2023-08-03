@@ -24,10 +24,10 @@ export class ProductosComponent implements OnInit {
 
   mostrarFundamentos() {
     Loading.hourglass();
-    Loading.remove(600);
+    Loading.remove(300);
     setTimeout(() => {
       this.seleccionado = "Fundamentos";
-    }, 600);
+    }, 300);
   }
 
   mostrarExpansionA() {
