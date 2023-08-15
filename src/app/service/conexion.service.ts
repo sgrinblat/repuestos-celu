@@ -21,6 +21,7 @@ export class ConexionService {
   //private urlBasica = "http://localhost:8080"
 
   private cartaURL = `${this.urlBasica}/carta/cartas`;
+  private cartaPublicaURL = `${this.urlBasica}/carta`;
   private expansionURL = `${this.urlBasica}/expansion/expansiones`
   private rarezaURL = `${this.urlBasica}/rareza/rarezas`
   private tipoURL = `${this.urlBasica}/tipo/tipos`
@@ -47,6 +48,11 @@ export class ConexionService {
   getCartaById(id:number): Observable<Carta> {
     return this.httpClient.get<Carta>(`${this.cartaURL}/${id}`);
   }
+
+    // este método nos sirve para ver una carta por su ID y se visualiza de manera pública
+    getCartaByIdPublic(id:number): Observable<Carta> {
+      return this.httpClient.get<Carta>(`${this.cartaPublicaURL}/buscador/open/${id}`);
+    }
 
   // este método nos sirve para ver una carta por una parte de su nombre
   getCartaByPartialName(nombre: string): Observable<Carta> {

@@ -45,12 +45,14 @@ import { ActualizarJugadorComponent } from './actualizar-jugador/actualizar-juga
 import { AdminnavbarComponent } from './adminnavbar/adminnavbar.component';
 import { MailingComponent } from './mailing/mailing.component';
 import { OrderByPipe } from '../order-by.pipe';
+import { CartaOracleComponent } from './carta-oracle/carta-oracle.component';
 
 @NgModule({
   declarations: [
     MainpageComponent,
     BuscadorComponent,
     CartasComponent,
+    CartaOracleComponent,
     ExpansionesComponent,
     LoreComponent,
     ProductosComponent,
@@ -86,6 +88,7 @@ import { OrderByPipe } from '../order-by.pipe';
     MainpageComponent,
     BuscadorComponent,
     CartasComponent,
+    CartaOracleComponent,
     ExpansionesComponent,
     LoreComponent,
     ProductosComponent,

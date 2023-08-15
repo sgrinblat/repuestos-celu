@@ -79,6 +79,34 @@
             </div>
 
 
+            <div class="m-4">
+              <label class="form-label display-text" for="formularioTextoCarta">Texto de carta</label><br>
+              <input [ngModel]="carta.textoCarta" formControlName="formularioTextoCarta" name="formularioTextoCarta"
+                [class.is-invalid]="contactForm.get('formularioTextoCarta').invalid && contactForm.get('formularioTextoCarta').touched"
+                type="text" id="formularioTextoCarta" class="formulario-input bg-light form-control " required
+                formControlName="formularioTextoCarta" />
+              <div
+                *ngIf="contactForm.get('formularioTextoCarta')?.touched && contactForm.get('formularioTextoCarta')?.errors?.['required'] "
+                class="alert alert-danger formulario-error mt-3">*El texto de carta es obligatorio
+              </div>
+              <div
+                *ngIf="contactForm.get('formularioTextoCarta')?.touched && contactForm.get('formularioTextoCarta')?.errors?.['minlength'] "
+                class="alert alert-danger formulario-error mt-3">*El texto de carta debe contener al menos
+                {{contactForm.get('formularioTextoCarta')?.errors?.['minlength'].requiredLength}} letras
+              </div>
+            </div>
+
+            <div class="m-4">
+              <label class="form-label display-text" for="formularioFlavorCarta">Flavor de carta</label><br>
+              <input [ngModel]="carta.flavorCarta" class="formulario-input bg-light form-control " formControlName="formularioFlavorCarta" name="formularioFlavorCarta"/>
+            </div>
+
+            <div class="m-4">
+              <label class="form-label display-text" for="formularioRulingCarta">Ruling de carta</label><br>
+              <input [ngModel]="carta.rulingCarta" class="formulario-input bg-light form-control " formControlName="formularioRulingCarta" name="formularioRulingCarta"/>
+            </div>
+
+
               <div class="m-4">
                 <label class="form-label display-text" for="formularioCartaURL">URL de la imagen</label><br>
                 <input [ngModel]="carta.urlImagen" formControlName="formularioCartaURL" name="formularioCartaURL"
@@ -95,6 +123,28 @@
                   {{contactForm.get('formularioCartaURL')?.errors?.['minlength'].requiredLength}} letras
                 </div>
               </div>
+
+              <div class="m-4">
+                <label class="form-label display-text" for="formularioAlter1">Imagen alternativa 1</label><br>
+                <input [ngModel]="carta.urlImagen1" class="formulario-input bg-light form-control " formControlName="formularioAlter1" name="formularioAlter1"/>
+              </div>
+              <div class="m-4">
+                <label class="form-label display-text" for="formularioAlter2">Imagen alternativa 2</label><br>
+                <input [ngModel]="carta.urlImagen2" class="formulario-input bg-light form-control " formControlName="formularioAlter2" name="formularioAlter2"/>
+              </div>
+              <div class="m-4">
+                <label class="form-label display-text" for="formularioAlter3">Imagen alternativa 3</label><br>
+                <input [ngModel]="carta.urlImagen3" class="formulario-input bg-light form-control " formControlName="formularioAlter3" name="formularioAlter3"/>
+              </div>
+              <div class="m-4">
+                <label class="form-label display-text" for="formularioAlter4">Imagen alternativa 4</label><br>
+                <input [ngModel]="carta.urlImagen4" class="formulario-input bg-light form-control " formControlName="formularioAlter4" name="formularioAlter4"/>
+              </div>
+              <div class="m-4">
+                <label class="form-label display-text" for="formularioAlter5">Imagen alternativa 5</label><br>
+                <input [ngModel]="carta.urlImagen5" class="formulario-input bg-light form-control " formControlName="formularioAlter5" name="formularioAlter5"/>
+              </div>
+
 
               <button (click)="onSubmit()" [swal]="['Hecho!', 'Has actualizado una carta', 'success']"
                 [disabled]="contactForm.invalid" type="submit" id="enviarFormulario"

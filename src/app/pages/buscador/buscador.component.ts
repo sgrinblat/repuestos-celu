@@ -87,6 +87,20 @@ export class BuscadorComponent implements OnInit {
     });
   }
 
+
+  visualizarCarta(id: number) {
+    this.route.navigate(['buscador/cartas', id]);
+  }
+
+  acortarTexto(texto: string, limite: number = 20): string {
+    if (texto.length <= limite) {
+      return texto;
+    }
+    return `${texto.substr(0, limite)}...`;
+  }
+
+
+
   onRarezaChange(selectedRareza: number) {
     this.selectedRareza = selectedRareza;
     this.filterCartas();

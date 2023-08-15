@@ -82,8 +82,15 @@
       <div class="container">
         <div class="card-grid">
           <div *ngFor="let carta of filteredCartas">
-            <img class="carta" [lazyLoad]="carta.urlImagen" (onLoad)="onImageLoad($event)" [alt]="carta.nombreCarta"
+
+            <img class="carta" (click)="visualizarCarta(carta.idCarta)" [lazyLoad]="carta.urlImagen" (onLoad)="onImageLoad($event)" [alt]="carta.nombreCarta"
                 (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)">
+
+            <div class="carta-texto">
+              <p>{{acortarTexto(carta.nombreCarta)}}</p>
+              <p><a (click)="visualizarCarta(carta.idCarta)">... Ver más</a></p>
+            </div>
+
           </div>
         </div>
       </div>
@@ -94,8 +101,15 @@
       <div class="container">
         <div class="card-grid">
           <div *ngFor="let card of cartas">
-            <img class="carta" [lazyLoad]="card.urlImagen" (onLoad)="onImageLoad($event)" [alt]="card.nombreCarta"
+
+            <img class="carta" (click)="visualizarCarta(card.idCarta)" [lazyLoad]="card.urlImagen" (onLoad)="onImageLoad($event)" [alt]="card.nombreCarta"
             (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)">
+
+            <div class="carta-texto">
+              <p>{{acortarTexto(card.nombreCarta)}}</p>
+              <p><a class="link-vermas" (click)="visualizarCarta(card.idCarta)">... Ver más</a></p>
+            </div>
+
           </div>
         </div>
       </div>

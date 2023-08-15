@@ -55,7 +55,7 @@
           <div class="m-4">
             <label class="form-label display-text" for="formularioCartaRareza">Rareza</label><br>
             <select formControlName="formularioCartaRareza" class="formulario-input bg-light form-control "
-              name="formularioCartaExpansion" id="formularioCartaExpansion">
+              name="formularioCartaRareza" id="formularioCartaRareza">
               <option *ngFor="let rare of rarezas | async" [ngValue]="rare">
                 {{rare.nombreRareza}}
               </option>
@@ -68,7 +68,7 @@
             <div class="m-4">
               <label class="form-label display-text" for="formularioCartaTipo">Tipo</label><br>
               <select formControlName="formularioCartaTipo" class="formulario-input bg-light form-control "
-                name="formularioCartaExpansion" id="formularioCartaExpansion" >
+                name="formularioCartaTipo" id="formularioCartaTipo" >
                 <ng-container *ngIf="{ data: tipos | async } as result">
                   <option *ngFor="let type of result.data | orderBy:'nombreTipo'" [ngValue]="type">
                     {{type.nombreTipo}}
@@ -81,6 +81,33 @@
               </div>
             </div>
 
+
+            <div class="m-4">
+              <label class="form-label display-text" for="formularioTextoCarta">Texto de carta</label><br>
+              <input formControlName="formularioTextoCarta" name="formularioTextoCarta"
+                [class.is-invalid]="contactForm.get('formularioTextoCarta').invalid && contactForm.get('formularioTextoCarta').touched"
+                type="text" id="formularioTextoCarta" class="formulario-input bg-light form-control " required
+                formControlName="formularioTextoCarta" />
+              <div
+                *ngIf="contactForm.get('formularioTextoCarta')?.touched && contactForm.get('formularioTextoCarta')?.errors?.['required'] "
+                class="alert alert-danger formulario-error mt-3">*El texto de carta es obligatorio
+              </div>
+              <div
+                *ngIf="contactForm.get('formularioTextoCarta')?.touched && contactForm.get('formularioTextoCarta')?.errors?.['minlength'] "
+                class="alert alert-danger formulario-error mt-3">*El texto de carta debe contener al menos
+                {{contactForm.get('formularioTextoCarta')?.errors?.['minlength'].requiredLength}} letras
+              </div>
+            </div>
+
+            <div class="m-4">
+              <label class="form-label display-text" for="formularioFlavorCarta">Flavor text (no es obligatorio)</label><br>
+              <input formControlName="formularioFlavorCarta" class="formulario-input bg-light form-control" name="formularioFlavorCarta"/>
+            </div>
+
+            <div class="m-4">
+              <label class="form-label display-text" for="formularioRulingCarta">Ruling (no es obligatorio)</label><br>
+              <input formControlName="formularioRulingCarta" class="formulario-input bg-light form-control" name="formularioRulingCarta"/>
+            </div>
 
             <div class="m-4">
               <label class="form-label display-text" for="formularioCartaURL">URL de la imagen</label><br>
@@ -98,6 +125,20 @@
                 {{contactForm.get('formularioCartaURL')?.errors?.['minlength'].requiredLength}} letras
               </div>
             </div>
+
+            <div class="m-4">
+              <label class="form-label display-text" for="formularioAlter1">Imagen alternativa 1 (no es obligatorio)</label><br>
+              <input formControlName="formularioAlter1" class="formulario-input bg-light form-control" name="formularioAlter1"/>
+            </div>
+            <div class="m-4">
+              <label class="form-label display-text" for="formularioAlter2">Imagen alternativa 2 (no es obligatorio)</label><br>
+              <input formControlName="formularioAlter2" class="formulario-input bg-light form-control" name="formularioAlter2"/>
+            </div>
+            <div class="m-4">
+              <label class="form-label display-text" for="formularioAlter3">Imagen alternativa 3 (no es obligatorio)</label><br>
+              <input formControlName="formularioAlter3" class="formulario-input bg-light form-control" name="formularioAlter3"/>
+            </div>
+
 
             <button (click)="onSubmitCarta()" [swal]="['Hecho!', 'Has registrado una nueva carta', 'success']"
               [disabled]="contactForm.invalid" type="submit" id="enviarFormulario"

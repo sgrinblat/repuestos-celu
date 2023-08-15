@@ -35,6 +35,7 @@ import { ResetPasswordComponent } from "./pages/login-jugador/resetPassword/rese
 import { TorneosComponent } from "./pages/torneos/torneos.component";
 import { ActualizarJugadorComponent } from "./pages/actualizar-jugador/actualizar-jugador.component";
 import { MailingComponent } from "./pages/mailing/mailing.component";
+import { CartaOracleComponent } from "./pages/carta-oracle/carta-oracle.component";
 
 
 const routes: Routes = [
@@ -50,6 +51,10 @@ const routes: Routes = [
     {
       path: "buscador",
       component: BuscadorComponent
+    },
+    {
+      path: `buscador/cartas/:id`,
+      component: CartaOracleComponent,
     },
     {
       path: "lore",

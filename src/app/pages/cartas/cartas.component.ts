@@ -46,7 +46,15 @@ export class CartasComponent implements OnInit {
       formularioCartaExpansion: ['', [Validators.required]],
       formularioCartaRareza: ['', [Validators.required]],
       formularioCartaTipo: ['', [Validators.required]],
+      formularioTextoCarta: ['', [Validators.required, Validators.minLength(6)]],
       formularioCartaURL: ['', [Validators.required, Validators.minLength(10)]],
+      formularioAlter1: [''],
+      formularioAlter2: [''],
+      formularioAlter3: [''],
+      formularioAlter4: [''],
+      formularioAlter5: [''],
+      formularioRulingCarta: [''],
+      formularioFlavorCarta: [''],
     });
   }
 
@@ -77,6 +85,15 @@ export class CartasComponent implements OnInit {
     this.carta.rareza = this.contactForm.value.formularioCartaRareza;
     this.carta.tipo = this.contactForm.value.formularioCartaTipo;
     this.carta.urlImagen = this.contactForm.value.formularioCartaURL;
+
+    this.carta.textoCarta = this.contactForm.value.formularioTextoCarta;
+    this.carta.flavorCarta = this.contactForm.value.formularioFlavorCarta;
+    this.carta.rulingCarta = this.contactForm.value.formularioRulingCarta;
+    this.carta.urlImagen1 = this.contactForm.value.formularioAlter1;
+    this.carta.urlImagen2 = this.contactForm.value.formularioAlter2;
+    this.carta.urlImagen3 = this.contactForm.value.formularioAlter3;
+    this.carta.urlImagen4 = this.contactForm.value.formularioAlter4;
+    this.carta.urlImagen5 = this.contactForm.value.formularioAlter5;
 
     this.conexion.postCarta(this.carta).subscribe(
       (dato) => {
