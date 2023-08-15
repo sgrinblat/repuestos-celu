@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
+
 import { ConexionService } from 'src/app/service/conexion.service';
 
 import { Carta } from '../../carta';
@@ -36,12 +38,13 @@ export class CartaOracleComponent implements OnInit {
   constructor(private conexion: ConexionService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    Loading.hourglass();
     this.id = this.route.snapshot.params['id'];
 
     this.expansiones = this.conexion.getTodasLasExpas();
     this.rarezas = this.conexion.getTodasLasRarezas();
     this.tipos = this.conexion.getTodasLosTipos();
-
+    Loading.remove(300);
     this.conexion.getCartaByIdPublic(this.id).subscribe(dato =>{
       this.carta = dato;
     }, error => console.log(error), () => {

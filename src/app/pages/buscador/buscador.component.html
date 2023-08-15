@@ -87,7 +87,7 @@
                 (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)">
 
             <div class="carta-texto">
-              <p>{{acortarTexto(carta.nombreCarta)}}</p>
+              <p>{{acortarTexto(carta.textoCarta)}}</p>
               <p><a (click)="visualizarCarta(carta.idCarta)">... Ver más</a></p>
             </div>
 
@@ -106,7 +106,7 @@
             (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)">
 
             <div class="carta-texto">
-              <p>{{acortarTexto(card.nombreCarta)}}</p>
+              <p>{{acortarTexto(card.textoCarta)}}</p>
               <p><a class="link-vermas" (click)="visualizarCarta(card.idCarta)">... Ver más</a></p>
             </div>
 

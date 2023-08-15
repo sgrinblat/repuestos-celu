@@ -92,7 +92,7 @@ export class BuscadorComponent implements OnInit {
     this.route.navigate(['buscador/cartas', id]);
   }
 
-  acortarTexto(texto: string, limite: number = 20): string {
+  acortarTexto(texto: string, limite: number = 35): string {
     if (texto.length <= limite) {
       return texto;
     }
