@@ -46,6 +46,8 @@ import { AdminnavbarComponent } from './adminnavbar/adminnavbar.component';
 import { MailingComponent } from './mailing/mailing.component';
 import { OrderByPipe } from '../order-by.pipe';
 import { CartaOracleComponent } from './carta-oracle/carta-oracle.component';
+import { PactoSecretoComponent } from './productos/pacto-secreto/pacto-secreto.component';
+import { PlaymatsComponent } from './productos/playmats/playmats.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +83,8 @@ import { CartaOracleComponent } from './carta-oracle/carta-oracle.component';
     DecklistsComponent,
     EntradaHistoriaComponent,
     FundamentosComponent,
+    PactoSecretoComponent,
+    PlaymatsComponent,
     ExpansionAComponent,
     OrderByPipe
   ],
@@ -118,6 +122,8 @@ import { CartaOracleComponent } from './carta-oracle/carta-oracle.component';
     DecklistsComponent,
     ExpansionAComponent,
     FundamentosComponent,
+    PactoSecretoComponent,
+    PlaymatsComponent,
     ReactiveFormsModule,
     FormsModule,
   ],

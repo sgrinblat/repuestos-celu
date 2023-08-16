@@ -22,20 +22,12 @@ export class ProductosComponent implements OnInit {
     }
   }
 
-  mostrarFundamentos() {
+  mostrarSeccion(nombre: string) {
     Loading.hourglass();
     Loading.remove(300);
     setTimeout(() => {
-      this.seleccionado = "Fundamentos";
+      this.seleccionado = nombre;
     }, 300);
-  }
-
-  mostrarExpansionA() {
-    Loading.hourglass();
-    Loading.remove(600);
-    setTimeout(() => {
-      this.seleccionado = "ExpansionA";
-    }, 600);
   }
 
 

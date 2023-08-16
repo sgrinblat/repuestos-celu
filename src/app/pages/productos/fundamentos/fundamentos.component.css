@@ -4,3 +4,15 @@
         width: 100%;
     }
 }
+
+.logo {
+  animation-name: zoomInOut;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.contenedor{
+  display: grid;
+  place-items: center;
+}

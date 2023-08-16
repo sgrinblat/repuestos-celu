@@ -58,3 +58,29 @@
 }
 
 
+
+.custom-btn {
+  background-color: transparent;
+  border: 2px solid #fff;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+  width: 70%;
+  text-align: center;
+  display: block;
+  margin: 0 auto; /* Centrar horizontalmente */
+}
+
+.custom-btn:hover {
+  background-color: #f8c538;
+  color: black !important; /* Color del texto al hacer hover. Puedes cambiarlo si lo necesitas */
+}
+
+@media (min-width: 576px) { /* Para pantallas más grandes que un teléfono en modo retrato */
+  .custom-btn {
+      width: auto; /* Los botones ocuparán el ancho que requiera su contenido */
+      display: inline-block; /* Se muestran uno al lado del otro */
+  }
+}
+
+
+
