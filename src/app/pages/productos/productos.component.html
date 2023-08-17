@@ -5,40 +5,73 @@
     <div class="align-items-center gy-4 row">
       <div class="col-lg-12 text-center textos pb-4">
         <h1 class="display-3 fw-bold text-uppercase titulo-inicial text-white">nuestros productos</h1>
-        <p class="lead mb-4 text-white pe-sm-5 parrafo">Te presentamos los mazos y expansiones de boosters de Lairen. Tocá el nombre del set para poder ver toda la información!</p>
+        <p class="lead mb-4 text-white pe-sm-5 parrafo">Te presentamos los mazos y expansiones de boosters de Lairen.
+          Tocá el nombre del set para poder ver toda la información!</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="fondo-gris text-center pb-5 text-white" >
+<section class="fondo-gris text-center pb-5 text-white">
 
   <div class="container pt-4 pb-4">
     <div class="text-center mb-4">
-        <h2>Sets de cartas</h2>
-        <hr>
+      <h2>Sets de cartas</h2>
+      <h4>Hace click en cada una para verlas en detalle!</h4>
+      <hr>
     </div>
 
-    <div class="d-flex flex-wrap justify-content-center">
-        <button (click)="mostrarSeccion('Fundamentos')" class="custom-btn mx-2 my-1 text-white">Fundamentos</button>
-        <button (click)="mostrarSeccion('Pacto')" class="custom-btn mx-2 my-1 text-white">Pacto Secreto</button>
+
+    <div class="container text-center text-white">
+      <div class="row justify-content-center">
+        <div class="col-12 col-sm-6 col-lg-4 mb-4 d-flex justify-content-between">
+          <div (click)="mostrarSeccion('Fundamentos')" class="portadaDeck">
+            <img src="https://i.postimg.cc/JhSRrqf9/Aixa-1.jpg">
+            <div class="overlay"></div>
+            <div class="text-container">
+              <h4>Fundamentos</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 mb-4">
+          <div (click)="mostrarSeccion('Pacto')" class="portadaDeck">
+            <img src="https://i.postimg.cc/rmCwFHSK/Sombra-del-desierto.jpg">
+            <div class="overlay"></div>
+            <div class="text-container">
+              <h4>Pacto Secreto</h4>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
+
   </div>
+
 
   <div class="container mt-5">
     <div class="text-center mb-4">
-        <h2>Otros productos</h2>
-        <hr>
+      <h2>Otros productos</h2>
+      <hr>
     </div>
 
-    <div class="d-flex flex-wrap justify-content-center">
-        <button (click)="mostrarSeccion('Playmats')" class="custom-btn mx-2 my-1 text-white">Playmats</button>
-        <!-- <button class="custom-btn mx-2 my-1 text-white">Folios</button> -->
+    <div class="container text-center text-white">
+      <div class="row justify-content-center">
+
+        <div class="col-12 col-sm-6 col-lg-4 mb-4 d-flex justify-content-between">
+          <div (click)="mostrarSeccion('Playmats')" class="portadaDeck">
+            <img class="playmat" src="https://i.postimg.cc/7hzhrLKr/caceria-con-zonas.jpg">
+            <div class="overlay"></div>
+            <div class="text-container">
+              <h4>Playmats</h4>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
+
   </div>
-
-
-
 </section>
 
 
@@ -53,4 +86,3 @@
     <app-playmats></app-playmats>
   </div>
 </section>
-
