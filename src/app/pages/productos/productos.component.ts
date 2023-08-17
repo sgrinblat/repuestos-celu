@@ -1,6 +1,7 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -9,10 +10,10 @@ import { Loading } from 'notiflix/build/notiflix-loading-aio';
   styleUrls: ['./productos.component.css']
 })
 export class ProductosComponent implements OnInit {
-  images;
-    responsiveOptions;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  @ViewChild('seccion') miSeccion: ElementRef;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   seleccionado: string;
 
@@ -28,6 +29,9 @@ export class ProductosComponent implements OnInit {
     setTimeout(() => {
       this.seleccionado = nombre;
     }, 300);
+
+    this.miSeccion.nativeElement.scrollIntoView({ behavior: 'smooth' });
+
   }
 
 
