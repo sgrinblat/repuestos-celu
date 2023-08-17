@@ -84,18 +84,6 @@
 
 
 
-
-
-
-.overlay {
-  position: absolute; /* Permite ajustar la posición del overlay con respecto al contenedor */
-  top: 0; /* Alinea la parte superior del overlay con la parte superior del contenedor */
-  left: 0; /* Alinea la parte izquierda del overlay con la parte izquierda del contenedor */
-  width: 100%; /* Asegura que el overlay cubra todo el ancho del contenedor */
-  height: 100%; /* Asegura que el overlay cubra todo el alto del contenedor */
-  background-image: linear-gradient(rgba(14, 13, 13, 0.5), rgba(11, 11, 11, 0.3)); /* Aplica el gradiente al overlay */
-}
-
 .separador-vertical {
   border-right: 1px solid #ffffff;
 }
