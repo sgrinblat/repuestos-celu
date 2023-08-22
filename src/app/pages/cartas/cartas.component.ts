@@ -53,6 +53,11 @@ export class CartasComponent implements OnInit {
       formularioAlter3: [''],
       formularioAlter4: [''],
       formularioAlter5: [''],
+      formularioAlter6: [''],
+      formularioAlter7: [''],
+      formularioAlter8: [''],
+      formularioAlter9: [''],
+      formularioAlter10: [''],
       formularioRulingCarta: [''],
       formularioFlavorCarta: [''],
     });
@@ -94,6 +99,11 @@ export class CartasComponent implements OnInit {
     this.carta.urlImagen3 = this.contactForm.value.formularioAlter3;
     this.carta.urlImagen4 = this.contactForm.value.formularioAlter4;
     this.carta.urlImagen5 = this.contactForm.value.formularioAlter5;
+    this.carta.urlImagen6 = this.contactForm.value.formularioAlter6;
+    this.carta.urlImagen7 = this.contactForm.value.formularioAlter7;
+    this.carta.urlImagen8 = this.contactForm.value.formularioAlter8;
+    this.carta.urlImagen9 = this.contactForm.value.formularioAlter9;
+    this.carta.urlImagen10 = this.contactForm.value.formularioAlter10;
 
     this.conexion.postCarta(this.carta).subscribe(
       (dato) => {

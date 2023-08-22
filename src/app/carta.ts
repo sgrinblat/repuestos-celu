@@ -16,6 +16,11 @@ export class Carta {
   urlImagen3!: string;
   urlImagen4!: string;
   urlImagen5!: string;
+  urlImagen6!: string;
+  urlImagen7!: string;
+  urlImagen8!: string;
+  urlImagen9!: string;
+  urlImagen10!: string;
 
   expansion!: Expansion;
   rareza!: Rareza;
