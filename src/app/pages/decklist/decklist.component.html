@@ -150,11 +150,15 @@
         <button (click)="guardarDecklist()" class="btn btn-warning mb-2 mt-5">Guardar decklist</button>
       </div>
 
-      <button (click)="generarImagen()">Generar Imagen</button>
+      <div class="container d-flex align-items-center justify-content-center">
+        <button (click)="generarImagen()" class="btn btn-warning mb-2 mt-5">Generar imagen de decklist</button>
+      </div>
+
 
       <app-image-generator
           #imageGenerator
           [reino]="reino"
+
           (imageGenerated)="onImageGenerated($event)">
       </app-image-generator>
 
