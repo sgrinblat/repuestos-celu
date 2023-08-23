@@ -290,6 +290,7 @@ export class BuscadorComponent implements OnInit {
     this.conexion.getTodasLasCartasOrdenadas().subscribe((dato) => {
       this.cartas = dato;
       this.costes = this.getUniqueCostesCartas(this.cartas);
+      this.costes = this.costes.sort((a, b) => b - a);
     });
   }
 

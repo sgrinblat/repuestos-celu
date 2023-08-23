@@ -48,6 +48,7 @@ import { OrderByPipe } from '../order-by.pipe';
 import { CartaOracleComponent } from './carta-oracle/carta-oracle.component';
 import { PactoSecretoComponent } from './productos/pacto-secreto/pacto-secreto.component';
 import { PlaymatsComponent } from './productos/playmats/playmats.component';
+import { ImageGeneratorComponent } from './decklist/image-generator/image-generator.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { PlaymatsComponent } from './productos/playmats/playmats.component';
     TorneosComponent,
     DecklistComponent,
     DecklistsComponent,
+    ImageGeneratorComponent,
     EntradaHistoriaComponent,
     FundamentosComponent,
     PactoSecretoComponent,
@@ -120,6 +122,7 @@ import { PlaymatsComponent } from './productos/playmats/playmats.component';
     TorneosComponent,
     DecklistComponent,
     DecklistsComponent,
+    ImageGeneratorComponent,
     ExpansionAComponent,
     FundamentosComponent,
     PactoSecretoComponent,

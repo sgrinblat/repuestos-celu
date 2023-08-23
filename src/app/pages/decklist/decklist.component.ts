@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -15,6 +15,7 @@ import { Decklist } from 'src/app/decklist';
 import { Usuario } from 'src/app/usuario';
 import { Input } from '@angular/core';
 import { DeckListCarta } from 'src/app/deckListCarta';
+import { ImageGeneratorComponent } from './image-generator/image-generator.component';
 
 @Component({
   selector: 'app-decklist',
@@ -44,6 +45,7 @@ export class DecklistComponent implements OnInit {
 
   banderaLista = true;
   banderaEdicion = false;
+  imagenGenerada: string;
 
   constructor(
     private conexion: ConexionService,
@@ -57,6 +59,17 @@ export class DecklistComponent implements OnInit {
 
   @Input()
   decklistId: number | null = null;
+
+
+  @ViewChild('imageGenerator') imageGeneratorComponent: ImageGeneratorComponent;
+
+  generarImagen() {
+    this.imageGeneratorComponent.generarImagen();
+  }
+
+  onImageGenerated(imageUrl: string) {
+    this.imagenGenerada = imageUrl;
+  }
 
   ngOnInit(): void {
 
@@ -315,6 +328,7 @@ export class DecklistComponent implements OnInit {
     this.conexion.getTodasLasCartasOrdenadas().subscribe((dato) => {
       this.cartas = dato;
       this.costes = this.getUniqueCostesCartas(this.cartas);
+      this.costes = this.costes.sort((a, b) => b - a);
     });
   }
 

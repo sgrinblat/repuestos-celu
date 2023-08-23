@@ -150,6 +150,22 @@
         <button (click)="guardarDecklist()" class="btn btn-warning mb-2 mt-5">Guardar decklist</button>
       </div>
 
+      <button (click)="generarImagen()">Generar Imagen</button>
+
+      <app-image-generator
+          #imageGenerator
+          [reino]="reino"
+          (imageGenerated)="onImageGenerated($event)">
+      </app-image-generator>
+
+      <!-- Otros elementos de tu componente -->
+
+      <!-- Aquí es donde mostrarás la imagen generada -->
+      <img *ngIf="imagenGenerada" [src]="imagenGenerada" alt="Imagen Generada">
+
+
+
+
     </section>
 
   </div>

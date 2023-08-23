@@ -76,8 +76,10 @@
 }
 
 .dorso {
-  max-height: 610px;
   margin-left: 140px;
+  height: auto;
+  width: 100%;
+  max-width: 350px;
 }
 
 .perspectiva {
