@@ -49,6 +49,7 @@ import { CartaOracleComponent } from './carta-oracle/carta-oracle.component';
 import { PactoSecretoComponent } from './productos/pacto-secreto/pacto-secreto.component';
 import { PlaymatsComponent } from './productos/playmats/playmats.component';
 import { ImageGeneratorComponent } from './decklist/image-generator/image-generator.component';
+import { ImageBovedaDeckComponent } from './decklist/image-boveda-deck/image-boveda-deck.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { ImageGeneratorComponent } from './decklist/image-generator/image-genera
     DecklistComponent,
     DecklistsComponent,
     ImageGeneratorComponent,
+    ImageBovedaDeckComponent,
     EntradaHistoriaComponent,
     FundamentosComponent,
     PactoSecretoComponent,
@@ -123,6 +125,7 @@ import { ImageGeneratorComponent } from './decklist/image-generator/image-genera
     DecklistComponent,
     DecklistsComponent,
     ImageGeneratorComponent,
+    ImageBovedaDeckComponent,
     ExpansionAComponent,
     FundamentosComponent,
     PactoSecretoComponent,

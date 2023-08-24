@@ -158,16 +158,21 @@
       <app-image-generator
           #imageGenerator
           [reino]="reino"
-
           (imageGenerated)="onImageGenerated($event)">
       </app-image-generator>
 
       <!-- Otros elementos de tu componente -->
 
       <!-- Aquí es donde mostrarás la imagen generada -->
-      <img *ngIf="imagenGenerada" [src]="imagenGenerada" alt="Imagen Generada">
+      <img class="mt-4 mb-4" *ngIf="imagenGenerada" [src]="imagenGenerada" alt="Imagen Generada">
 
+      <app-image-boveda-deck
+        #imageBoveda
+        [boveda]="boveda"
+        (imageGenerated)="onImageGeneratedBoveda($event)">
+      </app-image-boveda-deck>
 
+      <img class="mt-4 mb-4" *ngIf="imagenGeneradaBoveda" [src]="imagenGeneradaBoveda" alt="Imagen Generada">
 
 
     </section>

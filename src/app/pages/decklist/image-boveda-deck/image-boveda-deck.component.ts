@@ -5,13 +5,13 @@ import { Carta } from '../../../carta';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-image-generator',
-  templateUrl: './image-generator.component.html',
-  styleUrls: ['./image-generator.component.css'], // si tienes estilos específicos
+  selector: 'app-image-boveda-deck',
+  templateUrl: './image-boveda-deck.component.html',
+  styleUrls: ['./image-boveda-deck.component.css'], // si tienes estilos específicos
 })
-export class ImageGeneratorComponent {
-  imagenGenerada: string;
-  @Input() reino: Carta[] = [];
+export class ImageBovedaDeckComponent {
+  imagenGeneradaBoveda: string;
+  @Input() boveda: Carta[] = [];
 
   @Output() imageGenerated = new EventEmitter<string>();
 
@@ -21,7 +21,7 @@ export class ImageGeneratorComponent {
     // Crear contenedor de imágenes
     const contenedor = document.createElement('div');
     contenedor.style.width = '1080px';
-    contenedor.style.height = '670px';
+    contenedor.style.height = '500px';
     contenedor.style.backgroundImage = 'url("/assets/images/texture.png")';
     contenedor.style.backgroundSize = 'cover'; // La imagen cubre todo el contenedor
     contenedor.style.position = 'relative';
@@ -51,7 +51,7 @@ export class ImageGeneratorComponent {
     contenedor.appendChild(divNombre);
 
     const divMazo = document.createElement('div');
-    divMazo.textContent = 'Reino: ';
+    divMazo.textContent = 'Bóveda: ';
     divMazo.style.position = 'absolute';
     divMazo.style.left = '20px';
     divMazo.style.top = divDecklist.offsetHeight + 40 + 'px'; // 20px de margen inicial + 20px de espacio entre textos
@@ -61,7 +61,7 @@ export class ImageGeneratorComponent {
     contenedor.appendChild(divMazo);
 
     const mapaDeRepeticiones: { [nombre: string]: number } = {};
-    for (const carta of this.reino) {
+    for (const carta of this.boveda) {
       if (!mapaDeRepeticiones[carta.nombreCarta]) {
         mapaDeRepeticiones[carta.nombreCarta] = 0;
       }
@@ -122,7 +122,7 @@ export class ImageGeneratorComponent {
 
       // Actualizar la posición y el contador
       currentInRow += 1;
-      if (currentInRow === 4) {
+      if (currentInRow === 2) {
         currentInRow = 0; // Reiniciar contador de imágenes en fila
         xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
         yPosition = yStartPosition; // Usar yStartPosition aquí
@@ -133,10 +133,10 @@ export class ImageGeneratorComponent {
 
     // Convertir contenedor a imagen
     const dataURL = await this.convertToDataURL(contenedor);
-    this.imagenGenerada = dataURL;
+    this.imagenGeneradaBoveda = dataURL;
 
     // Emitir la imagen generada para el componente padre
-    this.imageGenerated.emit(this.imagenGenerada);
+    this.imageGenerated.emit(this.imagenGeneradaBoveda);
 
     // Eliminar el contenedor del body una vez que hayas obtenido la imagen
     document.body.removeChild(contenedor);
