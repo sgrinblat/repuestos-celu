@@ -2,15 +2,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import html2canvas from 'html2canvas';
 import { Carta } from '../../../carta';
 
-
 @Component({
-  selector: 'app-image-boveda-deck',
-  templateUrl: './image-boveda-deck.component.html',
-  styleUrls: ['./image-boveda-deck.component.css'], // si tienes estilos específicos
+  selector: 'app-image-sidedeck',
+  templateUrl: './image-sidedeck.component.html',
+  styleUrls: ['./image-sidedeck.component.css']
 })
-export class ImageBovedaDeckComponent {
-  imagenGeneradaBoveda: string;
-  @Input() boveda: Carta[] = [];
+export class ImageSidedeckComponent {
+
+  imagenGeneradaSideDeck: string;
+  @Input() sidedeck: Carta[] = [];
 
   @Output() imageGenerated = new EventEmitter<string>();
 
@@ -50,7 +50,7 @@ export class ImageBovedaDeckComponent {
     contenedor.appendChild(divNombre);
 
     const divMazo = document.createElement('div');
-    divMazo.textContent = 'Bóveda: ';
+    divMazo.textContent = 'Sidedeck: ';
     divMazo.style.position = 'absolute';
     divMazo.style.left = '20px';
     divMazo.style.top = divDecklist.offsetHeight + 40 + 'px'; // 20px de margen inicial + 20px de espacio entre textos
@@ -60,7 +60,7 @@ export class ImageBovedaDeckComponent {
     contenedor.appendChild(divMazo);
 
     const mapaDeRepeticiones: { [nombre: string]: number } = {};
-    for (const carta of this.boveda) {
+    for (const carta of this.sidedeck) {
       if (!mapaDeRepeticiones[carta.nombreCarta]) {
         mapaDeRepeticiones[carta.nombreCarta] = 0;
       }
@@ -132,10 +132,10 @@ export class ImageBovedaDeckComponent {
 
     // Convertir contenedor a imagen
     const dataURL = await this.convertToDataURL(contenedor);
-    this.imagenGeneradaBoveda = dataURL;
+    this.imagenGeneradaSideDeck = dataURL;
 
     // Emitir la imagen generada para el componente padre
-    this.imageGenerated.emit(this.imagenGeneradaBoveda);
+    this.imageGenerated.emit(this.imagenGeneradaSideDeck);
 
     // Eliminar el contenedor del body una vez que hayas obtenido la imagen
     document.body.removeChild(contenedor);
