@@ -16,6 +16,7 @@ import { Usuario } from 'src/app/usuario';
 import { Input } from '@angular/core';
 import { DeckListCarta } from 'src/app/deckListCarta';
 import { ImageGeneratorComponent } from './image-generator/image-generator.component';
+import { ImageBovedaDeckComponent } from './image-boveda-deck/image-boveda-deck.component';
 
 @Component({
   selector: 'app-decklist',
@@ -46,6 +47,10 @@ export class DecklistComponent implements OnInit {
   banderaLista = true;
   banderaEdicion = false;
   imagenGenerada: string;
+  imagenGeneradaBoveda: string;
+
+  decklist: string;
+  nombreCompleto: string;
 
   constructor(
     private conexion: ConexionService,
@@ -62,13 +67,55 @@ export class DecklistComponent implements OnInit {
 
 
   @ViewChild('imageGenerator') imageGeneratorComponent: ImageGeneratorComponent;
+  @ViewChild('imageBoveda') ImageBovedaDeckComponent: ImageBovedaDeckComponent;
 
   generarImagen() {
-    this.imageGeneratorComponent.generarImagen();
+
+    Swal.fire({
+      title: 'Pon un nombre para tu decklist',
+      input: 'text',
+      background: '#2e3031',
+      color: '#fff',
+      inputAttributes: {
+        autocapitalize: 'off',
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      showLoaderOnConfirm: true,
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.decklist = result.value;
+        Swal.fire({
+          title: 'Cuál es tu nombre y apellido?',
+          input: 'text',
+          background: '#2e3031',
+          color: '#fff',
+          inputAttributes: {
+            autocapitalize: 'off',
+          },
+          showCancelButton: true,
+          confirmButtonText: 'Guardar',
+          showLoaderOnConfirm: true,
+          allowOutsideClick: () => !Swal.isLoading(),
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            this.nombreCompleto = result.value;
+          }
+        })
+      }
+    })
+
+    this.imageGeneratorComponent.generarImagen(this.decklist, this.nombreCompleto);
+    this.ImageBovedaDeckComponent.generarImagen(this.decklist, this.nombreCompleto);
   }
 
   onImageGenerated(imageUrl: string) {
     this.imagenGenerada = imageUrl;
+  }
+
+  onImageGeneratedBoveda(imageUrl: string) {
+    this.imagenGeneradaBoveda = imageUrl;
   }
 
   ngOnInit(): void {
