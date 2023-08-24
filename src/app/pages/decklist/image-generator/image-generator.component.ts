@@ -51,7 +51,7 @@ export class ImageGeneratorComponent {
     contenedor.appendChild(divNombre);
 
     const divMazo = document.createElement('div');
-    divMazo.textContent = 'Reino: ';
+    //divMazo.textContent = 'Reino: ';
     divMazo.style.position = 'absolute';
     divMazo.style.left = '20px';
     divMazo.style.top = divDecklist.offsetHeight + 40 + 'px'; // 20px de margen inicial + 20px de espacio entre textos
@@ -60,13 +60,63 @@ export class ImageGeneratorComponent {
     divMazo.style.fontSize = '24px'; // Ajusta según tus necesidades
     contenedor.appendChild(divMazo);
 
+    let acciones = 0;
+    let unidades = 0;
+    let monumentos = 0;
+    let costeUno = 0;
+    let costeDos = 0;
+    let costeTres = 0;
+    let costeCuatro = 0;
+    let costeCinco = 0;
+    let costeSeis = 0;
+    let costeSiete = 0;
+    let costeOcho = 0;
+    let costeNueve = 0;
+    let costeDiez = 0;
+
     const mapaDeRepeticiones: { [nombre: string]: number } = {};
     for (const carta of this.reino) {
+
+      if(carta.tipo.nombreTipo == "ACCION" || carta.tipo.nombreTipo == "ACCION - RAPIDA") {
+        acciones++;
+      } else {
+        if(carta.tipo.nombreTipo.startsWith("UNIDAD")) {
+          unidades++;
+        }
+      }
+
+      switch(carta.costeCarta) {
+        case 1:
+            costeUno++;
+            break;
+        case 2:
+            costeDos++;
+            break;
+        case 3:
+            costeTres++;
+            break;
+        case 4:
+            costeCuatro++;
+            break;
+        case 5:
+            costeCinco++;
+            break;
+        case 6:
+            costeSeis++;
+            break;
+        default:
+            // Código en caso de que no haya coincidencia con ningún caso anterior (opcional)
+            break;
+      }
+
+
       if (!mapaDeRepeticiones[carta.nombreCarta]) {
         mapaDeRepeticiones[carta.nombreCarta] = 0;
       }
       mapaDeRepeticiones[carta.nombreCarta]++;
     }
+
+    divMazo.textContent = `Reino: (Acciones: ${acciones} - Unidades: ${unidades}) - (Coste 1: ${costeUno} - Coste 2: ${costeDos} - Coste 3: ${costeTres} - Coste 4: ${costeCuatro} - Coste 5: ${costeCinco})`;
 
     // Inicializar las posiciones y el contador
     let xPosition = 0;
