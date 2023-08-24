@@ -17,6 +17,7 @@ import { Input } from '@angular/core';
 import { DeckListCarta } from 'src/app/deckListCarta';
 import { ImageGeneratorComponent } from './image-generator/image-generator.component';
 import { ImageBovedaDeckComponent } from './image-boveda-deck/image-boveda-deck.component';
+import { ImageSidedeckComponent } from './image-sidedeck/image-sidedeck.component';
 
 @Component({
   selector: 'app-decklist',
@@ -48,9 +49,9 @@ export class DecklistComponent implements OnInit {
   banderaEdicion = false;
   imagenGenerada: string;
   imagenGeneradaBoveda: string;
+  imagenGeneradaSideDeck: string;
 
-  decklist: string;
-  nombreCompleto: string;
+
 
   constructor(
     private conexion: ConexionService,
@@ -68,47 +69,54 @@ export class DecklistComponent implements OnInit {
 
   @ViewChild('imageGenerator') imageGeneratorComponent: ImageGeneratorComponent;
   @ViewChild('imageBoveda') ImageBovedaDeckComponent: ImageBovedaDeckComponent;
+  @ViewChild('imageSideDeck') ImageSidedeckComponent: ImageSidedeckComponent;
 
   generarImagen() {
+    let decklist: string;
+    let nombreCompleto: string;
 
     Swal.fire({
-      title: 'Pon un nombre para tu decklist',
-      input: 'text',
-      background: '#2e3031',
-      color: '#fff',
-      inputAttributes: {
-        autocapitalize: 'off',
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Guardar',
-      showLoaderOnConfirm: true,
-      allowOutsideClick: () => !Swal.isLoading(),
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.decklist = result.value;
-        Swal.fire({
-          title: 'Cuál es tu nombre y apellido?',
-          input: 'text',
-          background: '#2e3031',
-          color: '#fff',
-          inputAttributes: {
+        title: 'Pon un nombre para tu decklist',
+        input: 'text',
+        background: '#2e3031',
+        color: '#fff',
+        inputAttributes: {
             autocapitalize: 'off',
-          },
-          showCancelButton: true,
-          confirmButtonText: 'Guardar',
-          showLoaderOnConfirm: true,
-          allowOutsideClick: () => !Swal.isLoading(),
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            this.nombreCompleto = result.value;
-          }
-        })
-      }
-    })
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Guardar',
+        showLoaderOnConfirm: true,
+        allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+        if (result.isConfirmed) {
+            decklist = result.value;
 
-    this.imageGeneratorComponent.generarImagen(this.decklist, this.nombreCompleto);
-    this.ImageBovedaDeckComponent.generarImagen(this.decklist, this.nombreCompleto);
+            Swal.fire({
+                title: 'Cuál es tu nombre y apellido?',
+                input: 'text',
+                background: '#2e3031',
+                color: '#fff',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Guardar',
+                showLoaderOnConfirm: true,
+                allowOutsideClick: () => !Swal.isLoading(),
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    nombreCompleto = result.value;
+
+                    // Llama a las funciones aquí, dentro del callback, cuando las variables tienen valores
+                    this.imageGeneratorComponent.generarImagen(decklist, nombreCompleto);
+                    this.ImageBovedaDeckComponent.generarImagen(decklist, nombreCompleto);
+                    this.ImageSidedeckComponent.generarImagen(decklist, nombreCompleto);
+                }
+            })
+        }
+    });
   }
+
 
   onImageGenerated(imageUrl: string) {
     this.imagenGenerada = imageUrl;
@@ -116,6 +124,10 @@ export class DecklistComponent implements OnInit {
 
   onImageGeneratedBoveda(imageUrl: string) {
     this.imagenGeneradaBoveda = imageUrl;
+  }
+
+  onImageGeneratedSideDeck(imageUrl: string) {
+    this.imagenGeneradaSideDeck = imageUrl;
   }
 
   ngOnInit(): void {

@@ -50,6 +50,7 @@ import { PactoSecretoComponent } from './productos/pacto-secreto/pacto-secreto.c
 import { PlaymatsComponent } from './productos/playmats/playmats.component';
 import { ImageGeneratorComponent } from './decklist/image-generator/image-generator.component';
 import { ImageBovedaDeckComponent } from './decklist/image-boveda-deck/image-boveda-deck.component';
+import { ImageSidedeckComponent } from './decklist/image-sidedeck/image-sidedeck.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { ImageBovedaDeckComponent } from './decklist/image-boveda-deck/image-bov
     DecklistsComponent,
     ImageGeneratorComponent,
     ImageBovedaDeckComponent,
+    ImageSidedeckComponent,
     EntradaHistoriaComponent,
     FundamentosComponent,
     PactoSecretoComponent,
@@ -126,6 +128,7 @@ import { ImageBovedaDeckComponent } from './decklist/image-boveda-deck/image-bov
     DecklistsComponent,
     ImageGeneratorComponent,
     ImageBovedaDeckComponent,
+    ImageSidedeckComponent,
     ExpansionAComponent,
     FundamentosComponent,
     PactoSecretoComponent,
