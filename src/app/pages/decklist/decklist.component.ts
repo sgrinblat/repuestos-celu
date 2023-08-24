@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, PLATFORM_ID, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable} from 'rxjs';
 import { ElementRef } from '@angular/core';
+
 
 import Swal from 'sweetalert2';
 
@@ -18,6 +19,7 @@ import { DeckListCarta } from 'src/app/deckListCarta';
 import { ImageGeneratorComponent } from './image-generator/image-generator.component';
 import { ImageBovedaDeckComponent } from './image-boveda-deck/image-boveda-deck.component';
 import { ImageSidedeckComponent } from './image-sidedeck/image-sidedeck.component';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-decklist',
@@ -50,13 +52,13 @@ export class DecklistComponent implements OnInit {
   imagenGenerada: string;
   imagenGeneradaBoveda: string;
   imagenGeneradaSideDeck: string;
-
-
+  imagenCombinada: string;
 
   constructor(
     private conexion: ConexionService,
     private activatedRoute: ActivatedRoute,
-    private route: Router
+    private route: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.reino = new Array<Carta>();
     this.boveda = new Array<Carta>();
@@ -65,7 +67,6 @@ export class DecklistComponent implements OnInit {
 
   @Input()
   decklistId: number | null = null;
-
 
   @ViewChild('imageGenerator') imageGeneratorComponent: ImageGeneratorComponent;
   @ViewChild('imageBoveda') ImageBovedaDeckComponent: ImageBovedaDeckComponent;
@@ -76,90 +77,155 @@ export class DecklistComponent implements OnInit {
     let nombreCompleto: string;
 
     Swal.fire({
-        title: 'Pon un nombre para tu decklist',
-        input: 'text',
-        background: '#2e3031',
-        color: '#fff',
-        inputAttributes: {
-            autocapitalize: 'off',
-        },
-        showCancelButton: true,
-        confirmButtonText: 'Guardar',
-        showLoaderOnConfirm: true,
-        allowOutsideClick: () => !Swal.isLoading(),
+      title: 'Pon un nombre para tu decklist',
+      input: 'text',
+      background: '#2e3031',
+      color: '#fff',
+      inputAttributes: {
+        autocapitalize: 'off',
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      showLoaderOnConfirm: true,
+      allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
-        if (result.isConfirmed) {
-            decklist = result.value;
+      if (result.isConfirmed) {
+        decklist = result.value;
 
-            Swal.fire({
-                title: 'Cuál es tu nombre y apellido?',
-                input: 'text',
-                background: '#2e3031',
-                color: '#fff',
-                inputAttributes: {
-                    autocapitalize: 'off',
-                },
-                showCancelButton: true,
-                confirmButtonText: 'Guardar',
-                showLoaderOnConfirm: true,
-                allowOutsideClick: () => !Swal.isLoading(),
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    nombreCompleto = result.value;
+        Swal.fire({
+          title: 'Cuál es tu nombre y apellido?',
+          input: 'text',
+          background: '#2e3031',
+          color: '#fff',
+          inputAttributes: {
+            autocapitalize: 'off',
+          },
+          showCancelButton: true,
+          confirmButtonText: 'Guardar',
+          showLoaderOnConfirm: true,
+          allowOutsideClick: () => !Swal.isLoading(),
+        }).then((result) => {
+          if (result.isConfirmed) {
+            nombreCompleto = result.value;
 
-                    // Llama a las funciones aquí, dentro del callback, cuando las variables tienen valores
-                    this.imageGeneratorComponent.generarImagen(decklist, nombreCompleto);
-                    this.ImageBovedaDeckComponent.generarImagen(decklist, nombreCompleto);
-                    this.ImageSidedeckComponent.generarImagen(decklist, nombreCompleto);
-                }
-            })
-        }
+            const image1Promise = new Promise<string>(resolve => {
+              this.onImageGenerated = (imageUrl: string) => {
+                  resolve(imageUrl);
+              };
+              this.imageGeneratorComponent.generarImagen(decklist, nombreCompleto);
+          });
+
+          const image2Promise = new Promise<string>(resolve => {
+              this.onImageGeneratedBoveda = (imageUrl: string) => {
+                  resolve(imageUrl);
+              };
+              this.ImageBovedaDeckComponent.generarImagen(decklist, nombreCompleto);
+          });
+
+          const image3Promise = new Promise<string>(resolve => {
+              this.onImageGeneratedSideDeck = (imageUrl: string) => {
+                  resolve(imageUrl);
+              };
+              this.ImageSidedeckComponent.generarImagen(decklist, nombreCompleto);
+          });
+
+          // Esperar a que todas las imágenes estén generadas
+          Promise.all([image1Promise, image2Promise, image3Promise])
+              .then(([img1, img2, img3]) => {
+                  this.combinaImagenes(img1, img2, img3);
+                  // if (isPlatformBrowser(this.platformId)) {
+                  //   window.scrollTo(0, 0);
+                  // }
+              });
+
+
+          }
+        });
+      }
     });
   }
-
 
   onImageGenerated(imageUrl: string) {
     this.imagenGenerada = imageUrl;
   }
 
   onImageGeneratedBoveda(imageUrl: string) {
-    this.imagenGeneradaBoveda = imageUrl;
+      this.imagenGeneradaBoveda = imageUrl;
   }
 
   onImageGeneratedSideDeck(imageUrl: string) {
-    this.imagenGeneradaSideDeck = imageUrl;
+      this.imagenGeneradaSideDeck = imageUrl;
   }
 
+
+  combinaImagenes(img1Src: string, img2Src: string, img3Src: string) {
+    let canvas = document.createElement('canvas');
+    let ctx = canvas.getContext('2d');
+
+    let img1 = new Image();
+    let img2 = new Image();
+    let img3 = new Image();
+
+    let img1Promise = new Promise((resolve, reject) => {
+        img1.onload = resolve;
+        img1.onerror = reject;
+        img1.src = img1Src;
+    });
+
+    let img2Promise = new Promise((resolve, reject) => {
+        img2.onload = resolve;
+        img2.onerror = reject;
+        img2.src = img2Src;
+    });
+
+    let img3Promise = new Promise((resolve, reject) => {
+        img3.onload = resolve;
+        img3.onerror = reject;
+        img3.src = img3Src;
+    });
+
+    Promise.all([img1Promise, img2Promise, img3Promise]).then(() => {
+        canvas.width = img1.width;  // Asume que todas las imágenes tienen el mismo ancho
+        canvas.height = img1.height + img2.height + img3.height;
+
+        ctx.drawImage(img1, 0, 0);
+        ctx.drawImage(img2, 0, img1.height);
+        ctx.drawImage(img3, 0, img1.height + img2.height);
+
+        this.imagenCombinada = canvas.toDataURL('image/png');
+    }).catch(error => {
+        console.error("Hubo un error cargando las imágenes: ", error);
+    });
+  }
+
+
   ngOnInit(): void {
-
-
     this.activatedRoute.params.subscribe((params) => {
       this.decklistId = params['id'];
 
-      if(this.decklistId != null) {
+      if (this.decklistId != null) {
         this.conexion.getDecklistById(this.decklistId).subscribe((decklist) => {
           this.deck = decklist;
           this.conexion.getUsuarioActual().subscribe((usuario: Usuario) => {
-            if(decklist.usuario.id == usuario.id) {
-
+            if (decklist.usuario.id == usuario.id) {
               let deckReino: DeckListCarta[] = decklist.reino;
               let deckBoveda: DeckListCarta[] = decklist.boveda;
               let deckSidedeck: DeckListCarta[] = decklist.sidedeck;
 
               deckReino.forEach((element) => {
-                if(element.tipo == 'reino') {
+                if (element.tipo == 'reino') {
                   this.reino.push(element.carta);
                 }
               });
 
               deckBoveda.forEach((element) => {
-                if(element.tipo == 'boveda') {
+                if (element.tipo == 'boveda') {
                   this.boveda.push(element.carta);
                 }
               });
 
               deckSidedeck.forEach((element) => {
-                if(element.tipo == 'sidedeck') {
+                if (element.tipo == 'sidedeck') {
                   this.sidedeck.push(element.carta);
                 }
               });
@@ -167,10 +233,8 @@ export class DecklistComponent implements OnInit {
               this.banderaEdicion = true;
             }
           });
-
         });
       }
-
     });
 
     this.obtenerCartas();
@@ -187,7 +251,6 @@ export class DecklistComponent implements OnInit {
         this.tipos = tipos;
       });
   }
-
 
   onRarezaChange(selectedRareza: number) {
     this.selectedRareza = selectedRareza;
@@ -220,168 +283,188 @@ export class DecklistComponent implements OnInit {
   }
 
   filterCartas() {
-    this.filteredCartas = this.cartas.filter(carta => {
-
-      if(this.selectedExpansion !== null && this.selectedRareza !== null && this.selectedTipo !== null && this.selectedCoste !== null) {
-        if(carta.rareza.idRareza == this.selectedRareza
-          && carta.tipo.idTipo == this.selectedTipo
-          && carta.expansion.idExpansion == this.selectedExpansion
-          && carta.costeCarta == this.selectedCoste
-          )
-          {
-            return true;
-          } else {
-            return false;
-          }
+    this.filteredCartas = this.cartas.filter((carta) => {
+      if (
+        this.selectedExpansion !== null &&
+        this.selectedRareza !== null &&
+        this.selectedTipo !== null &&
+        this.selectedCoste !== null
+      ) {
+        if (
+          carta.rareza.idRareza == this.selectedRareza &&
+          carta.tipo.idTipo == this.selectedTipo &&
+          carta.expansion.idExpansion == this.selectedExpansion &&
+          carta.costeCarta == this.selectedCoste
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
 
-      if(this.selectedExpansion !== null && this.selectedRareza !== null && this.selectedTipo !== null) {
-        if(carta.rareza.idRareza == this.selectedRareza
-          && carta.tipo.idTipo == this.selectedTipo
-          && carta.expansion.idExpansion == this.selectedExpansion
-          )
-          {
-            return true;
-          } else {
-            return false;
-          }
+      if (
+        this.selectedExpansion !== null &&
+        this.selectedRareza !== null &&
+        this.selectedTipo !== null
+      ) {
+        if (
+          carta.rareza.idRareza == this.selectedRareza &&
+          carta.tipo.idTipo == this.selectedTipo &&
+          carta.expansion.idExpansion == this.selectedExpansion
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
 
-      if(this.selectedRareza !== null && this.selectedTipo !== null && this.selectedCoste !== null) {
-        if(carta.rareza.idRareza == this.selectedRareza
-          && carta.tipo.idTipo == this.selectedTipo
-          && carta.costeCarta == this.selectedCoste
-          )
-          {
-            return true;
-          } else {
-            return false;
-          }
+      if (
+        this.selectedRareza !== null &&
+        this.selectedTipo !== null &&
+        this.selectedCoste !== null
+      ) {
+        if (
+          carta.rareza.idRareza == this.selectedRareza &&
+          carta.tipo.idTipo == this.selectedTipo &&
+          carta.costeCarta == this.selectedCoste
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
 
-      if(this.selectedExpansion !== null && this.selectedTipo !== null && this.selectedCoste !== null) {
-        if(carta.tipo.idTipo == this.selectedTipo
-          && carta.expansion.idExpansion == this.selectedExpansion
-          && carta.costeCarta == this.selectedCoste
-          )
-          {
-            return true;
-          } else {
-            return false;
-          }
+      if (
+        this.selectedExpansion !== null &&
+        this.selectedTipo !== null &&
+        this.selectedCoste !== null
+      ) {
+        if (
+          carta.tipo.idTipo == this.selectedTipo &&
+          carta.expansion.idExpansion == this.selectedExpansion &&
+          carta.costeCarta == this.selectedCoste
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
 
-      if(this.selectedExpansion !== null && this.selectedRareza !== null && this.selectedCoste !== null) {
-        if(carta.rareza.idRareza == this.selectedRareza
-          && carta.expansion.idExpansion == this.selectedExpansion
-          && carta.costeCarta == this.selectedCoste
-          )
-          {
-            return true;
-          } else {
-            return false;
-          }
+      if (
+        this.selectedExpansion !== null &&
+        this.selectedRareza !== null &&
+        this.selectedCoste !== null
+      ) {
+        if (
+          carta.rareza.idRareza == this.selectedRareza &&
+          carta.expansion.idExpansion == this.selectedExpansion &&
+          carta.costeCarta == this.selectedCoste
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
 
-
-      if(this.selectedExpansion !== null && this.selectedRareza !== null) {
-        if(carta.rareza.idRareza == this.selectedRareza
-          && carta.expansion.idExpansion == this.selectedExpansion)
-          {
-            return true;
-          } else {
-            return false;
-          }
+      if (this.selectedExpansion !== null && this.selectedRareza !== null) {
+        if (
+          carta.rareza.idRareza == this.selectedRareza &&
+          carta.expansion.idExpansion == this.selectedExpansion
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
 
-      if(this.selectedExpansion !== null && this.selectedTipo !== null) {
-        if(carta.tipo.idTipo == this.selectedTipo
-          && carta.expansion.idExpansion == this.selectedExpansion)
-          {
-            return true;
-          } else {
-            return false;
-          }
+      if (this.selectedExpansion !== null && this.selectedTipo !== null) {
+        if (
+          carta.tipo.idTipo == this.selectedTipo &&
+          carta.expansion.idExpansion == this.selectedExpansion
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
 
-      if(this.selectedTipo !== null && this.selectedCoste !== null) {
-        if(carta.tipo.idTipo == this.selectedTipo
-          && carta.costeCarta == this.selectedCoste)
-          {
-            return true;
-          } else {
-            return false;
-          }
+      if (this.selectedTipo !== null && this.selectedCoste !== null) {
+        if (
+          carta.tipo.idTipo == this.selectedTipo &&
+          carta.costeCarta == this.selectedCoste
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
 
-      if(this.selectedExpansion !== null && this.selectedCoste !== null) {
-        if(carta.expansion.idExpansion == this.selectedExpansion
-          && carta.costeCarta == this.selectedCoste)
-          {
-            return true;
-          } else {
-            return false;
-          }
+      if (this.selectedExpansion !== null && this.selectedCoste !== null) {
+        if (
+          carta.expansion.idExpansion == this.selectedExpansion &&
+          carta.costeCarta == this.selectedCoste
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
 
-      if(this.selectedRareza !== null && this.selectedCoste !== null) {
-        if(carta.rareza.idRareza == this.selectedRareza
-          && carta.costeCarta == this.selectedCoste)
-          {
-            return true;
-          } else {
-            return false;
-          }
+      if (this.selectedRareza !== null && this.selectedCoste !== null) {
+        if (
+          carta.rareza.idRareza == this.selectedRareza &&
+          carta.costeCarta == this.selectedCoste
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
 
-      if(this.selectedRareza !== null && this.selectedTipo !== null) {
-        if(carta.tipo.idTipo == this.selectedTipo
-          && carta.rareza.idRareza == this.selectedRareza)
-          {
-            return true;
-          } else {
-            return false;
-          }
+      if (this.selectedRareza !== null && this.selectedTipo !== null) {
+        if (
+          carta.tipo.idTipo == this.selectedTipo &&
+          carta.rareza.idRareza == this.selectedRareza
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
 
-      if(this.selectedRareza !== null) {
-        if(carta.rareza.idRareza == this.selectedRareza)
-          {
-            return true;
-          } else {
-            return false;
-          }
+      if (this.selectedRareza !== null) {
+        if (carta.rareza.idRareza == this.selectedRareza) {
+          return true;
+        } else {
+          return false;
+        }
       }
-      if(this.selectedExpansion !== null) {
-        if(carta.expansion.idExpansion == this.selectedExpansion)
-          {
-            return true;
-          } else {
-            return false;
-          }
+      if (this.selectedExpansion !== null) {
+        if (carta.expansion.idExpansion == this.selectedExpansion) {
+          return true;
+        } else {
+          return false;
+        }
       }
-      if(this.selectedTipo !== null) {
-        if(carta.tipo.idTipo == this.selectedTipo)
-          {
-            return true;
-          } else {
-            return false;
-          }
+      if (this.selectedTipo !== null) {
+        if (carta.tipo.idTipo == this.selectedTipo) {
+          return true;
+        } else {
+          return false;
+        }
       }
 
-      if(this.selectedCoste !== null) {
-        if(carta.costeCarta == this.selectedCoste)
-          {
-            return true;
-          } else {
-            return false;
-          }
+      if (this.selectedCoste !== null) {
+        if (carta.costeCarta == this.selectedCoste) {
+          return true;
+        } else {
+          return false;
+        }
       }
 
       return false;
     });
   }
-
 
   obtenerCartas() {
     this.conexion.getTodasLasCartasOrdenadas().subscribe((dato) => {
@@ -392,7 +475,7 @@ export class DecklistComponent implements OnInit {
   }
 
   getUniqueCostesCartas(cartas: Carta[]): number[] {
-    let costes: number[] = cartas.map(carta => carta.costeCarta);
+    let costes: number[] = cartas.map((carta) => carta.costeCarta);
     let uniqueCostes: number[] = [...new Set(costes)];
     return uniqueCostes;
   }
@@ -416,7 +499,10 @@ export class DecklistComponent implements OnInit {
 
   agregarCarta(carta: Carta) {
     if (this.banderaLista) {
-      if (carta.tipo.nombreTipo == 'TESORO' || carta.tipo.nombreTipo == 'TESORO - SAGRADO') {
+      if (
+        carta.tipo.nombreTipo == 'TESORO' ||
+        carta.tipo.nombreTipo == 'TESORO - SAGRADO'
+      ) {
         const cantidadPrincipal = this.getCantidad(carta, this.boveda);
         const cantidadSide = this.getCantidad(carta, this.sidedeck);
         if (cantidadPrincipal + cantidadSide > 1) {
@@ -466,7 +552,10 @@ export class DecklistComponent implements OnInit {
         });
       }
     } else {
-      if (carta.tipo.nombreTipo == 'TESORO' || carta.tipo.nombreTipo == 'TESORO - SAGRADO') {
+      if (
+        carta.tipo.nombreTipo == 'TESORO' ||
+        carta.tipo.nombreTipo == 'TESORO - SAGRADO'
+      ) {
         const cantidadPrincipal = this.getCantidad(carta, this.boveda);
         const cantidadSide = this.getCantidad(carta, this.sidedeck);
         if (cantidadPrincipal + cantidadSide > 1) {
@@ -479,7 +568,10 @@ export class DecklistComponent implements OnInit {
           });
           return;
         }
-      } else if (carta.tipo.nombreTipo != 'TESORO' && carta.tipo.nombreTipo != 'TESORO - SAGRADO') {
+      } else if (
+        carta.tipo.nombreTipo != 'TESORO' &&
+        carta.tipo.nombreTipo != 'TESORO - SAGRADO'
+      ) {
         const cantidadPrincipal = this.getCantidad(carta, this.reino);
         const cantidadSide = this.getCantidad(carta, this.sidedeck);
         if (cantidadPrincipal + cantidadSide > 3) {
@@ -541,8 +633,12 @@ export class DecklistComponent implements OnInit {
   }
 
   guardarDecklist() {
-
-    if((this.reino.length < 45 || this.reino.length > 60) || this.boveda.length != 15 || this.sidedeck.length != 10) {
+    if (
+      this.reino.length < 45 ||
+      this.reino.length > 60 ||
+      this.boveda.length != 15 ||
+      this.sidedeck.length != 10
+    ) {
       Swal.fire({
         icon: 'error',
         title: 'La cantidad de cartas está mal!',
@@ -579,7 +675,6 @@ export class DecklistComponent implements OnInit {
       deckListCarta.tipo = 'sidedeck';
       deck.sidedeck.push(deckListCarta);
     });
-
 
     Swal.fire({
       title:
