@@ -17,17 +17,16 @@
     <h1 class="text-center display-text pt-5 pb-5">Tiendas donde podrás conseguir cartas de Lairen</h1>
   </div>
 
-  <div  class="container text-center">
+  <div class="container text-center text-white">
+    <div class="row justify-content-center">
+      <div *ngFor="let tienda of tiendas" class="col-12 col-sm-9 col-lg-4 col-xl-4 mb-4">
 
-    <swiper [slidesPerView]="3" [spaceBetween]="30"  [loop]="true" [loopFillGroupWithBlank]="true"
-      [navigation]="true" class="mySwiper">
+        <div >
+          <img (click)="mostrarDatosTienda(tienda)" width="300" [alt]="tienda.nombreTienda" [src]=tienda.logoTienda>
+        </div>
 
-      <ng-template *ngFor="let tienda of tiendas" swiperSlide>
-        <img class="imagenClickeable" (click)="mostrarDatosTienda(tienda)" [lazyLoad]="tienda.logoTienda" (onLoad)="onImageLoad($event)"
-        [alt]="tienda.nombreTienda">
-      </ng-template>
-
-    </swiper>
-
+      </div>
+    </div>
   </div>
+
 </section>
