@@ -125,10 +125,10 @@
       </div>
 
       <div class="container d-flex align-items-center justify-content-center">
-        <button *ngIf="banderaLista" (click)="switchearEntreMainAndSidedeck()" class="btn btn-warning mb-2 mt-5">
+        <button *ngIf="banderaLista" (click)="switchearEntreMainAndSidedeck()" class="btn btn-primary mb-2 mt-5">
           Agregar cartas al Sidedeck
         </button>
-        <button *ngIf="!banderaLista" (click)="switchearEntreMainAndSidedeck()" class="btn btn-warning mb-2 mt-5">
+        <button *ngIf="!banderaLista" (click)="switchearEntreMainAndSidedeck()" class="btn btn-primary mb-2 mt-5">
           Agregar cartas al mazo principal
         </button>
       </div>
@@ -147,11 +147,20 @@
         <button (click)="copyToClipboard()" class="btn btn-warning mb-2 mt-5">Copiar al portapapeles</button>
       </div>
       <div class="container d-flex align-items-center justify-content-center">
-        <button (click)="guardarDecklist()" class="btn btn-warning mb-2 mt-5">Guardar decklist</button>
+        <button (click)="guardarDecklist()" class="btn btn-success mb-2 mt-5">Guardar decklist</button>
       </div>
 
       <div class="container d-flex align-items-center justify-content-center">
-        <button (click)="generarImagen()" class="btn btn-warning mb-2 mt-5">Generar imagen de decklist</button>
+
+        <button *ngIf="!banderaImagenGenerada" (click)="generarImagen()" class="btn btn-warning mb-2 mt-5">
+          Generar imagen de decklist
+        </button>
+
+        <button *ngIf="banderaImagenGenerada" class="btn btn-warning mb-2 mt-5">
+          <a [href]="imagenCombinada" download="imagenCombinada.jpg">
+            Descargar imagen generada
+          </a>
+        </button>
       </div>
 
 
@@ -174,7 +183,7 @@
       </app-image-sidedeck>
 
       <section *ngIf="imagenCombinada" class="separador-vertical fondo-gris text-white pb-5 col order-1 order-sm-3">
-        <img class="mt-4 mb-4 imagenGenerada"  [src]="imagenCombinada" alt="Imagen Combinada">
+        <img *ngIf="!esMovil" class="mt-4 mb-4 imagenGenerada"  [src]="imagenCombinada" alt="Imagen Combinada">
       </section>
 
     </section>
