@@ -53,6 +53,7 @@ export class DecklistComponent implements OnInit {
   imagenGeneradaBoveda: string;
   imagenGeneradaSideDeck: string;
   imagenCombinada: string;
+  banderaImagenGenerada: boolean = false;
 
   constructor(
     private conexion: ConexionService,
@@ -133,11 +134,13 @@ export class DecklistComponent implements OnInit {
           Promise.all([image1Promise, image2Promise, image3Promise])
               .then(([img1, img2, img3]) => {
                   this.combinaImagenes(img1, img2, img3);
-                  // if (isPlatformBrowser(this.platformId)) {
-                  //   window.scrollTo(0, 0);
-                  // }
+                  this.banderaImagenGenerada = true;
+                  Swal.fire(
+                    'Imagen generada correctamente',
+                    `Ya puedes volver a presionar el botón para descargar la imagen de tu decklist ${decklist}!`,
+                    `success`
+                  );
               });
-
 
           }
         });
@@ -199,7 +202,16 @@ export class DecklistComponent implements OnInit {
   }
 
 
+  esMovil: boolean = false;
+
+  detectarMovil(): boolean {
+    // Un simple chequeo para dispositivos móviles basado en el ancho de la ventana. Ajusta el valor según tus necesidades.
+    return window.innerWidth <= 800;
+  }
+
+
   ngOnInit(): void {
+    this.esMovil = this.detectarMovil();
     this.activatedRoute.params.subscribe((params) => {
       this.decklistId = params['id'];
 
