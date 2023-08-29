@@ -6,6 +6,7 @@ import { ElementRef } from '@angular/core';
 
 
 import Swal from 'sweetalert2';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
 import { ConexionService } from 'src/app/service/conexion.service';
 import { Carta } from '../../carta';
@@ -108,7 +109,7 @@ export class DecklistComponent implements OnInit {
         }).then((result) => {
           if (result.isConfirmed) {
             nombreCompleto = result.value;
-
+            Loading.hourglass();
             const image1Promise = new Promise<string>(resolve => {
               this.onImageGenerated = (imageUrl: string) => {
                   resolve(imageUrl);
@@ -135,6 +136,7 @@ export class DecklistComponent implements OnInit {
               .then(([img1, img2, img3]) => {
                   this.combinaImagenes(img1, img2, img3);
                   this.banderaImagenGenerada = true;
+                  Loading.remove();
                   Swal.fire(
                     'Imagen generada correctamente',
                     `Ya puedes volver a presionar el botón para descargar la imagen de tu decklist ${decklist}!`,
