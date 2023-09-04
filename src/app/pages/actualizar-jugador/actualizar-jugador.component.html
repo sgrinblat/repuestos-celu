@@ -38,18 +38,18 @@
           </div>
 
           <div class="m-4">
-            <label class="form-label display-text" for="formularioDNI">DNI</label><br>
-            <input [ngModel]="jugador.dni" formControlName="formularioDNI" name="formularioDNI"
-              [class.is-invalid]="contactForm.get('formularioDNI').invalid && contactForm.get('formularioDNI').touched"
-              type="text" id="formularioDNI" class="formulario-input bg-light form-control "
-              formControlName="formularioDNI" required />
+            <label class="form-label display-text" for="formularioGID">GID</label><br>
+            <input [ngModel]="jugador.gid" formControlName="formularioGID" name="formularioGID"
+              [class.is-invalid]="contactForm.get('formularioGID').invalid && contactForm.get('formularioGID').touched"
+              type="text" id="formularioGID" class="formulario-input bg-light form-control "
+              formControlName="formularioGID" required />
             <div
-              *ngIf="contactForm.get('formularioDNI')?.touched && contactForm.get('formularioDNI')?.errors?.['required'] "
-              class="alert alert-danger formulario-error text-center mt-3">*El campo de DNI es obligatorio</div>
+              *ngIf="contactForm.get('formularioGID')?.touched && contactForm.get('formularioGID')?.errors?.['required'] "
+              class="alert alert-danger formulario-error text-center mt-3">*El campo de GID es obligatorio</div>
             <div
-              *ngIf="contactForm.get('formularioDNI')?.touched && contactForm.get('formularioDNI')?.errors?.['minlength'] "
-              class="alert alert-danger formulario-error mt-3">*El campo de DNI debe contener al menos
-              {{contactForm.get('formularioDNI')?.errors?.['minlength'].requiredLength}} letras</div>
+              *ngIf="contactForm.get('formularioGID')?.touched && contactForm.get('formularioGID')?.errors?.['minlength'] "
+              class="alert alert-danger formulario-error mt-3">*El campo de GID debe contener al menos
+              {{contactForm.get('formularioGID')?.errors?.['minlength'].requiredLength}} letras</div>
           </div>
 
           <div class="m-4">
