@@ -33,9 +33,10 @@ export class ActualizarJugadorComponent implements OnInit {
     this.contactForm = fb.group({
       formularioNombre: ['', [Validators.required, Validators.minLength(3)]],
       formularioApellido: ['', [Validators.required, Validators.minLength(3)]],
-      formularioDNI: ['', [Validators.required, Validators.minLength(8)]],
+      formularioGID: ['', [Validators.required, Validators.minLength(13)]],
       formularioRango: ['', [Validators.required, Validators.minLength(1)]],
       formularioPuntos: ['', [Validators.required, Validators.minLength(2)]],
+      formularioPuntosApertura: ['', [Validators.required, Validators.minLength(2)]],
     });
   }
 
@@ -46,9 +47,10 @@ export class ActualizarJugadorComponent implements OnInit {
       this.jugador = dato;
       this.jugador.nombre = dato.nombre;
       this.jugador.apellido = dato.apellido;
-      this.jugador.dni = dato.dni;
+      this.jugador.gid = dato.gid;
       this.jugador.rango = dato.rango;
       this.jugador.puntos = dato.puntos;
+      this.jugador.puntosApertura = dato.puntosApertura;
 
       console.log(dato);
 
@@ -67,13 +69,14 @@ export class ActualizarJugadorComponent implements OnInit {
   actualizar() {
     this.jugador.nombre = this.contactForm.value.formularioNombre;
     this.jugador.apellido = this.contactForm.value.formularioApellido;
-    this.jugador.dni = this.contactForm.value.formularioDNI;
+    this.jugador.gid = this.contactForm.value.formularioGID;
     this.jugador.rango = this.contactForm.value.formularioRango;
     this.jugador.puntos = this.contactForm.value.formularioPuntos;
+    this.jugador.puntosApertura = this.contactForm.value.formularioPuntosApertura;
 
-    this.conexion.putJugador(this.jugador.dni, this.jugador).subscribe((dato) => {
+    this.conexion.putJugador(this.jugador.gid, this.jugador).subscribe((dato) => {
       console.log(dato);
-      Swal.fire('Jugador actualizado',`El jugador ${this.jugador.nombre} ${this.jugador.apellido} ha sido actualizada con exito`, `success`);
+      Swal.fire('Jugador actualizado',`El jugador ${this.jugador.nombre} ${this.jugador.apellido} con GID: ${this.jugador.gid}, ha sido actualizada con exito`, `success`);
     }, error => {
       console.log(error);
       Swal.fire('El jugador no pudo ser actualizado', `error`);

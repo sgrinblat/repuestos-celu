@@ -40,18 +40,18 @@
           </div>
 
           <div class="m-4">
-            <label class="form-label display-text" for="formularioDNI">DNI</label><br>
-            <input formControlName="formularioDNI" name="formularioDNI"
-              [class.is-invalid]="contactForm.get('formularioDNI').invalid && contactForm.get('formularioDNI').touched"
-              type="text" id="formularioDNI" class="formulario-input bg-light form-control "
-              formControlName="formularioDNI" required />
+            <label class="form-label display-text" for="formularioGID">GID</label><br>
+            <input formControlName="formularioGID" name="formularioGID"
+              [class.is-invalid]="contactForm.get('formularioGID').invalid && contactForm.get('formularioGID').touched"
+              type="text" id="formularioGID" class="formulario-input bg-light form-control "
+              formControlName="formularioGID" required />
             <div
-              *ngIf="contactForm.get('formularioDNI')?.touched && contactForm.get('formularioDNI')?.errors?.['required'] "
-              class="alert alert-danger formulario-error text-center mt-3">*El campo de DNI es obligatorio</div>
+              *ngIf="contactForm.get('formularioGID')?.touched && contactForm.get('formularioGID')?.errors?.['required'] "
+              class="alert alert-danger formulario-error text-center mt-3">*El campo de GID es obligatorio</div>
             <div
-              *ngIf="contactForm.get('formularioDNI')?.touched && contactForm.get('formularioDNI')?.errors?.['minlength'] "
-              class="alert alert-danger formulario-error mt-3">*El campo de DNI debe contener al menos
-              {{contactForm.get('formularioDNI')?.errors?.['minlength'].requiredLength}} letras</div>
+              *ngIf="contactForm.get('formularioGID')?.touched && contactForm.get('formularioGID')?.errors?.['minlength'] "
+              class="alert alert-danger formulario-error mt-3">*El campo de GID debe contener al menos
+              {{contactForm.get('formularioGID')?.errors?.['minlength'].requiredLength}} letras</div>
           </div>
 
           <div class="m-4">
@@ -70,19 +70,35 @@
           </div>
 
           <div class="m-4">
-            <label class="form-label display-text" for="formularioPuntos">Puntos</label><br>
+            <label class="form-label display-text" for="formularioPuntos">Puntos LIGA</label><br>
             <input formControlName="formularioPuntos" name="formularioPuntos"
               [class.is-invalid]="contactForm.get('formularioPuntos').invalid && contactForm.get('formularioPuntos').touched"
               type="text" id="formularioPuntos" class="formulario-input bg-light form-control "
               formControlName="formularioPuntos" required />
             <div
               *ngIf="contactForm.get('formularioPuntos')?.touched && contactForm.get('formularioPuntos')?.errors?.['required'] "
-              class="alert alert-danger formulario-error text-center mt-3">*El campo de Puntos es obligatorio</div>
+              class="alert alert-danger formulario-error text-center mt-3">*El campo de Puntos de liga es obligatorio</div>
             <div
               *ngIf="contactForm.get('formularioPuntos')?.touched && contactForm.get('formularioPuntos')?.errors?.['minlength'] "
-              class="alert alert-danger formulario-error mt-3">*El campo de Puntos debe contener al menos
+              class="alert alert-danger formulario-error mt-3">*El campo de Puntos de liga debe contener al menos
               {{contactForm.get('formularioPuntos')?.errors?.['minlength'].requiredLength}} letras</div>
           </div>
+
+          <div class="m-4">
+            <label class="form-label display-text" for="formularioPuntosApertura">Puntos Apertura</label><br>
+            <input formControlName="formularioPuntosApertura" name="formularioPuntosApertura"
+              [class.is-invalid]="contactForm.get('formularioPuntosApertura').invalid && contactForm.get('formularioPuntosApertura').touched"
+              type="text" id="formularioPuntosApertura" class="formulario-input bg-light form-control "
+              formControlName="formularioPuntosApertura" required />
+            <div
+              *ngIf="contactForm.get('formularioPuntosApertura')?.touched && contactForm.get('formularioPuntosApertura')?.errors?.['required'] "
+              class="alert alert-danger formulario-error text-center mt-3">*El campo de Puntos apertura es obligatorio</div>
+            <div
+              *ngIf="contactForm.get('formularioPuntosApertura')?.touched && contactForm.get('formularioPuntosApertura')?.errors?.['minlength'] "
+              class="alert alert-danger formulario-error mt-3">*El campo de Puntos apertura debe contener al menos
+              {{contactForm.get('formularioPuntosApertura')?.errors?.['minlength'].requiredLength}} letras</div>
+          </div>
+
           <button [disabled]="contactForm.invalid" type="submit" id="enviarFormulario"
             class="btn btn-warning btn-block btn-lg mb-4 mt-4">Registrar Jugador
           </button>
@@ -101,7 +117,7 @@
           <label for="ganadorSelect">Ganador:</label>
           <select formControlName="formularioJugadorGanador" class="form-control" id="formularioJugadorGanador" >
               <option *ngFor="let jugador of jugadoresPorNombre" [ngValue]="jugador">
-                {{jugador.nombre}} {{jugador.apellido}}
+                {{jugador.nombre}} {{jugador.apellido}} - {{jugador.gid}}
               </option>
           </select>
       </div>
@@ -110,7 +126,7 @@
           <label for="perdedorSelect">Perdedor:</label>
           <select class="form-control" id="formularioJugadorPerdedor" formControlName="formularioJugadorPerdedor">
               <option *ngFor="let jugador of jugadoresPorNombre" [ngValue]="jugador">
-                {{jugador.nombre}} {{jugador.apellido}}
+                {{jugador.nombre}} {{jugador.apellido}} - {{jugador.gid}}
               </option>
           </select>
       </div>
@@ -132,9 +148,10 @@
         <th class="display-text">ID</th>
         <th class="display-text">Nombre</th>
         <th class="display-text">Apellido</th>
-        <th class="display-text">Dni</th>
+        <th class="display-text">GID</th>
         <th class="display-text">Rango</th>
-        <th class="display-text">Puntos</th>
+        <th class="display-text">Puntos LIGA</th>
+        <th class="display-text">Puntos Apertura</th>
       </tr>
     </thead>
     <tbody *ngFor="let player of jugadores | paginate: { itemsPerPage: 30, currentPage: p } ">
@@ -142,9 +159,10 @@
         <td class="display-text">{{player.id}}</td>
         <td class="display-text">{{player.nombre}}</td>
         <td class="display-text">{{player.apellido}}</td>
-        <td class="display-text">{{player.dni}}</td>
+        <td class="display-text">{{player.gid}}</td>
         <td class="display-text">{{player.rango}}</td>
         <td class="display-text">{{player.puntos}}</td>
+        <td class="display-text">{{player.puntosApertura}}</td>
         <td>
           <button type="button" class="btn btn-outline-warning m-2"
             [swal]="{ title: '¿Estás seguro que quieres editar la carta?', showDenyButton: true, denyButtonText: 'Cancelar', icon: 'question'}"
@@ -154,7 +172,7 @@
 
           <button type="button" class="btn btn-outline-danger m-2"
             [swal]="{ title: '¿Estás seguro que quieres eliminar esta Rareza?', showDenyButton: true, denyButtonText: 'Cancelar', icon: 'question'}"
-            (confirm)="eliminarJugador(player.dni)" (deny)="limpiarFormulario()" (dismiss)="mostrarJugadores()">
+            (confirm)="eliminarJugador(player.gid)" (deny)="limpiarFormulario()" (dismiss)="mostrarJugadores()">
             Eliminar</button>
         </td>
       </tr>

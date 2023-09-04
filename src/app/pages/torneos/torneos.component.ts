@@ -35,9 +35,10 @@ export class TorneosComponent implements OnInit {
     this.contactForm = fb.group({
       formularioNombre: ['', [Validators.required, Validators.minLength(3)]],
       formularioApellido: ['', [Validators.required, Validators.minLength(3)]],
-      formularioDNI: ['', [Validators.required, Validators.minLength(8)]],
+      formularioGID: ['', [Validators.required, Validators.minLength(13)]],
       formularioRango: ['', [Validators.required, Validators.minLength(1)]],
       formularioPuntos: ['', [Validators.required, Validators.minLength(2)]],
+      formularioPuntosApertura: ['', [Validators.required, Validators.minLength(2)]],
     });
 
     this.contactFormPartidos = fb.group({
@@ -68,9 +69,10 @@ export class TorneosComponent implements OnInit {
   subirJugador() {
     this.jugador.nombre = this.contactForm.value.formularioNombre;
     this.jugador.apellido = this.contactForm.value.formularioApellido;
-    this.jugador.dni = this.contactForm.value.formularioDNI;
+    this.jugador.gid = this.contactForm.value.formularioGID;
     this.jugador.rango = this.contactForm.value.formularioRango;
     this.jugador.puntos = this.contactForm.value.formularioPuntos;
+    this.jugador.puntosApertura = this.contactForm.value.formularioPuntosApertura;
 
     console.log(this.jugador);
 
@@ -80,7 +82,7 @@ export class TorneosComponent implements OnInit {
         this.mostrarJugadores();
       },
       (error) => {
-        Swal.fire('No se guardó',`No se pudo guardar. Revise si el DNI está repetido`, `error`);
+        Swal.fire('No se guardó',`No se pudo guardar. Revise si el GID está repetido`, `error`);
         console.log(error)
       }
     );
@@ -90,8 +92,8 @@ export class TorneosComponent implements OnInit {
     this.contactForm.reset();
   }
 
-  eliminarJugador(dni: string) {
-    this.conexion.deleteJugador(dni).subscribe(
+  eliminarJugador(gid: string) {
+    this.conexion.deleteJugador(gid).subscribe(
       (dato) => {
         console.log(dato);
         this.mostrarJugadores();
