@@ -36,7 +36,7 @@ export class ContentfulService {
     return this.client.getEntries({
       content_type: 'blogPost',
       'fields.category': categoryName,
-      order: '-fields.updatedDate'
+      order: '-sys.createdAt'
     })
     .then(response => response.items);
   }

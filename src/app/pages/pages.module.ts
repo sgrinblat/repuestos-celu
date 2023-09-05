@@ -51,6 +51,11 @@ import { PlaymatsComponent } from './productos/playmats/playmats.component';
 import { ImageGeneratorComponent } from './decklist/image-generator/image-generator.component';
 import { ImageBovedaDeckComponent } from './decklist/image-boveda-deck/image-boveda-deck.component';
 import { ImageSidedeckComponent } from './decklist/image-sidedeck/image-sidedeck.component';
+import { RankingLigaComponent } from './torneos/ranking-liga/ranking-liga.component';
+import { RankingAperturaComponent } from './torneos/ranking-apertura/ranking-apertura.component';
+import { JuegoOrganizadoComponent } from './torneos/juego-organizado/juego-organizado.component';
+import { EntradasDecklistsJugadoresComponent } from './torneos/entradas-decklists-jugadores/entradas-decklists-jugadores.component';
+import { EntradasFechasTorneoComponent } from './torneos/entradas-fechas-torneo/entradas-fechas-torneo.component';
 
 @NgModule({
   declarations: [
@@ -82,8 +87,13 @@ import { ImageSidedeckComponent } from './decklist/image-sidedeck/image-sidedeck
     EntradasComponent,
     ListaEntradasComponent,
     TorneosComponent,
+    RankingLigaComponent,
+    RankingAperturaComponent,
+    JuegoOrganizadoComponent,
     DecklistComponent,
     DecklistsComponent,
+    EntradasDecklistsJugadoresComponent,
+    EntradasFechasTorneoComponent,
     ImageGeneratorComponent,
     ImageBovedaDeckComponent,
     ImageSidedeckComponent,
@@ -124,6 +134,11 @@ import { ImageSidedeckComponent } from './decklist/image-sidedeck/image-sidedeck
     EntradaHistoriaComponent,
     ListaEntradasComponent,
     TorneosComponent,
+    RankingLigaComponent,
+    RankingAperturaComponent,
+    JuegoOrganizadoComponent,
+    EntradasDecklistsJugadoresComponent,
+    EntradasFechasTorneoComponent,
     DecklistComponent,
     DecklistsComponent,
     ImageGeneratorComponent,
