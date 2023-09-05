@@ -1,0 +1,80 @@
+<section class="primer-fondo hero-block pb-5 position-relative pt-5 text-white-50">
+  <div class="col-lg-8 end-0 h-100 position-absolute top-0">
+  </div>
+  <div class="container pb-5 position-relative pt-5">
+    <div class="align-items-center gy-4 row">
+      <div class="col-lg-12 text-center textos pb-4">
+        <h1 class="display-3 fw-bold text-uppercase titulo-inicial text-white">Juego organizado</h1>
+        <p class="lead mb-4 text-white pe-sm-5 parrafo">Podes ver cómo jugar, el ranking y noticias sobre los torneos!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fondo-gris text-center pb-5 text-white">
+
+  <div class="container pt-4 pb-4">
+    <div class="text-center mt-4 mb-4">
+      <h2>Hace click en una opción para conocer más info!</h2>
+      <hr>
+    </div>
+
+
+    <div class="container text-center text-white pt-4">
+      <div class="row justify-content-center">
+
+        <div class="col-12 col-sm-6 col-lg-4 mb-4 d-flex justify-content-between">
+          <div (click)="irTutorial()" class="portadaDeck">
+            <img src="https://i.postimg.cc/vTkdYrVv/Vidente-del-mar.jpg">
+            <div class="overlay"></div>
+            <div class="text-container">
+              <h4>¿Cómo jugar?</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-4 mb-4 d-flex justify-content-between">
+          <div (click)="irDecklists()" class="portadaDeck">
+            <img src="https://i.postimg.cc/W3F1V1Dg/Phill-mejor-amigo.png">
+            <div class="overlay"></div>
+            <div class="text-container">
+              <h4>Decklists</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-4 mb-4 d-flex justify-content-between">
+          <div (click)="banderaRankingLiga()" class="portadaDeck">
+            <img routerLink="/ranking-liga" src="https://i.postimg.cc/130QpNFv/Brisa-dansante.png">
+            <div class="overlay"></div>
+            <div class="text-container">
+              <h4>Ranking de LIGA</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-4 mb-4">
+          <div (click)="banderaRankingApertura()" class="portadaDeck">
+            <img routerLink="/ranking-apertura" src="https://i.postimg.cc/PqtkKrzT/Drake-el-veterano.jpg">
+            <div class="overlay"></div>
+            <div class="text-container">
+              <h4>Ranking de Apertura</h4>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="fondo-grisdiferente">
+
+  <app-entradas-fechas-torneo *ngIf="banderaCalendario"></app-entradas-fechas-torneo>
+  <app-entradas-decklists-jugadores *ngIf="banderaDecklist"></app-entradas-decklists-jugadores>
+  <app-ranking-liga *ngIf="rankingLiga"></app-ranking-liga>
+  <app-ranking-apertura *ngIf="rankingApertura"></app-ranking-apertura>
+
+</section>

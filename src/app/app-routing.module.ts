@@ -36,6 +36,9 @@ import { TorneosComponent } from "./pages/torneos/torneos.component";
 import { ActualizarJugadorComponent } from "./pages/actualizar-jugador/actualizar-jugador.component";
 import { MailingComponent } from "./pages/mailing/mailing.component";
 import { CartaOracleComponent } from "./pages/carta-oracle/carta-oracle.component";
+import { JuegoOrganizadoComponent } from "./pages/torneos/juego-organizado/juego-organizado.component";
+import { RankingLigaComponent } from "./pages/torneos/ranking-liga/ranking-liga.component";
+import { RankingAperturaComponent } from "./pages/torneos/ranking-apertura/ranking-apertura.component";
 
 
 const routes: Routes = [
@@ -67,6 +70,18 @@ const routes: Routes = [
     {
       path: "tiendas",
       component: TiendasComponent
+    },
+    {
+      path: "juego-organizado",
+      component: JuegoOrganizadoComponent
+    },
+    {
+      path: "juego-organizado/ranking-liga",
+      component: RankingLigaComponent
+    },
+    {
+      path: "juego-organizado/ranking-apertura",
+      component: RankingAperturaComponent
     },
     {
       path: "tutorial",

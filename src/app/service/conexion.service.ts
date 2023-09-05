@@ -169,6 +169,10 @@ export class ConexionService {
     return this.httpClient.get<Jugador[]>(`${this.torneoURL}/puntos`);
   }
 
+  getJugadoresPorPuntosApertura():Observable<Jugador[]> {
+    return this.httpClient.get<Jugador[]>(`${this.torneoURL}/puntosApertura`);
+  }
+
   getJugadoresPorRangos():Observable<Jugador[]> {
     return this.httpClient.get<Jugador[]>(`${this.torneoURL}/rangos`);
   }
