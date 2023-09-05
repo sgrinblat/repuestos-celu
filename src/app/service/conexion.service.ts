@@ -49,10 +49,10 @@ export class ConexionService {
     return this.httpClient.get<Carta>(`${this.cartaURL}/${id}`);
   }
 
-    // este método nos sirve para ver una carta por su ID y se visualiza de manera pública
-    getCartaByIdPublic(id:number): Observable<Carta> {
-      return this.httpClient.get<Carta>(`${this.cartaPublicaURL}/buscador/open/${id}`);
-    }
+  // este método nos sirve para ver una carta por su ID y se visualiza de manera pública
+  getCartaByIdPublic(id:number): Observable<Carta> {
+    return this.httpClient.get<Carta>(`${this.cartaPublicaURL}/buscador/open/${id}`);
+  }
 
   // este método nos sirve para ver una carta por una parte de su nombre
   getCartaByPartialName(nombre: string): Observable<Carta> {
@@ -193,7 +193,7 @@ export class ConexionService {
     return this.httpClient.delete(`${this.torneoURL}/eliminar/${dni}`);
   }
 
-  putJugador(id: string, jugador: Jugador, ): Observable<Object> {
+  putJugador(id: number, jugador: Jugador, ): Observable<Object> {
     return this.httpClient.put(`${this.torneoURL}/actualizar/${id}`, jugador);
   }
 

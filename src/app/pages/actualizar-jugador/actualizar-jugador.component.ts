@@ -74,7 +74,7 @@ export class ActualizarJugadorComponent implements OnInit {
     this.jugador.puntos = this.contactForm.value.formularioPuntos;
     this.jugador.puntosApertura = this.contactForm.value.formularioPuntosApertura;
 
-    this.conexion.putJugador(this.jugador.gid, this.jugador).subscribe((dato) => {
+    this.conexion.putJugador(this.jugador.id, this.jugador).subscribe((dato) => {
       console.log(dato);
       Swal.fire('Jugador actualizado',`El jugador ${this.jugador.nombre} ${this.jugador.apellido} con GID: ${this.jugador.gid}, ha sido actualizada con exito`, `success`);
     }, error => {
