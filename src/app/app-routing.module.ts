@@ -39,6 +39,7 @@ import { CartaOracleComponent } from "./pages/carta-oracle/carta-oracle.componen
 import { JuegoOrganizadoComponent } from "./pages/torneos/juego-organizado/juego-organizado.component";
 import { RankingLigaComponent } from "./pages/torneos/ranking-liga/ranking-liga.component";
 import { RankingAperturaComponent } from "./pages/torneos/ranking-apertura/ranking-apertura.component";
+import { MarketingMaterialComponent } from "./pages/marketing-material/marketing-material.component";
 
 
 const routes: Routes = [
@@ -86,6 +87,10 @@ const routes: Routes = [
     {
       path: "tutorial",
       component: TutorialComponent
+    },
+    {
+      path: "marketing-material",
+      component: MarketingMaterialComponent
     },
     {
       path: "noticias",
