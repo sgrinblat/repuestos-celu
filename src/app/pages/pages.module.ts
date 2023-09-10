@@ -56,6 +56,7 @@ import { RankingAperturaComponent } from './torneos/ranking-apertura/ranking-ape
 import { JuegoOrganizadoComponent } from './torneos/juego-organizado/juego-organizado.component';
 import { EntradasDecklistsJugadoresComponent } from './torneos/entradas-decklists-jugadores/entradas-decklists-jugadores.component';
 import { EntradasFechasTorneoComponent } from './torneos/entradas-fechas-torneo/entradas-fechas-torneo.component';
+import { MarketingMaterialComponent } from './marketing-material/marketing-material.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { EntradasFechasTorneoComponent } from './torneos/entradas-fechas-torneo/
     EntradasComponent,
     ListaEntradasComponent,
     TorneosComponent,
+    MarketingMaterialComponent,
     RankingLigaComponent,
     RankingAperturaComponent,
     JuegoOrganizadoComponent,
@@ -134,6 +136,7 @@ import { EntradasFechasTorneoComponent } from './torneos/entradas-fechas-torneo/
     EntradaHistoriaComponent,
     ListaEntradasComponent,
     TorneosComponent,
+    MarketingMaterialComponent,
     RankingLigaComponent,
     RankingAperturaComponent,
     JuegoOrganizadoComponent,
