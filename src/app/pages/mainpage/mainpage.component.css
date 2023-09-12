@@ -3,21 +3,27 @@
 }
 
 .primer-fondo {
-  background-image: url(../../../assets/images/main.jpg);
+  background-image: linear-gradient(rgba(14, 13, 13, 0.8), rgba(11, 11, 11, 0.6)), url(../../../assets/images/marea.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: 0px;
+  width: 100%;
   min-height: 70vh;
-  position: relative;
+  background-attachment: fixed;
+  background-position: center top !important;
 }
 
-.overlay {
-  position: absolute; /* Permite ajustar la posición del overlay con respecto al contenedor */
-  top: 0; /* Alinea la parte superior del overlay con la parte superior del contenedor */
-  left: 0; /* Alinea la parte izquierda del overlay con la parte izquierda del contenedor */
-  width: 100%; /* Asegura que el overlay cubra todo el ancho del contenedor */
-  height: 100%; /* Asegura que el overlay cubra todo el alto del contenedor */
-  background-image: linear-gradient(rgba(14, 13, 13, 0.5), rgba(11, 11, 11, 0.3)); /* Aplica el gradiente al overlay */
+@media (min-width: 250px) and (max-width: 1550px) {
+  .primer-fondo {
+    background-position: center bottom;
+  }
+}
+
+.textos {
+  margin-top: 160px;
+}
+
+.header-image {
+  max-height: 500px;
 }
 
 .titularNoticia {
@@ -90,6 +96,7 @@
   position: relative;
   transform-style: preserve-3d;
   transition: .6s .1s;
+  top: -30px;
 }
 
 /* hover and focus-within states */

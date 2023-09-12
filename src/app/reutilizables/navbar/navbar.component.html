@@ -4,6 +4,90 @@
   <nav class="navbar scroll-top navbar-dark navbar-expand-lg pb-3 pt-3">
       <div class="container">
           <a routerLink=""><img class="logo" src="../../../assets/images/lairenlogo.png" alt="logo Lairen"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown-2" aria-controls="navbarNavDropdown-2" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse ps-5 ms-5" id="navbarNavDropdown-2">
+              <ul class="navbar-nav">
+
+                <li class="nav-item dropdown"
+                (mouseover)="showDropdown()"
+                (click)="showGroup('juego')">
+                  <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white "><p class=" text-uppercase">El juego</p></a>
+                </li>
+                <li class="nav-item dropdown"
+                (mouseover)="showDropdown()"
+                (click)="showGroup('productos')">
+                  <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white "><p class=" text-uppercase">Productos</p></a>
+                </li>
+                <li class="nav-item dropdown"
+                  (mouseover)="showDropdown()"
+                  (click)="showGroup('cartas')">
+                  <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white "><p class=" text-uppercase">Cartas</p></a>
+                </li>
+
+              </ul>
+
+              <ul class="navbar-nav ms-auto">
+
+                <li *ngIf="!verElemento()" class="nav-item">
+                  <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white" routerLink="/iniciarsesion">
+                    <p class=" text-uppercase"><span class="sesion">Iniciar sesión</span></p>
+                  </a>
+                </li>
+                <li *ngIf="verElemento()" class="nav-item">
+                  <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white" (click)="cerrarSesion()">
+                    <p class=" text-uppercase"><span class="sesion" >Cerrar sesión</span></p>
+                  </a>
+                </li>
+
+              </ul>
+          </div>
+      </div>
+  </nav>
+
+
+  <div [ngClass]="{'yellow-divider': isDropdownVisible}"></div>
+
+  <div class="custom-dropdown-menu pt-2 pb-3" #dropdownMenu (mouseover)="showDropdown()" (mouseout)="hideDropdown()">
+    <div class="row">
+      <div class="col-3 dropdown-group" data-group="juego">
+        <div class="back-button" (click)="hideGroups()">←</div>
+        <h5 class="text-left text-white text-uppercase pt-3 ps-5 ms-5" >El Juego</h5>
+        <a class="dropdown-item text-left ps-5 ms-5" (click)="hideDropdown()" routerLink="/noticias"><span>Noticias</span></a>
+        <a class="dropdown-item text-left ps-5 ms-5" (click)="hideDropdown()" routerLink="/tutorial"><span>¿Cómo se juega?</span></a>
+        <a class="dropdown-item text-left ps-5 ms-5" (click)="hideDropdown()" routerLink="/juego-organizado"><span>Juego organizado</span></a>
+        <a class="dropdown-item text-left ps-5 ms-5" (click)="hideDropdown()" routerLink="/lore"><span>Lore</span></a>
+      </div>
+      <div class="col-3 dropdown-group" data-group="productos">
+        <div class="back-button" (click)="hideGroups()">←</div>
+        <h5 class="text-left text-white text-uppercase pt-3 ps-5 ms-5" >Productos</h5>
+        <a class="dropdown-item text-left ps-5 ms-5" (click)="hideDropdown()" routerLink="/productos"><span>Expansiones</span></a>
+        <a class="dropdown-item text-left ps-5 ms-5" (click)="hideDropdown()" routerLink="/tiendas"><span>Puntos de venta</span></a>
+        <a class="dropdown-item text-left ps-5 ms-5" (click)="hideDropdown()" routerLink="/marketing-material"><span>Marketing para tiendas</span></a>
+      </div>
+      <div class="col-3 dropdown-group" data-group="cartas">
+        <div class="back-button" (click)="hideGroups()">←</div>
+        <h5 class="text-left text-white text-uppercase pt-3 ps-5 ms-5" >Cartas</h5>
+        <a class="dropdown-item text-left ps-5 ms-5" (click)="hideDropdown()" routerLink="/buscador"><span>Buscador de cartas</span></a>
+        <a class="dropdown-item text-left ps-5 ms-5" (click)="hideDropdown()" routerLink="/decklists"><span>Creador de decklists</span></a>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+
+
+
+
+
+<!-- <header class="fondo-header position-relative">
+  <div class="col-lg-8 end-0 h-100 position-absolute top-0">
+  </div>
+  <nav class="navbar scroll-top navbar-dark navbar-expand-lg pb-3 pt-3">
+      <div class="container">
+          <a routerLink=""><img class="logo" src="../../../assets/images/lairenlogo.png" alt="logo Lairen"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarNavDropdown-2" aria-controls="navbarNavDropdown-2" aria-expanded="false"
               aria-label="Toggle navigation">
@@ -23,9 +107,23 @@
                   <li class="nav-item">
                     <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white" routerLink="/tiendas">Puntos de venta</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white" routerLink="/juego-organizado">Juego organizado</a>
-                  </li>
+
+                    <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white" routerLink="/tutorial">¿Cómo jugar?</a>
+                    <li class="nav-item dropdown"
+                    (mouseover)="showDropdown()"
+                    (mouseout)="hideDropdown()">
+                  <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white">¿Cómo jugar?</a>
+                  <div class="custom-dropdown-menu" #dropdownMenu>
+                    <a class="dropdown-item" routerLink="/tutorial/leccion1">Lección 1</a>
+                    <a class="dropdown-item" routerLink="/tutorial/leccion2">Lección 2</a>
+                    <a class="dropdown-item" routerLink="/tutorial/leccion3">Lección 3</a>
+                    Agrega más lecciones o sub-opciones según necesites
+                  </div>
+                </li>
+
+
+
+
                   <li *ngIf="verElemento()" class="nav-item">
                     <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white" routerLink="/decklists">Crear decklist</a>
                   </li>
@@ -39,4 +137,4 @@
           </div>
       </div>
   </nav>
-</header>
+</header> -->

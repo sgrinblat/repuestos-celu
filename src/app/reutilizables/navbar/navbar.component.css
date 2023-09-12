@@ -6,6 +6,10 @@
   background-color: #212529;
 }
 
+.navbar-nav:hover {
+  cursor: pointer;
+}
+
 a {
   font-size: 17px;
 }
@@ -15,7 +19,7 @@ a:hover {
   font-weight: bold;
 }
 
-a span{
+a .sesion{
   color: #f8a724;
   font-weight: bold;
 }
@@ -25,7 +29,7 @@ a span:hover{
 }
 
 .logo {
-  max-height: 80px;
+  max-height: 60px;
   margin-top: 10px;
   margin-bottom: 20px;
 }
@@ -33,3 +37,84 @@ a span:hover{
 .logo:hover {
   filter: invert(15%);
 }
+
+.custom-dropdown-menu {
+  display: none;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  background-color: #212529;  /* Mismo color que el navbar */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-item {
+  padding: 8px 16px;
+  display: block;
+  white-space: nowrap;
+  color: white;
+  text-decoration: none;
+}
+
+.dropdown-item:hover {
+  background-color: #f8a724;
+}
+
+.dropdown-item:hover span {
+  color: #ffffff;
+}
+
+
+.yellow-divider {
+  background-color: #f8a724;  /* color amarillo */
+  height: 4px;                /* grosor de la línea */
+  width: 100%;                /* ancho completo de la pantalla */
+  transition: opacity 0.3s ease; /* transición suave */
+  opacity: 0;                 /* por defecto, la línea está oculta */
+}
+
+/* Cuando isDropdownVisible es verdadero, esta clase se aplica y muestra la línea */
+.yellow-divider {
+  opacity: 1;
+}
+
+/* En dispositivos móviles */
+@media (max-width: 992px) {
+  .custom-dropdown-menu .dropdown-group {
+      display: none;
+  }
+  .custom-dropdown-menu .dropdown-group.active {
+      display: block;
+  }
+}
+
+
+
+/* Ocultar por defecto el botón */
+.back-button {
+  display: none;
+}
+
+/* Mostrar el botón en pantallas con ancho menor a 768px */
+@media screen and (max-width: 767px) {
+  .back-button {
+      display: block;
+      cursor: pointer; /* Cambia el cursor a mano cuando pasas por encima */
+      color: white; /* Color del texto/icono */
+      padding: 5px 10px; /* Espaciado interno para darle un poco de espacio */
+      border-radius: 4px; /* Bordes redondeados */
+      margin: 0 auto; /* Un poco de margen alrededor */
+      font-size: 1.5em; /* Ajusta el tamaño del texto/icono si es necesario */
+      text-align: center;
+  }
+}
+
+
+
+
+
+
+
+
+
+
