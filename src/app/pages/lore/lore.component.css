@@ -3,7 +3,7 @@
 }
 
 .primer-fondo {
-  background-image: url(../../../assets/images/lore.jpg);
+  background-image: linear-gradient(rgba(14, 13, 13, 0.6), rgba(11, 11, 11, 0.4)), url(../../../assets/images/aixaweb.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
@@ -11,9 +11,11 @@
   background-attachment: fixed;
 }
 
-@media (min-width: 250px) and (max-width: 1550px) {
+
+
+@media (min-width: 100px) and (max-width: 700px) {
   .primer-fondo {
-    background-position: center bottom;
+    background-image: linear-gradient(rgba(14, 13, 13, 0.6), rgba(11, 11, 11, 0.4)), url(../../../assets/images/aixacelu.jpeg);
   }
 }
 

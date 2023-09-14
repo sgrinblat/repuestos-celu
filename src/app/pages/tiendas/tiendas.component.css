@@ -3,11 +3,19 @@
 @import '~swiper/modules/pagination/pagination.min.css';
 
 .primer-fondo {
-  background-image: linear-gradient(rgba(14, 13, 13, 0.8), rgba(11, 11, 11, 0.6)), url(https://i.postimg.cc/s2hDcxvL/tiendas.jpghttps://lexica-serve-encoded-images2.sharif.workers.dev/md/1136a36a-dde2-4d30-b8de-94cb0bdcee73);
+  background-image: linear-gradient(rgba(14, 13, 13, 0.5), rgba(11, 11, 11, 0.3)), url(../../../assets/images/tesoro3.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
   min-height: 70vh;
+  background-attachment: fixed;
+}
+
+
+@media (min-width: 250px) and (max-width: 1550px) {
+  .primer-fondo {
+    background-position: center bottom;
+  }
 }
 
 
