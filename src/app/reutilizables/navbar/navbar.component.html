@@ -70,7 +70,8 @@
         <div class="back-button" (click)="hideGroups()">←</div>
         <h5 class="text-left text-white text-uppercase pt-3 ps-5 ms-5" >Cartas</h5>
         <a class="dropdown-item text-left ps-5 ms-5" (click)="hideDropdown()" routerLink="/buscador"><span>Buscador de cartas</span></a>
-        <a class="dropdown-item text-left ps-5 ms-5" (click)="hideDropdown()" routerLink="/decklists"><span>Creador de decklists</span></a>
+        <a *ngIf="usuarioConectado" class="dropdown-item text-left ps-5 ms-5" (click)="hideDropdown()" routerLink="/decklists"><span>Creador de decklists</span></a>
+        <a *ngIf="!usuarioConectado" class="dropdown-item text-left ps-5 ms-5" (click)="hideDropdown()" routerLink="/iniciarsesion"><span>Creador de decklists</span></a>
       </div>
     </div>
 
