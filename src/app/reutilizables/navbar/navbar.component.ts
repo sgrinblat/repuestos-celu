@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/co
 import { Router } from '@angular/router';
 import { ConexionService } from 'src/app/service/conexion.service';
 import { JugadorGuard } from 'src/app/service/jugador.guard';
+import { Usuario } from 'src/app/usuario';
 import Swal from 'sweetalert2';
 
 
@@ -11,12 +12,14 @@ import Swal from 'sweetalert2';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  usuarioConectado: Usuario;
 
   constructor( private renderer2 : Renderer2, private conexion: ConexionService, private route: Router) { }
 
   ngOnInit() {
-
+    this.conexion.getUsuarioActual().subscribe((usuario: Usuario) => {
+      this.usuarioConectado = usuario;
+    });
   }
 
   verElemento() {
