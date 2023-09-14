@@ -3,7 +3,7 @@
 }
 
 .primer-fondo {
-  background-image: url(https://i.postimg.cc/cHJx2LKz/2022-11-27-01-04-11-001-an-old-english-castle-covered-by-plants-with-moody-and-cinematic-lighting-by.png);
+  background-image: linear-gradient(rgba(14, 13, 13, 0.8), rgba(11, 11, 11, 0.6)), url(../../../../assets/images/promesa.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
