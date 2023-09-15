@@ -189,8 +189,8 @@ export class ConexionService {
     return this.httpClient.post(`${this.torneoURL}/crear`, jugador);
   }
 
-  deleteJugador(dni: string): Observable<Object> {
-    return this.httpClient.delete(`${this.torneoURL}/eliminar/${dni}`);
+  deleteJugador(id: number): Observable<Object> {
+    return this.httpClient.delete(`${this.torneoURL}/eliminar/${id}`);
   }
 
   putJugador(id: number, jugador: Jugador, ): Observable<Object> {

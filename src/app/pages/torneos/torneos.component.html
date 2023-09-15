@@ -39,65 +39,12 @@
               {{contactForm.get('formularioApellido')?.errors?.['minlength'].requiredLength}} letras</div>
           </div>
 
-          <div class="m-4">
-            <label class="form-label display-text" for="formularioGID">GID</label><br>
-            <input formControlName="formularioGID" name="formularioGID"
-              [class.is-invalid]="contactForm.get('formularioGID').invalid && contactForm.get('formularioGID').touched"
-              type="text" id="formularioGID" class="formulario-input bg-light form-control "
-              formControlName="formularioGID" required />
-            <div
-              *ngIf="contactForm.get('formularioGID')?.touched && contactForm.get('formularioGID')?.errors?.['required'] "
-              class="alert alert-danger formulario-error text-center mt-3">*El campo de GID es obligatorio</div>
-            <div
-              *ngIf="contactForm.get('formularioGID')?.touched && contactForm.get('formularioGID')?.errors?.['minlength'] "
-              class="alert alert-danger formulario-error mt-3">*El campo de GID debe contener al menos
-              {{contactForm.get('formularioGID')?.errors?.['minlength'].requiredLength}} letras</div>
-          </div>
-
-          <div class="m-4">
-            <label class="form-label display-text" for="formularioRango">Rango</label><br>
-            <input formControlName="formularioRango" name="formularioRango"
-              [class.is-invalid]="contactForm.get('formularioRango').invalid && contactForm.get('formularioRango').touched"
-              type="text" id="formularioRango" class="formulario-input bg-light form-control "
-              formControlName="formularioRango" required />
-            <div
-              *ngIf="contactForm.get('formularioRango')?.touched && contactForm.get('formularioRango')?.errors?.['required'] "
-              class="alert alert-danger formulario-error text-center mt-3">*El campo de Rango es obligatorio</div>
-            <div
-              *ngIf="contactForm.get('formularioRango')?.touched && contactForm.get('formularioRango')?.errors?.['minlength'] "
-              class="alert alert-danger formulario-error mt-3">*El campo de Rango debe contener al menos
-              {{contactForm.get('formularioRango')?.errors?.['minlength'].requiredLength}} letras</div>
-          </div>
-
-          <div class="m-4">
-            <label class="form-label display-text" for="formularioPuntos">Puntos LIGA</label><br>
-            <input formControlName="formularioPuntos" name="formularioPuntos"
-              [class.is-invalid]="contactForm.get('formularioPuntos').invalid && contactForm.get('formularioPuntos').touched"
-              type="text" id="formularioPuntos" class="formulario-input bg-light form-control "
-              formControlName="formularioPuntos" required />
-            <div
-              *ngIf="contactForm.get('formularioPuntos')?.touched && contactForm.get('formularioPuntos')?.errors?.['required'] "
-              class="alert alert-danger formulario-error text-center mt-3">*El campo de Puntos de liga es obligatorio</div>
-            <div
-              *ngIf="contactForm.get('formularioPuntos')?.touched && contactForm.get('formularioPuntos')?.errors?.['minlength'] "
-              class="alert alert-danger formulario-error mt-3">*El campo de Puntos de liga debe contener al menos
-              {{contactForm.get('formularioPuntos')?.errors?.['minlength'].requiredLength}} letras</div>
-          </div>
-
-          <div class="m-4">
-            <label class="form-label display-text" for="formularioPuntosApertura">Puntos Apertura</label><br>
-            <input formControlName="formularioPuntosApertura" name="formularioPuntosApertura"
-              [class.is-invalid]="contactForm.get('formularioPuntosApertura').invalid && contactForm.get('formularioPuntosApertura').touched"
-              type="text" id="formularioPuntosApertura" class="formulario-input bg-light form-control "
-              formControlName="formularioPuntosApertura" required />
-            <div
-              *ngIf="contactForm.get('formularioPuntosApertura')?.touched && contactForm.get('formularioPuntosApertura')?.errors?.['required'] "
-              class="alert alert-danger formulario-error text-center mt-3">*El campo de Puntos apertura es obligatorio</div>
-            <div
-              *ngIf="contactForm.get('formularioPuntosApertura')?.touched && contactForm.get('formularioPuntosApertura')?.errors?.['minlength'] "
-              class="alert alert-danger formulario-error mt-3">*El campo de Puntos apertura debe contener al menos
-              {{contactForm.get('formularioPuntosApertura')?.errors?.['minlength'].requiredLength}} letras</div>
-          </div>
+          <select formControlName="formularioGID" class="formulario-input bg-light form-control "
+          name="formularioGID" id="formularioGID">
+            <option *ngFor="let prov of provincias">
+              {{prov.nombre}}
+            </option>
+          </select>
 
           <button [disabled]="contactForm.invalid" type="submit" id="enviarFormulario"
             class="btn btn-warning btn-block btn-lg mb-4 mt-4">Registrar Jugador
@@ -172,7 +119,7 @@
 
           <button type="button" class="btn btn-outline-danger m-2"
             [swal]="{ title: '¿Estás seguro que quieres eliminar esta Rareza?', showDenyButton: true, denyButtonText: 'Cancelar', icon: 'question'}"
-            (confirm)="eliminarJugador(player.gid)" (deny)="limpiarFormulario()" (dismiss)="mostrarJugadores()">
+            (confirm)="eliminarJugador(player.id)" (deny)="limpiarFormulario()" (dismiss)="mostrarJugadores()">
             Eliminar</button>
         </td>
       </tr>
