@@ -35,10 +35,7 @@ export class TorneosComponent implements OnInit {
     this.contactForm = fb.group({
       formularioNombre: ['', [Validators.required, Validators.minLength(3)]],
       formularioApellido: ['', [Validators.required, Validators.minLength(3)]],
-      formularioGID: ['', [Validators.required, Validators.minLength(13)]],
-      formularioRango: ['', [Validators.required, Validators.minLength(1)]],
-      formularioPuntos: ['', [Validators.required, Validators.minLength(2)]],
-      formularioPuntosApertura: ['', [Validators.required, Validators.minLength(2)]],
+      formularioGID: ['', [Validators.required]]
     });
 
     this.contactFormPartidos = fb.group({
@@ -67,12 +64,18 @@ export class TorneosComponent implements OnInit {
   }
 
   subirJugador() {
+
+    for(let i = 0; i < this.provincias.length; i++) {
+      if(this.contactForm.value.formularioGID == this.provincias[i].nombre) {
+        this.jugador.gid = this.provincias[i].id;
+      }
+    }
+
     this.jugador.nombre = this.contactForm.value.formularioNombre;
     this.jugador.apellido = this.contactForm.value.formularioApellido;
-    this.jugador.gid = this.contactForm.value.formularioGID;
-    this.jugador.rango = this.contactForm.value.formularioRango;
-    this.jugador.puntos = this.contactForm.value.formularioPuntos;
-    this.jugador.puntosApertura = this.contactForm.value.formularioPuntosApertura;
+    this.jugador.rango = 1;
+    this.jugador.puntos = 0;
+    this.jugador.puntosApertura = 0;
 
     console.log(this.jugador);
 
@@ -92,8 +95,8 @@ export class TorneosComponent implements OnInit {
     this.contactForm.reset();
   }
 
-  eliminarJugador(gid: string) {
-    this.conexion.deleteJugador(gid).subscribe(
+  eliminarJugador(id: number) {
+    this.conexion.deleteJugador(id).subscribe(
       (dato) => {
         console.log(dato);
         this.mostrarJugadores();
@@ -132,4 +135,44 @@ export class TorneosComponent implements OnInit {
     this.route.navigate(['v1/login']);
   }
 
+  getProvinciaNombre(id: string): string {
+    const provincia = this.provincias.find(p => p.id === id);
+    return provincia ? provincia.nombre : '';
+  }
+
+
+  provincias: Provincia[] = [
+    { id: '01', nombre: 'Buenos Aires' },
+    { id: '02', nombre: 'Córdoba' },
+    { id: '03', nombre: 'Santa Fe' },
+    { id: '04', nombre: 'Mendoza' },
+    { id: '05', nombre: 'Tucumán' },
+    { id: '06', nombre: 'Entre Ríos' },
+    { id: '07', nombre: 'Salta' },
+    { id: '08', nombre: 'Misiones' },
+    { id: '09', nombre: 'Chaco' },
+    { id: '10', nombre: 'Corrientes' },
+    { id: '11', nombre: 'Santiago del Estero' },
+    { id: '12', nombre: 'San Juan' },
+    { id: '13', nombre: 'Jujuy' },
+    { id: '14', nombre: 'Río Negro' },
+    { id: '15', nombre: 'Neuquén' },
+    { id: '16', nombre: 'Formosa' },
+    { id: '17', nombre: 'Chubut' },
+    { id: '18', nombre: 'San Luis' },
+    { id: '19', nombre: 'Catamarca' },
+    { id: '20', nombre: 'La Rioja' },
+    { id: '21', nombre: 'La Pampa' },
+    { id: '22', nombre: 'Santa Cruz' },
+    { id: '23', nombre: 'Tierra del Fuego' }
+  ];
+
+  provinciaSeleccionada: Provincia | null = null;
+
 }
+
+export interface Provincia {
+  id: string;
+  nombre: string;
+}
+
