@@ -12,14 +12,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  usuarioConectado: Usuario;
 
   constructor( private renderer2 : Renderer2, private conexion: ConexionService, private route: Router) { }
 
   ngOnInit() {
-    this.conexion.getUsuarioActual().subscribe((usuario: Usuario) => {
-      this.usuarioConectado = usuario;
-    });
   }
 
   verElemento() {

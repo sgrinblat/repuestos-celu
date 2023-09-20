@@ -8,15 +8,20 @@ import { Usuario } from 'src/app/usuario';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-  usuarioConectado: Usuario;
 
   constructor(private conexion: ConexionService) { }
 
   ngOnInit() {
-    this.conexion.getUsuarioActual().subscribe((usuario: Usuario) => {
-      this.usuarioConectado = usuario;
-    });
   }
+
+  verElemento() {
+    if(this.conexion.sesionIniciadaJugador()){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 
 
 
