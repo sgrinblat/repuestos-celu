@@ -31,9 +31,9 @@
             <ul class="list-unstyled">
               <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white" routerLink="juego-organizado">Juego
                 organizado</a>
-              <a *ngIf="usuarioConectado" class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white" routerLink="decklists">Creador de
+              <a *ngIf="verElemento()" class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white" routerLink="decklists">Creador de
                 decklist</a>
-              <a *ngIf="!usuarioConectado" class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white" routerLink="iniciarsesion">Creador de
+              <a *ngIf="!verElemento()" class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white" routerLink="iniciarsesion">Creador de
                 decklist</a>
               <a class="nav-link pb-lg-3 pe-lg-4 ps-lg-4 pt-lg-3 text-white" routerLink="tutorial"> <span>¿Cómo
                   jugar?</span></a>

@@ -7,7 +7,6 @@ import * as AOS from 'aos';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'FrontASJ';
 
   ngOnInit() {
     AOS.init();

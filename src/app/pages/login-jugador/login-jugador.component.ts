@@ -45,6 +45,14 @@ export class LoginJugadorComponent implements OnInit {
 
   ngOnInit() {}
 
+  resetPage(): void {
+    // Navega primero a una ruta ficticia
+    this.route.navigateByUrl('/reset', { skipLocationChange: true }).then(() => {
+        // Navega de nuevo a tu ruta actual
+        this.route.navigate([""]);
+    });
+}
+
   onSubmit() {
     this.user.username = this.contactForm.value.formularioNombreUsuario;
     this.user.password = this.contactForm.value.formularioPasswordUsuario;
@@ -64,8 +72,10 @@ export class LoginJugadorComponent implements OnInit {
                     `Bienvenido ${userDetails.username} 😎`,
                     `success`
                   );
+
                   this.route.navigate(['']);
                   this.conexion.loginStatus.next(true);
+
                 } else {
                   Swal.fire(
                     'Login fallido',
