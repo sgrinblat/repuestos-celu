@@ -17,6 +17,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { NavigationEnd, Router } from '@angular/router';
 
 registerLocaleData(localeEs);
 
@@ -37,7 +38,7 @@ registerLocaleData(localeEs);
     ReutilizablesModule,
     LazyLoadImageModule,
     PagesModule,
-    NgxGoogleAnalyticsModule.forRoot('G-WVZ0L9PZXQ'),
+    NgxGoogleAnalyticsModule.forRoot('G-D3J1EYLZBS'),
     NgxGoogleAnalyticsRouterModule
   ],
   exports: [
@@ -48,4 +49,22 @@ registerLocaleData(localeEs);
   providers: [authInterceptorProviders, RedirectGuard],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+
+
+export class AppModule {
+
+  constructor(private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        gtag('config', 'G-D3J1EYLZBS', {
+          'page_path': event.urlAfterRedirects
+        });
+      }
+    });
+  }
+}
+
+
+declare var gtag: any;
+
