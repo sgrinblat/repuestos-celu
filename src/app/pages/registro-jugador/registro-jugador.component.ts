@@ -44,7 +44,7 @@ export class RegistroJugadorComponent implements OnInit {
     this.conexion.postUsuario(this.user).subscribe(
       (dato) => {
         Loading.remove(500);
-        Swal.fire('Registro exitoso',`Ya podes iniciar sesión!`, `success`);
+        Swal.fire('Registro exitoso',`Verificá tu mail para confirmar la cuenta!`, `success`);
         this.route.navigate(['/iniciarsesion']);
       },
       (error: Error) => {
