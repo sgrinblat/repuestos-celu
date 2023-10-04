@@ -62,7 +62,7 @@ export class BuscadorComponent implements OnInit {
 
     this.conexion.getTodasLasRarezas().pipe(
       map(rarezas => {
-        const order = ['BRONCE', 'PLATA', 'ORO', 'DIAMANTE'];
+        const order = ['BRONCE', 'PLATA', 'ORO', 'DIAMANTE', 'ESMERALDA'];
         return rarezas.sort((a, b) => order.indexOf(a.nombreRareza) - order.indexOf(b.nombreRareza));
       })
     ).subscribe(rarezas => {
