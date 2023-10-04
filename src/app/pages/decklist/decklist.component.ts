@@ -41,7 +41,7 @@ export class DecklistComponent implements OnInit {
   deck: Decklist;
 
   expansiones: Observable<Expansion[]>;
-  rarezas: Observable<Rareza[]>;
+  rarezas: Rareza[] = [];
   tipos: Tipo[] = [];
 
   reino: Carta[];
@@ -253,7 +253,16 @@ export class DecklistComponent implements OnInit {
 
     this.obtenerCartas();
     this.expansiones = this.conexion.getTodasLasExpas();
-    this.rarezas = this.conexion.getTodasLasRarezas();
+
+    this.conexion.getTodasLasRarezas().pipe(
+      map(rarezas => {
+        const order = ['BRONCE', 'PLATA', 'ORO', 'DIAMANTE', 'ESMERALDA'];
+        return rarezas.sort((a, b) => order.indexOf(a.nombreRareza) - order.indexOf(b.nombreRareza));
+      })
+    ).subscribe(rarezas => {
+      this.rarezas = rarezas;
+    });
+
     this.conexion
       .getTodasLosTipos()
       .pipe(
@@ -513,17 +522,14 @@ export class DecklistComponent implements OnInit {
 
   agregarCarta(carta: Carta) {
     if (this.banderaLista) {
-      if (
-        carta.tipo.nombreTipo == 'TESORO' ||
-        carta.tipo.nombreTipo == 'TESORO - SAGRADO'
-      ) {
+      if (carta.tipo.nombreTipo == 'TESORO' || carta.tipo.nombreTipo == 'TESORO - SAGRADO') {
         const cantidadPrincipal = this.getCantidad(carta, this.boveda);
         const cantidadSide = this.getCantidad(carta, this.sidedeck);
-        if (cantidadPrincipal + cantidadSide > 1) {
+        if (cantidadPrincipal + cantidadSide > 0) {
           Swal.fire({
             icon: 'error',
             title: 'No tan rápido, general',
-            text: 'No puedes agregar a tu Bóveda más de 2 copias del mismo Tesoro!',
+            text: 'No puedes agregar a tu Bóveda más de 1 copia del mismo Tesoro!',
             background: '#2e3031',
             color: '#fff',
           });
@@ -572,22 +578,21 @@ export class DecklistComponent implements OnInit {
       ) {
         const cantidadPrincipal = this.getCantidad(carta, this.boveda);
         const cantidadSide = this.getCantidad(carta, this.sidedeck);
-        if (cantidadPrincipal + cantidadSide > 1) {
+        if (cantidadPrincipal + cantidadSide > 0) {
           Swal.fire({
             icon: 'error',
             title: 'No tan rápido, general',
-            text: 'No puedes agregar a tu Side Deck más de 2 copias del mismo Tesoro!',
+            text: 'No puedes agregar a tu Side Deck más de 1 copia del mismo Tesoro!',
             background: '#2e3031',
             color: '#fff',
           });
           return;
         }
-      } else if (
-        carta.tipo.nombreTipo != 'TESORO' &&
-        carta.tipo.nombreTipo != 'TESORO - SAGRADO'
-      ) {
+
+      } else if (carta.tipo.nombreTipo != 'TESORO' && carta.tipo.nombreTipo != 'TESORO - SAGRADO') {
         const cantidadPrincipal = this.getCantidad(carta, this.reino);
         const cantidadSide = this.getCantidad(carta, this.sidedeck);
+
         if (cantidadPrincipal + cantidadSide > 3) {
           Swal.fire({
             icon: 'error',
@@ -647,12 +652,27 @@ export class DecklistComponent implements OnInit {
   }
 
   guardarDecklist() {
-    if (
-      this.reino.length < 45 ||
-      this.reino.length > 60 ||
-      this.boveda.length != 15 ||
-      this.sidedeck.length != 10
-    ) {
+
+    let sagrados: number = 0;
+
+    for (const item of this.boveda) {
+        if (item.tipo.nombreTipo === 'TESORO - SAGRADO') {
+            sagrados++;
+        }
+    }
+
+    if (sagrados > 3) {
+        Swal.fire({
+            icon: 'error',
+            title: 'La cantidad de cartas está mal!',
+            text: 'No puedes tener más de 3 tesoros sagrados en tu bóveda.',
+            background: '#2e3031',
+            color: '#fff',
+        });
+        return;
+    }
+
+    if (this.reino.length < 45 || this.reino.length > 60 || this.boveda.length != 15 || this.sidedeck.length != 10) {
       Swal.fire({
         icon: 'error',
         title: 'La cantidad de cartas está mal!',
