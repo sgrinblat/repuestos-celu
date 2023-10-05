@@ -20,7 +20,7 @@ export class ImageGeneratorComponent {
   async generarImagen(decklist: string, nombreCompleto: string) {
     // Crear contenedor de imágenes
     const contenedor = document.createElement('div');
-    contenedor.style.width = '1080px';
+    contenedor.style.width = '1350px';
     contenedor.style.height = '670px';
     contenedor.style.backgroundImage = 'url("/assets/images/texture.png")';
     contenedor.style.backgroundSize = 'cover'; // La imagen cubre todo el contenedor
