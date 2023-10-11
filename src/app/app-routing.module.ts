@@ -40,6 +40,7 @@ import { JuegoOrganizadoComponent } from "./pages/torneos/juego-organizado/juego
 import { RankingLigaComponent } from "./pages/torneos/ranking-liga/ranking-liga.component";
 import { RankingAperturaComponent } from "./pages/torneos/ranking-apertura/ranking-apertura.component";
 import { MarketingMaterialComponent } from "./pages/marketing-material/marketing-material.component";
+import { FolletoComponent } from './pages/tiendas/folleto/folleto.component';
 
 
 const routes: Routes = [
@@ -91,6 +92,10 @@ const routes: Routes = [
     {
       path: "marketing-material",
       component: MarketingMaterialComponent
+    },
+    {
+      path: "seal/products/accesslairen",
+      component: FolletoComponent
     },
     {
       path: "noticias",
