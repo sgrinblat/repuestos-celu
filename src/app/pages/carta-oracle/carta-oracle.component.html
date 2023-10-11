@@ -78,17 +78,17 @@
 
     <div class="col text-center text-white pb-5 ">
       <h3 >Otras versiones impresas de {{carta.nombreCarta}}</h3>
-      <h4 *ngIf="carta.urlImagen1 == null && carta.urlImagen2 == null && carta.urlImagen3 == null" >No existen otras versiones de esta carta.</h4>
-      <img *ngIf="carta.urlImagen1 != null" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen1" [alt]="carta.nombreCarta">
-      <img *ngIf="carta.urlImagen2 != null" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen2" [alt]="carta.nombreCarta">
-      <img *ngIf="carta.urlImagen3 != null" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen3" [alt]="carta.nombreCarta">
-      <img *ngIf="carta.urlImagen4 != null" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen4" [alt]="carta.nombreCarta">
-      <img *ngIf="carta.urlImagen5 != null" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen5" [alt]="carta.nombreCarta">
-      <img *ngIf="carta.urlImagen6 != null" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen6" [alt]="carta.nombreCarta">
-      <img *ngIf="carta.urlImagen7 != null" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen7" [alt]="carta.nombreCarta">
-      <img *ngIf="carta.urlImagen8 != null" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen8" [alt]="carta.nombreCarta">
-      <img *ngIf="carta.urlImagen9 != null" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen9" [alt]="carta.nombreCarta">
-      <img *ngIf="carta.urlImagen10 != null" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen10" [alt]="carta.nombreCarta">
+      <h4 *ngIf="!carta.urlImagen1 && !carta.urlImagen2 && !carta.urlImagen3" >No existen otras versiones de esta carta.</h4>
+      <img *ngIf="carta.urlImagen1" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen1" [alt]="carta.nombreCarta">
+      <img *ngIf="carta.urlImagen2" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen2" [alt]="carta.nombreCarta">
+      <img *ngIf="carta.urlImagen3" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen3" [alt]="carta.nombreCarta">
+      <img *ngIf="carta.urlImagen4" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen4" [alt]="carta.nombreCarta">
+      <img *ngIf="carta.urlImagen5" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen5" [alt]="carta.nombreCarta">
+      <img *ngIf="carta.urlImagen6" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen6" [alt]="carta.nombreCarta">
+      <img *ngIf="carta.urlImagen7" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen7" [alt]="carta.nombreCarta">
+      <img *ngIf="carta.urlImagen8" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen8" [alt]="carta.nombreCarta">
+      <img *ngIf="carta.urlImagen9" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen9" [alt]="carta.nombreCarta">
+      <img *ngIf="carta.urlImagen10" class="cartaAlter img-fluid" [lazyLoad]="carta.urlImagen10" [alt]="carta.nombreCarta">
     </div>
 
   </div>
