@@ -1,0 +1,8 @@
+/* Estilo para la imagen del producto */
+.imagenProducto {
+  width: 160px;
+  max-width: 100%; /* Asegura que la imagen sea responsive y no exceda el contenedor */
+  height: auto; /* Mantiene la proporción de la imagen */
+}
+
+
