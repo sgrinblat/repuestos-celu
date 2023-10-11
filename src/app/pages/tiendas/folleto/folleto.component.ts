@@ -45,15 +45,19 @@ export class FolletoComponent implements OnInit {
 
   ngOnInit() {
 
-    this.codigo = prompt("Ingrese el código para ingresar a esta sección: ");
+    this.cotizacionService.getCotizaciones().subscribe(data => {
+      this.cotizaciones = data;
+    });
 
-    if(this.codigo !== "77511") {
-      this.router.navigate(["/"]);
-    } else {
-      this.cotizacionService.getCotizaciones().subscribe(data => {
-        this.cotizaciones = data;
-      });
-    }
+    // this.codigo = prompt("Ingrese el código para ingresar a esta sección: ");
+
+    // if(this.codigo !== "77511") {
+    //   this.router.navigate(["/"]);
+    // } else {
+    //   this.cotizacionService.getCotizaciones().subscribe(data => {
+    //     this.cotizaciones = data;
+    //   });
+    // }
 
   }
 
