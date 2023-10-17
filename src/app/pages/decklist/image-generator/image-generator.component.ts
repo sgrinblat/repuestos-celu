@@ -20,8 +20,8 @@ export class ImageGeneratorComponent {
   async generarImagen(decklist: string, nombreCompleto: string) {
     // Crear contenedor de imágenes
     const contenedor = document.createElement('div');
-    contenedor.style.width = '1350px';
-    contenedor.style.height = '670px';
+    contenedor.style.width = '1150px';
+    contenedor.style.height = '1000px';
     contenedor.style.backgroundImage = 'url("/assets/images/texture.png")';
     contenedor.style.backgroundSize = 'cover'; // La imagen cubre todo el contenedor
     contenedor.style.position = 'relative';
@@ -172,7 +172,7 @@ export class ImageGeneratorComponent {
 
       // Actualizar la posición y el contador
       currentInRow += 1;
-      if (currentInRow === 4) {
+      if (currentInRow === 8) {
         currentInRow = 0; // Reiniciar contador de imágenes en fila
         xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
         yPosition = yStartPosition; // Usar yStartPosition aquí
