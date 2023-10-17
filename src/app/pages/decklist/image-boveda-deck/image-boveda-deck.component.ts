@@ -19,8 +19,8 @@ export class ImageBovedaDeckComponent {
   async generarImagen(decklist: string, nombreCompleto: string) {
     // Crear contenedor de imágenes
     const contenedor = document.createElement('div');
-    contenedor.style.width = '1350px';
-    contenedor.style.height = '500px';
+    contenedor.style.width = '1150px';
+    contenedor.style.height = '600px';
     contenedor.style.backgroundImage = 'url("/assets/images/texture.png")';
     contenedor.style.backgroundSize = 'cover'; // La imagen cubre todo el contenedor
     contenedor.style.position = 'relative';
@@ -121,7 +121,7 @@ export class ImageBovedaDeckComponent {
 
       // Actualizar la posición y el contador
       currentInRow += 1;
-      if (currentInRow === 2) {
+      if (currentInRow === 3) {
         currentInRow = 0; // Reiniciar contador de imágenes en fila
         xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
         yPosition = yStartPosition; // Usar yStartPosition aquí
