@@ -27,6 +27,7 @@ export class BuscadorComponent implements OnInit {
   rarezas: Rareza[] = [];
   tipos: Tipo[] = [];
   costes: number[] = [];
+  cantidadDeCartasMostrandose: number;
 
 
   constructor(private conexion: ConexionService, private activatedRoute: ActivatedRoute, private route: Router, private renderer: Renderer2) { }
@@ -104,21 +105,25 @@ export class BuscadorComponent implements OnInit {
   onRarezaChange(selectedRareza: number) {
     this.selectedRareza = selectedRareza;
     this.filterCartas();
+    this.cantidadDeCartasMostrandose = this.filteredCartas.length;
   }
 
   onExpansionChange(selectedExpansion: number) {
     this.selectedExpansion = selectedExpansion;
     this.filterCartas();
+    this.cantidadDeCartasMostrandose = this.filteredCartas.length;
   }
 
   onTipoChange(selectedTipo: number) {
     this.selectedTipo = selectedTipo;
     this.filterCartas();
+    this.cantidadDeCartasMostrandose = this.filteredCartas.length;
   }
 
   onCosteChange(selectedCoste: number) {
     this.selectedCoste = selectedCoste;
     this.filterCartas();
+    this.cantidadDeCartasMostrandose = this.filteredCartas.length;
   }
 
 

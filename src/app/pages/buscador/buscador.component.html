@@ -68,15 +68,10 @@
 
     </div>
 
-    <!-- <section class="section section-xl text-center card-seccion">
-      <div class="container">
-        <div class="card-grid">
-          <div *ngFor="let carta of filteredCartas">
-            <img class="carta" [lazyLoad]="carta.urlImagen" (onLoad)="onImageLoad($event)" [alt]="carta.nombreCarta">
-          </div>
-        </div>
-      </div>
-    </section> -->
+
+    <section *ngIf="filteredCartas.length > 0" class="section section-xl text-center card-seccion">
+      <h2>Se han encontrado {{cantidadDeCartasMostrandose}} cartas con los filtros seleccionados</h2>
+    </section>
 
     <section class="section section-xl text-center card-seccion">
       <div class="container">
