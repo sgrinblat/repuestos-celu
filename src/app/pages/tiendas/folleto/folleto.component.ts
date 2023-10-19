@@ -86,9 +86,9 @@ export class FolletoComponent implements OnInit {
   obtenerDescuentoPorCantidad(cantidad: number): number {
     if (cantidad < 10) {
       return 0; // 0% de descuento
-    } else if (cantidad > 9 && cantidad < 20) {
+    } else if (cantidad > 9 && cantidad < 30) {
       return 0.40; // 40% de descuento
-    } else if (cantidad > 19 && cantidad < 80) {
+    } else if (cantidad > 29 && cantidad < 80) {
       return 0.45; // 45% de descuento
     } else {
       return 0.50; // 50% de descuento
