@@ -19,7 +19,7 @@ export class ImageBovedaDeckComponent {
   async generarImagen(decklist: string, nombreCompleto: string) {
     // Crear contenedor de imágenes
     const contenedor = document.createElement('div');
-    contenedor.style.width = '1150px';
+    contenedor.style.width = '1160px';
     contenedor.style.height = '600px';
     contenedor.style.backgroundImage = 'url("/assets/images/texture.png")';
     contenedor.style.backgroundSize = 'cover'; // La imagen cubre todo el contenedor
