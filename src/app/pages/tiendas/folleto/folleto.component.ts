@@ -18,6 +18,14 @@ interface CurrencyResponse {
   last_update: string;
 }
 
+interface CurrencyCripto {
+  ask: number;
+  totalAsk: number;
+  bid: number;
+  totalBid: number;
+  time: number;
+}
+
 interface Producto {
   nombre: string;
   imagenUrl: string;
@@ -41,6 +49,7 @@ export class FolletoComponent implements OnInit {
 
   codigo = "";
   cotizaciones: CurrencyResponse;
+  cotizacionCripto: CurrencyCripto;
 
 
   ngOnInit() {
@@ -54,8 +63,11 @@ export class FolletoComponent implements OnInit {
     if(this.codigo !== "77511") {
       this.router.navigate(["/"]);
     } else {
-      this.cotizacionService.getCotizaciones().subscribe(data => {
-        this.cotizaciones = data;
+      // this.cotizacionService.getCotizaciones().subscribe(data => {
+      //   this.cotizaciones = data;
+      // });
+      this.cotizacionService.getCotizacionesCripto().subscribe(data => {
+        this.cotizacionCripto = data;
       });
     }
 

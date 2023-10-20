@@ -3,7 +3,7 @@
 
 <div class="container mt-5">
   <h2 class="text-center">Folleto de productos</h2>
-  <h4 class="text-center pt-2"> Dolar: ${{cotizaciones.blue.value_avg}} </h4>
+  <h4 class="text-center pt-2"> Dolar: ${{cotizacionCripto.totalAsk}} </h4>
   <p class="text-center pt-2 pb-2">Al comprar entre 10 a 29 unidades, recibirás un 40% de descuento sobre el precio final</p>
   <p class="text-center pt-2 pb-2">Al comprar entre 30 a 79 unidades, recibirás un 45% de descuento sobre el precio final</p>
   <p class="text-center pt-2 pb-2">Al comprar más de 80 unidades, recibirás un 50% de descuento sobre el precio final</p>
@@ -25,7 +25,7 @@
           <td><img [src]="producto.imagenUrl" class="img-fluid imagenProducto" alt="Imagen de {{producto.nombre}}"></td>
           <td class="d-none d-md-table-cell" >{{ producto.nombre }}</td>
           <td>{{ producto.precioDolar | currency }}</td>
-          <td>${{ producto.precioDolar * cotizaciones.blue.value_avg | currency:'ARS':'symbol':'1.2-2' }}</td>
+          <td>${{ producto.precioDolar * cotizacionCripto.totalAsk | currency:'ARS':'symbol':'1.2-2' }}</td>
           <td>
             <input type="number" [(ngModel)]="producto.cantidad" class="form-control" min="0">
           </td>
@@ -58,7 +58,7 @@
           </div>
           <ng-template #showTotalSinDescuentoPesos>
             <td colspan="3" class="text-right">Precio <b>SIN</b> descuento Pesos:</td>
-            <td>${{ calcularPrecioSinDescuento() * cotizaciones.blue.value_avg | currency:'ARS':'symbol':'1.2-2' }}</td>
+            <td>${{ calcularPrecioSinDescuento() * cotizacionCripto.totalAsk | currency:'ARS':'symbol':'1.2-2' }}</td>
           </ng-template>
 
         </tr>
@@ -83,7 +83,7 @@
           </div>
           <ng-template #showTotalPesos>
             <td colspan="3" class="text-right">Precio <b>CON</b> descuento Pesos:</td>
-            <td>${{ calcularPrecioTotal() * cotizaciones.blue.value_avg | currency:'ARS':'symbol':'1.2-2' }}</td>
+            <td>${{ calcularPrecioTotal() * cotizacionCripto.totalAsk | currency:'ARS':'symbol':'1.2-2' }}</td>
             <td>{{ obtenerTextoDescuento() }}</td>
           </ng-template>
 

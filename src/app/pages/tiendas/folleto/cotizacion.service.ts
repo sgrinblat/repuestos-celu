@@ -16,6 +16,15 @@ interface CurrencyResponse {
     last_update: string;
 }
 
+interface CurrencyCripto {
+  ask: number;
+  totalAsk: number;
+  bid: number;
+  totalBid: number;
+  time: number;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,4 +36,10 @@ export class CotizacionService {
   getCotizaciones(): Observable<CurrencyResponse> {
     return this.httpClient.get<CurrencyResponse>("https://api.bluelytics.com.ar/v2/latest");
   }
+
+  getCotizacionesCripto(): Observable<CurrencyCripto> {
+    return this.httpClient.get<CurrencyCripto>("https://criptoya.com/api/binance/usdt/ars/0.1");
+  }
+
+
 }
