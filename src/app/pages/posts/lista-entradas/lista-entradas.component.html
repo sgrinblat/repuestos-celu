@@ -2,11 +2,11 @@
   <div class="container text-center" >
     <img class="imagen-lore" [src]="blogPost.fields.featuredImage.fields.file.url" alt="imagen principal de la noticia">
     <hr class="text-white" ><hr class="text-white" >
-    <h1 class="text-white" >
+    <h1 class="text-white mb-1" >
       {{ blogPost.fields.title }}
     </h1>
 
-    <div *ngFor="let paragraph of blogPost.fields.content.content" class="mb-4">
+    <div *ngFor="let paragraph of blogPost.fields.content.content" class="mt-1 mb-1">
       <div class="text-white pt-4 tamañoTexto" [innerHTML]="paragraph.content[0].value" ></div>
     </div>
 
