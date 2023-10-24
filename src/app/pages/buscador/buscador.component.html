@@ -53,6 +53,7 @@
       <div class="form-group">
         <h4 class="mt-2 mb-2">Tipos</h4>
         <select [(ngModel)]="selectedTipo" (change)="onTipoChange(selectedTipo)">
+          <option value="UNIDAD">UNIDAD</option>
           <option value="">Selecciona un tipo de carta</option>
           <option *ngFor="let type of tipos" [value]="type.idTipo">{{type.nombreTipo}}</option>
         </select>
@@ -110,16 +111,6 @@
       </div>
     </section>
 
-
-    <!-- <section *ngIf="selectedRareza == null && selectedExpansion == null && selectedTipo == null && selectedCoste == null && (searchText == '' || searchText == null)" class="section section-xl text-center card-seccion">
-      <div class="container">
-        <div class="card-grid">
-          <div *ngFor="let card of cartas">
-            <img class="carta" [lazyLoad]="card.urlImagen" (onLoad)="onImageLoad($event)" [alt]="card.nombreCarta">
-          </div>
-        </div>
-      </div>
-    </section> -->
 
     <section *ngIf="filteredCartas.length == 0 && (selectedRareza !== null || selectedExpansion !== null || selectedTipo !== null || selectedCoste !== null || searchText !== null)" class="section section-xl text-center card-seccion">
       <h2>No se han encontrado cartas con los filtros seleccionados.</h2>
