@@ -68,6 +68,7 @@ export class FolletoComponent implements OnInit {
       // });
       this.cotizacionService.getCotizacionesCripto().subscribe(data => {
         this.cotizacionCripto = data;
+        this.cotizacionCripto.totalAsk += 20;
       });
     }
 
