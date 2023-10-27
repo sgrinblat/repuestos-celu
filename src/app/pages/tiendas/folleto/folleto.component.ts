@@ -50,6 +50,7 @@ export class FolletoComponent implements OnInit {
   codigo = "";
   cotizaciones: CurrencyResponse;
   cotizacionCripto: CurrencyCripto;
+  cotizacionMostrada: number = 0;
 
 
   ngOnInit() {
@@ -63,12 +64,21 @@ export class FolletoComponent implements OnInit {
     if(this.codigo !== "77511") {
       this.router.navigate(["/"]);
     } else {
-      // this.cotizacionService.getCotizaciones().subscribe(data => {
-      //   this.cotizaciones = data;
-      // });
-      this.cotizacionService.getCotizacionesCripto().subscribe(data => {
-        this.cotizacionCripto = data;
-        this.cotizacionCripto.totalAsk += 20;
+      this.cotizacionService.getCotizaciones().subscribe(data => {
+        this.cotizaciones = data;
+
+        this.cotizacionService.getCotizacionesCripto().subscribe(data => {
+          this.cotizacionCripto = data;
+          this.cotizacionCripto.totalAsk += 20;
+
+          if(this.cotizacionCripto.totalAsk > this.cotizaciones.blue.value_sell) {
+            this.cotizacionMostrada = this.cotizacionCripto.totalAsk;
+            this.cotizacionMostrada += 10;
+          } else {
+            this.cotizacionMostrada = this.cotizaciones.blue.value_sell;
+            this.cotizacionMostrada += 10;
+          }
+        });
       });
     }
 
