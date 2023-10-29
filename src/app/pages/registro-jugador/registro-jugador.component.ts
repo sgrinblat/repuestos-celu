@@ -55,7 +55,6 @@ export class RegistroJugadorComponent implements OnInit {
     );
 
   }
-
 }
 
 export function PasswordStrengthValidator(): ValidatorFn {
@@ -68,4 +67,3 @@ export function PasswordStrengthValidator(): ValidatorFn {
     return null;
   };
 }
-
