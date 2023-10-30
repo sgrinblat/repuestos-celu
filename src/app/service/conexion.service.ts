@@ -11,6 +11,7 @@ import { Decklist } from '../decklist';
 import { Role } from '../role';
 import { Jugador } from '../jugador';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -350,15 +351,36 @@ export class ConexionService {
     }
   }
 
+  // sesionIniciadaJugador() {
+  //   let tokenStr = localStorage.getItem("token");
+  //   let tokenStrLocation = localStorage.getItem("location");
+  //   if (tokenStr == undefined || tokenStr == "" || tokenStr == null || tokenStrLocation != '0') {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
+
   sesionIniciadaJugador() {
-    let tokenStr = localStorage.getItem("token");
-    let tokenStrLocation = localStorage.getItem("location");
-    if (tokenStr == undefined || tokenStr == "" || tokenStr == null || tokenStrLocation != '0') {
+    const tokenStr = localStorage.getItem('token');
+    const tokenStrLocation = localStorage.getItem('location');
+
+    if (tokenStr == undefined || tokenStr == '' || tokenStr == null || tokenStrLocation != '0') {
       return false;
     } else {
-      return true;
+      const payload = JSON.parse(atob(tokenStr.split('.')[1]));
+      const currentTime = Math.floor(Date.now() / 1000);
+
+      if (payload.exp < currentTime) {
+        // El token ha expirado, desloguear al usuario
+        this.deslogear();
+        return false;
+      } else {
+        return true;
+      }
     }
   }
+
 
   getToken() {
     return localStorage.getItem("token");
@@ -384,38 +406,6 @@ export class ConexionService {
     localStorage.removeItem("location");
     return true;
   }
-
-
-
-
-  /*
-  // método para mostrar vendedores registrados
-  obtenerVendedoresRegistrados():Observable<Vendedor[]> {
-    return this.httpClient.get<Vendedor[]>(`${this.baseURLVendedor}`);
-  }
-
-  // método para mostrar ventas registradas
-  obtenerVentasRegistradas():Observable<Venta[]> {
-    return this.httpClient.get<Venta[]>(`${this.baseURLFactura}`);
-  }
-
-  // este método nos sirve para registrar un vendedor en la base de datos
-  registrarVendedor(vendedor: Vendedor) : Observable<Object> {
-    return this.httpClient.post(`${this.baseURLVendedor}`, vendedor);
-  }
-
-  // este método nos sirve para registrar un producto en la base de datos
-  registrarProducto(producto: Producto) : Observable<Object> {
-    return this.httpClient.post(`${this.baseURLProducto}`, producto);
-  }
-
-  // este método nos sirve para registrar un producto en la base de datos
-  registrarVenta(venta: Venta) : Observable<Object> {
-    return this.httpClient.post(`${this.baseURLFactura}`, venta);
-  } */
-
-
-  // -------------------------------------------
 
 
 }
