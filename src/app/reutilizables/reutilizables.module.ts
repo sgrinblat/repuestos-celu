@@ -10,6 +10,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { Page404Component } from './page404/page404.component';
 import { CarruselCartasComponent } from './carrusel-cartas/carrusel-cartas.component';
+import { PoliticaPrivacidadComponent } from './politica-privacidad/politica-privacidad.component';
 
 
 @NgModule({
@@ -18,12 +19,14 @@ import { CarruselCartasComponent } from './carrusel-cartas/carrusel-cartas.compo
     FooterComponent,
     Page404Component,
     CarruselCartasComponent,
+    PoliticaPrivacidadComponent
   ],
   exports: [
     NavbarComponent,
     FooterComponent,
     Page404Component,
-    CarruselCartasComponent
+    CarruselCartasComponent,
+    PoliticaPrivacidadComponent
   ],
   imports: [
     BrowserModule,

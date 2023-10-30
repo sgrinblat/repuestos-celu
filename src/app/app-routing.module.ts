@@ -41,6 +41,7 @@ import { RankingLigaComponent } from "./pages/torneos/ranking-liga/ranking-liga.
 import { RankingAperturaComponent } from "./pages/torneos/ranking-apertura/ranking-apertura.component";
 import { MarketingMaterialComponent } from "./pages/marketing-material/marketing-material.component";
 import { FolletoComponent } from './pages/tiendas/folleto/folleto.component';
+import { PoliticaPrivacidadComponent } from "./reutilizables/politica-privacidad/politica-privacidad.component";
 
 
 const routes: Routes = [
@@ -104,6 +105,10 @@ const routes: Routes = [
     {
       path: `noticias/:id`,
       component: ListaEntradasComponent
+    },
+    {
+      path: `politica-privacidad`,
+      component: PoliticaPrivacidadComponent
     },
     {
       path: `decklists`,
