@@ -47,10 +47,13 @@ export class RegistroJugadorComponent implements OnInit {
         Swal.fire('Registro exitoso',`Verificá tu mail para confirmar la cuenta!`, `success`);
         this.route.navigate(['/iniciarsesion']);
       },
-      (error: Error) => {
-        Loading.remove(500);
-        Swal.fire('No se ha podido registrar',`Contactanos para ver porqué no pudiste registrarte`, `error`);
-        console.log("Qué estás buscando, picaron? " + error.message)
+      (error) => {
+        if (error.status === 409) { // Conflict status
+          Swal.fire('Error!',`El usuario ya se encuentra registrado`, `error`);
+        } else {
+          Swal.fire('No se ha podido registrar',`Contactanos para ver porqué no pudiste registrarte`, `error`);
+        }
+        console.log("Qué estás buscando, picaron? " + error.message);
       }
     );
 

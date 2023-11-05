@@ -35,7 +35,7 @@
       <div class="form-group">
         <h4 class="mt-2 mb-2">Expansiones</h4>
         <select [(ngModel)]="selectedExpansion" (change)="onExpansionChange(selectedExpansion)">
-          <option value="">Selecciona una expansión</option>
+          <option value="0">Deseleccionar</option>
           <option *ngFor="let expa of expansiones | async" [value]="expa.idExpansion">{{expa.nombreExpansion}}</option>
         </select>
       </div>
@@ -44,7 +44,7 @@
       <div class="form-group">
         <h4 class="mt-2 mb-2">Rarezas</h4>
         <select [(ngModel)]="selectedRareza" (change)="onRarezaChange(selectedRareza)">
-          <option value="">Selecciona una rareza</option>
+          <option value="0">Deseleccionar</option>
           <option *ngFor="let rare of rarezas" [value]="rare.idRareza">{{rare.nombreRareza}}</option>
         </select>
       </div>
@@ -53,8 +53,7 @@
       <div class="form-group">
         <h4 class="mt-2 mb-2">Tipos</h4>
         <select [(ngModel)]="selectedTipo" (change)="onTipoChange(selectedTipo)">
-          <option value="UNIDAD">UNIDAD</option>
-          <option value="">Selecciona un tipo de carta</option>
+          <option value="0">Deseleccionar</option>
           <option *ngFor="let type of tipos" [value]="type.idTipo">{{type.nombreTipo}}</option>
         </select>
       </div>
@@ -62,7 +61,7 @@
       <div class="form-group">
         <h4 class="mt-2 mb-2">Coste</h4>
         <select [(ngModel)]="selectedCoste" (change)="onCosteChange(selectedCoste)">
-          <option value="default">Selecciona un tipo de carta</option>
+          <option value="0">Deseleccionar</option>
           <option *ngFor="let coste of costes" [value]="coste">{{coste}}</option>
         </select>
       </div>

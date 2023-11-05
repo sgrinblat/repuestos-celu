@@ -100,28 +100,38 @@ export class BuscadorComponent implements OnInit {
     return `${texto.substr(0, limite)}...`;
   }
 
-
-
   onRarezaChange(selectedRareza: number) {
     this.selectedRareza = selectedRareza;
+    if(this.selectedRareza == 0) {
+      this.selectedRareza = null;
+    }
     this.filterCartas();
     this.cantidadDeCartasMostrandose = this.filteredCartas.length;
   }
 
   onExpansionChange(selectedExpansion: number) {
     this.selectedExpansion = selectedExpansion;
+    if(this.selectedExpansion == 0) {
+      this.selectedExpansion = null;
+    }
     this.filterCartas();
     this.cantidadDeCartasMostrandose = this.filteredCartas.length;
   }
 
   onTipoChange(selectedTipo: number) {
     this.selectedTipo = selectedTipo;
+    if(this.selectedTipo == 0) {
+      this.selectedTipo = null;
+    }
     this.filterCartas();
     this.cantidadDeCartasMostrandose = this.filteredCartas.length;
   }
 
   onCosteChange(selectedCoste: number) {
     this.selectedCoste = selectedCoste;
+    if(this.selectedCoste == 0) {
+      this.selectedCoste = null;
+    }
     this.filterCartas();
     this.cantidadDeCartasMostrandose = this.filteredCartas.length;
   }

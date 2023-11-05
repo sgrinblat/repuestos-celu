@@ -277,21 +277,33 @@ export class DecklistComponent implements OnInit {
 
   onRarezaChange(selectedRareza: number) {
     this.selectedRareza = selectedRareza;
+    if(this.selectedRareza == 0) {
+      this.selectedRareza = null;
+    }
     this.filterCartas();
   }
 
   onExpansionChange(selectedExpansion: number) {
     this.selectedExpansion = selectedExpansion;
+    if(this.selectedExpansion == 0) {
+      this.selectedExpansion = null;
+    }
     this.filterCartas();
   }
 
   onTipoChange(selectedTipo: number) {
     this.selectedTipo = selectedTipo;
+    if(this.selectedTipo == 0) {
+      this.selectedTipo = null;
+    }
     this.filterCartas();
   }
 
   onCosteChange(selectedCoste: number) {
     this.selectedCoste = selectedCoste;
+    if(this.selectedCoste == 0) {
+      this.selectedCoste = null;
+    }
     this.filterCartas();
   }
 
