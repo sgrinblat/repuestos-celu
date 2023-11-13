@@ -50,16 +50,34 @@ export class DecklistsComponent implements OnInit {
   }
 
   eliminarDecklist(deck: Decklist) {
-    this.conexion.deleteDecklist(deck.id).subscribe(
-      (dato) => {
-        this.conexion.getUsuarioActual().subscribe((usuario: Usuario) => {
-          this.obtenerDecklists(usuario.id);
-        });
-        Swal.fire('Decklist eliminada',`La decklist ha sido eliminada con exito`, `success`);
-      },
-      (error) => console.log("Qué estás buscando, picaron?")
-    );
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Esta acción eliminará la decklist permanentemente",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            this.conexion.deleteDecklist(deck.id).subscribe(
+                (dato) => {
+                    this.conexion.getUsuarioActual().subscribe((usuario: Usuario) => {
+                        this.obtenerDecklists(usuario.id);
+                    });
+                    Swal.fire(
+                        'Eliminada',
+                        'La decklist ha sido eliminada con éxito',
+                        'success'
+                    );
+                },
+                (error) => console.log("Qué estás buscando, picaron?")
+            );
+        }
+    });
   }
+
 
   onImgError(event) {
     event.target.src = 'https://i.postimg.cc/Kv927HQV/mente-mejor.jpg';
