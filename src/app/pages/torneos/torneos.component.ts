@@ -112,23 +112,40 @@ export class TorneosComponent implements OnInit {
 
 
   enviarResultadosPartido() {
-
     this.jugadorGanador = this.contactFormPartidos.get('formularioJugadorGanador').value;
     this.jugadorPerdedor = this.contactFormPartidos.get('formularioJugadorPerdedor').value;
 
-    if(this.jugadorGanador && this.jugadorPerdedor) {
-        this.conexion.registrarResultadoPartido(this.jugadorGanador.id, this.jugadorPerdedor.id).subscribe(
-            data => {
-              Swal.fire('Partido registrado',`Ya puedes ver el ranking actualizado`, `success`);
-              this.mostrarJugadores()
-            }, // aquí puedes manejar la respuesta del servidor
-            error => console.error(error) // aquí puedes manejar cualquier error que ocurra
-        );
+    if (this.jugadorGanador && this.jugadorPerdedor) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: `Estás por registrar que ` + this.jugadorGanador.nombre + " le ha ganado a " + this.jugadorPerdedor.nombre + ".",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, registrar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.conexion.registrarResultadoPartido(this.jugadorGanador.id, this.jugadorPerdedor.id).subscribe(
+                    data => {
+                        Swal.fire(
+                            '¡Registrado!',
+                            'El resultado del partido ha sido registrado.',
+                            'success'
+                        );
+                        this.mostrarJugadores();
+                    },
+                    error => console.error(error) // Manejo de errores
+                );
+            }
+        });
     } else {
         console.log("Debes seleccionar tanto un ganador como un perdedor.");
     }
 
-}
+  }
+
 
   deslogear() {
     this.conexion.deslogear();
@@ -143,8 +160,8 @@ export class TorneosComponent implements OnInit {
 
   provincias: Provincia[] = [
     { id: '01', nombre: 'Buenos Aires' },
-    { id: '02', nombre: 'Córdoba' },
-    { id: '03', nombre: 'Santa Fe' },
+    { id: '02', nombre: 'Santa Fe' },
+    { id: '03', nombre: 'Cordoba' },
     { id: '04', nombre: 'Mendoza' },
     { id: '05', nombre: 'Tucumán' },
     { id: '06', nombre: 'Entre Ríos' },
