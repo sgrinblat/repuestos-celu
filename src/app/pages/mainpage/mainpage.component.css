@@ -166,6 +166,14 @@
   background-position: 0px;
 }
 
+.fondo-ilustracion1 {
+  background-image: linear-gradient(rgba(39, 39, 39, 0.5), rgba(21, 21, 21, 0.3)), url(https://i.postimg.cc/VNnZPZy4/Sin-t-tulo-4.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0px;
+  background-attachment: fixed;
+}
+
 .mazo-div {
   height: 500px;
 }
@@ -189,6 +197,14 @@
     display: none;
 	}
 }
+
+/* Puedes agregar esto en tu archivo CSS */
+@media (min-width: 768px) { /* Ajusta esto según los puntos de interrupción de tu diseño */
+  .align-items-start {
+    align-items: start; /* Esto alinea los elementos de la fila en su parte superior */
+  }
+}
+
 
 .card-seccion {
   padding: 80px 0;
@@ -829,5 +845,20 @@ img + .custom-title {
 
 .cards-lore {
   padding: 60px 0;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 45.25%; /* 720 / 1280 = 0.5625 */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
