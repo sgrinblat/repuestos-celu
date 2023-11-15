@@ -81,6 +81,46 @@
               </div>
             </div>
 
+            <div class="m-4">
+              <label class="form-label display-text" for="formularioCartaSubTipo1">SubTipo</label><br>
+              <select formControlName="formularioCartaSubTipo1" class="formulario-input bg-light form-control "
+                name="formularioCartaSubTipo1" id="formularioCartaSubTipo1" >
+                <ng-container *ngIf="{ data: subtipos | async } as result">
+                  <option *ngFor="let subtype of result.data | orderBy:'nombreSubTipo'" [ngValue]="subtype">
+                    {{subtype.nombreSubTipo}}
+                  </option>
+                </ng-container>
+              </select>
+              <div
+                *ngIf="contactForm.get('formularioCartaSubTipo1')?.touched && contactForm.get('formularioCartaSubTipo1')?.errors?.['required'] "
+                class="alert alert-danger formulario-error mt-3">*El campo de SubTipo es obligatorio
+              </div>
+            </div>
+
+            <div class="m-4">
+              <label class="form-label display-text" for="formularioCartaSubTipo2">SubTipo2</label><br>
+              <select formControlName="formularioCartaSubTipo2" class="formulario-input bg-light form-control "
+                name="formularioCartaSubTipo2" id="formularioCartaSubTipo2" >
+                <ng-container *ngIf="{ data: subtipos | async } as result">
+                  <option *ngFor="let subtype of result.data | orderBy:'nombreSubTipo'" [ngValue]="subtype">
+                    {{subtype.nombreSubTipo}}
+                  </option>
+                </ng-container>
+              </select>
+            </div>
+
+            <div class="m-4">
+              <label class="form-label display-text" for="formularioCartaSubTipo3">SubTipo3</label><br>
+              <select formControlName="formularioCartaSubTipo3" class="formulario-input bg-light form-control "
+                name="formularioCartaSubTipo3" id="formularioCartaSubTipo3" >
+                <ng-container *ngIf="{ data: subtipos | async } as result">
+                  <option *ngFor="let subtype of result.data | orderBy:'nombreSubTipo'" [ngValue]="subtype">
+                    {{subtype.nombreSubTipo}}
+                  </option>
+                </ng-container>
+              </select>
+            </div>
+
 
             <div class="m-4">
               <label class="form-label display-text" for="formularioTextoCarta">Texto de carta</label><br>
@@ -207,6 +247,9 @@
           <th class="display-text">Expansion</th>
           <th class="display-text">Rareza</th>
           <th class="display-text">Tipo</th>
+          <th class="display-text">Subtipo</th>
+          <th class="display-text">Subtipo2</th>
+          <th class="display-text">Subtipo3</th>
           <th class="display-text">Comandos</th>
         </tr>
       </thead>
@@ -223,6 +266,12 @@
           <td class="display-text">{{card.expansion.nombreExpansion}}</td>
           <td class="display-text">{{card.rareza.nombreRareza}}</td>
           <td class="display-text">{{card.tipo.nombreTipo}}</td>
+          <td *ngIf="card.subtipo" class="display-text">{{card.subtipo.nombreSubTipo}}</td>
+          <td *ngIf="card.subtipo2" class="display-text">{{card.subtipo2.nombreSubTipo}}</td>
+          <td *ngIf="card.subtipo3" class="display-text">{{card.subtipo3.nombreSubTipo}}</td>
+          <td *ngIf="!card.subtipo" class="display-text">-</td>
+          <td *ngIf="!card.subtipo2" class="display-text">-</td>
+          <td *ngIf="!card.subtipo3" class="display-text">-</td>
 
           <td>
             <button type="button" class="btn btn-outline-warning m-2"
