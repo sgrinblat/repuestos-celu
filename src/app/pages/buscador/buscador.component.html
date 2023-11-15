@@ -49,6 +49,14 @@
         </select>
       </div>
 
+      <div class="form-group">
+        <h4 class="mt-2 mb-2">Coste</h4>
+        <select [(ngModel)]="selectedCoste" (change)="onCosteChange(selectedCoste)">
+          <option value="0">Deseleccionar</option>
+          <option *ngFor="let coste of costes" [value]="coste">{{coste}}</option>
+        </select>
+      </div>
+
       <!-- Filtro de tipo -->
       <div class="form-group">
         <h4 class="mt-2 mb-2">Tipos</h4>
@@ -59,10 +67,24 @@
       </div>
 
       <div class="form-group">
-        <h4 class="mt-2 mb-2">Coste</h4>
-        <select [(ngModel)]="selectedCoste" (change)="onCosteChange(selectedCoste)">
+        <h4 class="mt-2 mb-2">SubTipos</h4>
+        <select [(ngModel)]="selectedSubTipo" (change)="onSubTipoChange(selectedSubTipo)">
           <option value="0">Deseleccionar</option>
-          <option *ngFor="let coste of costes" [value]="coste">{{coste}}</option>
+          <option *ngFor="let subtype of subtipos" [value]="subtype.idSubTipo">{{subtype.nombreSubTipo}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <h4 class="mt-2 mb-2">SubTipos</h4>
+        <select [(ngModel)]="selectedSubTipo2" (change)="onSubTipo2Change(selectedSubTipo2)">
+          <option value="0">Deseleccionar</option>
+          <option *ngFor="let subtype of subtipos" [value]="subtype.idSubTipo">{{subtype.nombreSubTipo}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <h4 class="mt-2 mb-2">SubTipos</h4>
+        <select [(ngModel)]="selectedSubTipo3" (change)="onSubTipo3Change(selectedSubTipo3)">
+          <option value="0">Deseleccionar</option>
+          <option *ngFor="let subtype of subtipos" [value]="subtype.idSubTipo">{{subtype.nombreSubTipo}}</option>
         </select>
       </div>
 
@@ -81,7 +103,7 @@
                 (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)">
 
             <div class="carta-texto">
-              <p>{{acortarTexto(carta.textoCarta)}}</p>
+              <!-- <p>{{acortarTexto(carta.textoCarta)}}</p> -->
               <p><a (click)="visualizarCarta(carta.idCarta)">... Ver más</a></p>
             </div>
 
@@ -91,7 +113,7 @@
     </section>
 
 
-    <section *ngIf="selectedRareza == null && selectedExpansion == null && selectedTipo == null && selectedCoste == null && (searchText == '' || searchText == null)" class="section section-xl text-center card-seccion">
+    <section *ngIf="selectedRareza === null && selectedExpansion === null && selectedTipo === null && selectedCoste === null && (searchText === '' || searchText === null)">
       <div class="container">
         <div class="card-grid">
           <div *ngFor="let card of cartas">
@@ -100,7 +122,7 @@
             (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)">
 
             <div class="carta-texto">
-              <p>{{acortarTexto(card.textoCarta)}}</p>
+              <!-- <p>{{acortarTexto(card.textoCarta)}}</p> -->
               <p><a class="link-vermas" (click)="visualizarCarta(card.idCarta)">... Ver más</a></p>
             </div>
 
@@ -110,7 +132,7 @@
     </section>
 
 
-    <section *ngIf="filteredCartas.length == 0 && (selectedRareza !== null || selectedExpansion !== null || selectedTipo !== null || selectedCoste !== null || searchText !== null)" class="section section-xl text-center card-seccion">
+    <section *ngIf="filteredCartas.length === 0 && (selectedRareza || selectedExpansion || selectedTipo || selectedCoste || searchText)">
       <h2>No se han encontrado cartas con los filtros seleccionados.</h2>
     </section>
 

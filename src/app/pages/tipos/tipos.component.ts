@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConexionService } from 'src/app/service/conexion.service';
 import Swal from 'sweetalert2';
 import { Tipo } from '../../tipo';
+import { Subtipo } from 'src/app/subtipo';
 
 
 @Component({
@@ -15,23 +16,34 @@ import { Tipo } from '../../tipo';
 export class TiposComponent implements OnInit {
 
   contactForm!: FormGroup;
+  contactFormSubtipo!: FormGroup;
   tipos: Tipo[];
   tipo: Tipo = new Tipo();
+
+  subtipos: Subtipo[];
+  subtipo: Subtipo = new Subtipo();
+
   p: number = 1;
 
   @Input()
   nombreInput: string;
+  nombreInputSubtipo: string;
 
   @Output()
   nombreInputChange = new EventEmitter<string>();
+  nombreInputSubtipoChange = new EventEmitter<string>();
 
   constructor(private conexion: ConexionService, private readonly fb: FormBuilder, private activatedRoute: ActivatedRoute, private route: Router) {
     this.contactForm = fb.group({
       formularioTipoNombre: ['', [Validators.required, Validators.minLength(3)]],
     });
+    this.contactFormSubtipo = fb.group({
+      formularioSubTipoNombre: ['', [Validators.required, Validators.minLength(3)]],
+    });
   }
   ngOnInit() {
     this.obtenerTipos();
+    this.obtenerSubTipos();
   }
 
   obtenerTipos() {
@@ -40,8 +52,19 @@ export class TiposComponent implements OnInit {
     });
   }
 
+  obtenerSubTipos() {
+    this.conexion.getTodasLosSubTipos().subscribe((dato) => {
+      this.subtipos = dato;
+    });
+  }
+
   onSubmitTipo() {
     this.subirTipo();
+    this.limpiarFormulario();
+  }
+
+  onSubmitSubTipo() {
+    this.subirSubTipo();
     this.limpiarFormulario();
   }
 
@@ -53,6 +76,19 @@ export class TiposComponent implements OnInit {
       (dato) => {
         console.log(dato);
         this.obtenerTipos();
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  subirSubTipo() {
+    this.subtipo.nombreSubTipo = this.contactFormSubtipo.value.formularioSubTipoNombre;
+    this.subtipo.nombreSubTipo = this.subtipo.nombreSubTipo.toUpperCase();
+
+    this.conexion.postSubTipo(this.subtipo).subscribe(
+      (dato) => {
+        console.log(dato);
+        this.obtenerSubTipos();
       },
       (error) => console.log(error)
     );
@@ -74,6 +110,21 @@ export class TiposComponent implements OnInit {
   }
 
   actualizarTipo(id: number) {
+    this.route.navigate(['v1/upload/actualizar/tipo', id]);
+  }
+
+  eliminarSubTipo(id: number) {
+    this.conexion.deleteSubTipo(id).subscribe(
+      (dato) => {
+        console.log(dato);
+        this.obtenerSubTipos();
+        Swal.fire('SubTipo eliminado',`El SubTipo ha sido eliminada con exito`, `success`);
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  actualizarSubTipo(id: number) {
     this.route.navigate(['v1/upload/actualizar/tipo', id]);
   }
 

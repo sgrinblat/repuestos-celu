@@ -11,6 +11,7 @@ import { Expansion } from '../../expansion';
 import { Tipo } from '../../tipo';
 
 import Swal from 'sweetalert2';
+import { Subtipo } from 'src/app/subtipo';
 
 @Component({
   selector: 'app-cartas',
@@ -25,10 +26,12 @@ export class CartasComponent implements OnInit {
   expansiones: Observable<Expansion[]>;
   rarezas: Observable<Rareza[]>;
   tipos: Observable<Tipo[]>;
+  subtipos: Observable<Subtipo[]>;
   searchText: string | null = null;
   selectedRareza: number | null = null;
   selectedExpansion: number | null = null;
   selectedTipo: number | null = null;
+  selectedSubTipo: number | null = null;
   filteredCartas: Carta[] = [];
 
   carta: Carta = new Carta();
@@ -39,6 +42,7 @@ export class CartasComponent implements OnInit {
   @Output()
   nombreInputChange = new EventEmitter<string>();
 
+
   constructor(private conexion: ConexionService, private readonly fb: FormBuilder, private activatedRoute: ActivatedRoute, private route: Router) {
     this.contactForm = fb.group({
       formularioCartaNombre: ['', [Validators.required, Validators.minLength(3)]],
@@ -46,6 +50,10 @@ export class CartasComponent implements OnInit {
       formularioCartaExpansion: ['', [Validators.required]],
       formularioCartaRareza: ['', [Validators.required]],
       formularioCartaTipo: ['', [Validators.required]],
+      formularioCartaSubTipo1: ['', [Validators.required]],
+      formularioCartaSubTipo2: [''],
+      formularioCartaSubTipo3: [''],
+      formularioCartaSubTipo4: [''],
       formularioTextoCarta: ['', [Validators.required, Validators.minLength(6)]],
       formularioCartaURL: ['', [Validators.required, Validators.minLength(10)]],
       formularioAlter1: [''],
@@ -68,6 +76,7 @@ export class CartasComponent implements OnInit {
     this.expansiones = this.conexion.getTodasLasExpas();
     this.rarezas = this.conexion.getTodasLasRarezas();
     this.tipos = this.conexion.getTodasLosTipos();
+    this.subtipos = this.conexion.getTodasLosSubTipos();
   }
 
   obtenerCartas() {
@@ -81,6 +90,7 @@ export class CartasComponent implements OnInit {
     this.limpiarFormulario();
   }
 
+
   subirCarta() {
     this.carta.nombreCarta = this.contactForm.value.formularioCartaNombre;
     this.carta.nombreCarta = this.carta.nombreCarta.toUpperCase();
@@ -90,6 +100,10 @@ export class CartasComponent implements OnInit {
     this.carta.rareza = this.contactForm.value.formularioCartaRareza;
     this.carta.tipo = this.contactForm.value.formularioCartaTipo;
     this.carta.urlImagen = this.contactForm.value.formularioCartaURL;
+
+    this.carta.subtipo = this.contactForm.value.formularioCartaSubTipo1;
+    this.carta.subtipo2 = this.contactForm.value.formularioCartaSubTipo2;
+    this.carta.subtipo3 = this.contactForm.value.formularioCartaSubTipo3;
 
     this.carta.textoCarta = this.contactForm.value.formularioTextoCarta;
     this.carta.flavorCarta = this.contactForm.value.formularioFlavorCarta;
@@ -104,6 +118,10 @@ export class CartasComponent implements OnInit {
     this.carta.urlImagen8 = this.contactForm.value.formularioAlter8;
     this.carta.urlImagen9 = this.contactForm.value.formularioAlter9;
     this.carta.urlImagen10 = this.contactForm.value.formularioAlter10;
+
+    console.log("Quiero ver la carta subida");
+    console.log(this.carta);
+
 
     this.conexion.postCarta(this.carta).subscribe(
       (dato) => {

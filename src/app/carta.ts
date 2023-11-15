@@ -26,5 +26,11 @@ export class Carta {
   expansion!: Expansion;
   rareza!: Rareza;
   tipo!: Tipo;
-  subtipo!: Subtipo[];
+
+  subtipo!: Subtipo;
+  subtipo2!: Subtipo;
+  subtipo3!: Subtipo;
+  subtipo4!: Subtipo;
 }
+
+

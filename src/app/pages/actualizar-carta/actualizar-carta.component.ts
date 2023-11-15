@@ -12,6 +12,7 @@ import { Expansion } from '../../expansion';
 import { Tipo } from '../../tipo';
 
 import { ConexionService } from '../../service/conexion.service';
+import { Subtipo } from 'src/app/subtipo';
 
 @Component({
   selector: 'app-actualizar-carta',
@@ -27,6 +28,7 @@ export class ActualizarCartaComponent implements OnInit {
   expansiones: Observable<Expansion[]>;
   rarezas: Observable<Rareza[]>;
   tipos: Observable<Tipo[]>;
+  subtipos: Observable<Subtipo[]>;
 
   carta: Carta = new Carta();
   expansion: Expansion = new Expansion();
@@ -48,6 +50,9 @@ export class ActualizarCartaComponent implements OnInit {
       formularioCartaExpansion: ['', [Validators.required]],
       formularioCartaRareza: ['', [Validators.required]],
       formularioCartaTipo: ['', [Validators.required]],
+      formularioCartaSubTipo1: ['', [Validators.required]],
+      formularioCartaSubTipo2: [''],
+      formularioCartaSubTipo3: [''],
       formularioTextoCarta: ['', [Validators.required, Validators.minLength(6)]],
       formularioCartaURL: ['', [Validators.required, Validators.minLength(10)]],
       formularioAlter1: [''],
@@ -71,6 +76,8 @@ export class ActualizarCartaComponent implements OnInit {
     this.expansiones = this.conexion.getTodasLasExpas();
     this.rarezas = this.conexion.getTodasLasRarezas();
     this.tipos = this.conexion.getTodasLosTipos();
+
+    this.subtipos = this.conexion.getTodasLosSubTipos();
 
     this.conexion.getCartaById(this.id).subscribe(dato =>{
       this.carta = dato;
@@ -96,6 +103,15 @@ export class ActualizarCartaComponent implements OnInit {
     this.carta.tipo = this.contactForm.value.formularioCartaTipo;
     this.carta.urlImagen = this.contactForm.value.formularioCartaURL;
 
+    this.carta.subtipo = this.contactForm.value.formularioCartaSubTipo1;
+
+    if(this.contactForm.value.formularioCartaSubTipo2) {
+      this.carta.subtipo2 = this.contactForm.value.formularioCartaSubTipo2;
+    }
+    if(this.contactForm.value.formularioCartaSubTipo3) {
+      this.carta.subtipo3 = this.contactForm.value.formularioCartaSubTipo3;
+    }
+
     this.carta.textoCarta = this.contactForm.value.formularioTextoCarta;
     this.carta.flavorCarta = this.contactForm.value.formularioFlavorCarta;
     this.carta.rulingCarta = this.contactForm.value.formularioRulingCarta;
@@ -109,6 +125,9 @@ export class ActualizarCartaComponent implements OnInit {
     this.carta.urlImagen8 = this.contactForm.value.formularioAlter8;
     this.carta.urlImagen9 = this.contactForm.value.formularioAlter9;
     this.carta.urlImagen10 = this.contactForm.value.formularioAlter10;
+
+    console.log("Quiero ver la carta actualizada");
+    console.log(this.carta);
 
     this.conexion.putCarta(this.id, this.carta).subscribe((dato) => {
       console.log(dato);
@@ -125,23 +144,4 @@ export class ActualizarCartaComponent implements OnInit {
 
 }
 
-// interface Dato {
-//     "idCarta": 0,
-//     "nombreCarta": "",
-//     "costeCarta": 0,
-//     "urlImagen": "",
-//     "expansion": {
-//         "idExpansion": 0,
-//         "nombreExpansion": "",
-//         "fechaLanzamiento": ""
-//     },
-//     "tipo": {
-//         "idTipo": 0,
-//         "nombreTipo": ""
-//     },
-//     "rareza": {
-//         "idRareza": 0,
-//         "nombreRareza": ""
-//     }
-// }
 
