@@ -10,6 +10,7 @@ import { Tienda } from '../tienda';
 import { Decklist } from '../decklist';
 import { Role } from '../role';
 import { Jugador } from '../jugador';
+import { Subtipo } from '../subtipo';
 
 
 @Injectable({
@@ -18,20 +19,21 @@ import { Jugador } from '../jugador';
 export class ConexionService {
 
   public loginStatus = new Subject<boolean>();
-  private urlBasica = "https://lairentcg.com.ar:8443/api"
-  //private urlBasica = "http://localhost:8080"
+  //private urlBasica = "https://lairentcg.com.ar:8443/api"
+  private urlBasica = "http://localhost:8080"
 
   private cartaURL = `${this.urlBasica}/carta/cartas`;
   private cartaPublicaURL = `${this.urlBasica}/carta`;
-  private expansionURL = `${this.urlBasica}/expansion/expansiones`
-  private rarezaURL = `${this.urlBasica}/rareza/rarezas`
-  private tipoURL = `${this.urlBasica}/tipo/tipos`
-  private tiendaURL = `${this.urlBasica}/tienda/tiendas`
-  private torneoURL = `${this.urlBasica}/competidor/competidores`
-  private decklistURL = `${this.urlBasica}/decklist/decklists`
-  private usuarioURL = `${this.urlBasica}/usuarios/user/`
-  private tokenURL = `${this.urlBasica}/generate-token`
-  private tokenObtenerUserURL = `${this.urlBasica}/actual-usuario`
+  private expansionURL = `${this.urlBasica}/expansion/expansiones`;
+  private rarezaURL = `${this.urlBasica}/rareza/rarezas`;
+  private tipoURL = `${this.urlBasica}/tipo/tipos`;
+  private subtipoURL = `${this.urlBasica}/subtipo/subtipos`;
+  private tiendaURL = `${this.urlBasica}/tienda/tiendas`;
+  private torneoURL = `${this.urlBasica}/competidor/competidores`;
+  private decklistURL = `${this.urlBasica}/decklist/decklists`;
+  private usuarioURL = `${this.urlBasica}/usuarios/user/`;
+  private tokenURL = `${this.urlBasica}/generate-token`;
+  private tokenObtenerUserURL = `${this.urlBasica}/actual-usuario`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -83,6 +85,11 @@ export class ConexionService {
   getCartaByTipo(id: number): Observable<Carta[]> {
     return this.httpClient.get<Carta[]>(`${this.cartaURL}/tipo/${id}`);
   }
+
+    // este método nos sirve para buscar una carta por subtipo
+    getCartaBySubTipo(id: number): Observable<Carta[]> {
+      return this.httpClient.get<Carta[]>(`${this.cartaURL}/subtipo/${id}`);
+    }
 
   // este método nos sirve para registrar una carta
   postCarta(carta: Carta) : Observable<Object> {
@@ -203,9 +210,6 @@ export class ConexionService {
   }
 
 
-
-
-
   // ---------------------- TIPOS ----------------------
 
   getTodasLosTipos():Observable<Tipo[]> {
@@ -232,6 +236,33 @@ export class ConexionService {
   putTipo(id: number, tipo: Tipo, ): Observable<Object> {
     return this.httpClient.put(`${this.tipoURL}/actualizar/${id}`, tipo);
   }
+
+    // ---------------------- SUBTIPOS ----------------------
+
+    getTodasLosSubTipos():Observable<Subtipo[]> {
+      return this.httpClient.get<Subtipo[]>(`${this.subtipoURL}`);
+    }
+
+    getSubTipoById(id:number): Observable<Subtipo> {
+      return this.httpClient.get<Subtipo>(`${this.subtipoURL}/${id}`);
+    }
+
+    getSubTipoByName(nombre: string): Observable<Subtipo> {
+      return this.httpClient.get<Subtipo>(`${this.subtipoURL}/nombre/${nombre}`);
+    }
+
+    // este método nos sirve para registrar un tipo de carta
+    postSubTipo(subtipo: Subtipo) : Observable<Object> {
+      return this.httpClient.post(`${this.subtipoURL}/crear`, subtipo);
+    }
+
+    deleteSubTipo(id: number): Observable<Object> {
+      return this.httpClient.delete(`${this.subtipoURL}/eliminar/${id}`);
+    }
+
+    putSubTipo(id: number, subtipo: Subtipo, ): Observable<Object> {
+      return this.httpClient.put(`${this.subtipoURL}/actualizar/${id}`, subtipo);
+    }
 
   // ---------------------- TIENDAS ----------------------
 
