@@ -35,7 +35,25 @@
         </div>
 
         <div class="mb-3">
-          <h5 *ngIf="carta?.tipo?.nombreTipo != 'TESORO' && carta?.tipo?.nombreTipo != 'TESORO - SAGRADO'">
+          <h5>
+            Subtipo: {{carta.subtipo.nombreSubTipo}}
+          </h5>
+        </div>
+
+        <div class="mb-3">
+          <h5 *ngIf="carta.subtipo2">
+            Segundo Subtipo: {{carta.subtipo2.nombreSubTipo}}
+          </h5>
+        </div>
+
+        <div class="mb-3">
+          <h5 *ngIf="carta.subtipo3">
+            Tercer Subtipo: {{carta.subtipo3.nombreSubTipo}}
+          </h5>
+        </div>
+
+        <div class="mb-3">
+          <h5 *ngIf="carta.tipo?.nombreTipo != 'TESORO'">
             Coste: {{carta.costeCarta}}
           </h5>
         </div>
@@ -46,7 +64,7 @@
           </h5>
         </div>
 
-        <div *ngIf="carta?.flavorCarta != null" class="mb-3">
+        <div *ngIf="carta.flavorCarta" class="mb-3">
           <h5>
             Texto de ambientación: {{carta.flavorCarta}}
           </h5>
@@ -54,21 +72,21 @@
 
         <div class="mb-3">
           <h5>
-            Expansión: {{carta?.expansion?.nombreExpansion}}
+            Expansión: {{carta.expansion.nombreExpansion}}
           </h5>
         </div>
 
         <div class="mb-3">
           <h5>
-            Rareza: {{carta?.rareza?.nombreRareza}}
+            Rareza: {{carta.rareza.nombreRareza}}
           </h5>
         </div>
 
         <div class="mb-3">
-          <h5 *ngIf="carta.rulingCarta == null">
+          <h5 *ngIf="!carta.rulingCarta">
             Ruling: No hay comentarios sobre esta carta en este momento.
           </h5>
-          <h5 *ngIf="carta.rulingCarta != null">
+          <h5 *ngIf="carta.rulingCarta">
             Ruling: {{carta.rulingCarta}}
           </h5>
         </div>

@@ -77,11 +77,15 @@ export class ImageGeneratorComponent {
     const mapaDeRepeticiones: { [nombre: string]: number } = {};
     for (const carta of this.reino) {
 
-      if(carta.tipo.nombreTipo == "ACCION" || carta.tipo.nombreTipo == "ACCION - RAPIDA") {
+      if(carta.tipo.nombreTipo == "ACCION") {
         acciones++;
       } else {
         if(carta.tipo.nombreTipo.startsWith("UNIDAD")) {
           unidades++;
+        } else {
+          if(carta.tipo.nombreTipo.startsWith("MONUMENTO")) {
+            monumentos++;
+          }
         }
       }
 
@@ -116,7 +120,7 @@ export class ImageGeneratorComponent {
       mapaDeRepeticiones[carta.nombreCarta]++;
     }
 
-    divMazo.textContent = `Reino: (Acciones: ${acciones} - Unidades: ${unidades}) - (Coste 1: ${costeUno} - Coste 2: ${costeDos} - Coste 3: ${costeTres} - Coste 4: ${costeCuatro} - Coste 5: ${costeCinco})`;
+    divMazo.textContent = `Reino: (Acciones: ${acciones} - Unidades: ${unidades} - Monumentos: ${monumentos}) - (Coste 1: ${costeUno} - Coste 2: ${costeDos} - Coste 3: ${costeTres} - Coste 4: ${costeCuatro} - Coste 5: ${costeCinco})`;
 
     // Inicializar las posiciones y el contador
     let xPosition = 0;

@@ -13,6 +13,7 @@ import { Expansion } from '../../expansion';
 import { Tipo } from '../../tipo';
 
 import Swal from 'sweetalert2';
+import { Subtipo } from 'src/app/subtipo';
 
 
 
@@ -27,11 +28,13 @@ export class CartaOracleComponent implements OnInit {
   expansiones: Observable<Expansion[]>;
   rarezas: Observable<Rareza[]>;
   tipos: Observable<Tipo[]>;
+  subtipos: Observable<Subtipo[]>;
 
   carta: Carta = new Carta();
   expansion: Expansion = new Expansion();
   rareza: Rareza = new Rareza();
   tipo: Tipo = new Tipo();
+  subtipo: Subtipo = new Subtipo();
 
   esverdad : boolean = false;
 
@@ -40,10 +43,6 @@ export class CartaOracleComponent implements OnInit {
   ngOnInit(): void {
     Loading.hourglass();
     this.id = this.route.snapshot.params['id'];
-
-    this.expansiones = this.conexion.getTodasLasExpas();
-    this.rarezas = this.conexion.getTodasLasRarezas();
-    this.tipos = this.conexion.getTodasLosTipos();
     Loading.remove(300);
     this.conexion.getCartaByIdPublic(this.id).subscribe(dato =>{
       this.carta = dato;

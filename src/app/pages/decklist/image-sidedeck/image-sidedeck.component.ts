@@ -78,7 +78,7 @@ export class ImageSidedeckComponent {
     const mapaDeRepeticiones: { [nombre: string]: number } = {};
     for (const carta of this.sidedeck) {
 
-      if(carta.tipo.nombreTipo == "ACCION" || carta.tipo.nombreTipo == "ACCION - RAPIDA") {
+      if(carta.tipo.nombreTipo.startsWith("ACCION")) {
         acciones++;
       } else {
         if(carta.tipo.nombreTipo.startsWith("UNIDAD")) {
@@ -86,6 +86,10 @@ export class ImageSidedeckComponent {
         } else {
           if(carta.tipo.nombreTipo.startsWith("TESORO")) {
             tesoros++;
+          } else {
+            if(carta.tipo.nombreTipo.startsWith("MONUMENTO")) {
+              monumentos++;
+            }
           }
         }
       }
@@ -120,7 +124,7 @@ export class ImageSidedeckComponent {
       mapaDeRepeticiones[carta.nombreCarta]++;
     }
 
-    divMazo.textContent = `SideDeck: (Acciones: ${acciones} - Unidades: ${unidades} - Tesoros: ${tesoros}) - (Coste 1: ${costeUno} - Coste 2: ${costeDos} - Coste 3: ${costeTres} - Coste 4: ${costeCuatro} - Coste 5: ${costeCinco})`;
+    divMazo.textContent = `SideDeck: (Acciones: ${acciones} - Unidades: ${unidades} - Monumentos: ${monumentos} - Tesoros: ${tesoros}) - (Coste 1: ${costeUno} - Coste 2: ${costeDos} - Coste 3: ${costeTres} - Coste 4: ${costeCuatro} - Coste 5: ${costeCinco})`;
 
     // Inicializar las posiciones y el contador
     let xPosition = 0;
