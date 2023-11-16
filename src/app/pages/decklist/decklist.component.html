@@ -30,41 +30,74 @@
 
         <h5 class="mt-4 mb-4" >Ó puedes buscar seleccionando los siguientes filtros:</h5>
 
-        <div class="mb-5">
+        <div class="mb-5 row justify-content-center align-items-center">
 
-          <!-- Filtro de expansión -->
-          <div class="form-group">
-            <h4 class="mt-2 mb-2">Expansiones</h4>
-            <select [(ngModel)]="selectedExpansion" (change)="onExpansionChange(selectedExpansion)">
-              <option value="0">Deseleccionar</option>
-              <option *ngFor="let expa of expansiones | async" [value]="expa.idExpansion">{{expa.nombreExpansion}}</option>
-            </select>
+          <!-- Primera columna: Expansión, Rareza, Coste -->
+          <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+
+            <!-- Filtro de expansión -->
+            <div class="form-group">
+              <h4 class="mt-2 mb-2">Expansiones</h4>
+              <select [(ngModel)]="selectedExpansion" (change)="onExpansionChange(selectedExpansion)">
+                <option value="0">Deseleccionar</option>
+                <option *ngFor="let expa of expansiones | async" [value]="expa.idExpansion">{{expa.nombreExpansion}}</option>
+              </select>
+            </div>
+
+            <!-- Filtro de rareza -->
+            <div class="form-group">
+              <h4 class="mt-2 mb-2">Rarezas</h4>
+              <select [(ngModel)]="selectedRareza" (change)="onRarezaChange(selectedRareza)">
+                <option value="0">Deseleccionar</option>
+                <option *ngFor="let rare of rarezas" [value]="rare.idRareza">{{rare.nombreRareza}}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <h4 class="mt-2 mb-2">Coste</h4>
+              <select [(ngModel)]="selectedCoste" (change)="onCosteChange(selectedCoste)">
+                <option value="0">Deseleccionar</option>
+                <option *ngFor="let coste of costes" [value]="coste">{{coste}}</option>
+              </select>
+            </div>
+
           </div>
 
-        <!-- Filtro de rareza -->
-        <div class="form-group">
-          <h4 class="mt-2 mb-2">Rarezas</h4>
-          <select [(ngModel)]="selectedRareza" (change)="onRarezaChange(selectedRareza)">
-            <option value="0">Deseleccionar</option>
-            <option *ngFor="let rare of rarezas" [value]="rare.idRareza">{{rare.nombreRareza}}</option>
-          </select>
-        </div>
+          <!-- Segunda columna: Tipo, SubTipo1, SubTipo2, SubTipo3 -->
+          <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
 
-          <!-- Filtro de tipo -->
-          <div class="form-group">
-            <h4 class="mt-2 mb-2">Tipos</h4>
-            <select [(ngModel)]="selectedTipo" (change)="onTipoChange(selectedTipo)">
-              <option value="0">Deseleccionar</option>
-              <option *ngFor="let type of tipos" [value]="type.idTipo">{{type.nombreTipo}}</option>
-            </select>
-          </div>
+            <!-- Filtro de tipo -->
+            <div class="form-group">
+              <h4 class="mt-2 mb-2">Tipos</h4>
+              <select [(ngModel)]="selectedTipo" (change)="onTipoChange(selectedTipo)">
+                <option value="0">Deseleccionar</option>
+                <option *ngFor="let type of tipos" [value]="type.idTipo">{{type.nombreTipo}}</option>
+              </select>
+            </div>
 
-          <div class="form-group">
-            <h4 class="mt-2 mb-2">Coste</h4>
-            <select [(ngModel)]="selectedCoste" (change)="onCosteChange(selectedCoste)">
-              <option value="0">Deseleccionar</option>
-              <option *ngFor="let coste of costes" [value]="coste">{{coste}}</option>
-            </select>
+            <!-- Filtros de subtipo -->
+            <div class="form-group">
+              <h4 class="mt-2 mb-2">SubTipos</h4>
+              <select [(ngModel)]="selectedSubTipo" (change)="onSubTipoChange(selectedSubTipo)">
+                <option value="0">Deseleccionar</option>
+                <option *ngFor="let subtype of subtipos" [value]="subtype.idSubTipo">{{subtype.nombreSubTipo}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <h4 class="mt-2 mb-2">SubTipos</h4>
+              <select [(ngModel)]="selectedSubTipo2" (change)="onSubTipo2Change(selectedSubTipo2)">
+                <option value="0">Deseleccionar</option>
+                <option *ngFor="let subtype of subtipos" [value]="subtype.idSubTipo">{{subtype.nombreSubTipo}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <h4 class="mt-2 mb-2">SubTipos</h4>
+              <select [(ngModel)]="selectedSubTipo3" (change)="onSubTipo3Change(selectedSubTipo3)">
+                <option value="0">Deseleccionar</option>
+                <option *ngFor="let subtype of subtipos" [value]="subtype.idSubTipo">{{subtype.nombreSubTipo}}</option>
+              </select>
+            </div>
+
           </div>
 
         </div>
@@ -81,7 +114,9 @@
         </section>
 
 
-        <section *ngIf="selectedRareza == null && selectedExpansion == null && selectedTipo == null && selectedCoste == null && (searchText == '' || searchText == null)" class="section section-xl text-center card-seccion">
+        <section *ngIf="selectedRareza === null && selectedExpansion === null && selectedTipo === null
+        && selectedSubTipo === null && selectedSubTipo2 === null && selectedSubTipo3 === null && selectedCoste === null
+        && (searchText === '' || searchText === null)" class="section section-xl text-center card-seccion">
           <div class="container">
             <div class="card-grid">
               <div *ngFor="let card of cartas">
@@ -92,7 +127,9 @@
           </div>
         </section>
 
-        <section *ngIf="filteredCartas.length == 0 && (selectedRareza !== null || selectedExpansion !== null || selectedTipo !== null || selectedCoste !== null || searchText !== null)" class="section section-xl text-center card-seccion">
+        <section *ngIf="filteredCartas.length === 0 &&
+        (selectedRareza || selectedExpansion || selectedTipo || selectedSubTipo || selectedSubTipo2 || selectedSubTipo3
+        || selectedCoste || searchText)" class="section section-xl text-center card-seccion">
           <h2>No se han encontrado cartas con los filtros seleccionados.</h2>
         </section>
 
