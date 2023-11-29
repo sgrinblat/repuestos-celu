@@ -32,6 +32,7 @@ interface Producto {
   precioDolar: number;
   precioPesos?: number;
   cantidad?: number;
+  stock?: boolean;
 }
 
 
@@ -88,17 +89,20 @@ export class FolletoComponent implements OnInit {
     {
       nombre: 'Relatos de Aixa',
       imagenUrl: 'https://lairentcg.com.ar/assets/images/frente%20mazo%20aixa.png',
-      precioDolar: 24
+      precioDolar: 24,
+      stock: false
     },
     {
       nombre: 'Caja de boosters de Fundamentos',
       imagenUrl: 'https://lairentcg.com.ar/assets/images/caja%20booster%20fundamentos.png',
-      precioDolar: 14
+      precioDolar: 14,
+      stock: true
     },
     {
       nombre: 'Caja de boosters Pacto Secreto',
       imagenUrl: 'https://lairentcg.com.ar/assets/images/pacto/caja%20pacto%20de%20boosters.png',
-      precioDolar: 18
+      precioDolar: 18,
+      stock: true
     }
   ];
 
