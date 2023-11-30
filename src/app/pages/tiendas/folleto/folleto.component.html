@@ -95,6 +95,95 @@
       </tfoot>
 
     </table>
+
+    <!-- MAZO DOBLE -->
+    <h2 class="text-center mt-2 mb-3">Folleto de la preventa del mazo dual de 2 jugadores</h2>
+    <table class="table table-bordered table-responsive-lg pt-2 ">
+      <thead class="thead-light">
+        <tr>
+          <th>Imagen</th>
+          <th class="d-none d-md-table-cell" >Nombre del Producto</th>
+          <th>PVP USD</th>
+          <th>PVP Pesos</th>
+          <th>Cantidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Supongamos que tienes una lista de productos en una variable llamada 'productos' -->
+        <tr *ngFor="let producto of mazodoble">
+          <td><img [src]="producto.imagenUrl" class="img-fluid imagenProducto" alt="Imagen de {{producto.nombre}}"></td>
+          <td class="d-none d-md-table-cell" >{{ producto.nombre }}</td>
+          <td>{{ producto.precioDolar | currency }}</td>
+          <td>${{ producto.precioDolar * cotizacionMostrada | currency:'ARS':'symbol':'1.2-2' }}</td>
+          <td *ngIf="producto.stock" >
+            <input type="number" [(ngModel)]="producto.cantidad" class="form-control" min="0">
+          </td>
+          <td *ngIf="!producto.stock" >
+            <b>SIN STOCK!</b>
+          </td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="3" class="text-right">Total Unidades:</td>
+
+          <td>{{ calcularTotalUnidadesFolleto() }}</td>
+        </tr>
+
+
+        <tr>
+
+          <div *ngIf="calcularTotalUnidadesFolleto() < 10; else showTotalSinDescuentoDolarFolleto">
+
+          </div>
+          <ng-template #showTotalSinDescuentoDolarFolleto>
+            <td colspan="3" class="text-right">Precio <b>SIN</b> descuento Dolar:</td>
+            <td>{{ calcularPrecioSinDescuentoFolleto() | currency }}</td>
+          </ng-template>
+
+        </tr>
+
+        <tr>
+          <div *ngIf="calcularTotalUnidadesFolleto() < 10; else showTotalSinDescuentoPesosFolleto">
+
+          </div>
+          <ng-template #showTotalSinDescuentoPesosFolleto>
+            <td colspan="3" class="text-right">Precio <b>SIN</b> descuento Pesos:</td>
+            <td>${{ calcularPrecioSinDescuentoFolleto() * cotizacionMostrada | currency:'ARS':'symbol':'1.2-2' }}</td>
+          </ng-template>
+
+        </tr>
+
+
+        <tr>
+
+          <div *ngIf="calcularTotalUnidadesFolleto() < 10; else showTotalFolleto">
+            <p>El pedido mínimo es de 10 unidades</p>
+          </div>
+          <ng-template #showTotalFolleto>
+            <td colspan="3" class="text-right">Precio <b>CON</b> descuento Dolar:</td>
+            <td>{{ calcularPrecioTotalFolleto() | currency }}</td>
+            <td>{{ obtenerTextoDescuentoFolleto() }}</td>
+          </ng-template>
+
+        </tr>
+
+        <tr>
+          <div *ngIf="calcularTotalUnidadesFolleto() < 10; else showTotalPesosFolleto">
+
+          </div>
+          <ng-template #showTotalPesosFolleto>
+            <td colspan="3" class="text-right">Precio <b>CON</b> descuento Pesos:</td>
+            <td>${{ calcularPrecioTotalFolleto() * cotizacionMostrada | currency:'ARS':'symbol':'1.2-2' }}</td>
+            <td>{{ obtenerTextoDescuentoFolleto() }}</td>
+          </ng-template>
+
+        </tr>
+
+      </tfoot>
+
+    </table>
   </div>
 
   <div class="container pt-2 pb-5" >

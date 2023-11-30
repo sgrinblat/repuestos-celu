@@ -17,6 +17,7 @@ import { Subtipo } from 'src/app/subtipo';
 })
 export class BuscadorComponent implements OnInit {
 
+  searchName: string | null = null;
   searchText: string | null = null;
   selectedRareza: number | null = null;
   selectedExpansion: number | null = null;
@@ -89,14 +90,20 @@ export class BuscadorComponent implements OnInit {
 
   }
 
+  searchByName() {
+    this.filteredCartas = this.cartas.filter(carta =>
+      carta.nombreCarta.includes(this.searchName)
+    );
+
+    this.cantidadDeCartasMostrandose = this.filteredCartas.length;
+  }
+
   searchByText() {
-    this.filteredCartas = this.cartas.filter(carta => {
-      if(carta.nombreCarta.includes(this.searchText)) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    this.filteredCartas = this.cartas.filter(carta =>
+      carta.textoCarta.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+
+    this.cantidadDeCartasMostrandose = this.filteredCartas.length;
   }
 
 
