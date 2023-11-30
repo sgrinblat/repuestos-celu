@@ -21,10 +21,17 @@
     <h2 class="text-center display-text mt-4 mb-4">Buscador de cartas</h2>
 
     <div class="m-3">
-      <input [(ngModel)]="searchText" placeholder="Ingrese el nombre de la carta que quieres buscar..."
-        (ngModelChange)="searchText = $event.toUpperCase()" name="buscadorNombre" type="text" id="buscadorNombre"
+      <input [(ngModel)]="searchName" placeholder="Ingrese el nombre de la carta que quieres buscar..."
+        (ngModelChange)="searchName = $event.toUpperCase()" name="buscadorNombre" type="text" id="buscadorNombre"
         class="formulario-input bg-light form-control " />
-        <button (click)="searchByText()" class="btn btn-outline-warning mt-3">Buscar por nombre</button>
+        <button (click)="searchByName()" class="btn btn-outline-warning mt-3">Buscar por nombre</button>
+    </div>
+
+    <div class="m-3">
+      <input [(ngModel)]="searchText" placeholder="Ingrese el texto de la carta que quieres buscar..."
+        (ngModelChange)="searchText = $event.toUpperCase()" name="buscadorTexto" type="text" id="buscadorTexto"
+        class="formulario-input bg-light form-control " />
+        <button (click)="searchByText()" class="btn btn-outline-warning mt-3">Buscar por texto</button>
     </div>
 
     <h5 class="mt-4 mb-4" >Ó puedes buscar seleccionando los siguientes filtros:</h5>
