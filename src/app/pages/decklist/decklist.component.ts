@@ -2344,9 +2344,11 @@ export class DecklistComponent implements OnInit {
     let sagrados: number = 0;
 
     for (const item of this.boveda) {
-        if (item.subtipo.nombreSubTipo === 'TESORO - SAGRADO' || item.subtipo2.nombreSubTipo === 'TESORO - SAGRADO' || item.subtipo3.nombreSubTipo === 'TESORO - SAGRADO') {
-            sagrados++;
+      if(item.subtipo) {
+        if (item.subtipo.nombreSubTipo.includes('SAGRADO')) {
+          sagrados++;
         }
+      }
     }
 
     if (sagrados > 3) {
@@ -2360,7 +2362,7 @@ export class DecklistComponent implements OnInit {
         return;
     }
 
-    if (this.reino.length < 45 || this.reino.length > 60 || this.boveda.length != 15 || this.sidedeck.length != 10) {
+    if (this.reino.length < 2 || this.reino.length > 4 || this.boveda.length != 5 || this.sidedeck.length != 0) {
       Swal.fire({
         icon: 'error',
         title: 'La cantidad de cartas está mal!',
