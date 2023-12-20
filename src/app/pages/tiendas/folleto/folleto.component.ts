@@ -89,10 +89,10 @@ export class FolletoComponent implements OnInit {
 
   productos: Producto[] = [
     {
-      nombre: 'Relatos de Aixa',
-      imagenUrl: 'https://lairentcg.com.ar/assets/images/frente%20mazo%20aixa.png',
-      precioDolar: 24,
-      stock: false
+      nombre: 'Mazo Dual - 2 jugadores',
+      imagenUrl: 'https://i.postimg.cc/wMhwHR7k/frente-1.png',
+      precioDolar: 40,
+      stock: true
     },
     {
       nombre: 'Caja de boosters de Fundamentos',
@@ -105,6 +105,12 @@ export class FolletoComponent implements OnInit {
       imagenUrl: 'https://lairentcg.com.ar/assets/images/pacto/caja%20pacto%20de%20boosters.png',
       precioDolar: 18,
       stock: true
+    },
+    {
+      nombre: 'Relatos de Aixa',
+      imagenUrl: 'https://lairentcg.com.ar/assets/images/frente%20mazo%20aixa.png',
+      precioDolar: 24,
+      stock: false
     }
   ];
 
@@ -160,44 +166,44 @@ export class FolletoComponent implements OnInit {
 
 
 
-  calcularTotalUnidadesFolleto(): number {
-    return this.mazodoble.reduce((acc, producto) => acc + (producto.cantidad || 0), 0);
-  }
+  // calcularTotalUnidadesFolleto(): number {
+  //   return this.mazodoble.reduce((acc, producto) => acc + (producto.cantidad || 0), 0);
+  // }
 
-  obtenerDescuentoPorCantidadFolleto(cantidad: number): number {
-    if (cantidad < 10) {
-      return 0; // 0% de descuento
-    } else if (cantidad > 9 && cantidad < 20) {
-      return 0.40; // 40% de descuento
-    } else if (cantidad > 19 && cantidad < 50) {
-      return 0.45; // 45% de descuento
-    } else if (cantidad > 49 && cantidad < 100) {
-      return 0.50; // 50% de descuento
-    } else {
-      return 0.55; // 55% de descuento
-    }
-  }
+  // obtenerDescuentoPorCantidadFolleto(cantidad: number): number {
+  //   if (cantidad < 10) {
+  //     return 0; // 0% de descuento
+  //   } else if (cantidad > 9 && cantidad < 20) {
+  //     return 0.40; // 40% de descuento
+  //   } else if (cantidad > 19 && cantidad < 50) {
+  //     return 0.45; // 45% de descuento
+  //   } else if (cantidad > 49 && cantidad < 100) {
+  //     return 0.50; // 50% de descuento
+  //   } else {
+  //     return 0.55; // 55% de descuento
+  //   }
+  // }
 
-  calcularPrecioSinDescuentoFolleto(): number {
-    return this.mazodoble.reduce((acc, producto) => acc + (producto.cantidad || 0) * producto.precioDolar, 0);
-  }
+  // calcularPrecioSinDescuentoFolleto(): number {
+  //   return this.mazodoble.reduce((acc, producto) => acc + (producto.cantidad || 0) * producto.precioDolar, 0);
+  // }
 
-  calcularPrecioTotalFolleto(): number {
-    const totalUnidades = this.calcularTotalUnidadesFolleto();
-    const precioSinDescuento = this.mazodoble.reduce((acc, producto) => acc + (producto.cantidad || 0) * producto.precioDolar, 0);
+  // calcularPrecioTotalFolleto(): number {
+  //   const totalUnidades = this.calcularTotalUnidadesFolleto();
+  //   const precioSinDescuento = this.mazodoble.reduce((acc, producto) => acc + (producto.cantidad || 0) * producto.precioDolar, 0);
 
-    const descuento = this.obtenerDescuentoPorCantidadFolleto(totalUnidades);
-    const precioConDescuento = precioSinDescuento * (1 - descuento);
+  //   const descuento = this.obtenerDescuentoPorCantidadFolleto(totalUnidades);
+  //   const precioConDescuento = precioSinDescuento * (1 - descuento);
 
-    return precioConDescuento;
-  }
+  //   return precioConDescuento;
+  // }
 
-  obtenerTextoDescuentoFolleto(): string {
-    const totalUnidades = this.calcularTotalUnidadesFolleto();
-    const descuento = this.obtenerDescuentoPorCantidadFolleto(totalUnidades);
-    const descuentoPorcentaje = Math.round(descuento * 100);
-    return descuento > 0 ? `${descuentoPorcentaje}% de descuento` : '';
-  }
+  // obtenerTextoDescuentoFolleto(): string {
+  //   const totalUnidades = this.calcularTotalUnidadesFolleto();
+  //   const descuento = this.obtenerDescuentoPorCantidadFolleto(totalUnidades);
+  //   const descuentoPorcentaje = Math.round(descuento * 100);
+  //   return descuento > 0 ? `${descuentoPorcentaje}% de descuento` : '';
+  // }
 
 
 
