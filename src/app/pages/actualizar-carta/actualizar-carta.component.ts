@@ -103,7 +103,9 @@ export class ActualizarCartaComponent implements OnInit {
     this.carta.tipo = this.contactForm.value.formularioCartaTipo;
     this.carta.urlImagen = this.contactForm.value.formularioCartaURL;
 
-    this.carta.subtipo = this.contactForm.value.formularioCartaSubTipo1;
+    if(this.contactForm.value.formularioCartaSubTipo1) {
+      this.carta.subtipo = this.contactForm.value.formularioCartaSubTipo1;
+    }
 
     if(this.contactForm.value.formularioCartaSubTipo2) {
       this.carta.subtipo2 = this.contactForm.value.formularioCartaSubTipo2;
