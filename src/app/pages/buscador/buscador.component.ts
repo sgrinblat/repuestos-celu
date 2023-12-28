@@ -10,6 +10,9 @@ import { Expansion } from '../../expansion';
 import { Tipo } from '../../tipo';
 import { Subtipo } from 'src/app/subtipo';
 
+import * as ExcelJS from 'exceljs';
+import { saveAs } from 'file-saver';
+
 @Component({
   selector: 'app-buscador',
   templateUrl: './buscador.component.html',
@@ -2026,6 +2029,43 @@ export class BuscadorComponent implements OnInit {
     const imageElement = event.target as HTMLImageElement;
     const elementRef = new ElementRef(imageElement);
     elementRef.nativeElement.classList.add('fade-in');
+  }
+
+  async exportarExcel(): Promise<void> {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Datos');
+
+  // Añadir las cabeceras de las columnas
+  worksheet.columns = [
+    { header: 'Nombre', key: 'nombre', width: 50 },
+    { header: 'Coste', key: 'coste', width: 7 },
+    { header: 'Texto', key: 'texto', width: 70 },
+    { header: 'Expansión', key: 'expansion', width: 20 },
+    { header: 'Rareza', key: 'rareza', width: 15 },
+    { header: 'Tipo', key: 'tipo', width: 15 },
+    { header: 'Subtipo', key: 'subtipo', width: 20 },
+  ];
+
+  // Añadir las filas usando los datos
+  this.cartas.forEach(carta => {
+    worksheet.addRow({
+      nombre: carta.nombreCarta,
+      coste: carta.costeCarta,
+      texto: carta.textoCarta,
+      expansion: carta.expansion.nombreExpansion,
+      rareza: carta.rareza.nombreRareza,
+      tipo: carta.tipo.nombreTipo,
+      subtipo: carta.subtipo ? carta.subtipo.nombreSubTipo : '-' // Valor predeterminado
+    });
+  });
+
+
+    // Escribir el archivo Excel en un buffer
+    const buffer = await workbook.xlsx.writeBuffer();
+
+    // Usar FileSaver para guardar el archivo
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    saveAs(blob, 'ListadoDeCartas.xlsx');
   }
 
 }
