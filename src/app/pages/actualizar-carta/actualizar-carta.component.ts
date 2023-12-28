@@ -50,7 +50,7 @@ export class ActualizarCartaComponent implements OnInit {
       formularioCartaExpansion: ['', [Validators.required]],
       formularioCartaRareza: ['', [Validators.required]],
       formularioCartaTipo: ['', [Validators.required]],
-      formularioCartaSubTipo1: ['', [Validators.required]],
+      formularioCartaSubTipo1: [''],
       formularioCartaSubTipo2: [''],
       formularioCartaSubTipo3: [''],
       formularioTextoCarta: ['', [Validators.required, Validators.minLength(6)]],

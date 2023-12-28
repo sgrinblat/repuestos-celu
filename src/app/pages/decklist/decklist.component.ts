@@ -2362,7 +2362,7 @@ export class DecklistComponent implements OnInit {
         return;
     }
 
-    if (this.reino.length < 45 || this.reino.length > 60 || this.boveda.length != 15 || this.sidedeck.length != 10) {
+    if (this.reino.length < 45 || this.reino.length > 60 || this.boveda.length != 15 || this.sidedeck.length != 7) {
       Swal.fire({
         icon: 'error',
         title: 'La cantidad de cartas está mal!',
