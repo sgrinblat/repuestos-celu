@@ -24,6 +24,8 @@
     "bootstrap": "^5.2.0",
     "chart.js": "^4.3.0",
     "contentful": "^9.3.5",
+    "exceljs": "^4.4.0",
+    "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",
     "jquery": "^3.6.0",
     "ng-lazyload-image": "^9.1.3",
