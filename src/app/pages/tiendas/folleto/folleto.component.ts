@@ -97,13 +97,13 @@ export class FolletoComponent implements OnInit {
     {
       nombre: 'Caja de boosters de Fundamentos',
       imagenUrl: 'https://lairentcg.com.ar/assets/images/caja%20booster%20fundamentos.png',
-      precioDolar: 14,
+      precioDolar: 15,
       stock: true
     },
     {
       nombre: 'Caja de boosters Pacto Secreto',
       imagenUrl: 'https://lairentcg.com.ar/assets/images/pacto/caja%20pacto%20de%20boosters.png',
-      precioDolar: 18,
+      precioDolar: 21,
       stock: true
     },
     {
@@ -114,25 +114,27 @@ export class FolletoComponent implements OnInit {
     }
   ];
 
-  mazodoble: Producto[] = [
-    {
-      nombre: 'Mazo Dual - 2 jugadores',
-      imagenUrl: 'https://i.postimg.cc/wMhwHR7k/frente-1.png',
-      precioDolar: 40,
-      stock: true
-    }
-  ];
+  // mazodoble: Producto[] = [
+  //   {
+  //     nombre: 'Mazo Dual - 2 jugadores',
+  //     imagenUrl: 'https://i.postimg.cc/wMhwHR7k/frente-1.png',
+  //     precioDolar: 40,
+  //     stock: true
+  //   }
+  // ];
 
   calcularTotalUnidades(): number {
     return this.productos.reduce((acc, producto) => acc + (producto.cantidad || 0), 0);
   }
 
   obtenerDescuentoPorCantidad(cantidad: number): number {
-    if (cantidad < 10) {
+    if (cantidad < 5) {
       return 0; // 0% de descuento
-    } else if (cantidad > 9 && cantidad < 30) {
+    } else if (cantidad < 10) {
+      return 0.35; // 35% de descuento
+    } else if (cantidad < 30) {
       return 0.40; // 40% de descuento
-    } else if (cantidad > 29 && cantidad < 80) {
+    } else if (cantidad < 80) {
       return 0.45; // 45% de descuento
     } else {
       return 0.50; // 50% de descuento
