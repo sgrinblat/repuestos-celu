@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, PLATFORM_ID, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
-import { Observable} from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { Observable, forkJoin} from 'rxjs';
 import { ElementRef } from '@angular/core';
 
 
@@ -48,10 +48,14 @@ export class DecklistComponent implements OnInit {
   rarezas: Rareza[] = [];
   tipos: Tipo[] = [];
   subtipos: Subtipo[] = [];
+  supertipo: Subtipo[] = [];
 
   reino: Carta[];
   boveda: Carta[];
   sidedeck: Carta[];
+
+  textoEntrada: string = '';
+  cartasPegadas: Carta[] = [];
 
   banderaLista = true;
   banderaEdicion = false;
@@ -71,6 +75,118 @@ export class DecklistComponent implements OnInit {
     this.boveda = new Array<Carta>();
     this.sidedeck = new Array<Carta>();
   }
+
+
+  // async procesarTexto() {
+  //   this.reino = [];
+  //   this.boveda = [];
+  //   this.sidedeck = [];
+
+  //   const lineas = this.textoEntrada.split('\n');
+
+  //   for (const linea of lineas) {
+
+  //     if (linea.startsWith('Reino:')) {
+
+  //       for (const lineaReino of lineas) {
+  //         if (lineaReino.startsWith('Reino:')) {
+  //           continue;
+  //         }
+  //         if (lineaReino.startsWith('Bóveda:')) {
+  //           break;
+  //         }
+  //         if (lineaReino.startsWith('Side Deck:')) {
+  //           break;
+  //         }
+
+  //         const nombreCarta = lineaReino.split(' x')[0];
+  //         this.conexion.getCartaByPartialName(nombreCarta).subscribe((carta: Carta | null) => {
+  //           if (carta) {
+  //             this.reino.push(carta);
+  //           }
+  //         });
+  //       }
+
+  //     } else if (linea.startsWith('Bóveda:')) {
+
+  //       for (const lineaBoveda of lineas) {
+  //         if (lineaBoveda.startsWith('Bóveda:')) {
+  //           continue;
+  //         }
+  //         if (lineaBoveda.startsWith('Reino:')) {
+  //           break;
+  //         }
+  //         if (lineaBoveda.startsWith('Side Deck:')) {
+  //           break;
+  //         }
+
+  //         const nombreCarta = lineaBoveda.split(' x')[0];
+  //         this.conexion.getCartaByPartialName(nombreCarta).subscribe((carta: Carta | null) => {
+  //           if (carta) {
+  //             this.boveda.push(carta);
+  //           }
+  //         });
+  //       }
+
+  //     } else if (linea.startsWith('Side Deck:')) {
+
+  //       for (const lineaSide of lineas) {
+  //         if (lineaSide.startsWith('Reino:')) {
+  //           break;
+  //         }
+  //         if (lineaSide.startsWith('Bóveda:')) {
+  //           break;
+  //         }
+  //         if (lineaSide.startsWith('Side Deck:')) {
+  //           break;
+  //         }
+
+  //         const nombreCarta = lineaSide.split(' x')[0];
+  //         this.conexion.getCartaByPartialName(nombreCarta).subscribe((carta: Carta | null) => {
+  //           if (carta) {
+  //             this.sidedeck.push(carta);
+  //           }
+  //         });
+  //       }
+
+  //     }
+
+  //   }
+  // }
+
+  procesarTexto() {
+    const secciones = this.textoEntrada.split(/Reino:|Bóveda:|Side Deck:/).slice(1);
+
+    // Procesa cada sección
+    this.reino = this.procesarSeccion(secciones[0]);
+    this.boveda = this.procesarSeccion(secciones[1]);
+    this.sidedeck = this.procesarSeccion(secciones[2]);
+  }
+
+  procesarSeccion(seccion: string): Carta[] {
+    // Asegurarse de que haya un salto de línea al final para procesar correctamente la última línea
+    seccion = seccion.trim() + '\n';
+
+    const lineas = seccion.split('\n').filter(linea => linea.trim() !== '');
+    const cartasEncontradas: Carta[] = [];
+
+    for (const linea of lineas) {
+      const partes = linea.split(' x');
+      const nombreCarta = partes[0];
+      const cantidad = partes.length > 1 ? parseInt(partes[1]) : 1;
+
+      const cartaEncontrada = this.cartas.find(carta => carta.nombreCarta === nombreCarta);
+
+      if (cartaEncontrada) {
+        for (let i = 0; i < cantidad; i++) {
+          cartasEncontradas.push(cartaEncontrada);
+        }
+      }
+    }
+
+    return cartasEncontradas;
+  }
+
 
   @Input()
   decklistId: number | null = null;
@@ -282,7 +398,8 @@ export class DecklistComponent implements OnInit {
       this.conexion.getTodasLosSubTipos().pipe(
         map(subtipos => subtipos.sort((a, b) => a.nombreSubTipo.localeCompare(b.nombreSubTipo)))
       ).subscribe(subtipos => {
-        this.subtipos = subtipos;
+        this.supertipo = subtipos.filter(subtipo => subtipo.nombreSubTipo === 'REALEZA');
+        this.subtipos = subtipos.filter(subtipo => subtipo.nombreSubTipo !== 'REALEZA');
       });
   }
 
@@ -2212,17 +2329,22 @@ export class DecklistComponent implements OnInit {
   agregarCarta(carta: Carta) {
     if (this.banderaLista) {
       if (carta.tipo.nombreTipo == 'TESORO') {
-        const cantidadPrincipal = this.getCantidad(carta, this.boveda);
-        const cantidadSide = this.getCantidad(carta, this.sidedeck);
-        if (cantidadPrincipal + cantidadSide > 0) {
-          Swal.fire({
-            icon: 'error',
-            title: 'No tan rápido, general',
-            text: 'No puedes agregar a tu Bóveda más de 1 copia del mismo Tesoro!',
-            background: '#2e3031',
-            color: '#fff',
-          });
-          return;
+
+        if(carta.nombreCarta == "TESORO GENERICO") {
+          this.boveda.push(carta);
+        } else {
+          const cantidadPrincipal = this.getCantidad(carta, this.boveda);
+          const cantidadSide = this.getCantidad(carta, this.sidedeck);
+          if (cantidadPrincipal + cantidadSide > 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'No tan rápido, general',
+              text: 'No puedes agregar a tu Bóveda más de 1 copia del mismo Tesoro!',
+              background: '#2e3031',
+              color: '#fff',
+            });
+            return;
+          }
         }
 
         this.boveda.push(carta);
@@ -2366,7 +2488,7 @@ export class DecklistComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'La cantidad de cartas está mal!',
-        text: 'Ten en cuenta que tu reino debe tener mínimo 45 cartas, máximo 60 cartas. Tu bóveda es de 15 cartas, y tu sidedeck es de 10 cartas.',
+        text: 'Ten en cuenta que tu reino debe tener mínimo 45 cartas, máximo 60 cartas. Tu bóveda es de 15 cartas, y tu sidedeck es de 7 cartas. Recuerda también que solo puede haber 2 tipos de Subtipo de unidad en tu decklist.',
         background: '#2e3031',
         color: '#fff',
       });

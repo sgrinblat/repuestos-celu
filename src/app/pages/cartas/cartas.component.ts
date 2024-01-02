@@ -101,9 +101,18 @@ export class CartasComponent implements OnInit {
     this.carta.tipo = this.contactForm.value.formularioCartaTipo;
     this.carta.urlImagen = this.contactForm.value.formularioCartaURL;
 
-    this.carta.subtipo = this.contactForm.value.formularioCartaSubTipo1;
-    this.carta.subtipo2 = this.contactForm.value.formularioCartaSubTipo2;
-    this.carta.subtipo3 = this.contactForm.value.formularioCartaSubTipo3;
+    if(this.contactForm.value.formularioCartaSubTipo1) {
+      this.carta.subtipo = this.contactForm.value.formularioCartaSubTipo1;
+    }
+
+    if(this.contactForm.value.formularioCartaSubTipo2) {
+      this.carta.subtipo = this.contactForm.value.formularioCartaSubTipo2;
+    }
+
+    if(this.contactForm.value.formularioCartaSubTipo3) {
+      this.carta.subtipo = this.contactForm.value.formularioCartaSubTipo3;
+    }
+
 
     this.carta.textoCarta = this.contactForm.value.formularioTextoCarta;
     this.carta.flavorCarta = this.contactForm.value.formularioFlavorCarta;

@@ -101,10 +101,10 @@
           </select>
         </div>
         <div class="form-group">
-          <h4 class="mt-2 mb-2">SubTipos</h4>
+          <h4 class="mt-2 mb-2">Supertipo</h4>
           <select [(ngModel)]="selectedSubTipo3" (change)="onSubTipo3Change(selectedSubTipo3)">
             <option value="0">Deseleccionar</option>
-            <option *ngFor="let subtype of subtipos" [value]="subtype.idSubTipo">{{subtype.nombreSubTipo}}</option>
+            <option *ngFor="let supertype of supertipo" [value]="supertype.idSubTipo">{{supertype.nombreSubTipo}}</option>
           </select>
         </div>
 

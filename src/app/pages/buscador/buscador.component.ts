@@ -35,6 +35,7 @@ export class BuscadorComponent implements OnInit {
   rarezas: Rareza[] = [];
   tipos: Tipo[] = [];
   subtipos: Subtipo[] = [];
+  supertipo: Subtipo[] = [];
   costes: number[] = [];
   cantidadDeCartasMostrandose: number;
 
@@ -88,7 +89,8 @@ export class BuscadorComponent implements OnInit {
     this.conexion.getTodasLosSubTipos().pipe(
       map(subtipos => subtipos.sort((a, b) => a.nombreSubTipo.localeCompare(b.nombreSubTipo)))
     ).subscribe(subtipos => {
-      this.subtipos = subtipos;
+      this.supertipo = subtipos.filter(subtipo => subtipo.nombreSubTipo === 'REALEZA');
+      this.subtipos = subtipos.filter(subtipo => subtipo.nombreSubTipo !== 'REALEZA');
     });
 
   }
