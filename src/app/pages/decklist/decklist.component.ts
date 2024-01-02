@@ -77,83 +77,6 @@ export class DecklistComponent implements OnInit {
   }
 
 
-  // async procesarTexto() {
-  //   this.reino = [];
-  //   this.boveda = [];
-  //   this.sidedeck = [];
-
-  //   const lineas = this.textoEntrada.split('\n');
-
-  //   for (const linea of lineas) {
-
-  //     if (linea.startsWith('Reino:')) {
-
-  //       for (const lineaReino of lineas) {
-  //         if (lineaReino.startsWith('Reino:')) {
-  //           continue;
-  //         }
-  //         if (lineaReino.startsWith('Bóveda:')) {
-  //           break;
-  //         }
-  //         if (lineaReino.startsWith('Side Deck:')) {
-  //           break;
-  //         }
-
-  //         const nombreCarta = lineaReino.split(' x')[0];
-  //         this.conexion.getCartaByPartialName(nombreCarta).subscribe((carta: Carta | null) => {
-  //           if (carta) {
-  //             this.reino.push(carta);
-  //           }
-  //         });
-  //       }
-
-  //     } else if (linea.startsWith('Bóveda:')) {
-
-  //       for (const lineaBoveda of lineas) {
-  //         if (lineaBoveda.startsWith('Bóveda:')) {
-  //           continue;
-  //         }
-  //         if (lineaBoveda.startsWith('Reino:')) {
-  //           break;
-  //         }
-  //         if (lineaBoveda.startsWith('Side Deck:')) {
-  //           break;
-  //         }
-
-  //         const nombreCarta = lineaBoveda.split(' x')[0];
-  //         this.conexion.getCartaByPartialName(nombreCarta).subscribe((carta: Carta | null) => {
-  //           if (carta) {
-  //             this.boveda.push(carta);
-  //           }
-  //         });
-  //       }
-
-  //     } else if (linea.startsWith('Side Deck:')) {
-
-  //       for (const lineaSide of lineas) {
-  //         if (lineaSide.startsWith('Reino:')) {
-  //           break;
-  //         }
-  //         if (lineaSide.startsWith('Bóveda:')) {
-  //           break;
-  //         }
-  //         if (lineaSide.startsWith('Side Deck:')) {
-  //           break;
-  //         }
-
-  //         const nombreCarta = lineaSide.split(' x')[0];
-  //         this.conexion.getCartaByPartialName(nombreCarta).subscribe((carta: Carta | null) => {
-  //           if (carta) {
-  //             this.sidedeck.push(carta);
-  //           }
-  //         });
-  //       }
-
-  //     }
-
-  //   }
-  // }
-
   procesarTexto() {
     const secciones = this.textoEntrada.split(/Reino:|Bóveda:|Side Deck:/).slice(1);
 
@@ -161,17 +84,27 @@ export class DecklistComponent implements OnInit {
     this.reino = this.procesarSeccion(secciones[0]);
     this.boveda = this.procesarSeccion(secciones[1]);
     this.sidedeck = this.procesarSeccion(secciones[2]);
+
+    Swal.fire({
+      title: '¡Éxito!',
+      text: 'La lista se ha procesado con éxito.',
+      icon: 'success',
+      confirmButtonText: 'Ok'
+    });
   }
 
   procesarSeccion(seccion: string): Carta[] {
-    // Asegurarse de que haya un salto de línea al final para procesar correctamente la última línea
-    seccion = seccion.trim() + '\n';
-
-    const lineas = seccion.split('\n').filter(linea => linea.trim() !== '');
+    // Elimina espacios en blanco al inicio y final, luego divide por salto de línea
+    const lineas = seccion.trim().split('\n');
     const cartasEncontradas: Carta[] = [];
 
     for (const linea of lineas) {
-      const partes = linea.split(' x');
+      const lineaTrimmed = linea.trim();
+      if (!lineaTrimmed) {
+        continue; // Ignora líneas vacías
+      }
+
+      const partes = lineaTrimmed.split(' x');
       const nombreCarta = partes[0];
       const cantidad = partes.length > 1 ? parseInt(partes[1]) : 1;
 
@@ -186,6 +119,7 @@ export class DecklistComponent implements OnInit {
 
     return cartasEncontradas;
   }
+
 
 
   @Input()
