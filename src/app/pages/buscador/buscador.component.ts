@@ -2045,7 +2045,9 @@ export class BuscadorComponent implements OnInit {
     { header: 'Expansión', key: 'expansion', width: 20 },
     { header: 'Rareza', key: 'rareza', width: 15 },
     { header: 'Tipo', key: 'tipo', width: 15 },
-    { header: 'Subtipo', key: 'subtipo', width: 20 },
+    { header: 'Supertipo', key: 'supertipo', width: 20 },
+    { header: 'Subtipo 1', key: 'subtipo1', width: 20 },
+    { header: 'Subtipo 2', key: 'subtipo2', width: 20 },
   ];
 
   // Añadir las filas usando los datos
@@ -2057,9 +2059,13 @@ export class BuscadorComponent implements OnInit {
       expansion: carta.expansion.nombreExpansion,
       rareza: carta.rareza.nombreRareza,
       tipo: carta.tipo.nombreTipo,
-      subtipo: carta.subtipo ? carta.subtipo.nombreSubTipo : '-' // Valor predeterminado
+      subtipo1: carta.subtipo ? carta.subtipo.nombreSubTipo : '-',
+      subtipo2: carta.subtipo2 && carta.subtipo2.nombreSubTipo !== "REALEZA" ? carta.subtipo2.nombreSubTipo : '-',
+      supertipo: carta.subtipo2 && carta.subtipo2.nombreSubTipo.includes("REALEZA") ||
+                 carta.subtipo3 && carta.subtipo3.nombreSubTipo.includes("REALEZA") ? "REALEZA" : '-'
     });
   });
+
 
 
     // Escribir el archivo Excel en un buffer
