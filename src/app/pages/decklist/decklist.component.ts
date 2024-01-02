@@ -2317,22 +2317,23 @@ export class DecklistComponent implements OnInit {
         });
       }
     } else {
-      if (
-        carta.tipo.nombreTipo == 'TESORO'
-      ) {
-        const cantidadPrincipal = this.getCantidad(carta, this.boveda);
-        const cantidadSide = this.getCantidad(carta, this.sidedeck);
-        if (cantidadPrincipal + cantidadSide > 0) {
-          Swal.fire({
-            icon: 'error',
-            title: 'No tan rápido, general',
-            text: 'No puedes agregar a tu Side Deck más de 1 copia del mismo Tesoro!',
-            background: '#2e3031',
-            color: '#fff',
-          });
-          return;
+      if (carta.tipo.nombreTipo == 'TESORO') {
+        if(carta.nombreCarta == "TESORO GENERICO") {
+          this.boveda.push(carta);
+        } else {
+          const cantidadPrincipal = this.getCantidad(carta, this.boveda);
+          const cantidadSide = this.getCantidad(carta, this.sidedeck);
+          if (cantidadPrincipal + cantidadSide > 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'No tan rápido, general',
+              text: 'No puedes agregar a tu Side Deck más de 1 copia del mismo Tesoro!',
+              background: '#2e3031',
+              color: '#fff',
+            });
+            return;
+          }
         }
-
       } else if (carta.tipo.nombreTipo != 'TESORO') {
         const cantidadPrincipal = this.getCantidad(carta, this.reino);
         const cantidadSide = this.getCantidad(carta, this.sidedeck);
