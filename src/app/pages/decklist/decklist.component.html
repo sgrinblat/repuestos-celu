@@ -19,6 +19,12 @@
     <section class="separador-vertical fondo-gris text-white pb-5 col order-3 order-sm-1">
 
       <div class="container text-center">
+        <h2 class="text-center display-text mt-4 mb-4">Importar decklist</h2>
+        <div class="container">
+          <textarea [(ngModel)]="textoEntrada" class="textarea" placeholder="Pega la lista aquí"></textarea>
+        </div>
+        <button (click)="procesarTexto()" class="btn btn-warning">Procesar</button>
+
         <h2 class="text-center display-text mt-4 mb-4">Buscador de cartas</h2>
 
         <div class="m-3">
@@ -91,10 +97,10 @@
               </select>
             </div>
             <div class="form-group">
-              <h4 class="mt-2 mb-2">SubTipos</h4>
+              <h4 class="mt-2 mb-2">Supertipo</h4>
               <select [(ngModel)]="selectedSubTipo3" (change)="onSubTipo3Change(selectedSubTipo3)">
                 <option value="0">Deseleccionar</option>
-                <option *ngFor="let subtype of subtipos" [value]="subtype.idSubTipo">{{subtype.nombreSubTipo}}</option>
+                <option *ngFor="let supertype of supertipo" [value]="supertype.idSubTipo">{{supertype.nombreSubTipo}}</option>
               </select>
             </div>
 
