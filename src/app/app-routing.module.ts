@@ -74,10 +74,10 @@ const routes: Routes = [
       path: "tiendas",
       component: TiendasComponent
     },
-    {
-      path: "juego-organizado",
-      component: JuegoOrganizadoComponent
-    },
+    // {
+    //   path: "juego-organizado",
+    //   component: JuegoOrganizadoComponent
+    // },
     {
       path: "juego-organizado/ranking-liga",
       component: RankingLigaComponent
