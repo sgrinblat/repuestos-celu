@@ -39,6 +39,8 @@ export class BuscadorComponent implements OnInit {
   costes: number[] = [];
   cantidadDeCartasMostrandose: number;
 
+  banderaParaComunes = false;
+
 
   constructor(private conexion: ConexionService, private activatedRoute: ActivatedRoute, private route: Router, private renderer: Renderer2) { }
 
@@ -2066,8 +2068,6 @@ export class BuscadorComponent implements OnInit {
     });
   });
 
-
-
     // Escribir el archivo Excel en un buffer
     const buffer = await workbook.xlsx.writeBuffer();
 
@@ -2075,6 +2075,7 @@ export class BuscadorComponent implements OnInit {
     const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     saveAs(blob, 'ListadoDeCartas.xlsx');
   }
+
 
 }
 

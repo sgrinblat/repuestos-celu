@@ -3,7 +3,7 @@
 }
 
 .primer-fondo {
-  background-image: linear-gradient(rgba(14, 13, 13, 0.7), rgba(11, 11, 11, 0.5)), url(../../../assets/images/jugandocartas.jpg);
+  background-image: linear-gradient(rgba(14, 13, 13, 0.7), rgba(11, 11, 11, 0.5)), url(../../../assets/images/jugandocartas.webp);
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;

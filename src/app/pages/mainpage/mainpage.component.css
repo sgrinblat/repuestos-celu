@@ -3,7 +3,7 @@
 }
 
 .primer-fondo {
-  background-image: linear-gradient(rgba(14, 13, 13, 0.8), rgba(11, 11, 11, 0.6)), url(../../../assets/images/marea.jpg);
+  background-image: linear-gradient(rgba(14, 13, 13, 0.8), rgba(11, 11, 11, 0.6)), url(../../../assets/images/marea.webp);
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
@@ -14,7 +14,7 @@
 
 @media (min-width: 250px) and (max-width: 1550px) {
   .primer-fondo {
-    background-image: linear-gradient(rgba(14, 13, 13, 0.8), rgba(11, 11, 11, 0.6)), url(../../../assets/images/Mareacorporea.jpg);
+    background-image: linear-gradient(rgba(14, 13, 13, 0.8), rgba(11, 11, 11, 0.6)), url(../../../assets/images/Mareacorporea.webp);
   }
 }
 
@@ -31,7 +31,7 @@
 }
 
 .verNoticiasBanner {
-  background-image: url(https://i.postimg.cc/4xdN45g9/Default-Kingdom-cities-and-towns-in-flames-rebecca-Guay-art-ma-0.jpg);
+  background-image: url(../../../assets/images/cities.webp);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -160,14 +160,14 @@
 }
 
 .fondo-ilustracion {
-  background-image: linear-gradient(rgba(39, 39, 39, 0.3), rgba(21, 21, 21, 0.1)), url(https://i.postimg.cc/yxHqXcQG/ilustracion.jpg);
+  background-image: linear-gradient(rgba(39, 39, 39, 0.3), rgba(21, 21, 21, 0.1)), url(../../../assets/images/averno.webp);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0px;
 }
 
 .fondo-ilustracion1 {
-  background-image: linear-gradient(rgba(39, 39, 39, 0.5), rgba(21, 21, 21, 0.3)), url(https://i.postimg.cc/VNnZPZy4/Sin-t-tulo-4.jpg);
+  background-image: linear-gradient(rgba(39, 39, 39, 0.5), rgba(21, 21, 21, 0.3)), url(../../../assets/images/sombra.webp);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0px;

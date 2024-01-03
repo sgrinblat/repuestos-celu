@@ -3,7 +3,7 @@
 @import '~swiper/modules/pagination/pagination.min.css';
 
 .primer-fondo {
-  background-image: linear-gradient(rgba(14, 13, 13, 0.5), rgba(11, 11, 11, 0.3)), url(../../../assets/images/tesoro3.jpg);
+  background-image: linear-gradient(rgba(14, 13, 13, 0.5), rgba(11, 11, 11, 0.3)), url(../../../assets/images/tesoro3.webp);
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;

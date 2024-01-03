@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ViewChild } from "@angular/core";
+import { Component, ViewEncapsulation, ViewChild, Input } from "@angular/core";
 import { SwiperComponent } from "swiper/angular";
 
 // import Swiper core and required modules
@@ -17,11 +17,16 @@ SwiperCore.use([EffectCards]);
 })
 export class CarruselCartasComponent {
   cartas: Carta[];
+  @Input() idExpansion: number;
 
   constructor(private conexion: ConexionService) { }
 
   ngOnInit() {
-    this.conexion.getCartaByExpansion(2).subscribe((dato) => {
+    this.buscarCartasPorExpansion(this.idExpansion);
+  }
+
+  buscarCartasPorExpansion(idExpansion: number) {
+    this.conexion.getCartaByExpansion(idExpansion).subscribe((dato) => {
       this.cartas = dato;
 
       this.cartas.sort((a, b) => {
