@@ -22,6 +22,7 @@ import { ImageBovedaDeckComponent } from './image-boveda-deck/image-boveda-deck.
 import { ImageSidedeckComponent } from './image-sidedeck/image-sidedeck.component';
 import { isPlatformBrowser } from '@angular/common';
 import { Subtipo } from 'src/app/subtipo';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-decklist',
@@ -2419,7 +2420,7 @@ export class DecklistComponent implements OnInit {
         return;
     }
 
-    if (this.reino.length < 45 || this.reino.length > 60 || this.boveda.length != 15 || this.sidedeck.length != 7) {
+    if (this.reino.length < 1 || this.reino.length > 2 || this.boveda.length != 1 || this.sidedeck.length != 0) {
       Swal.fire({
         icon: 'error',
         title: 'La cantidad de cartas está mal!',
@@ -2500,11 +2501,11 @@ export class DecklistComponent implements OnInit {
                       color: '#fff',
                     });
                   },
-                  (error) => {
+                  (error: HttpErrorResponse) => {
                     Swal.fire({
                       icon: 'error',
                       title: 'Error!',
-                      text: 'Algo salió mal',
+                      text: error.error.mensaje,
                       background: '#2e3031',
                       color: '#fff',
                     });
