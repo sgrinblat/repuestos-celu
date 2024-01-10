@@ -90,14 +90,8 @@ export class FolletoComponent implements OnInit {
   productos: Producto[] = [
     {
       nombre: 'Mazo Dual - 2 jugadores',
-      imagenUrl: 'https://i.postimg.cc/wMhwHR7k/frente-1.png',
+      imagenUrl: 'https://i.postimg.cc/wMhwHR7k/frente-1.webp',
       precioDolar: 40,
-      stock: true
-    },
-    {
-      nombre: 'Caja de boosters de Fundamentos',
-      imagenUrl: 'https://lairentcg.com.ar/assets/images/caja%20booster%20fundamentos.png',
-      precioDolar: 15,
       stock: true
     },
     {
@@ -108,8 +102,14 @@ export class FolletoComponent implements OnInit {
     },
     {
       nombre: 'Relatos de Aixa',
-      imagenUrl: 'https://lairentcg.com.ar/assets/images/frente%20mazo%20aixa.png',
+      imagenUrl: 'https://lairentcg.com.ar/assets/images/frente%20mazo%20aixa.webp',
       precioDolar: 24,
+      stock: false
+    },
+    {
+      nombre: 'Caja de boosters de Fundamentos',
+      imagenUrl: 'https://lairentcg.com.ar/assets/images/caja%20booster%20fundamentos.webp',
+      precioDolar: 15,
       stock: false
     }
   ];
