@@ -2267,6 +2267,7 @@ export class DecklistComponent implements OnInit {
 
         if(carta.nombreCarta == "TESORO GENERICO") {
           this.boveda.push(carta);
+          return;
         } else {
           const cantidadPrincipal = this.getCantidad(carta, this.boveda);
           const cantidadSide = this.getCantidad(carta, this.sidedeck);
@@ -2320,7 +2321,8 @@ export class DecklistComponent implements OnInit {
     } else {
       if (carta.tipo.nombreTipo == 'TESORO') {
         if(carta.nombreCarta == "TESORO GENERICO") {
-          this.boveda.push(carta);
+          this.sidedeck.push(carta);
+          return;
         } else {
           const cantidadPrincipal = this.getCantidad(carta, this.boveda);
           const cantidadSide = this.getCantidad(carta, this.sidedeck);
@@ -2420,7 +2422,7 @@ export class DecklistComponent implements OnInit {
         return;
     }
 
-    if (this.reino.length < 1 || this.reino.length > 2 || this.boveda.length != 1 || this.sidedeck.length != 0) {
+    if (this.reino.length < 45 || this.reino.length > 60 || this.boveda.length != 15 || this.sidedeck.length != 7) {
       Swal.fire({
         icon: 'error',
         title: 'La cantidad de cartas está mal!',
