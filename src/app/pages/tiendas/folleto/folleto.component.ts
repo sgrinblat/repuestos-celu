@@ -138,7 +138,7 @@ export class FolletoComponent implements OnInit {
   slotDeTorneo: Producto[] = [
     {
       nombre: 'Slot de Torneo tienda',
-      imagenUrl: 'https://lairentcg.com.ar/assets/images/pacto/slot.png',
+      imagenUrl: 'https://i.postimg.cc/vZmwVQLx/caja-2.png',
       precioDolar: (this.productos[1].precioDolar * 2) * 0.7,
       stock: true
     },
