@@ -97,8 +97,11 @@
 
     </table>
 
-    <!-- MAZO DOBLE -->
-    <!-- <h2 class="text-center mt-2 mb-3">Folleto de la preventa del mazo dual de 2 jugadores</h2>
+
+    <!-- SLOT DE TORNEO DE TIENDA -->
+    <br><br>
+    <h2 class="text-center mt-2 mb-3">Slots para Torneo de Tienda (incluye 2 cajas de boosters y cartas promos para premios)</h2>
+    <br>
     <table class="table table-bordered table-responsive-lg pt-2 ">
       <thead class="thead-light">
         <tr>
@@ -110,7 +113,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let producto of mazodoble">
+        <tr *ngFor="let producto of slotDeTorneo">
           <td><img [src]="producto.imagenUrl" class="img-fluid imagenProducto" alt="Imagen de {{producto.nombre}}"></td>
           <td class="d-none d-md-table-cell" >{{ producto.nombre }}</td>
           <td>{{ producto.precioDolar | currency }}</td>
@@ -134,29 +137,29 @@
 
         <tr>
 
-          <div *ngIf="calcularTotalUnidadesFolleto() < 10; else showTotalSinDescuentoDolarFolleto">
+          <div *ngIf="calcularTotalUnidadesFolleto() < 1; else showTotalSinDescuentoDolarFolleto">
 
           </div>
           <ng-template #showTotalSinDescuentoDolarFolleto>
-            <td colspan="3" class="text-right">Precio <b>SIN</b> descuento Dolar:</td>
+            <td colspan="3" class="text-right">Precio Dolar:</td>
             <td>{{ calcularPrecioSinDescuentoFolleto() | currency }}</td>
           </ng-template>
 
         </tr>
 
         <tr>
-          <div *ngIf="calcularTotalUnidadesFolleto() < 10; else showTotalSinDescuentoPesosFolleto">
+          <div *ngIf="calcularTotalUnidadesFolleto() < 1; else showTotalSinDescuentoPesosFolleto">
 
           </div>
           <ng-template #showTotalSinDescuentoPesosFolleto>
-            <td colspan="3" class="text-right">Precio <b>SIN</b> descuento Pesos:</td>
+            <td colspan="3" class="text-right">Precio Pesos:</td>
             <td>${{ calcularPrecioSinDescuentoFolleto() * cotizacionMostrada | currency:'ARS':'symbol':'1.2-2' }}</td>
           </ng-template>
 
         </tr>
 
 
-        <tr>
+        <!-- <tr>
 
           <div *ngIf="calcularTotalUnidadesFolleto() < 10; else showTotalFolleto">
             <p>El pedido mínimo es de 10 unidades</p>
@@ -179,19 +182,21 @@
             <td>{{ obtenerTextoDescuentoFolleto() }}</td>
           </ng-template>
 
-        </tr>
+        </tr> -->
 
       </tfoot>
 
-    </table> -->
+    </table>
   </div>
 
   <div class="container pt-2 pb-5" >
-    <h4>Aclaraciones</h4>
-    <h5><b>*Medios de pago:</b> efectivo, o transferencia bancaria a: <i>ludicat.juegos.mp</i>.</h5>
-    <h5>*La cotización del dolar se considera al momento que se realiza el pago.</h5>
-    <h5>Los pedidos menores a 10 unidades, <b>no tienen el envío incluido</b>. Preguntarnos para conocer su valor.</h5>
-    <h5>Para obtener más información de cada producto (descripción, textos promocionales, imágenes png, etc) pueden ir a nuestra sección de <a routerLink="/marketing-material">Marketing</a>.</h5>
+    <h4 class="m-4">Aclaraciones</h4>
+    <h5 class="m-4" ><b>*Medios de pago:</b> efectivo, o transferencia bancaria a: <i>ludicat.juegos.mp</i>.</h5>
+    <h5 class="m-4">*La cotización del dolar se considera al momento que se realiza el pago.</h5>
+    <h5 class="m-4">Los pedidos de productos que sean menores a 10 unidades, <b>no tienen el envío incluido</b>. Preguntarnos para conocer su valor.</h5>
+    <h5 class="m-4">Los pedidos de slots de torneo que sean menores a 5 unidades, <b>no tienen el envío incluido</b>. Preguntarnos para conocer su valor.</h5>
+    <h5 class="m-4">El descuento del slot de torneo no varía según la cantidad pedida.</h5>
+    <h5 class="m-4">Para obtener más información de cada producto (descripción, textos promocionales, imágenes png, etc) pueden ir a nuestra sección de <a routerLink="/marketing-material">Marketing</a>.</h5>
   </div>
 
 </div>
