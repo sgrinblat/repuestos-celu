@@ -1,0 +1,25 @@
+<app-adminnavbar></app-adminnavbar>
+
+<form [formGroup]="calendarioForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="titulo">Título:</label>
+    <input [(ngModel)]="calendario.titulo" type="text" id="titulo" formControlName="titulo">
+  </div>
+  <div>
+    <label for="fecha">Fecha:</label>
+    <input [(ngModel)]="calendario.fecha" type="date" id="fecha" formControlName="fecha">
+  </div>
+  <div>
+    <label for="ubicacion">Ubicación:</label>
+    <input [(ngModel)]="calendario.ubicacion" type="text" id="ubicacion" formControlName="ubicacion">
+  </div>
+  <div>
+    <label for="categoria">Categoría:</label>
+    <input [(ngModel)]="calendario.categoria" type="text" id="categoria" formControlName="categoria">
+  </div>
+  <div>
+    <label for="organizador">Organizador:</label>
+    <input [(ngModel)]="calendario.organizador" type="text" id="organizador" formControlName="organizador">
+  </div>
+  <button type="submit">Crear Evento</button>
+</form>

@@ -42,6 +42,9 @@ import { RankingAperturaComponent } from "./pages/torneos/ranking-apertura/ranki
 import { MarketingMaterialComponent } from "./pages/marketing-material/marketing-material.component";
 import { FolletoComponent } from './pages/tiendas/folleto/folleto.component';
 import { PoliticaPrivacidadComponent } from "./reutilizables/politica-privacidad/politica-privacidad.component";
+import { CalendarioComponent } from "./pages/calendario/calendario.component";
+import { CalendarAdminComponent } from "./pages/calendario/calendarAdmin/calendarAdmin.component";
+import { ActualizarEventoComponent } from "./pages/calendario/calendarAdmin/actualizar-evento/actualizar-evento.component";
 
 
 const routes: Routes = [
@@ -74,18 +77,22 @@ const routes: Routes = [
       path: "tiendas",
       component: TiendasComponent
     },
+    {
+      path: "calendario",
+      component: CalendarioComponent
+    },
     // {
     //   path: "juego-organizado",
     //   component: JuegoOrganizadoComponent
     // },
-    {
-      path: "juego-organizado/ranking-liga",
-      component: RankingLigaComponent
-    },
-    {
-      path: "juego-organizado/ranking-apertura",
-      component: RankingAperturaComponent
-    },
+    // {
+    //   path: "juego-organizado/ranking-liga",
+    //   component: RankingLigaComponent
+    // },
+    // {
+    //   path: "juego-organizado/ranking-apertura",
+    //   component: RankingAperturaComponent
+    // },
     {
       path: "tutorial",
       component: TutorialComponent
@@ -161,8 +168,18 @@ const routes: Routes = [
       canActivate: [AdminGuard]
     },
     {
+      path: "v1/upload/fechas",
+      component: CalendarAdminComponent,
+      canActivate: [AdminGuard]
+    },
+    {
       path: `v1/upload/actualizar/carta/:id`,
       component: ActualizarCartaComponent,
+      canActivate: [AdminGuard]
+    },
+    {
+      path: `v1/upload/actualizar/fecha/:id`,
+      component: ActualizarEventoComponent,
       canActivate: [AdminGuard]
     },
     {
