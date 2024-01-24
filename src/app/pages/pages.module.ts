@@ -58,6 +58,9 @@ import { EntradasDecklistsJugadoresComponent } from './torneos/entradas-decklist
 import { EntradasFechasTorneoComponent } from './torneos/entradas-fechas-torneo/entradas-fechas-torneo.component';
 import { MarketingMaterialComponent } from './marketing-material/marketing-material.component';
 import { FolletoComponent } from './tiendas/folleto/folleto.component';
+import { CalendarioComponent } from './calendario/calendario.component';
+import { CalendarAdminComponent } from './calendario/calendarAdmin/calendarAdmin.component';
+import { ActualizarEventoComponent } from './calendario/calendarAdmin/actualizar-evento/actualizar-evento.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +82,7 @@ import { FolletoComponent } from './tiendas/folleto/folleto.component';
     ActualizarTipoComponent,
     ActualizarTiendaComponent,
     ActualizarJugadorComponent,
+    ActualizarEventoComponent,
     LoginUsuarioComponent,
     ResetPasswordComponent,
     LoginJugadorComponent,
@@ -103,6 +107,8 @@ import { FolletoComponent } from './tiendas/folleto/folleto.component';
     ImageSidedeckComponent,
     EntradaHistoriaComponent,
     FundamentosComponent,
+    CalendarioComponent,
+    CalendarAdminComponent,
     PactoSecretoComponent,
     PlaymatsComponent,
     ExpansionAComponent,
@@ -129,6 +135,7 @@ import { FolletoComponent } from './tiendas/folleto/folleto.component';
     ActualizarTipoComponent,
     ActualizarTiendaComponent,
     ActualizarJugadorComponent,
+    ActualizarEventoComponent,
     LoginUsuarioComponent,
     ResetPasswordComponent,
     LoginJugadorComponent,
@@ -141,6 +148,8 @@ import { FolletoComponent } from './tiendas/folleto/folleto.component';
     MarketingMaterialComponent,
     FolletoComponent,
     RankingLigaComponent,
+    CalendarioComponent,
+    CalendarAdminComponent,
     RankingAperturaComponent,
     JuegoOrganizadoComponent,
     EntradasDecklistsJugadoresComponent,

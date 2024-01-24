@@ -1,0 +1,58 @@
+<section class="primer-fondo hero-block pb-5 position-relative pt-5 text-white-50">
+  <div class="col-lg-8 end-0 h-100 position-absolute top-0">
+  </div>
+  <div class="container pb-5 position-relative pt-5">
+    <div class="align-items-center gy-4 row">
+      <div class="col-lg-12 text-center textos pb-4">
+        <h1 class="display-3 fw-bold text-uppercase titulo-inicial text-white">Calendario de eventos</h1>
+        <p class="lead mb-4 text-white pe-sm-5 parrafo">Aquí conocerás todos los eventos próximos que se vienen!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fondo-gris pt-5 pb-5">
+  <div class="container">
+    <h1 class="text-center text-white mt-3 mb-5">PRÓXIMOS EVENTOS</h1>
+    <div class="search-box">
+      <input type="text" [(ngModel)]="filtroUbicacion" (ngModelChange)="filtrarPorUbicacion()" placeholder="Buscar por ubicación...">
+    </div>
+
+    <div class="table-container" *ngIf="calendariosFiltrados.length > 0; else noData">
+      <table>
+        <thead>
+          <tr>
+            <th class="text-dark text-center">
+              Evento - <i class="fas fa-trophy"></i></th>
+            <th class="text-dark text-center">
+              Categoría - <i class="fas fa-tag"></i></th>
+            <th class="text-dark text-center">
+              Organizador - <i class="fas fa-users"></i></th>
+            <th class="text-dark text-center">
+              Ubicación - <i class="fas fa-map-marker-alt"></i></th>
+            <th class="text-dark text-center">
+              Fecha - <i class="fas fa-calendar-alt"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let calendario of calendariosFiltrados">
+            <td class="text-center" >{{ calendario.titulo }}</td>
+            <td class="text-center">{{ calendario.categoria }}</td>
+            <td class="text-center">{{ calendario.organizador }}</td>
+            <td class="text-center">{{ calendario.ubicacion }}</td>
+            <td class="text-center">{{ calendario.fecha | date:'longDate' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #noData>
+      <p class="no-data">No hay eventos disponibles.</p>
+    </ng-template>
+  </div>
+
+</section>
+
+
+
+

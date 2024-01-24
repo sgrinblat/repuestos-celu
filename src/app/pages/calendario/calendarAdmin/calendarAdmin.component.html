@@ -1,0 +1,83 @@
+<app-adminnavbar></app-adminnavbar>
+
+<form [formGroup]="calendarioForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" formControlName="titulo">
+  </div>
+  <div>
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" formControlName="fecha">
+  </div>
+  <div>
+    <label for="ubicacion">Ubicación:</label>
+    <input type="text" id="ubicacion" formControlName="ubicacion">
+  </div>
+  <div>
+    <label for="categoria">Categoría:</label>
+    <input type="text" id="categoria" formControlName="categoria">
+  </div>
+  <div>
+    <label for="organizador">Organizador:</label>
+    <input type="text" id="organizador" formControlName="organizador">
+  </div>
+  <button type="submit">Crear Evento</button>
+</form>
+
+
+<section class="fondo-gris pt-5 pb-5">
+  <div class="container">
+    <h1 class="text-center text-white mt-3 mb-5">PRÓXIMOS EVENTOS</h1>
+    <div class="search-box">
+      <input type="text" [(ngModel)]="filtroUbicacion" (ngModelChange)="filtrarPorUbicacion()" placeholder="Buscar por ubicación...">
+    </div>
+
+    <div class="table-container" *ngIf="calendariosFiltrados.length > 0; else noData">
+      <table>
+        <thead>
+          <tr>
+            <th class="text-dark text-center">
+              Evento - <i class="fas fa-trophy"></i></th>
+            <th class="text-dark text-center">
+              Categoría - <i class="fas fa-tag"></i></th>
+            <th class="text-dark text-center">
+              Organizador - <i class="fas fa-users"></i></th>
+            <th class="text-dark text-center">
+              Ubicación - <i class="fas fa-map-marker-alt"></i></th>
+            <th class="text-dark text-center">
+              Fecha - <i class="fas fa-calendar-alt"></i></th>
+              <th class="text-dark text-center">
+                Comandos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let calendario of calendariosFiltrados">
+            <td class="text-center" >{{ calendario.titulo }}</td>
+            <td class="text-center">{{ calendario.categoria }}</td>
+            <td class="text-center">{{ calendario.organizador }}</td>
+            <td class="text-center">{{ calendario.ubicacion }}</td>
+            <td class="text-center">{{ calendario.fecha | date:'longDate' }}</td>
+            <td>
+              <button type="button" class="btn btn-outline-warning m-2"
+                [swal]="{ title: '¿Estás seguro que quieres editar la carta?', showDenyButton: true, denyButtonText: 'Cancelar', icon: 'question'}"
+                (confirm)="actualizarEvento(calendario.id)"  (dismiss)="ngOnInit()">
+                Editar
+              </button>
+
+              <button type="button" class="btn btn-outline-danger m-2"
+                [swal]="{ title: '¿Estás seguro que quieres eliminar esta carta?', showDenyButton: true, denyButtonText: 'Cancelar', icon: 'question'}"
+                (confirm)="eliminarEvento(calendario.id)" (dismiss)="ngOnInit()">
+                Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #noData>
+      <p class="no-data">No hay eventos disponibles.</p>
+    </ng-template>
+  </div>
+
+</section>
+

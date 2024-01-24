@@ -11,6 +11,7 @@ import { Decklist } from '../decklist';
 import { Role } from '../role';
 import { Jugador } from '../jugador';
 import { Subtipo } from '../subtipo';
+import { Calendario } from '../calendario';
 
 
 @Injectable({
@@ -34,6 +35,8 @@ export class ConexionService {
   private usuarioURL = `${this.urlBasica}/usuarios/user/`;
   private tokenURL = `${this.urlBasica}/generate-token`;
   private tokenObtenerUserURL = `${this.urlBasica}/actual-usuario`;
+  private calendarioPublicoURL = `${this.urlBasica}/calendario/eventos`;
+  private calendarioPrivadoURL = `${this.urlBasica}/calendario/fechas`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -263,6 +266,39 @@ export class ConexionService {
     putSubTipo(id: number, subtipo: Subtipo, ): Observable<Object> {
       return this.httpClient.put(`${this.subtipoURL}/actualizar/${id}`, subtipo);
     }
+
+
+  // ---------------------- CALENDARIO ----------------------
+
+  getTodosLosEventos():Observable<Calendario[]> {
+    return this.httpClient.get<Calendario[]>(`${this.calendarioPublicoURL}`);
+  }
+
+  getEventosPorUbicacion():Observable<Calendario[]> {
+    return this.httpClient.get<Calendario[]>(`${this.calendarioPublicoURL}/ubicacion`);
+  }
+
+  getEventosPorFecha():Observable<Calendario[]> {
+    return this.httpClient.get<Calendario[]>(`${this.calendarioPublicoURL}/ordenados`);
+  }
+
+  getEventoById(id:number): Observable<Calendario> {
+    return this.httpClient.get<Calendario>(`${this.calendarioPublicoURL}/${id}`);
+  }
+
+  // este método nos sirve para registrar una tienda
+  postEvento(evento: Calendario) : Observable<Object> {
+    return this.httpClient.post(`${this.calendarioPrivadoURL}/crear`, evento);
+  }
+
+  deleteEvento(id: number): Observable<Object> {
+    return this.httpClient.delete(`${this.calendarioPrivadoURL}/eliminar/${id}`);
+  }
+
+  putEvento(id: number, evento: Calendario, ): Observable<Object> {
+    return this.httpClient.put(`${this.calendarioPrivadoURL}/actualizar/${id}`, evento);
+  }
+
 
   // ---------------------- TIENDAS ----------------------
 
