@@ -92,4 +92,28 @@ export class CalendarAdminComponent implements OnInit {
     );
   }
 
+  eliminarEventosAntiguos(): void {
+    const hoy = new Date();
+    const eventosAEliminar = this.calendarios.filter(evento => {
+      const fechaEvento = new Date(evento.fecha);
+      const diferenciaDias = (hoy.getTime() - fechaEvento.getTime()) / (1000 * 3600 * 24);
+      return diferenciaDias > 15;
+    });
+
+    eventosAEliminar.forEach(evento => {
+      this.conexion.deleteEvento(evento.id).subscribe(
+        () => {
+          console.log(`Evento con ID ${evento.id} eliminado.`);
+          // Eliminar el evento del array local para actualizar la vista
+          this.calendarios = this.calendarios.filter(e => e.id !== evento.id);
+          Swal.fire('Eventos eliminados',`El evento ha sido eliminada con exito`, `success`);
+          this.ngOnInit();
+        },
+        error => {
+          console.error('Error al eliminar el evento con ID: ' + evento.id, error);
+        }
+      );
+    });
+  }
+
 }
