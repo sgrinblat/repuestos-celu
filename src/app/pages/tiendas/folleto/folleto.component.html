@@ -4,10 +4,10 @@
 <div class="container mt-5">
   <h2 class="text-center">Folleto de productos</h2>
   <h4 class="text-center pt-2"> Dolar: ${{cotizacionMostrada}} </h4>
-  <p class="text-center pt-2 pb-2">Al comprar entre 5 a 9 unidades, recibirás un 35% de descuento sobre el precio final. <b>Envío no incluido en esta opción de compra.</b></p>
-  <p class="text-center pt-2 pb-2">Al comprar entre 10 a 29 unidades, recibirás un 40% de descuento sobre el precio final</p>
-  <p class="text-center pt-2 pb-2">Al comprar entre 30 a 79 unidades, recibirás un 45% de descuento sobre el precio final</p>
-  <p class="text-center pt-2 pb-2">Al comprar más de 80 unidades, recibirás un 50% de descuento sobre el precio final</p>
+  <p class="text-center pt-2 pb-2">Al comprar entre 3 a 6 unidades, recibirás un 30% de descuento sobre el precio final. <b>Envío no incluido en esta opción de compra.</b></p>
+  <p class="text-center pt-2 pb-2">Al comprar entre 7 a 10 unidades, recibirás un 35% de descuento sobre el precio final. <b>Envío no incluido en esta opción de compra.</b></p>
+  <p class="text-center pt-2 pb-2">Al comprar entre 11 a 79 unidades, recibirás un 40% de descuento sobre el precio final.</p>
+  <p class="text-center pt-2 pb-2">Al comprar más de 80 unidades, recibirás un 45% de descuento sobre el precio final.</p>
 
   <div class="table-responsive" >
     <table class="table table-bordered table-responsive-lg pt-2 ">
@@ -46,7 +46,7 @@
 
         <tr>
 
-          <div *ngIf="calcularTotalUnidades() < 10; else showTotalSinDescuentoDolar">
+          <div *ngIf="calcularTotalUnidades() < 3; else showTotalSinDescuentoDolar">
 
           </div>
           <ng-template #showTotalSinDescuentoDolar>
@@ -57,7 +57,7 @@
         </tr>
 
         <tr>
-          <div *ngIf="calcularTotalUnidades() < 10; else showTotalSinDescuentoPesos">
+          <div *ngIf="calcularTotalUnidades() < 3; else showTotalSinDescuentoPesos">
 
           </div>
           <ng-template #showTotalSinDescuentoPesos>
@@ -70,8 +70,8 @@
 
         <tr>
 
-          <div *ngIf="calcularTotalUnidades() < 5; else showTotal">
-            <p>El pedido mínimo es de 5 unidades</p>
+          <div *ngIf="calcularTotalUnidades() < 3; else showTotal">
+            <p>El pedido mínimo es de 3 unidades</p>
           </div>
           <ng-template #showTotal>
             <td colspan="3" class="text-right">Precio <b>CON</b> descuento Dolar:</td>
@@ -82,7 +82,7 @@
         </tr>
 
         <tr>
-          <div *ngIf="calcularTotalUnidades() < 5; else showTotalPesos">
+          <div *ngIf="calcularTotalUnidades() < 3; else showTotalPesos">
 
           </div>
           <ng-template #showTotalPesos>
@@ -193,7 +193,7 @@
     <h4 class="m-4">Aclaraciones</h4>
     <h5 class="m-4" ><b>*Medios de pago:</b> efectivo, o transferencia bancaria a: <i>ludicat.juegos.mp</i>.</h5>
     <h5 class="m-4">*La cotización del dolar se considera al momento que se realiza el pago.</h5>
-    <h5 class="m-4">Los pedidos de productos que sean menores a 10 unidades, <b>no tienen el envío incluido</b>. Preguntarnos para conocer su valor.</h5>
+    <h5 class="m-4">Los pedidos de productos que sean menores a 11 unidades, <b>no tienen el envío incluido</b>. Preguntarnos para conocer su valor.</h5>
     <h5 class="m-4">Los pedidos de slots de torneo que sean menores a 5 unidades, <b>no tienen el envío incluido</b>. Preguntarnos para conocer su valor.</h5>
     <h5 class="m-4">El descuento del slot de torneo no varía según la cantidad pedida.</h5>
     <h5 class="m-4">Para obtener más información de cada producto (descripción, textos promocionales, imágenes png, etc) pueden ir a nuestra sección de <a routerLink="/marketing-material">Marketing</a>.</h5>

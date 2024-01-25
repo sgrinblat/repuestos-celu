@@ -106,13 +106,13 @@ export class FolletoComponent implements OnInit {
     {
       nombre: 'Mazo Dual - 2 jugadores',
       imagenUrl: 'https://i.postimg.cc/wMhwHR7k/frente-1.webp',
-      precioDolar: 40,
+      precioDolar: 36,
       stock: true
     },
     {
       nombre: 'Caja de boosters Pacto Secreto',
       imagenUrl: 'https://lairentcg.com.ar/assets/images/pacto/caja%20pacto%20de%20boosters.png',
-      precioDolar: 21,
+      precioDolar: 17,
       stock: true
     },
     // {
@@ -149,16 +149,16 @@ export class FolletoComponent implements OnInit {
   }
 
   obtenerDescuentoPorCantidad(cantidad: number): number {
-    if (cantidad < 5) {
+    if (cantidad < 3) {
       return 0; // 0% de descuento
-    } else if (cantidad < 10) {
+    } else if (cantidad < 7) {
+      return 0.30; // 30% de descuento
+    } else if (cantidad < 11) {
       return 0.35; // 35% de descuento
-    } else if (cantidad < 30) {
-      return 0.40; // 40% de descuento
     } else if (cantidad < 80) {
-      return 0.45; // 45% de descuento
+      return 0.40; // 40% de descuento
     } else {
-      return 0.50; // 50% de descuento
+      return 0.45; // 45% de descuento
     }
   }
 
