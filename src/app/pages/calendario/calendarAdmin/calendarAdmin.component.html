@@ -30,6 +30,7 @@
     <h1 class="text-center text-white mt-3 mb-5">PRÓXIMOS EVENTOS</h1>
     <div class="search-box">
       <input type="text" [(ngModel)]="filtroUbicacion" (ngModelChange)="filtrarPorUbicacion()" placeholder="Buscar por ubicación...">
+      <button class="btn btn-outline-warning m-2" (click)="eliminarEventosAntiguos()">Eliminar Eventos Antiguos</button>
     </div>
 
     <div class="table-container" *ngIf="calendariosFiltrados.length > 0; else noData">
