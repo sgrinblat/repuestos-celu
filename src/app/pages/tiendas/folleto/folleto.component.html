@@ -15,6 +15,7 @@
         <tr>
           <th>Imagen</th>
           <th class="d-none d-md-table-cell" >Nombre del Producto</th>
+          <th>Peso (kg)</th>
           <th>PVP USD</th>
           <th>PVP Pesos</th>
           <th>Cantidad</th>
@@ -25,6 +26,7 @@
         <tr *ngFor="let producto of productos">
           <td><img [src]="producto.imagenUrl" class="img-fluid imagenProducto" alt="Imagen de {{producto.nombre}}"></td>
           <td class="d-none d-md-table-cell" >{{ producto.nombre }}</td>
+          <td class="d-none d-md-table-cell" >{{ producto.peso }}</td>
           <td>{{ producto.precioDolar | currency }}</td>
           <td>${{ producto.precioDolar * cotizacionMostrada | currency:'ARS':'symbol':'1.2-2' }}</td>
           <td *ngIf="producto.stock" >
@@ -39,7 +41,7 @@
       <tfoot>
         <tr>
           <td colspan="3" class="text-right">Total Unidades:</td>
-
+          <td>{{ calcularPesoTotal() | number }} kg</td>
           <td>{{ calcularTotalUnidades() }}</td>
         </tr>
 

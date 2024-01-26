@@ -31,6 +31,7 @@ interface Producto {
   imagenUrl: string;
   precioDolar: number;
   precioPesos?: number;
+  peso: number;
   cantidad?: number;
   stock?: boolean;
 }
@@ -52,6 +53,7 @@ export class FolletoComponent implements OnInit {
   cotizaciones: CurrencyResponse;
   cotizacionCripto: CurrencyCripto;
   cotizacionMostrada: number = 0;
+  pesoTotal: number = 0;
 
 
   ngOnInit() {
@@ -107,12 +109,14 @@ export class FolletoComponent implements OnInit {
       nombre: 'Mazo Dual - 2 jugadores',
       imagenUrl: 'https://i.postimg.cc/wMhwHR7k/frente-1.webp',
       precioDolar: 36,
+      peso: 0.400,
       stock: true
     },
     {
       nombre: 'Caja de boosters Pacto Secreto',
       imagenUrl: 'https://lairentcg.com.ar/assets/images/pacto/caja%20pacto%20de%20boosters.png',
       precioDolar: 17,
+      peso: 0.140,
       stock: true
     },
     // {
@@ -125,12 +129,14 @@ export class FolletoComponent implements OnInit {
       nombre: 'Relatos de Aixa',
       imagenUrl: 'https://lairentcg.com.ar/assets/images/frente%20mazo%20aixa.webp',
       precioDolar: 24,
+      peso: 0.200,
       stock: false
     },
     {
       nombre: 'Caja de boosters de Fundamentos',
       imagenUrl: 'https://lairentcg.com.ar/assets/images/caja%20booster%20fundamentos.webp',
       precioDolar: 15,
+      peso: 0.130,
       stock: false
     }
   ];
@@ -140,12 +146,17 @@ export class FolletoComponent implements OnInit {
       nombre: 'Slot de Torneo tienda',
       imagenUrl: 'https://i.postimg.cc/vZmwVQLx/caja-2.png',
       precioDolar: (this.productos[1].precioDolar * 2) * 0.7,
+      peso: 0.280,
       stock: true
     },
   ];
 
   calcularTotalUnidades(): number {
     return this.productos.reduce((acc, producto) => acc + (producto.cantidad || 0), 0);
+  }
+
+  calcularPesoTotal() {
+    return this.productos.reduce((acc, producto) => acc + (producto.cantidad || 0) * producto.peso, 0);
   }
 
   obtenerDescuentoPorCantidad(cantidad: number): number {
@@ -183,10 +194,6 @@ export class FolletoComponent implements OnInit {
     const descuentoPorcentaje = Math.round(descuento * 100);
     return descuento > 0 ? `${descuentoPorcentaje}% de descuento` : '';
   }
-
-
-
-
 
 
   calcularTotalUnidadesFolleto(): number {
