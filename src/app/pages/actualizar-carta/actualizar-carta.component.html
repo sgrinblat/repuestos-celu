@@ -83,11 +83,11 @@
 
             <div class="m-4">
               <label class="form-label display-text" for="formularioCartaSubTipo1">SubTipo</label><br>
-              <p> {{carta.subtipo.nombreSubTipo}} </p>
+              <p> {{carta?.subtipo?.nombreSubTipo}} </p>
               <select formControlName="formularioCartaSubTipo1" class="formulario-input bg-light form-control " name="formularioCartaSubTipo1" id="formularioCartaSubTipo1" >
                 <ng-container *ngIf="{ data: subtipos | async } as result">
                   <option *ngFor="let subtype of result.data | orderBy:'nombreSubTipo'" [ngValue]="subtype">
-                    {{subtype.nombreSubTipo}}
+                    {{subtype?.nombreSubTipo}}
                   </option>
                 </ng-container>
               </select>
@@ -99,7 +99,7 @@
 
             <div class="m-4">
               <label class="form-label display-text" for="formularioCartaSubTipo2">SubTipo 2</label><br>
-              <p *ngIf="carta.subtipo2" > {{carta.subtipo2.nombreSubTipo}} </p>
+              <p *ngIf="carta.subtipo2" > {{carta?.subtipo2?.nombreSubTipo}} </p>
               <select formControlName="formularioCartaSubTipo2" class="formulario-input bg-light form-control " name="formularioCartaSubTipo2" id="formularioCartaSubTipo2" >
                 <ng-container *ngIf="{ data: subtipos | async } as result">
                   <option *ngFor="let subtype of result.data | orderBy:'nombreSubTipo'" [ngValue]="subtype">
@@ -110,8 +110,8 @@
             </div>
 
             <div class="m-4">
-              <label class="form-label display-text" for="formularioCartaSubTipo3">SubTipo 3</label><br>
-              <p *ngIf="carta.subtipo3" > {{carta.subtipo3.nombreSubTipo}} </p>
+              <label class="form-label display-text" for="formularioCartaSubTipo3">Supertipo</label><br>
+              <p *ngIf="carta.subtipo3" > {{carta?.subtipo3?.nombreSubTipo}} </p>
               <select formControlName="formularioCartaSubTipo3" class="formulario-input bg-light form-control " name="formularioCartaSubTipo3" id="formularioCartaSubTipo3" >
                 <ng-container *ngIf="{ data: subtipos | async } as result">
                   <option *ngFor="let subtype of result.data | orderBy:'nombreSubTipo'" [ngValue]="subtype">
