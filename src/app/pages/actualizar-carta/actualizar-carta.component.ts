@@ -46,15 +46,15 @@ export class ActualizarCartaComponent implements OnInit {
   constructor(private conexion: ConexionService, private router: Router, private route: ActivatedRoute, private readonly fb: FormBuilder) {
     this.contactForm = fb.group({
       formularioCartaNombre: ['', [Validators.required, Validators.minLength(3)]],
-      formularioCartaCoste: ['', [Validators.required, Validators.minLength(1)]],
-      formularioCartaExpansion: ['', [Validators.required]],
-      formularioCartaRareza: ['', [Validators.required]],
+      formularioCartaCoste: [''],
+      formularioCartaExpansion: [''],
+      formularioCartaRareza: [''],
       formularioCartaTipo: ['', [Validators.required]],
       formularioCartaSubTipo1: [''],
       formularioCartaSubTipo2: [''],
       formularioCartaSubTipo3: [''],
-      formularioTextoCarta: ['', [Validators.required, Validators.minLength(6)]],
-      formularioCartaURL: ['', [Validators.required, Validators.minLength(10)]],
+      formularioTextoCarta: [''],
+      formularioCartaURL: [''],
       formularioAlter1: [''],
       formularioAlter2: [''],
       formularioAlter3: [''],
@@ -96,11 +96,20 @@ export class ActualizarCartaComponent implements OnInit {
   actualizar() {
     this.carta.nombreCarta = this.contactForm.value.formularioCartaNombre;
     this.carta.nombreCarta = this.carta.nombreCarta.toUpperCase();
-
     this.carta.costeCarta = this.contactForm.value.formularioCartaCoste;
-    this.carta.expansion = this.contactForm.value.formularioCartaExpansion;
-    this.carta.rareza = this.contactForm.value.formularioCartaRareza;
-    this.carta.tipo = this.contactForm.value.formularioCartaTipo;
+
+    if(this.contactForm.value.formularioCartaExpansion) {
+      this.carta.expansion = this.contactForm.value.formularioCartaExpansion;
+    }
+
+    if(this.contactForm.value.formularioCartaRareza) {
+      this.carta.rareza = this.contactForm.value.formularioCartaRareza;
+    }
+
+    if(this.contactForm.value.formularioCartaTipo) {
+      this.carta.tipo = this.contactForm.value.formularioCartaTipo;
+    }
+
     this.carta.urlImagen = this.contactForm.value.formularioCartaURL;
 
     if(this.contactForm.value.formularioCartaSubTipo1) {
