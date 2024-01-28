@@ -15,6 +15,11 @@
 
 
   <div class="container">
+
+    <div class="text-center pt-5 " >
+      <button class="btn btn-warning " (click)="regresarAlBuscador()" ><i class="fas fa-arrow-left"></i> Regresar</button>
+    </div>
+
     <div class="row align-items-center justify-content-center mb-5 pb-5 pt-5">
 
       <div class="col-md-4 text-center">
@@ -48,7 +53,7 @@
 
         <div class="mb-3">
           <h5 *ngIf="carta.subtipo3">
-            Tercer Subtipo: {{carta.subtipo3.nombreSubTipo}}
+            Supertipo: {{carta.subtipo3.nombreSubTipo}}
           </h5>
         </div>
 
