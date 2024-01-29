@@ -180,7 +180,7 @@ export class ImageSidedeckComponent {
 
       // Actualizar la posición y el contador
       currentInRow += 1;
-      if (currentInRow === 2) {
+      if (currentInRow === 1) {
         currentInRow = 0; // Reiniciar contador de imágenes en fila
         xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
         yPosition = yStartPosition; // Usar yStartPosition aquí
