@@ -18,47 +18,6 @@ export class ImageGeneratorComponent {
   constructor() {}
 
   async generarImagen(decklist: string, nombreCompleto: string) {
-    // Crear contenedor de imágenes
-    const contenedor = document.createElement('div');
-    contenedor.style.width = '1160px';
-    contenedor.style.height = '1000px';
-    contenedor.style.backgroundImage = 'url("/assets/images/texture.png")';
-    contenedor.style.backgroundSize = 'cover'; // La imagen cubre todo el contenedor
-    contenedor.style.position = 'relative';
-    contenedor.style.overflow = 'hidden';
-    document.body.appendChild(contenedor);
-
-    // Después de crear el contenedor y antes de añadir las imágenes
-
-    const divDecklist = document.createElement('div');
-    divDecklist.textContent = `Nombre de mazo: ${decklist}`;
-    divDecklist.style.position = 'absolute';
-    divDecklist.style.left = '20px';
-    divDecklist.style.top = '20px';
-    divDecklist.style.color = 'white';
-    divDecklist.style.fontWeight = 'bold';
-    divDecklist.style.fontSize = '24px'; // Ajusta según tus necesidades
-    contenedor.appendChild(divDecklist);
-
-    const divNombre = document.createElement('div');
-    divNombre.textContent = `Nombre y apellido: ${nombreCompleto}`;
-    divNombre.style.position = 'absolute';
-    divNombre.style.left = divDecklist.offsetWidth + 40 + 'px'; // 20px de margen inicial + 20px de espacio entre textos
-    divNombre.style.top = '20px';
-    divNombre.style.color = 'white';
-    divNombre.style.fontWeight = 'bold';
-    divNombre.style.fontSize = '24px'; // Ajusta según tus necesidades
-    contenedor.appendChild(divNombre);
-
-    const divMazo = document.createElement('div');
-    //divMazo.textContent = 'Reino: ';
-    divMazo.style.position = 'absolute';
-    divMazo.style.left = '20px';
-    divMazo.style.top = divDecklist.offsetHeight + 40 + 'px'; // 20px de margen inicial + 20px de espacio entre textos
-    divMazo.style.color = 'white';
-    divMazo.style.fontWeight = 'bold';
-    divMazo.style.fontSize = '24px'; // Ajusta según tus necesidades
-    contenedor.appendChild(divMazo);
 
     let acciones = 0;
     let unidades = 0;
@@ -108,6 +67,15 @@ export class ImageGeneratorComponent {
         case 6:
             costeSeis++;
             break;
+        case 7:
+            costeSiete++;
+            break;
+        case 8:
+            costeOcho++;
+            break;
+        case 9:
+            costeNueve++;
+            break;
         default:
             // Código en caso de que no haya coincidencia con ningún caso anterior (opcional)
             break;
@@ -120,7 +88,66 @@ export class ImageGeneratorComponent {
       mapaDeRepeticiones[carta.nombreCarta]++;
     }
 
-    divMazo.textContent = `Reino: (Acciones: ${acciones} - Unidades: ${unidades} - Monumentos: ${monumentos}) - (Coste 1: ${costeUno} - Coste 2: ${costeDos} - Coste 3: ${costeTres} - Coste 4: ${costeCuatro} - Coste 5: ${costeCinco})`;
+    // Crear contenedor de imágenes
+    const contenedor = document.createElement('div');
+
+    const cantidad = Object.keys(mapaDeRepeticiones).length;
+    console.log(cantidad)
+    if (cantidad === 60) {
+      contenedor.style.height = '1400px';
+    } else if (cantidad > 49 && cantidad < 60) {
+      contenedor.style.height = '1200px';
+    } else if (cantidad > 39 && cantidad < 50) {
+      contenedor.style.height = '1000px';
+    } else if (cantidad > 29 &&cantidad < 40) {
+      contenedor.style.height = '1000px';
+    } else if (cantidad > 19 && cantidad < 30) {
+    } else {
+      contenedor.style.height = '1000px';
+    }
+
+    contenedor.style.width = '1160px';
+    contenedor.style.backgroundImage = 'url("/assets/images/texture.png")';
+    contenedor.style.backgroundSize = 'cover'; // La imagen cubre todo el contenedor
+    contenedor.style.position = 'relative';
+    contenedor.style.overflow = 'hidden';
+    document.body.appendChild(contenedor);
+
+    // Después de crear el contenedor y antes de añadir las imágenes
+
+    const divDecklist = document.createElement('div');
+    divDecklist.textContent = `Nombre de mazo: ${decklist}`;
+    divDecklist.style.position = 'absolute';
+    divDecklist.style.left = '20px';
+    divDecklist.style.top = '20px';
+    divDecklist.style.color = 'white';
+    divDecklist.style.fontWeight = 'bold';
+    divDecklist.style.fontSize = '24px'; // Ajusta según tus necesidades
+    contenedor.appendChild(divDecklist);
+
+    const divNombre = document.createElement('div');
+    divNombre.textContent = `Nombre y apellido: ${nombreCompleto}`;
+    divNombre.style.position = 'absolute';
+    divNombre.style.left = divDecklist.offsetWidth + 40 + 'px'; // 20px de margen inicial + 20px de espacio entre textos
+    divNombre.style.top = '20px';
+    divNombre.style.color = 'white';
+    divNombre.style.fontWeight = 'bold';
+    divNombre.style.fontSize = '24px'; // Ajusta según tus necesidades
+    contenedor.appendChild(divNombre);
+
+    const divMazo = document.createElement('div');
+    //divMazo.textContent = 'Reino: ';
+    divMazo.style.position = 'absolute';
+    divMazo.style.left = '20px';
+    divMazo.style.top = divDecklist.offsetHeight + 40 + 'px'; // 20px de margen inicial + 20px de espacio entre textos
+    divMazo.style.color = 'white';
+    divMazo.style.fontWeight = 'bold';
+    divMazo.style.fontSize = '24px'; // Ajusta según tus necesidades
+    contenedor.appendChild(divMazo);
+
+
+
+    divMazo.textContent = `Reino: (Acciones: ${acciones} - Unidades: ${unidades} - Monumentos: ${monumentos}) - (Coste 1: ${costeUno} - Coste 2: ${costeDos} - Coste 3: ${costeTres} - Coste 4: ${costeCuatro} - Coste 5: ${costeCinco} - Coste 6: ${costeSeis} - Coste 7: ${costeSiete} - Coste 8: ${costeOcho} - Coste 9: ${costeNueve})`;
 
     // Inicializar las posiciones y el contador
     let xPosition = 0;
@@ -176,13 +203,59 @@ export class ImageGeneratorComponent {
 
       // Actualizar la posición y el contador
       currentInRow += 1;
-      if (currentInRow === 8) {
-        currentInRow = 0; // Reiniciar contador de imágenes en fila
-        xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
-        yPosition = yStartPosition; // Usar yStartPosition aquí
+
+      if (cantidad === 60) {
+        if (currentInRow === 10) {
+          currentInRow = 0; // Reiniciar contador de imágenes en fila
+          xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
+          yPosition = yStartPosition; // Usar yStartPosition aquí
+        } else {
+          yPosition += visiblePortion; // Mover posición vertical solo por la porción visible
+        }
+      } else if (cantidad > 49 && cantidad < 60) {
+        console.log("a ver")
+        if (currentInRow === 9) {
+          console.log("a ver 2")
+          currentInRow = 0; // Reiniciar contador de imágenes en fila
+          xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
+          yPosition = yStartPosition; // Usar yStartPosition aquí
+        } else {
+          yPosition += visiblePortion; // Mover posición vertical solo por la porción visible
+        }
+      } else if (cantidad > 39 && cantidad < 50) {
+        if (currentInRow === 8) {
+          currentInRow = 0; // Reiniciar contador de imágenes en fila
+          xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
+          yPosition = yStartPosition; // Usar yStartPosition aquí
+        } else {
+          yPosition += visiblePortion; // Mover posición vertical solo por la porción visible
+        }
+      } else if (cantidad > 29 &&cantidad < 40) {
+        if (currentInRow === 7) {
+          currentInRow = 0; // Reiniciar contador de imágenes en fila
+          xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
+          yPosition = yStartPosition; // Usar yStartPosition aquí
+        } else {
+          yPosition += visiblePortion; // Mover posición vertical solo por la porción visible
+        }
+      } else if (cantidad > 19 && cantidad < 30) {
+        if (currentInRow === 6) {
+          currentInRow = 0; // Reiniciar contador de imágenes en fila
+          xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
+          yPosition = yStartPosition; // Usar yStartPosition aquí
+        } else {
+          yPosition += visiblePortion; // Mover posición vertical solo por la porción visible
+        }
       } else {
-        yPosition += visiblePortion; // Mover posición vertical solo por la porción visible
+        if (currentInRow === 5) {
+          currentInRow = 0; // Reiniciar contador de imágenes en fila
+          xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
+          yPosition = yStartPosition; // Usar yStartPosition aquí
+        } else {
+          yPosition += visiblePortion; // Mover posición vertical solo por la porción visible
+        }
       }
+
     }
 
     // Convertir contenedor a imagen
