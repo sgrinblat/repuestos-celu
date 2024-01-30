@@ -86,12 +86,10 @@ export class DecklistComponent implements OnInit {
   mano: Carta[];
   mano1000: Carta[];
 
-  banderaGraficoTorta: boolean = false;
-  banderaGraficoBarra: boolean = false;
-
   textoEntrada: string = '';
   cartasPegadas: Carta[] = [];
 
+  banderaGraficoTorta = false;
   banderaLista = true;
   banderaEdicion = false;
   imagenGenerada: string;
@@ -2743,8 +2741,6 @@ grafico() {
         this.miGraficoBarras.destroy();
     }
 
-    this.banderaGraficoBarra = true;
-
     // Calculando la frecuencia combinada de costeCarta, nombreTipo y subtipo
     const datosPorCosteYTipo = {};
 
@@ -2862,15 +2858,13 @@ grafico() {
   });
 }
 
-miGraficoDeTorta: Chart = null;
+miGraficoDeTorta: Chart<'pie', number[], string> = null;
 
 async graficoTortaFrecuencia(historial) {
   if(this.miGraficoDeTorta) {
     this.miGraficoDeTorta.destroy();
   }
-
   this.banderaGraficoTorta = true;
-
   // Calcular las estadísticas de coste de carta
   const estadisticasCosteCarta = {};
   historial.flat().forEach(mano => {
@@ -2906,7 +2900,7 @@ async graficoTortaFrecuencia(historial) {
           plugins: {
               title: {
                   display: true,
-                  text: 'Frecuencia de costes',
+                  text: '% de robo por coste',
                   color: "white"
               },
               legend: {
@@ -2929,7 +2923,7 @@ async graficoTortaFrecuencia(historial) {
               }
           }
       }
-  }) as any;
+  });
 }
 
 
