@@ -4,7 +4,7 @@ import { filter, map } from 'rxjs/operators';
 import { Observable, forkJoin} from 'rxjs';
 import { ElementRef } from '@angular/core';
 
-
+import * as ExcelJS from 'exceljs';
 import Swal from 'sweetalert2';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
@@ -54,6 +54,8 @@ export class DecklistComponent implements OnInit {
   reino: Carta[];
   boveda: Carta[];
   sidedeck: Carta[];
+  mano: Carta[];
+  mano100: Carta[];
 
   textoEntrada: string = '';
   cartasPegadas: Carta[] = [];
@@ -2541,6 +2543,119 @@ export class DecklistComponent implements OnInit {
       }
     });
   }
+
+  repartirMano() {
+    this.mano = [];
+    const numeroDeCartas = 7;
+
+    // Verificar si hay suficientes cartas en el reino
+    if (this.reino.length < 45 || this.reino.length > 60) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: "El reino tiene menos de 45 cartas o más de 60.",
+        background: '#2e3031',
+        color: '#fff',
+      });
+      throw new Error('No hay suficientes cartas en el reino para repartir una mano');
+    }
+
+    let reinoCopia = this.reino.slice(); // Crear una copia de 'reino'
+
+    while (this.mano.length < numeroDeCartas) {
+        // Generar un índice aleatorio
+        const indiceAleatorio = Math.floor(Math.random() * reinoCopia.length);
+
+        // Seleccionar la carta en el índice aleatorio
+        const cartaSeleccionada = reinoCopia[indiceAleatorio];
+        this.mano.push(cartaSeleccionada);
+        reinoCopia.splice(indiceAleatorio, 1);
+    }
+
+    return this.mano;
+  }
+
+  async repartirMano100Veces() {
+    console.time('Tiempo de ejecución'); // Iniciar el cronómetro
+
+    let historial = [];
+    for (let i = 0; i < 1000; i++) {
+        this.mano100 = [];
+        const numeroDeCartas = 7;
+        let reinoCopia = this.reino.slice();
+
+        while (this.mano100.length < numeroDeCartas) {
+            const indiceAleatorio = Math.floor(Math.random() * reinoCopia.length);
+            const cartaSeleccionada = reinoCopia[indiceAleatorio];
+            this.mano100.push(cartaSeleccionada);
+            reinoCopia.splice(indiceAleatorio, 1);
+        }
+
+        // Agregar solo los datos relevantes de cada carta al historial
+        historial.push(this.mano100.map(carta => ({ nombreCarta: carta.nombreCarta, costeCarta: carta.costeCarta })));
+    }
+
+    console.timeEnd('Tiempo de ejecución'); // Finalizar el cronómetro
+    await this.exportarAExcel(historial);
+}
+
+async exportarAExcel(historial) {
+    // Crear un nuevo libro de trabajo
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Historial');
+    const worksheetEstadisticas = workbook.addWorksheet('Estadísticas Coste');
+
+    // Añadir los encabezados de las columnas para la hoja 'Historial'
+    worksheet.columns = [
+        { header: 'Nombre de la Carta', key: 'nombreCarta', width: 30 },
+        { header: 'Coste de la Carta', key: 'costeCarta', width: 20 }
+    ];
+
+    // Añadir cada mano al worksheet 'Historial'
+    historial.flat().forEach(mano => {
+        worksheet.addRow({
+            nombreCarta: mano.nombreCarta,
+            costeCarta: mano.costeCarta
+        });
+    });
+
+    // Calcular las estadísticas de coste de carta
+    const estadisticasCosteCarta = {};
+    historial.flat().forEach(mano => {
+        const coste = mano.costeCarta;
+        if (estadisticasCosteCarta[coste]) {
+            estadisticasCosteCarta[coste]++;
+        } else {
+            estadisticasCosteCarta[coste] = 1;
+        }
+    });
+
+    // Añadir los encabezados de las columnas para la hoja 'Estadísticas Coste'
+    worksheetEstadisticas.columns = [
+        { header: 'Coste de la Carta', key: 'coste', width: 20 },
+        { header: 'Frecuencia', key: 'frecuencia', width: 20 }
+    ];
+
+    // Añadir las estadísticas al worksheet 'Estadísticas Coste'
+    Object.keys(estadisticasCosteCarta).forEach(coste => {
+        worksheetEstadisticas.addRow({ coste, frecuencia: estadisticasCosteCarta[coste] });
+    });
+
+    // Escribir el archivo Excel
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url = URL.createObjectURL(blob);
+
+    // Crear un enlace para descargar el archivo
+    const downloadLink = document.createElement('a');
+    downloadLink.href = url;
+    downloadLink.download = `historial_reparticiones_${Date.now()}.xlsx`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+}
+
+
 
   copyToClipboard() {
     let str = 'Reino: (total: ' + this.getTotalCartas(this.reino) + ')\n';
