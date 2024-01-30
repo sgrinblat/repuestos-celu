@@ -61,12 +61,21 @@ a {
 
 .card-grid > div {
   flex-basis: calc(50% - 20px); /* 50% para 2 elementos por fila y 20px de espacio entre elementos */
-  margin: 10px; /* 10px alrededor de cada elemento, lo que dará un total de 20px entre elementos */
 }
 
 @media (min-width: 992px) { /* Punto de interrupción para pantallas grandes (lg) */
   .card-grid > div {
     flex-basis: calc(20% - 20px); /* 20% para 5 elementos por fila y 20px de espacio entre elementos */
+    margin: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) !important; /* Crea tres columnas */
+    margin: 1px;
+    grid-gap: 2px; /* Espaciado entre cartas */
   }
 }
 
@@ -158,6 +167,17 @@ a {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Crea tres columnas */
   grid-gap: 2px; /* Espaciado entre cartas */
+  margin-top: 5px;
+  margin-bottom: 6px;
+}
+
+@media(max-width: 500px) {
+  .mano-container {
+    grid-template-columns: repeat(2, 1fr); /* Crea tres columnas */
+    grid-gap: 2px; /* Espaciado entre cartas */
+    margin-top: 5px;
+    margin-bottom: 6px;
+  }
 }
 
 /* .imagenGenerada {

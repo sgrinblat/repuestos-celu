@@ -2601,62 +2601,68 @@ export class DecklistComponent implements OnInit {
 }
 
 async exportarAExcel(historial) {
+  // Crear un nuevo libro de trabajo
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet('Historial');
+  const worksheetEstadisticas = workbook.addWorksheet('Estadísticas Coste');
 
-    // Crear un nuevo libro de trabajo
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet('Historial');
-    const worksheetEstadisticas = workbook.addWorksheet('Estadísticas Coste');
+  // Añadir los encabezados de las columnas para la hoja 'Historial'
+  worksheet.columns = [
+      { header: 'Nombre de la Carta', key: 'nombreCarta', width: 30 },
+      { header: 'Coste de la Carta', key: 'costeCarta', width: 20 }
+  ];
 
-    // Añadir los encabezados de las columnas para la hoja 'Historial'
-    worksheet.columns = [
-        { header: 'Nombre de la Carta', key: 'nombreCarta', width: 30 },
-        { header: 'Coste de la Carta', key: 'costeCarta', width: 20 }
-    ];
+  // Añadir cada mano al worksheet 'Historial' con una fila en blanco entre cada mano
+  historial.forEach((mano, index) => {
+      mano.forEach(carta => {
+          worksheet.addRow({
+              nombreCarta: carta.nombreCarta,
+              costeCarta: carta.costeCarta
+          });
+      });
 
-    // Añadir cada mano al worksheet 'Historial'
-    historial.flat().forEach(mano => {
-        worksheet.addRow({
-            nombreCarta: mano.nombreCarta,
-            costeCarta: mano.costeCarta
-        });
-    });
+      // Insertar una fila en blanco después de cada mano, excepto después de la última
+      if (index < historial.length - 1) {
+          worksheet.addRow([]);
+      }
+  });
 
-    // Calcular las estadísticas de coste de carta
-    const estadisticasCosteCarta = {};
-    historial.flat().forEach(mano => {
-        const coste = mano.costeCarta;
-        if (estadisticasCosteCarta[coste]) {
-            estadisticasCosteCarta[coste]++;
-        } else {
-            estadisticasCosteCarta[coste] = 1;
-        }
-    });
+  // Calcular las estadísticas de coste de carta
+  const estadisticasCosteCarta = {};
+  historial.flat().forEach(mano => {
+      const coste = mano.costeCarta;
+      if (estadisticasCosteCarta[coste]) {
+          estadisticasCosteCarta[coste]++;
+      } else {
+          estadisticasCosteCarta[coste] = 1;
+      }
+  });
 
-    // Añadir los encabezados de las columnas para la hoja 'Estadísticas Coste'
-    worksheetEstadisticas.columns = [
-        { header: 'Coste de la Carta', key: 'coste', width: 20 },
-        { header: 'Frecuencia', key: 'frecuencia', width: 20 }
-    ];
+  // Añadir los encabezados de las columnas para la hoja 'Estadísticas Coste'
+  worksheetEstadisticas.columns = [
+      { header: 'Coste de la Carta', key: 'coste', width: 20 },
+      { header: 'Frecuencia', key: 'frecuencia', width: 20 }
+  ];
 
-    // Añadir las estadísticas al worksheet 'Estadísticas Coste'
-    Object.keys(estadisticasCosteCarta).forEach(coste => {
-        worksheetEstadisticas.addRow({ coste, frecuencia: estadisticasCosteCarta[coste] });
-    });
+  // Añadir las estadísticas al worksheet 'Estadísticas Coste'
+  Object.keys(estadisticasCosteCarta).forEach(coste => {
+      worksheetEstadisticas.addRow({ coste, frecuencia: estadisticasCosteCarta[coste] });
+  });
 
-    // Escribir el archivo Excel
-    const buffer = await workbook.xlsx.writeBuffer();
-    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    const url = URL.createObjectURL(blob);
+  // Escribir el archivo Excel
+  const buffer = await workbook.xlsx.writeBuffer();
+  const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  const url = URL.createObjectURL(blob);
 
-    // Crear un enlace para descargar el archivo
-    const downloadLink = document.createElement('a');
-    downloadLink.href = url;
-    downloadLink.download = `historial_reparticiones_${Date.now()}.xlsx`;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-
+  // Crear un enlace para descargar el archivo
+  const downloadLink = document.createElement('a');
+  downloadLink.href = url;
+  downloadLink.download = `historial_reparticiones_${Date.now()}.xlsx`;
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
 }
+
 
 
 ejecutarSiEsPosible() {
