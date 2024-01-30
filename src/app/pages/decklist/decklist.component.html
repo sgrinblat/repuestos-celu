@@ -219,10 +219,27 @@
       </div>
 
       <div class="container d-flex align-items-center justify-content-center">
-        <button (click)="ejecutarSiEsPosible()" class="btn btn-warning mb-2 mt-5">
-          Simular 1000 robos
+        <button (click)="ejecutarSiEsPosible()" class="btn btn-warning mb-5 mt-5">
+          Simular 1000 manos iniciales
         </button>
       </div>
+
+      <div *ngIf="banderaGraficoTorta" class="container d-flex align-items-center justify-content-center">
+        <canvas width="400" height="400" id="miGraficoTortaFrecuencia"></canvas>
+      </div>
+
+
+      <div class="container d-flex align-items-center justify-content-center">
+        <button (click)="grafico()" class="btn btn-success mb-5 mt-5">
+          Graficar costes de Reino
+        </button>
+      </div>
+
+      <div *ngIf="banderaGraficoBarra" class="container d-flex align-items-center justify-content-center">
+        <canvas id="miGraficoBarras" ></canvas>
+      </div>
+
+
 
       <app-image-generator
           #imageGenerator
