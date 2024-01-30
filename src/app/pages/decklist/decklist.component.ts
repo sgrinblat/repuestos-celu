@@ -1,12 +1,39 @@
 import { Component, OnInit, ViewChild, PLATFORM_ID, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, reduce } from 'rxjs/operators';
 import { Observable, forkJoin} from 'rxjs';
 import { ElementRef } from '@angular/core';
 
 import * as ExcelJS from 'exceljs';
 import Swal from 'sweetalert2';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
+
+import {
+  Chart,
+  CategoryScale,
+  LinearScale,
+  BarController,
+  BarElement,
+  PieController, // Importa PieController
+  ArcElement, // Importa ArcElement
+  Title,
+  Tooltip,
+} from 'chart.js';
+
+// Registro de componentes necesarios
+Chart.register(
+  CategoryScale,
+  LinearScale,
+  BarController,
+  BarElement,
+  PieController, // Registra PieController
+  ArcElement, // Registra ArcElement
+  Title,
+  Tooltip,
+  Legend
+);
+
+
 
 import { ConexionService } from 'src/app/service/conexion.service';
 import { Carta } from '../../carta';
@@ -23,6 +50,8 @@ import { ImageSidedeckComponent } from './image-sidedeck/image-sidedeck.componen
 import { isPlatformBrowser } from '@angular/common';
 import { Subtipo } from 'src/app/subtipo';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Legend } from 'chart.js';
+
 
 @Component({
   selector: 'app-decklist',
@@ -56,6 +85,9 @@ export class DecklistComponent implements OnInit {
   sidedeck: Carta[];
   mano: Carta[];
   mano1000: Carta[];
+
+  banderaGraficoTorta: boolean = false;
+  banderaGraficoBarra: boolean = false;
 
   textoEntrada: string = '';
   cartasPegadas: Carta[] = [];
@@ -303,6 +335,7 @@ export class DecklistComponent implements OnInit {
               });
 
               this.banderaEdicion = true;
+              //this.grafico();
             }
           });
         });
@@ -2596,6 +2629,7 @@ export class DecklistComponent implements OnInit {
     }
 
     await this.exportarAExcel(historial);
+    await this.graficoTortaFrecuencia(historial);
     Loading.remove(1000);
     //console.timeEnd('Tiempo de ejecución');
 }
@@ -2700,6 +2734,205 @@ puedeEjecutarFuncion() {
 
   return true; // Si no hay registro de la última ejecución, puede ejecutar
 }
+
+
+miGraficoBarras: Chart = null;
+
+grafico() {
+    if (this.miGraficoBarras) {
+        this.miGraficoBarras.destroy();
+    }
+
+    this.banderaGraficoBarra = true;
+
+    // Calculando la frecuencia combinada de costeCarta, nombreTipo y subtipo
+    const datosPorCosteYTipo = {};
+
+    let totalCoste = 0;
+    let totalCartas = 0;
+
+    this.reino.forEach(carta => {
+        const coste = carta.costeCarta;
+        const tipo = carta.tipo.nombreTipo;
+        const subtipo = carta.subtipo ? carta.subtipo.nombreSubTipo : '';
+
+        let tipoClave = tipo;
+        if (tipo === 'ACCION' && subtipo) {
+            tipoClave += ` ${subtipo}`;
+        }
+
+        if (!datosPorCosteYTipo[coste]) {
+            datosPorCosteYTipo[coste] = {};
+        }
+        if (!datosPorCosteYTipo[coste][tipoClave]) {
+            datosPorCosteYTipo[coste][tipoClave] = 1;
+        } else {
+            datosPorCosteYTipo[coste][tipoClave]++;
+        }
+
+        totalCoste += coste;
+        totalCartas++;
+    });
+
+    const promedioCoste = (totalCoste / totalCartas).toFixed(2);
+
+    // Obteniendo todos los tipos y subtipos únicos
+    const todosLosTipos = [...new Set(this.reino.flatMap(carta => {
+        const tipo = carta.tipo.nombreTipo;
+        const subtipo = carta.subtipo ? carta.subtipo.nombreSubTipo : '';
+        return tipo === 'ACCION' && subtipo ? `${tipo} ${subtipo}` : tipo;
+    }))];
+
+    // Función para obtener el color según el tipo y subtipo
+    const obtenerColorPorTipo = (tipoClave) => {
+        if (tipoClave.includes('ACCION COMUN')) return '#67087b';
+        if (tipoClave.includes('ACCION RAPIDA')) return '#d61116';
+        if (tipoClave === 'UNIDAD') return '#243774';
+        if (tipoClave === 'MONUMENTO') return '#ee931d';
+        return 'grey'; // Un color por defecto para otros tipos
+    };
+
+    // Preparando los datasets
+    const datasets = todosLosTipos.map(tipoClave => {
+        return {
+            label: tipoClave,
+            data: Object.keys(datosPorCosteYTipo).map(coste => datosPorCosteYTipo[coste][tipoClave] || 0),
+            backgroundColor: obtenerColorPorTipo(tipoClave),
+            stack: 'Stack 0',
+        };
+    });
+
+    Chart.defaults.color = 'white';
+
+    // Configurando el gráfico
+    const canvas = document.getElementById('miGraficoBarras') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d');
+
+    this.miGraficoBarras = new Chart(ctx, {
+        type: 'bar', // Tipo de gráfico de barras
+        data: {
+            labels: Object.keys(datosPorCosteYTipo),
+            datasets: datasets
+        },
+        options: {
+          scales: {
+              x: {
+                  stacked: true,
+                  title: {
+                      display: true,
+                      text: 'COSTES',
+                      color: 'white' // Color del título del eje X
+                  },
+                  ticks: {
+                      color: 'white' // Color de las etiquetas (ticks) del eje X
+                  },
+                  grid: {
+                      color: 'rgba(255, 255, 255, 0.2)' // Color de las líneas de la cuadrícula del eje X
+                  }
+              },
+              y: {
+                  stacked: true,
+                  title: {
+                      display: true,
+                      text: 'CANTIDAD',
+                      color: 'white' // Color del título del eje Y
+                  },
+                  ticks: {
+                      color: 'white' // Color de las etiquetas (ticks) del eje Y
+                  },
+                  grid: {
+                      color: 'rgba(255, 255, 255, 0.2)' // Color de las líneas de la cuadrícula del eje Y
+                  }
+              }
+          },
+          responsive: true,
+          plugins: {
+              title: {
+                  display: true,
+                  text: `Promedio de Coste: ${promedioCoste}`,
+                  color: 'white' // Color del título del gráfico
+              },
+              legend: {
+                  labels: {
+                      color: 'white' // Color de las etiquetas de la leyenda
+                  }
+              }
+          }
+      }
+  });
+}
+
+miGraficoDeTorta: Chart = null;
+
+async graficoTortaFrecuencia(historial) {
+  if(this.miGraficoDeTorta) {
+    this.miGraficoDeTorta.destroy();
+  }
+
+  this.banderaGraficoTorta = true;
+
+  // Calcular las estadísticas de coste de carta
+  const estadisticasCosteCarta = {};
+  historial.flat().forEach(mano => {
+      const coste = mano.costeCarta;
+      if (estadisticasCosteCarta[coste]) {
+          estadisticasCosteCarta[coste]++;
+      } else {
+          estadisticasCosteCarta[coste] = 1;
+      }
+  });
+
+  // Colores para cada porción del gráfico
+  const colores = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40']; // etc.
+
+  // Configurando el gráfico
+  const canvas = document.getElementById('miGraficoTortaFrecuencia') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d');
+
+  this.miGraficoDeTorta = new Chart(ctx, {
+      type: 'pie',
+      data: {
+          labels: Object.keys(estadisticasCosteCarta),
+          datasets: [{
+              label: 'Frecuencia por Coste de Carta',
+              data: Object.values(estadisticasCosteCarta),
+              backgroundColor: colores.slice(0, Object.keys(estadisticasCosteCarta).length),
+              borderColor: 'white',
+              borderWidth: 1
+          }]
+      },
+      options: {
+          responsive: false,
+          plugins: {
+              title: {
+                  display: true,
+                  text: 'Frecuencia de costes',
+                  color: "white"
+              },
+              legend: {
+                labels: {
+                  color: "white"
+                }
+              },
+              tooltip: {
+                  callbacks: {
+                      label: function(tooltipItem) {
+                          let sum = 0;
+                          let dataArr = tooltipItem.dataset.data;
+                          dataArr.map(data => {
+                              sum += Number(data);
+                          });
+                          let percentage = (tooltipItem.parsed * 100 / sum).toFixed(2) + '%';
+                          return tooltipItem.label + ': ' + percentage;
+                      }
+                  }
+              }
+          }
+      }
+  });
+}
+
+
 
 
   copyToClipboard() {
