@@ -21,7 +21,6 @@ export class MainpageComponent implements OnInit {
   randomNumber1: number;
 
   ngOnInit() {
-
     if(isPlatformBrowser(this.platformId)) {
       window.scrollTo(0, 0);
     }

@@ -55,7 +55,7 @@ export class DecklistComponent implements OnInit {
   boveda: Carta[];
   sidedeck: Carta[];
   mano: Carta[];
-  mano100: Carta[];
+  mano1000: Carta[];
 
   textoEntrada: string = '';
   cartasPegadas: Carta[] = [];
@@ -2575,31 +2575,33 @@ export class DecklistComponent implements OnInit {
     return this.mano;
   }
 
-  async repartirMano100Veces() {
-    console.time('Tiempo de ejecución'); // Iniciar el cronómetro
-
+  async repartirMano1000Veces() {
+    //console.time('Tiempo de ejecución');
+    Loading.hourglass();
     let historial = [];
     for (let i = 0; i < 1000; i++) {
-        this.mano100 = [];
+        this.mano1000 = [];
         const numeroDeCartas = 7;
         let reinoCopia = this.reino.slice();
 
-        while (this.mano100.length < numeroDeCartas) {
+        while (this.mano1000.length < numeroDeCartas) {
             const indiceAleatorio = Math.floor(Math.random() * reinoCopia.length);
             const cartaSeleccionada = reinoCopia[indiceAleatorio];
-            this.mano100.push(cartaSeleccionada);
+            this.mano1000.push(cartaSeleccionada);
             reinoCopia.splice(indiceAleatorio, 1);
         }
 
         // Agregar solo los datos relevantes de cada carta al historial
-        historial.push(this.mano100.map(carta => ({ nombreCarta: carta.nombreCarta, costeCarta: carta.costeCarta })));
+        historial.push(this.mano1000.map(carta => ({ nombreCarta: carta.nombreCarta, costeCarta: carta.costeCarta })));
     }
 
-    console.timeEnd('Tiempo de ejecución'); // Finalizar el cronómetro
     await this.exportarAExcel(historial);
+    Loading.remove(1000);
+    //console.timeEnd('Tiempo de ejecución');
 }
 
 async exportarAExcel(historial) {
+
     // Crear un nuevo libro de trabajo
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Historial');
@@ -2653,8 +2655,45 @@ async exportarAExcel(historial) {
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
+
 }
 
+
+ejecutarSiEsPosible() {
+  if (this.puedeEjecutarFuncion()) {
+    this.repartirMano1000Veces(); // La función que quieres ejecutar
+    this.guardarUltimaEjecucion();
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: "Espera 10 minutos antes de volver a simular!",
+      background: '#2e3031',
+      color: '#fff',
+    });
+  }
+}
+
+
+guardarUltimaEjecucion() {
+  const ahora = new Date().getTime();
+  localStorage.setItem('module_process_image_generator', ahora.toString());
+}
+
+
+puedeEjecutarFuncion() {
+  const ultimaEjecucion = localStorage.getItem('module_process_image_generator');
+  const ahora = new Date().getTime();
+
+  if (ultimaEjecucion) {
+      const diferencia = ahora - parseInt(ultimaEjecucion);
+      const treintaMinutos = 10 * 60 * 1000; // 10 minutos en milisegundos
+
+      return diferencia >= treintaMinutos;
+  }
+
+  return true; // Si no hay registro de la última ejecución, puede ejecutar
+}
 
 
   copyToClipboard() {
