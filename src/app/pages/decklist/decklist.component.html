@@ -206,6 +206,23 @@
         </button>
       </div>
 
+      <div class="container d-flex align-items-center justify-content-center">
+        <button (click)="repartirMano()" class="btn btn-success mb-2 mt-5">
+          Probar mano inicial
+        </button>
+      </div>
+
+      <div *ngIf="mano && mano.length > 0" class="mano-container">
+        <div *ngFor="let hand of mano">
+          <img class="carta" [lazyLoad]="hand.urlImagen" [alt]="hand.nombreCarta">
+        </div>
+      </div>
+
+      <div class="container d-flex align-items-center justify-content-center">
+        <button (click)="repartirMano100Veces()" class="btn btn-success mb-2 mt-5">
+          Simular 100 robos
+        </button>
+      </div>
 
       <app-image-generator
           #imageGenerator

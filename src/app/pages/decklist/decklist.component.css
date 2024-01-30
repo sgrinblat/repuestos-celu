@@ -154,7 +154,11 @@ a {
 }
 
 
-
+.mano-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Crea tres columnas */
+  grid-gap: 2px; /* Espaciado entre cartas */
+}
 
 /* .imagenGenerada {
   height: auto;
