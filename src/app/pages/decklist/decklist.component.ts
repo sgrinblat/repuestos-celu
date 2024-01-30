@@ -2929,7 +2929,7 @@ async graficoTortaFrecuencia(historial) {
               }
           }
       }
-  });
+  }) as any;
 }
 
 
