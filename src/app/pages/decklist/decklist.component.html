@@ -224,18 +224,23 @@
         </button>
       </div>
 
-      <div *ngIf="banderaGraficoTorta" class="container d-flex align-items-center justify-content-center">
-        <canvas width="400" height="400" id="miGraficoTortaFrecuencia"></canvas>
-      </div>
-
-
-      <div class="container d-flex align-items-center justify-content-center">
+      <div *ngIf="!banderaGraficoTorta" class="container d-flex align-items-center justify-content-center">
         <button (click)="grafico()" class="btn btn-success mb-5 mt-5">
           Graficar costes de Reino
         </button>
       </div>
 
-      <div *ngIf="banderaGraficoBarra" class="container d-flex align-items-center justify-content-center">
+      <div class="container d-flex align-items-center justify-content-center" >
+        <canvas width="400" height="400" id="miGraficoTortaFrecuencia"></canvas>
+      </div>
+
+      <div *ngIf="banderaGraficoTorta" class="container d-flex align-items-center justify-content-center">
+        <button (click)="grafico()" class="btn btn-success mb-5 mt-5">
+          Graficar costes de Reino
+        </button>
+      </div>
+
+      <div class="container d-flex align-items-center justify-content-center">
         <canvas id="miGraficoBarras" ></canvas>
       </div>
 
