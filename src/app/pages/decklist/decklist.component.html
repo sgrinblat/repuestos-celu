@@ -206,6 +206,10 @@
         </button>
       </div>
 
+      <section *ngIf="imagenCombinada" class="separador-vertical fondo-gris text-white pb-5 col order-1 order-sm-3">
+        <img *ngIf="!esMovil" class="mt-4 mb-4 imagenGenerada"  [src]="imagenCombinada" alt="Imagen Combinada">
+      </section>
+
       <div class="container d-flex align-items-center justify-content-center">
         <button (click)="repartirMano()" class="btn btn-success mb-2 mt-5">
           Probar mano inicial
@@ -264,9 +268,7 @@
         (imageGenerated)="onImageGeneratedSideDeck($event)">
       </app-image-sidedeck>
 
-      <section *ngIf="imagenCombinada" class="separador-vertical fondo-gris text-white pb-5 col order-1 order-sm-3">
-        <img *ngIf="!esMovil" class="mt-4 mb-4 imagenGenerada"  [src]="imagenCombinada" alt="Imagen Combinada">
-      </section>
+
 
     </section>
 

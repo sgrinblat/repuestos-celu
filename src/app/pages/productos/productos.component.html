@@ -42,7 +42,15 @@
             </div>
           </div>
         </div>
-
+        <div class="col-12 col-sm-6 col-lg-4 mb-4">
+          <div (click)="mostrarSeccion('Trono')" class="portadaDeck">
+            <img src="https://i.postimg.cc/Qdnd7BVb/artwork-52.png">
+            <div class="overlay"></div>
+            <div class="text-container">
+              <h4>Trono Compartido</h4>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -81,6 +89,9 @@
   </div>
   <div *ngIf="seleccionado == 'Pacto'">
     <app-pacto-secreto></app-pacto-secreto>
+  </div>
+  <div *ngIf="seleccionado == 'Trono'">
+    <app-trono></app-trono>
   </div>
   <div *ngIf="seleccionado == 'Playmats'">
     <app-playmats></app-playmats>
