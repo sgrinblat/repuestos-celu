@@ -61,6 +61,7 @@ import { FolletoComponent } from './tiendas/folleto/folleto.component';
 import { CalendarioComponent } from './calendario/calendario.component';
 import { CalendarAdminComponent } from './calendario/calendarAdmin/calendarAdmin.component';
 import { ActualizarEventoComponent } from './calendario/calendarAdmin/actualizar-evento/actualizar-evento.component';
+import { TronoComponent } from './productos/trono/trono.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { ActualizarEventoComponent } from './calendario/calendarAdmin/actualizar
     RegistroJugadorComponent,
     VerifyEmailComponent,
     EntradasComponent,
+    TronoComponent,
     ListaEntradasComponent,
     TorneosComponent,
     MarketingMaterialComponent,
@@ -125,6 +127,7 @@ import { ActualizarEventoComponent } from './calendario/calendarAdmin/actualizar
     RarezasComponent,
     TiendasComponent,
     TiposComponent,
+    TronoComponent,
     SubirTiendasComponent,
     TutorialComponent,
     MailingComponent,

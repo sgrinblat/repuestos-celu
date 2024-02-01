@@ -94,14 +94,15 @@ export class ImageGeneratorComponent {
     const cantidad = Object.keys(mapaDeRepeticiones).length;
     console.log(cantidad)
     if (cantidad === 60) {
-      contenedor.style.height = '1400px';
+      contenedor.style.height = '1300px';
     } else if (cantidad > 49 && cantidad < 60) {
-      contenedor.style.height = '1200px';
+      contenedor.style.height = '1100px';
     } else if (cantidad > 39 && cantidad < 50) {
       contenedor.style.height = '1000px';
-    } else if (cantidad > 29 &&cantidad < 40) {
-      contenedor.style.height = '1000px';
-    } else if (cantidad > 19 && cantidad < 30) {
+    } else if (cantidad > 24 &&cantidad < 40) {
+      contenedor.style.height = '900px';
+    } else if (cantidad > 19 && cantidad < 25) {
+      contenedor.style.height = '700px';
     } else {
       contenedor.style.height = '1000px';
     }
@@ -213,9 +214,7 @@ export class ImageGeneratorComponent {
           yPosition += visiblePortion; // Mover posición vertical solo por la porción visible
         }
       } else if (cantidad > 49 && cantidad < 60) {
-        console.log("a ver")
         if (currentInRow === 9) {
-          console.log("a ver 2")
           currentInRow = 0; // Reiniciar contador de imágenes en fila
           xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
           yPosition = yStartPosition; // Usar yStartPosition aquí
@@ -230,15 +229,7 @@ export class ImageGeneratorComponent {
         } else {
           yPosition += visiblePortion; // Mover posición vertical solo por la porción visible
         }
-      } else if (cantidad > 29 &&cantidad < 40) {
-        if (currentInRow === 7) {
-          currentInRow = 0; // Reiniciar contador de imágenes en fila
-          xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
-          yPosition = yStartPosition; // Usar yStartPosition aquí
-        } else {
-          yPosition += visiblePortion; // Mover posición vertical solo por la porción visible
-        }
-      } else if (cantidad > 19 && cantidad < 30) {
+      } else if (cantidad > 24 &&cantidad < 40) {
         if (currentInRow === 6) {
           currentInRow = 0; // Reiniciar contador de imágenes en fila
           xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
@@ -246,8 +237,16 @@ export class ImageGeneratorComponent {
         } else {
           yPosition += visiblePortion; // Mover posición vertical solo por la porción visible
         }
+      } else if (cantidad > 19 && cantidad < 25) {
+        if (currentInRow === 4) {
+          currentInRow = 0; // Reiniciar contador de imágenes en fila
+          xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
+          yPosition = yStartPosition; // Usar yStartPosition aquí
+        } else {
+          yPosition += visiblePortion; // Mover posición vertical solo por la porción visible
+        }
       } else {
-        if (currentInRow === 5) {
+        if (currentInRow === 3) {
           currentInRow = 0; // Reiniciar contador de imágenes en fila
           xPosition += imageWidth + imageMargin; // Mover a la siguiente columna
           yPosition = yStartPosition; // Usar yStartPosition aquí
