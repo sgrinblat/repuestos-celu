@@ -119,6 +119,13 @@ export class FolletoComponent implements OnInit {
       peso: 0.140,
       stock: true
     },
+    {
+      nombre: 'Caja de boosters Trono Compartido',
+      imagenUrl: 'https://lairentcg.com.ar/assets/images/trono/cajatrono.png',
+      precioDolar: 17,
+      peso: 0.140,
+      stock: true
+    },
     // {
     //   nombre: 'Slot de Torneo tienda (2 cajas de boosters + cartas promos)',
     //   imagenUrl: 'https://lairentcg.com.ar/assets/images/pacto/caja%202.png',
