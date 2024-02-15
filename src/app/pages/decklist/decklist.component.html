@@ -21,9 +21,10 @@
       <div class="container text-center">
         <h2 class="text-center display-text mt-4 mb-4">Importar decklist</h2>
         <div class="container">
-          <textarea [(ngModel)]="textoEntrada" class="textarea" placeholder="Pega la lista aquí"></textarea>
+          <textarea [(ngModel)]="textoEntrada" class="textarea" placeholder="Pega la lista aquí:"></textarea>
         </div>
-        <button (click)="procesarTexto()" class="btn btn-warning">Procesar</button>
+        <button (click)="mostrarFormato()" class="btn btn-primary m-2">Mostrar formato</button>
+        <button (click)="procesarTexto()" class="btn btn-warning m-2">Procesar</button>
 
         <h2 class="text-center display-text mt-4 mb-4">Buscador de cartas</h2>
 
@@ -275,3 +276,5 @@
 
 
   </div>
+
+
