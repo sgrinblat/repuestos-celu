@@ -74,6 +74,8 @@ export class DecklistComponent implements OnInit {
   costes: number[] = [];
   deck: Decklist;
 
+  nombresSubtipoUnicos: string[] = [];
+
   expansiones: Observable<Expansion[]>;
   rarezas: Rareza[] = [];
   tipos: Tipo[] = [];
@@ -2266,10 +2268,26 @@ export class DecklistComponent implements OnInit {
   obtenerCartas() {
     this.conexion.getTodasLasCartasOrdenadas().subscribe((dato) => {
       this.cartas = dato;
+
       this.costes = this.getUniqueCostesCartas(this.cartas);
       this.costes = this.costes.sort((a, b) => b - a);
+
+      this.nombresSubtipoUnicos = this.extraerNombresSubtipoUnicos(this.cartas);
+      const opcionesAEliminar = ["RAPIDA", "SAGRADO", "COMUN", undefined, "REALEZA"];
+      this.nombresSubtipoUnicos = this.nombresSubtipoUnicos.filter(opcion => !opcionesAEliminar.includes(opcion));
     });
   }
+
+  extraerNombresSubtipoUnicos(cartas: Carta[]): string[] {
+    const nombresSubtipo = new Set<string>();
+    cartas.forEach(carta => {
+      // Añadimos los nombres de subtipo de ambos campos a nuestro Set para garantizar unicidad
+      nombresSubtipo.add(carta.subtipo?.nombreSubTipo);
+      nombresSubtipo.add(carta.subtipo2?.nombreSubTipo);
+    });
+    return Array.from(nombresSubtipo);
+  }
+
 
   getUniqueCostesCartas(cartas: Carta[]): number[] {
     let costes: number[] = cartas.map((carta) => carta.costeCarta);
@@ -2432,6 +2450,28 @@ export class DecklistComponent implements OnInit {
     }
   }
 
+  mostrarFormato() {
+    Swal.fire({
+      icon: 'info',
+      title: 'Este es un ejemplo del formato para pegar una decklist:',
+      html: `
+        <strong>Reino:</strong> (total: 45)<br>
+        AGUA EN EL DESIERTO x4<br>
+        BALANZA DE CADAVERES x4<br>
+        <br>
+        <strong>Bóveda:</strong> (total: 15)<br>
+        BENDICION DEL ANGEL x1<br>
+        <br>
+        <strong>Side Deck:</strong> (total: 7)<br>
+        CIUDAD EN LLAMAS x1<br>
+      `,
+      background: '#2e3031',
+      color: '#fff',
+    });
+    return;
+  }
+
+
   guardarDecklist() {
 
     let sagrados: number = 0;
@@ -2466,6 +2506,7 @@ export class DecklistComponent implements OnInit {
       return;
     }
 
+
     let deck: Decklist = new Decklist();
     deck.reino = [];
     deck.boveda = [];
@@ -2493,24 +2534,98 @@ export class DecklistComponent implements OnInit {
       deck.sidedeck.push(deckListCarta);
     });
 
+    let opcionesHtml = '';
+    this.nombresSubtipoUnicos.forEach(opcion => {
+      opcionesHtml += `<option value="${opcion}">${opcion}</option>`;
+    });
+
     Swal.fire({
-      title:
-        'Guarda la URL de la imagen que quieres como portada para tu decklist (recomendamos usar un uploader de imagen como https://postimages.org',
-      input: 'text',
-      background: '#2e3031',
-      color: '#fff',
-      inputAttributes: {
-        autocapitalize: 'off',
-      },
+      title: 'Selecciona dos subtipos (si solo usas 1, en ambas opciones elige el mismo. Si tu mazo no tiene subtipos, cualquier opción es indiferente)',
+      html: `<select id="swal-input1">${opcionesHtml}</select>` +
+          `<select id="swal-input2">${opcionesHtml}</select>`,
       showCancelButton: true,
-      confirmButtonText: 'Guardar',
+      confirmButtonText: 'Confirmar',
       showLoaderOnConfirm: true,
-      allowOutsideClick: () => !Swal.isLoading(),
+      preConfirm: () => {
+        return new Promise((resolve) => {
+          // Simula una operación asíncrona, como una llamada a una API
+          setTimeout(() => {
+            const opcion1 = (document.getElementById('swal-input1') as HTMLSelectElement).value;
+            const opcion2 = (document.getElementById('swal-input2') as HTMLSelectElement).value;
+            resolve([opcion1, opcion2]);
+          }, 500);
+        });
+      }
     }).then((result) => {
-      if (result.isConfirmed) {
-        deck.portadaDecklist = result.value;
+      if (result.isConfirmed && result.value) {
+        const [opcion1, opcion2] = result.value as [string, string];
+        //console.log(`Opciones seleccionadas: ${opcion1}, ${opcion2}`);
+
+        const arraysParaRevisar = [this.reino, this.sidedeck];
+
+        for (const array of arraysParaRevisar) {
+          for (const carta of array) {
+            // Excepciones para ACCION y MONUMENTO sin subtipo2 definido
+
+            if ((carta.tipo.nombreTipo === "ACCION")) {
+              if(!carta.subtipo2) {
+                continue; // Ignoramos estas cartas según las reglas dadas
+              } else {
+                const subtipoAccion = opcion1.includes(carta.subtipo2?.nombreSubTipo) || opcion2.includes(carta.subtipo2?.nombreSubTipo);
+                if (!subtipoAccion) {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error en los subtipos',
+                    text: 'Se encontró al menos una carta que no coincide con los subtipos seleccionados.',
+                    background: '#2e3031',
+                    color: '#fff',
+                  });
+                  return; // Detenemos la función si encontramos una no coincidencia
+                }
+              }
+            }
+
+            if(carta.tipo.nombreTipo === "MONUMENTO") {
+              if(!carta.subtipo) {
+                continue; // Ignoramos estas cartas según las reglas dadas
+              } else {
+                const subtipoMonumento = opcion1.includes(carta.subtipo?.nombreSubTipo) || opcion2.includes(carta.subtipo?.nombreSubTipo);
+                if (!subtipoMonumento) {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error en los subtipos',
+                    text: 'Se encontró al menos una carta que no coincide con los subtipos seleccionados.',
+                    background: '#2e3031',
+                    color: '#fff',
+                  });
+                  return; // Detenemos la función si encontramos una no coincidencia
+                }
+              }
+            }
+
+            if ((carta.tipo.nombreTipo === "TESORO")) {
+              continue; // Ignoramos estas cartas según las reglas dadas
+            }
+
+            // Chequeo de subtipos
+            const subtipoCoincide = opcion1.includes(carta.subtipo?.nombreSubTipo) || opcion2.includes(carta.subtipo2?.nombreSubTipo)
+            || opcion1.includes(carta.subtipo2?.nombreSubTipo) || opcion2.includes(carta.subtipo.nombreSubTipo);
+            if (!subtipoCoincide) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error en los subtipos',
+                text: 'Se encontró al menos una carta que no coincide con los subtipos seleccionados.',
+                background: '#2e3031',
+                color: '#fff',
+              });
+              return; // Detenemos la función si encontramos una no coincidencia
+            }
+          }
+        }
+
         Swal.fire({
-          title: 'Pon un nombre para tu decklist)',
+          title:
+            'Guarda la URL de la imagen que quieres como portada para tu decklist (recomendamos usar un uploader de imagen como https://postimages.org',
           input: 'text',
           background: '#2e3031',
           color: '#fff',
@@ -2523,56 +2638,74 @@ export class DecklistComponent implements OnInit {
           allowOutsideClick: () => !Swal.isLoading(),
         }).then((result) => {
           if (result.isConfirmed) {
-            deck.nombreDecklist = result.value;
-            this.conexion.getUsuarioActual().subscribe((usuario: Usuario) => {
-              if (!this.banderaEdicion) {
-                this.conexion.crearDecklistJugador(deck, usuario.id).subscribe(
-                  (dato) => {
-                    Swal.fire({
-                      icon: 'success',
-                      title: 'Guardado!',
-                      text: `Tu decklist ${result.value} ha sido guardada.`,
-                      background: '#2e3031',
-                      color: '#fff',
-                    });
-                  },
-                  (error: HttpErrorResponse) => {
-                    Swal.fire({
-                      icon: 'error',
-                      title: 'Error!',
-                      text: error.error.mensaje,
-                      background: '#2e3031',
-                      color: '#fff',
-                    });
+            deck.portadaDecklist = result.value;
+            Swal.fire({
+              title: 'Pon un nombre para tu decklist)',
+              input: 'text',
+              background: '#2e3031',
+              color: '#fff',
+              inputAttributes: {
+                autocapitalize: 'off',
+              },
+              showCancelButton: true,
+              confirmButtonText: 'Guardar',
+              showLoaderOnConfirm: true,
+              allowOutsideClick: () => !Swal.isLoading(),
+            }).then((result) => {
+              if (result.isConfirmed) {
+                deck.nombreDecklist = result.value;
+                this.conexion.getUsuarioActual().subscribe((usuario: Usuario) => {
+                  if (!this.banderaEdicion) {
+                    this.conexion.crearDecklistJugador(deck, usuario.id).subscribe(
+                      (dato) => {
+                        Swal.fire({
+                          icon: 'success',
+                          title: 'Guardado!',
+                          text: `Tu decklist ${result.value} ha sido guardada.`,
+                          background: '#2e3031',
+                          color: '#fff',
+                        });
+                      },
+                      (error: HttpErrorResponse) => {
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Error!',
+                          text: error.error.mensaje,
+                          background: '#2e3031',
+                          color: '#fff',
+                        });
+                      }
+                    );
+                  } else {
+                    this.conexion.putDecklist(this.decklistId, deck).subscribe(
+                      (dato) => {
+                        Swal.fire({
+                          icon: 'success',
+                          title: 'Guardado!',
+                          text: `Tu decklist ${result.value} ha sido actualizada.`,
+                          background: '#2e3031',
+                          color: '#fff',
+                        });
+                      },
+                      (error) => {
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Error!',
+                          text: 'Algo salió mal',
+                          background: '#2e3031',
+                          color: '#fff',
+                        });
+                      }
+                    );
                   }
-                );
-              } else {
-                this.conexion.putDecklist(this.decklistId, deck).subscribe(
-                  (dato) => {
-                    Swal.fire({
-                      icon: 'success',
-                      title: 'Guardado!',
-                      text: `Tu decklist ${result.value} ha sido actualizada.`,
-                      background: '#2e3031',
-                      color: '#fff',
-                    });
-                  },
-                  (error) => {
-                    Swal.fire({
-                      icon: 'error',
-                      title: 'Error!',
-                      text: 'Algo salió mal',
-                      background: '#2e3031',
-                      color: '#fff',
-                    });
-                  }
-                );
+                });
               }
             });
           }
         });
       }
     });
+
   }
 
   repartirMano() {
@@ -2857,6 +2990,15 @@ grafico() {
       }
   });
 }
+
+
+
+crearHtmlParaDesplegables(opciones: string[]): string {
+  const opcionesHtml = opciones.map((opcion, index) => `<option value="${index}">${opcion}</option>`).join('');
+  return `<select id="swal-input1" class="swal2-input">${opcionesHtml}</select>` +
+         `<select id="swal-input2" class="swal2-input">${opcionesHtml}</select>`;
+}
+
 
 miGraficoDeTorta: Chart<'pie', number[], string> = null;
 
