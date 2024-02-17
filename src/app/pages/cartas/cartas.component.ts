@@ -106,11 +106,11 @@ export class CartasComponent implements OnInit {
     }
 
     if(this.contactForm.value.formularioCartaSubTipo2) {
-      this.carta.subtipo = this.contactForm.value.formularioCartaSubTipo2;
+      this.carta.subtipo2 = this.contactForm.value.formularioCartaSubTipo2;
     }
 
     if(this.contactForm.value.formularioCartaSubTipo3) {
-      this.carta.subtipo = this.contactForm.value.formularioCartaSubTipo3;
+      this.carta.subtipo3 = this.contactForm.value.formularioCartaSubTipo3;
     }
 
 
