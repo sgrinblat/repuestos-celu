@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Injectable, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CotizacionService } from './cotizacion.service';
@@ -40,7 +40,8 @@ interface Producto {
 @Component({
   selector: 'app-folleto',
   templateUrl: './folleto.component.html',
-  styleUrls: ['./folleto.component.css']
+  styleUrls: ['./folleto.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class FolletoComponent implements OnInit {
@@ -54,6 +55,11 @@ export class FolletoComponent implements OnInit {
   cotizacionCripto: CurrencyCripto;
   cotizacionMostrada: number = 0;
   pesoTotal: number = 0;
+  totalUnidades: number;
+  precioSinDescuento: number;
+  precioTotal: number;
+  textoDescuento: string;
+  textoGanancia: string;
 
 
   ngOnInit() {
@@ -76,6 +82,7 @@ export class FolletoComponent implements OnInit {
     //     }
     //   });
     // });
+
 
     this.codigo = prompt("Ingrese el código para ingresar a esta sección: ");
 
@@ -158,6 +165,18 @@ export class FolletoComponent implements OnInit {
     },
   ];
 
+
+  calcularTotales(): void {
+    // Cálculos que se almacenan en propiedades
+    this.totalUnidades = this.calcularTotalUnidades();
+    this.pesoTotal = this.calcularPesoTotal();
+
+    this.precioSinDescuento = this.calcularPrecioSinDescuento();
+    this.precioTotal = this.calcularPrecioTotal();
+    this.textoDescuento = this.obtenerTextoDescuento();
+    this.textoGanancia = this.obtenerTextoGanancia();
+  }
+
   calcularTotalUnidades(): number {
     return this.productos.reduce((acc, producto) => acc + (producto.cantidad || 0), 0);
   }
@@ -200,6 +219,17 @@ export class FolletoComponent implements OnInit {
     const descuento = this.obtenerDescuentoPorCantidad(totalUnidades);
     const descuentoPorcentaje = Math.round(descuento * 100);
     return descuento > 0 ? `${descuentoPorcentaje}% de descuento` : '';
+  }
+
+  obtenerTextoGanancia(): string {
+    const totalUnidades = this.calcularTotalUnidades();
+    const precioSinDescuento = this.productos.reduce((acc, producto) => acc + (producto.cantidad || 0) * producto.precioDolar, 0);
+    const descuento = this.obtenerDescuentoPorCantidad(totalUnidades);
+    const precioConDescuento = precioSinDescuento * (1 - descuento);
+    const gananciaVendedor = (precioSinDescuento - precioConDescuento);
+    let gananciaPorcentaje = (gananciaVendedor / precioConDescuento) * 100;
+    gananciaPorcentaje = Math.round(gananciaPorcentaje);
+    return descuento > 0 ? `${gananciaPorcentaje}% de ganancia` : '';
   }
 
 
