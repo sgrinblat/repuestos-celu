@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, Injectable, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CotizacionService } from './cotizacion.service';
+import { Jugador } from '../../../jugador';
+import { ConexionService } from '../../../service/conexion.service';
 
 interface CurrencyInfo {
   value_avg: number;
@@ -41,12 +43,11 @@ interface Producto {
   selector: 'app-folleto',
   templateUrl: './folleto.component.html',
   styleUrls: ['./folleto.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class FolletoComponent implements OnInit {
 
-  constructor(private router: Router, private httpClient: HttpClient, private cotizacionService: CotizacionService) {
+  constructor(private router: Router, private httpClient: HttpClient, private cotizacionService: CotizacionService, private conexion: ConexionService) {
 
   }
 
@@ -60,55 +61,43 @@ export class FolletoComponent implements OnInit {
   precioTotal: number;
   textoDescuento: string;
   textoGanancia: string;
+  jugadores: Jugador[];
 
 
   ngOnInit() {
 
-    // this.cotizacionService.getCotizaciones().subscribe(data => {
-    //   this.cotizaciones = data;
-
-    //   this.cotizacionService.getCotizacionesCripto().subscribe(data => {
-    //     this.cotizacionCripto = data;
-    //     this.cotizacionCripto.totalAsk += 20;
-
-    //     if(this.cotizacionCripto.totalAsk < 1000 && this.cotizaciones.blue.value_sell < 1000) {
-    //       this.cotizacionMostrada = 1000;
-    //     } else if(this.cotizacionCripto.totalAsk > this.cotizaciones.blue.value_sell) {
-    //       this.cotizacionMostrada = this.cotizacionCripto.totalAsk;
-    //       this.cotizacionMostrada += 10;
-    //     } else {
-    //       this.cotizacionMostrada = this.cotizaciones.blue.value_sell;
-    //       this.cotizacionMostrada += 10;
-    //     }
-    //   });
-    // });
-
+    this.conexion.getJugadoresPorPuntos().subscribe((dato) => {
+      this.jugadores = dato;
+      this.cotizacionMostrada = this.jugadores[18].puntosApertura;
+      console.log(this.jugadores[18])
+    });
 
     this.codigo = prompt("Ingrese el código para ingresar a esta sección: ");
 
     if(this.codigo !== "77511") {
       this.router.navigate(["/"]);
     } else {
-      this.cotizacionService.getCotizaciones().subscribe(data => {
-        this.cotizaciones = data;
 
-        this.cotizacionService.getCotizacionesCripto().subscribe(data => {
-          this.cotizacionCripto = data;
-          this.cotizacionCripto.totalAsk += 20;
+      // this.cotizacionService.getCotizaciones().subscribe(data => {
+      //   this.cotizaciones = data;
 
-          if(this.cotizacionCripto.totalAsk < 1000 && this.cotizaciones.blue.value_sell < 1000) {
-            this.cotizacionMostrada = 1000;
-          } else if(this.cotizacionCripto.totalAsk > this.cotizaciones.blue.value_sell) {
-            this.cotizacionMostrada = this.cotizacionCripto.totalAsk;
-            this.cotizacionMostrada += 10;
-          } else {
-            this.cotizacionMostrada = this.cotizaciones.blue.value_sell;
-            this.cotizacionMostrada += 10;
-          }
-        });
-      });
+      //   this.cotizacionService.getCotizacionesCripto().subscribe(data => {
+      //     this.cotizacionCripto = data;
+      //     this.cotizacionCripto.totalAsk += 20;
+
+      //     if(this.cotizacionCripto.totalAsk < 1000 && this.cotizaciones.blue.value_sell < 1000) {
+      //       this.cotizacionMostrada = 1000;
+      //     } else if(this.cotizacionCripto.totalAsk > this.cotizaciones.blue.value_sell) {
+      //       this.cotizacionMostrada = this.cotizacionCripto.totalAsk;
+      //       this.cotizacionMostrada += 10;
+      //     } else {
+      //       this.cotizacionMostrada = this.cotizaciones.blue.value_sell;
+      //       this.cotizacionMostrada += 10;
+      //     }
+      //   });
+      // });
+
     }
-
   }
 
   productos: Producto[] = [
