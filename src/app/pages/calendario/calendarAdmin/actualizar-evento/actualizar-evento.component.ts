@@ -50,7 +50,7 @@ export class ActualizarEventoComponent implements OnInit {
       this.calendarioForm.value.organizador = this.calendarioForm.value.organizador.toUpperCase();
 
       const nuevoEvento: Calendario = this.calendarioForm.value;
-      this.conexion.postEvento(nuevoEvento).subscribe(
+      this.conexion.putEvento(this.id, nuevoEvento).subscribe(
         respuesta => {
           console.log('Evento creado con éxito', respuesta);
           Swal.fire('Evento actualizado',`Ha sido un exito`, `success`);

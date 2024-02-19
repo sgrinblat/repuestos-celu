@@ -2281,12 +2281,18 @@ export class DecklistComponent implements OnInit {
   extraerNombresSubtipoUnicos(cartas: Carta[]): string[] {
     const nombresSubtipo = new Set<string>();
     cartas.forEach(carta => {
-      // Añadimos los nombres de subtipo de ambos campos a nuestro Set para garantizar unicidad
-      nombresSubtipo.add(carta.subtipo?.nombreSubTipo);
-      nombresSubtipo.add(carta.subtipo2?.nombreSubTipo);
+      if (carta.subtipo?.nombreSubTipo) {
+        nombresSubtipo.add(carta.subtipo.nombreSubTipo);
+      }
+      if (carta.subtipo2?.nombreSubTipo) {
+        nombresSubtipo.add(carta.subtipo2.nombreSubTipo);
+      }
     });
-    return Array.from(nombresSubtipo);
+
+    // Convertimos el Set a Array, filtramos los posibles valores undefined y ordenamos alfabéticamente
+    return Array.from(nombresSubtipo).filter(nombre => nombre !== undefined).sort();
   }
+
 
 
   getUniqueCostesCartas(cartas: Carta[]): number[] {

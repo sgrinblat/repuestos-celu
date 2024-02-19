@@ -104,7 +104,7 @@ export class ImageGeneratorComponent {
     } else if (cantidad > 19 && cantidad < 25) {
       contenedor.style.height = '700px';
     } else {
-      contenedor.style.height = '1000px';
+      contenedor.style.height = '600px';
     }
 
     contenedor.style.width = '1160px';
