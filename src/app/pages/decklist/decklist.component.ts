@@ -2591,6 +2591,12 @@ export class DecklistComponent implements OnInit {
               }
             }
 
+            if(carta.tipo.nombreTipo === "UNIDAD") {
+              if(carta.subtipo.nombreSubTipo === "MIMETICO") {
+                continue;
+              }
+            }
+
             if(carta.tipo.nombreTipo === "MONUMENTO") {
               if(!carta.subtipo) {
                 continue; // Ignoramos estas cartas según las reglas dadas
