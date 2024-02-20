@@ -59,8 +59,13 @@ export class FolletoComponent implements OnInit {
   totalUnidades: number;
   precioSinDescuento: number;
   precioTotal: number;
+
   textoDescuento: string;
-  textoGanancia: string;
+  textoGananciaPesos: string;
+  textoGananciaPorUnidadPesos: string;
+  textoGananciaPorUnidadDolar: string;
+  textoGananciaDolar: string;
+
   jugadores: Jugador[];
 
 
@@ -72,11 +77,11 @@ export class FolletoComponent implements OnInit {
       console.log(this.jugadores[18])
     });
 
-    this.codigo = prompt("Ingrese el código para ingresar a esta sección: ");
+    // this.codigo = prompt("Ingrese el código para ingresar a esta sección: ");
 
-    if(this.codigo !== "77511") {
-      this.router.navigate(["/"]);
-    } else {
+    // if(this.codigo !== "77511") {
+      // this.router.navigate(["/"]);
+    // } else {
 
       // this.cotizacionService.getCotizaciones().subscribe(data => {
       //   this.cotizaciones = data;
@@ -97,7 +102,7 @@ export class FolletoComponent implements OnInit {
       //   });
       // });
 
-    }
+    // }
   }
 
   productos: Producto[] = [
@@ -161,14 +166,25 @@ export class FolletoComponent implements OnInit {
     this.pesoTotal = this.calcularPesoTotal();
 
     this.precioSinDescuento = this.calcularPrecioSinDescuento();
-    this.precioTotal = this.calcularPrecioTotal();
-    this.textoDescuento = this.obtenerTextoDescuento();
-    this.textoGanancia = this.obtenerTextoGanancia();
+    this.precioTotal = this.calcularPrecioTotal(this.totalUnidades);
+
+    this.textoDescuento = this.obtenerTextoDescuento(this.totalUnidades);
+
+    this.textoGananciaPorUnidadPesos = this.obtenerTextoGananciaUnidadPesos(this.totalUnidades);
+    this.textoGananciaPorUnidadDolar = this.obtenerTextoGananciaUnidadDolar(this.totalUnidades);
+
+    this.textoGananciaDolar = this.obtenerTextoGananciaTotalDolar(this.totalUnidades);
+    this.textoGananciaPesos = this.obtenerTextoGananciaTotalPesos(this.totalUnidades);
   }
 
   calcularTotalUnidades(): number {
     return this.productos.reduce((acc, producto) => acc + (producto.cantidad || 0), 0);
   }
+
+  cantidadProductosConCantidad(): number {
+    return this.productos.filter(producto => producto.cantidad > 0).length;
+  }
+
 
   calcularPesoTotal() {
     return this.productos.reduce((acc, producto) => acc + (producto.cantidad || 0) * producto.peso, 0);
@@ -192,33 +208,55 @@ export class FolletoComponent implements OnInit {
     return this.productos.reduce((acc, producto) => acc + (producto.cantidad || 0) * producto.precioDolar, 0);
   }
 
-  calcularPrecioTotal(): number {
-    const totalUnidades = this.calcularTotalUnidades();
+  calcularPrecioTotal(cantidadUnidades: number): number {
     const precioSinDescuento = this.productos.reduce((acc, producto) => acc + (producto.cantidad || 0) * producto.precioDolar, 0);
 
-    const descuento = this.obtenerDescuentoPorCantidad(totalUnidades);
+    const descuento = this.obtenerDescuentoPorCantidad(cantidadUnidades);
     const precioConDescuento = precioSinDescuento * (1 - descuento);
 
     return precioConDescuento;
   }
 
 
-  obtenerTextoDescuento(): string {
-    const totalUnidades = this.calcularTotalUnidades();
-    const descuento = this.obtenerDescuentoPorCantidad(totalUnidades);
+  obtenerTextoDescuento(cantidadUnidades: number): string {
+    const descuento = this.obtenerDescuentoPorCantidad(cantidadUnidades);
     const descuentoPorcentaje = Math.round(descuento * 100);
-    return descuento > 0 ? `${descuentoPorcentaje}% de descuento` : '';
+    return descuento > 0 ? `${descuentoPorcentaje}% de descuento sobre el PVP` : '';
   }
 
-  obtenerTextoGanancia(): string {
-    const totalUnidades = this.calcularTotalUnidades();
+  obtenerTextoGananciaUnidadPesos(cantidadUnidades: number): string {
     const precioSinDescuento = this.productos.reduce((acc, producto) => acc + (producto.cantidad || 0) * producto.precioDolar, 0);
-    const descuento = this.obtenerDescuentoPorCantidad(totalUnidades);
+    const descuento = this.obtenerDescuentoPorCantidad(cantidadUnidades);
     const precioConDescuento = precioSinDescuento * (1 - descuento);
-    const gananciaVendedor = (precioSinDescuento - precioConDescuento);
-    let gananciaPorcentaje = (gananciaVendedor / precioConDescuento) * 100;
-    gananciaPorcentaje = Math.round(gananciaPorcentaje);
-    return descuento > 0 ? `${gananciaPorcentaje}% de ganancia` : '';
+    let gananciaVendedor = (precioSinDescuento - precioConDescuento);
+    gananciaVendedor = Math.round(gananciaVendedor * this.cotizacionMostrada) / cantidadUnidades;
+    return descuento > 0 ? `$${gananciaVendedor} de ganancia por unidad vendida` : '';
+  }
+
+  obtenerTextoGananciaUnidadDolar(cantidadUnidades: number): string {
+    const precioSinDescuento = this.productos.reduce((acc, producto) => acc + (producto.cantidad || 0) * producto.precioDolar, 0);
+    const descuento = this.obtenerDescuentoPorCantidad(cantidadUnidades);
+    const precioConDescuento = precioSinDescuento * (1 - descuento);
+    let gananciaVendedor = (precioSinDescuento - precioConDescuento);
+    gananciaVendedor = Math.round(gananciaVendedor) / cantidadUnidades;
+    return descuento > 0 ? `$${gananciaVendedor} USD de ganancia por unidad vendida` : '';
+  }
+
+  obtenerTextoGananciaTotalDolar(cantidadUnidades: number): string {
+    const precioSinDescuento = this.productos.reduce((acc, producto) => acc + (producto.cantidad || 0) * producto.precioDolar, 0);
+    const descuento = this.obtenerDescuentoPorCantidad(cantidadUnidades);
+    const precioConDescuento = precioSinDescuento * (1 - descuento);
+    const gananciaVendedor = Math.round((precioSinDescuento - precioConDescuento));
+    return descuento > 0 ? `$${gananciaVendedor} USD de ganancia en el total de la compra` : '';
+  }
+
+  obtenerTextoGananciaTotalPesos(cantidadUnidades: number): string {
+    const precioSinDescuento = this.productos.reduce((acc, producto) => acc + (producto.cantidad || 0) * producto.precioDolar, 0);
+    const descuento = this.obtenerDescuentoPorCantidad(cantidadUnidades);
+    const precioConDescuento = precioSinDescuento * (1 - descuento);
+    let gananciaVendedor = (precioSinDescuento - precioConDescuento);
+    gananciaVendedor = Math.round(gananciaVendedor * this.cotizacionMostrada);
+    return descuento > 0 ? `$${gananciaVendedor} de ganancia en el total de la compra` : '';
   }
 
 

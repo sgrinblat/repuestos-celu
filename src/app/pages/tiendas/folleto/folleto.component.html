@@ -1,10 +1,10 @@
 <div class="container mt-5">
   <h2 class="text-center">Folleto de productos</h2>
   <h4 class="text-center pt-2"> Dolar: ${{cotizacionMostrada}} </h4>
-  <p class="text-center pt-2 pb-2">Al comprar entre 3 a 6 unidades, recibirás un 30% de descuento sobre el precio final, lo que representa una ganancia del 43%. <b>Envío no incluido en esta opción de compra.</b></p>
-  <p class="text-center pt-2 pb-2">Al comprar entre 7 a 10 unidades, recibirás un 35% de descuento sobre el precio final, lo que representa una ganancia del 54%. <b>Envío no incluido en esta opción de compra.</b></p>
-  <p class="text-center pt-2 pb-2">Al comprar entre 11 a 79 unidades, recibirás un 40% de descuento sobre el precio final, lo que representa una ganancia del 67%.</p>
-  <p class="text-center pt-2 pb-2">Al comprar más de 80 unidades, recibirás un 45% de descuento sobre el precio final, lo que representa una ganancia del 82%.</p>
+  <p class="text-center pt-2 pb-2">Al comprar entre 3 a 6 unidades, recibirás un 30% de descuento sobre el precio final. <b>Envío no incluido en esta opción de compra.</b></p>
+  <p class="text-center pt-2 pb-2">Al comprar entre 7 a 10 unidades, recibirás un 35% de descuento sobre el precio final. <b>Envío no incluido en esta opción de compra.</b></p>
+  <p class="text-center pt-2 pb-2">Al comprar entre 11 a 79 unidades, recibirás un 40% de descuento sobre el precio final.</p>
+  <p class="text-center pt-2 pb-2">Al comprar más de 80 unidades, recibirás un 45% de descuento sobre el precio final.</p>
 
   <div class="table-responsive" >
     <table class="table table-bordered table-responsive-lg pt-2 ">
@@ -39,32 +39,56 @@
         <tr>
           <td colspan="3" class="text-right">Total Unidades:</td>
           <td>{{ pesoTotal | number }} kg</td>
-          <td>{{ totalUnidades }}</td>
+          <td>{{ textoDescuento }}</td>
+          <td>{{ totalUnidades }} unidades</td>
         </tr>
 
+        <tr *ngIf="cantidadProductosConCantidad() <= 1">
+          <div *ngIf="totalUnidades < 3; else showUnidadDolar">
 
-        <tr>
+          </div>
+          <ng-template #showUnidadDolar>
+            <td colspan="3" class="text-right">Precio por unidad <b>CON</b> descuento Dolar:</td>
+            <td>${{ (precioTotal) / totalUnidades | currency }}</td>
+            <td> <strong>{{ textoGananciaPorUnidadDolar }}</strong></td>
+          </ng-template>
+
+        </tr>
+
+        <tr *ngIf="cantidadProductosConCantidad() <= 1">
+          <div *ngIf="totalUnidades < 3; else showUnidadPesos">
+
+          </div>
+          <ng-template #showUnidadPesos>
+            <td colspan="3" class="text-right">Precio por unidad <b>CON</b> descuento Pesos:</td>
+            <td>${{ (precioTotal * cotizacionMostrada) / totalUnidades | currency:'ARS':'symbol':'1.2-2' }}</td>
+            <td> <strong>{{ textoGananciaPorUnidadPesos }}</strong></td>
+          </ng-template>
+
+        </tr>
+
+        <!-- <tr>
 
           <div *ngIf="totalUnidades < 3; else showTotalSinDescuentoDolar">
 
           </div>
           <ng-template #showTotalSinDescuentoDolar>
-            <td colspan="3" class="text-right">Precio <b>SIN</b> descuento Dolar:</td>
+            <td colspan="3" class="text-right">Total <b>SIN</b> descuento Dolar:</td>
             <td>{{ precioSinDescuento | currency }}</td>
           </ng-template>
 
-        </tr>
+        </tr> -->
 
-        <tr>
+        <!-- <tr>
           <div *ngIf="totalUnidades < 3; else showTotalSinDescuentoPesos">
 
           </div>
           <ng-template #showTotalSinDescuentoPesos>
-            <td colspan="3" class="text-right">Precio <b>SIN</b> descuento Pesos:</td>
+            <td colspan="3" class="text-right">Total <b>SIN</b> descuento Pesos:</td>
             <td>${{ precioSinDescuento * cotizacionMostrada | currency:'ARS':'symbol':'1.2-2' }}</td>
           </ng-template>
 
-        </tr>
+        </tr> -->
 
 
         <tr>
@@ -73,10 +97,9 @@
             <p>El pedido mínimo es de 3 unidades</p>
           </div>
           <ng-template #showTotal>
-            <td colspan="3" class="text-right">Precio <b>CON</b> descuento Dolar:</td>
+            <td colspan="3" class="text-right">Total <b>CON</b> descuento Dolar:</td>
             <td>{{ precioTotal | currency }}</td>
-            <td>{{ textoDescuento }}</td>
-            <td><strong>{{ textoGanancia }}</strong></td>
+            <td><strong>{{ textoGananciaDolar }}</strong></td>
           </ng-template>
 
         </tr>
@@ -86,13 +109,13 @@
 
           </div>
           <ng-template #showTotalPesos>
-            <td colspan="3" class="text-right">Precio <b>CON</b> descuento Pesos:</td>
+            <td colspan="3" class="text-right">Total <b>CON</b> descuento Pesos:</td>
             <td>${{ precioTotal * cotizacionMostrada | currency:'ARS':'symbol':'1.2-2' }}</td>
-            <td>{{ textoDescuento }}</td>
-            <td> <strong>{{ textoGanancia }}</strong></td>
+            <td> <strong>{{ textoGananciaPesos }}</strong></td>
           </ng-template>
 
         </tr>
+
 
       </tfoot>
 
