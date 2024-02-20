@@ -50,7 +50,7 @@
           <ng-template #showUnidadDolar>
             <td colspan="3" class="text-right">Precio por unidad <b>CON</b> descuento Dolar:</td>
             <td>${{ (precioTotal) / totalUnidades | currency }}</td>
-            <td> <strong>{{ textoGananciaPorUnidadDolar }}</strong></td>
+            <td> <strong>{{ textoGananciaPorUnidadDolar | currency }}  USD de ganancia por unidad vendida</strong></td>
           </ng-template>
 
         </tr>
@@ -62,7 +62,7 @@
           <ng-template #showUnidadPesos>
             <td colspan="3" class="text-right">Precio por unidad <b>CON</b> descuento Pesos:</td>
             <td>${{ (precioTotal * cotizacionMostrada) / totalUnidades | currency:'ARS':'symbol':'1.2-2' }}</td>
-            <td> <strong>{{ textoGananciaPorUnidadPesos }}</strong></td>
+            <td> <strong>{{ textoGananciaPorUnidadPesos | currency:'ARS':'symbol':'1.2-2' }}  de ganancia por unidad vendida</strong></td>
           </ng-template>
 
         </tr>
@@ -99,7 +99,7 @@
           <ng-template #showTotal>
             <td colspan="3" class="text-right">Total <b>CON</b> descuento Dolar:</td>
             <td>{{ precioTotal | currency }}</td>
-            <td><strong>{{ textoGananciaDolar }}</strong></td>
+            <td><strong>{{ textoGananciaDolar | currency }} USD de ganancia en el total de la compra</strong></td>
           </ng-template>
 
         </tr>
@@ -111,7 +111,7 @@
           <ng-template #showTotalPesos>
             <td colspan="3" class="text-right">Total <b>CON</b> descuento Pesos:</td>
             <td>${{ precioTotal * cotizacionMostrada | currency:'ARS':'symbol':'1.2-2' }}</td>
-            <td> <strong>{{ textoGananciaPesos }}</strong></td>
+            <td> <strong>{{ textoGananciaPesos | currency:'ARS':'symbol':'1.2-2' }} de ganancia en el total de la compra</strong></td>
           </ng-template>
 
         </tr>
