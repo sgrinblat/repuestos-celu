@@ -5,76 +5,108 @@
     <div class="align-items-center gy-4 row">
       <div class="col-lg-12 text-center textos pb-4">
         <h1 class="display-3 fw-bold text-uppercase titulo-inicial text-white">Juego organizado</h1>
-        <p class="lead mb-4 text-white pe-sm-5 parrafo">Podes ver cómo jugar, el ranking y noticias sobre los torneos!</p>
+        <p class="lead mb-4 text-white pe-sm-5 parrafo">¿De qué manera se compite en Lairen?</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="fondo-gris text-center pb-5 text-white">
+<section id="nuestra-experiencia" class="bg-dark pb-5 pt-5">
+  <div class="container pb-5 pt-5">
 
-  <div class="container pt-4 pb-4">
-    <div class="text-center mt-4 mb-4">
-      <h2>Hace click en una opción para conocer más info!</h2>
-      <hr>
-    </div>
+    <div class="align-items-center g-4 row">
+      <div data-aos="fade-up" data-aos-offset="10" data-aos-duration="1000" data-aos-easing="ease-in-out"
+        data-aos-anchor-placement="top-center" class="col-lg-5 me-auto ms-auto pb-lg-5 scroll-right">
+        <h2 class="h6 text-uppercase text-white">Formato Dominación</h2>
+        <h3 class="h1 text-dark text-white">Este es el lugar idóneo para competir</h3>
+        <p class="lead mb-4 text-white">El Formato Dominación es el formato actual de Lairen, donde se juegan todos los sets más nuevos del juego. En este formato, siempre habrá 5 expansiones con vida. Al momento de entrar lo que sería la sexta expansión, rotaría del formato la expansión más antigua de ese momento, haciendo que siempre sean 5 los sets legales para construir nuestro mazo.
+          Las expansiones salen cada 4 o 5 meses, por lo que cada set tiene un periodo de 20 meses de legalidad en Dominación.
+        </p>
+      </div>
+      <div class="col-lg-6 mb-lg-n4 order-lg-first pe-lg-4 text-center scroll-left">
+        <img alt="carta" src="https://i.postimg.cc/XYtqyx6d/6.jpg" class="img-fluid cartas" />
+      </div>
 
-
-    <div class="container text-center text-white pt-4">
-      <div class="row justify-content-center">
-
-        <div class="col-12 col-sm-6 col-lg-4 mb-4 d-flex justify-content-between">
-          <div (click)="irTutorial()" class="portadaDeck">
-            <img src="https://i.postimg.cc/vTkdYrVv/Vidente-del-mar.jpg">
-            <div class="overlay"></div>
-            <div class="text-container">
-              <h4>¿Cómo jugar?</h4>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-lg-4 mb-4 d-flex justify-content-between">
-          <div (click)="irDecklists()" class="portadaDeck">
-            <img src="https://i.postimg.cc/W3F1V1Dg/Phill-mejor-amigo.png">
-            <div class="overlay"></div>
-            <div class="text-container">
-              <h4>Decklists</h4>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-lg-4 mb-4 d-flex justify-content-between">
-          <div (click)="banderaRankingLiga()" class="portadaDeck">
-            <img routerLink="/ranking-liga" src="https://i.postimg.cc/130QpNFv/Brisa-dansante.png">
-            <div class="overlay"></div>
-            <div class="text-container">
-              <h4>Ranking de LIGA</h4>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-lg-4 mb-4">
-          <div (click)="banderaRankingApertura()" class="portadaDeck">
-            <img routerLink="/ranking-apertura" src="https://i.postimg.cc/PqtkKrzT/Drake-el-veterano.jpg">
-            <div class="overlay"></div>
-            <div class="text-container">
-              <h4>Ranking de Apertura</h4>
-            </div>
-          </div>
-        </div>
-
+      <div data-aos="fade-up" data-aos-offset="10" data-aos-duration="1000" data-aos-easing="ease-in-out"
+        data-aos-anchor-placement="top-center" class="col-lg-5 me-auto ms-auto pt-lg-5 scroll-left">
+        <h2 class="h6 text-uppercase text-white mt-3">Formato Ethernal</h2>
+        <h3 class="h1 text-dark text-white">Dónde todo es válido para jugar
+        </h3>
+        <p class="lead mb-4 text-white">Cuando las expansiones rotan y ya no son legales en Dominación, pasan a ser parte del universo de Ethernal. Un formato donde todos los sets son legales para seguir jugando con ellos. Naturalmente, las combinaciones que se podrán hacer en este formato serán mucho más fuertes y poderosas. Ideal para seguir jugando con tus cartas más antiguas. ¡Nada es desperdicio!</p>
+      </div>
+      <div class="col-lg-6 mt-lg-n4 ps-lg-4 text-center scroll-right">
+        <img alt="carta" src="https://i.postimg.cc/mDNvLsmk/12.png" class="img-fluid cartas" />
       </div>
     </div>
 
+    <div class="align-items-center mt-3 g-4 row">
+      <div data-aos="fade-up" data-aos-offset="10" data-aos-duration="1000" data-aos-easing="ease-in-out"
+        data-aos-anchor-placement="top-center" class="col-lg-5 me-auto ms-auto pb-lg-5 scroll-right">
+        <h2 class="h6 text-uppercase text-white">Formato Alianza</h2>
+        <h3 class="h1 text-dark text-white">Porqué aliarte con otro general siempre es una estrategia válida
+        </h3>
+        <p class="lead mb-4 text-white">El formato Alianza propone un desafío distinto al convencional 1 vs 1. En Alianza, se juega 2 vs 2, por lo que será muy importante tener una excelente comunicación con tu compañero para alcanzar la victoria. Este es un formato todavía en construcción y definición final de sus reglas de juego.</p>
+      </div>
+      <div class="col-lg-6 mb-lg-n4 order-lg-first pe-lg-4 text-center scroll-left">
+        <img alt="carta" src="https://i.postimg.cc/VLq05zxt/111.jpg" class="img-fluid cartas" />
+      </div>
+
+      <div data-aos="fade-up" data-aos-offset="10" data-aos-duration="1000" data-aos-easing="ease-in-out"
+        data-aos-anchor-placement="top-center" class="col-lg-5 me-auto ms-auto pt-lg-5 scroll-left">
+        <h2 class="h6 text-uppercase text-white mt-3">BANLIST</h2>
+        <h3 class="h1 text-dark text-white">Ciertos poderes no deberían ser usados por nadie
+        </h3>
+        <p class="lead mb-4 text-white">La prohibición de cartas es un factor esencial de vez en cuando. De lo contrario, es imposible asegurar la salud y bienestar del juego. Entonces son las cartas prohibidas actualmente: <br><br>
+          Formato Dominación:<br>
+          -Iris, Ecos Eternos<br>
+          -Prisionero de guerra<br>
+          -Multiplicar los panes<br>
+          <br><br>
+          Formato Ethernal:<br>
+          -<br>
+          <br><br>
+          Formato Alianza:<br>
+          -<br>
+          <br><br>
+        </p>
+      </div>
+      <div class="col-lg-6 mt-lg-n4 ps-lg-4 text-center scroll-right">
+        <img alt="carta" src="https://i.postimg.cc/6pdVfnnw/122.jpg" class="img-fluid cartas" />
+      </div>
+
+      <br><br>
+
+      <div data-aos="fade-down" data-aos-offset="10" data-aos-duration="1000" data-aos-easing="ease-in-out"
+        data-aos-anchor-placement="top-center" class="col-lg-12 me-auto ms-auto pb-lg-5 scroll-right">
+        <h2 class="h6 text-uppercase text-white">Estructura competitiva</h2>
+        <h3 class="h1 text-dark text-white">¿Y de qué forma competis en Lairen?
+        </h3>
+        <p class="lead mb-4 text-white">La mayoría de las tiendas tienen torneos casuales y ligas propias. Sin embargo, Lairen encabeza su propio sistema de torneos que permitirá a los generales aspirar a la grandeza. De esta manera, es como un jugador puede ir escalando en un ambicioso escenario competitivo que lo pondrá a prueba: <br>
+          <strong>Store Tournament - Torneo de Tienda Clasificatorio</strong> <br>
+          En estos torneos, un general podrá obtener la clasificación al Season Tournament - Torneo de temporada, al alcanzar el Top 1 o Top 2 del mismo, además de todos los premios que tenga el torneo. <br> <br>
+          <strong>Season Tournament - Torneo de Temporada</strong> <br>
+          Aquí ya alcanzamos un gran nivel. Los generales clasificados tendrán la entrada gratuita al torneo de temporada que se hará por región. Estos torneos se realizarán cada 4 meses, por lo que habrá 3 por año. Si no estás clasificado, igualmente podrás anotarte al pagar la inscripción al mismo. Como podrán imaginarse, los premios a obtener en esa instancia son muy deseables! <br> <br>
+          <strong>Nacional Tournament - El Nacional </strong> <br>
+          Y este es el lugar al que todos los generales competitivos buscarán llegar. Al torneo Nacional solo se puede clasificar al haber alcanzado el Top 8 de algún Season Tournament. No se puede participar de otra manera que no sea a través de dicha clasificación. Solo habrá un torneo Nacional al año y sus premios serán una locura!
+        </p>
+      </div>
+
+      <div data-aos="fade-up" data-aos-offset="10" data-aos-duration="1000" data-aos-easing="ease-in-out"
+      data-aos-anchor-placement="top-center" class="mt-3 mb-2" >
+        <div class="row" >
+          <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+            <img alt="mazo" src="../../../../assets/images/store torneo.png" class="img-fluid" />
+          </div>
+          <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+            <img alt="mazo" src="../../../../assets/images/season torneo.png" class="img-fluid" />
+          </div>
+          <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+            <img alt="mazo" src="../../../../assets/images/nacional tournament.png" class="img-fluid" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </div>
-</section>
-
-
-<section class="fondo-grisdiferente">
-
-  <!-- <app-entradas-fechas-torneo *ngIf="banderaCalendario"></app-entradas-fechas-torneo> -->
-  <app-entradas-decklists-jugadores *ngIf="banderaDecklist"></app-entradas-decklists-jugadores>
-  <app-ranking-liga *ngIf="rankingLiga"></app-ranking-liga>
-  <app-ranking-apertura *ngIf="rankingApertura"></app-ranking-apertura>
-
 </section>

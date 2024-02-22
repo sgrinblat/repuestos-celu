@@ -81,10 +81,10 @@ const routes: Routes = [
       path: "calendario",
       component: CalendarioComponent
     },
-    // {
-    //   path: "juego-organizado",
-    //   component: JuegoOrganizadoComponent
-    // },
+    {
+      path: "juego-organizado",
+      component: JuegoOrganizadoComponent
+    },
     // {
     //   path: "juego-organizado/ranking-liga",
     //   component: RankingLigaComponent
