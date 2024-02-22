@@ -87,7 +87,7 @@ const routes: Routes = [
     },
     // {
     //   path: "juego-organizado/ranking-liga",
-    //   component: RankingLigaComponent
+    //   component: RankingLigaComponenta
     // },
     // {
     //   path: "juego-organizado/ranking-apertura",
