@@ -5,9 +5,8 @@
     <div class="align-items-center gy-4 row">
 
       <div class="col-lg-6 pb-4">
-        <h1 class="display-3 fw-bold text-uppercase titulo-inicial text-white">Bienvenido al desafío</h1>
-        <p class="lead mb-4 text-white pe-sm-5 parrafo">Lairen es un TCG argentino creado por jugadores apasionados a
-          los juegos de cartas y de mesa. Te invitamos a que nos conozcas!</p>
+        <h1 class="display-3 fw-bold text-uppercase titulo-inicial text-white">Bienvenido al desafío, general</h1>
+        <p class="lead mb-4 text-white pe-sm-5 parrafo">Lairen es un juego de cartas intercambiables estratégico creado por jugadores apasionados de los juegos de cartas y de mesa. Te invitamos a que nos conozcas!</p>
       </div>
 
       <div class="col-lg-6 perspectiva">
@@ -19,13 +18,22 @@
             <img src="../../../assets/images/ciudad.webp" class="dorso" alt="carta de lairen">
           </div>
           <div *ngIf="randomNumber == 2" class="frente-carta">
-            <img src="../../../assets/images/afmid.webp" class="dorso" alt="carta de lairen">
+            <img src="../../../assets/images/liderdelamanada.webp" class="dorso" alt="carta de lairen">
           </div>
           <div *ngIf="randomNumber == 3" class="frente-carta">
             <img src="../../../assets/images/bendicion2.webp" class="dorso" alt="carta de lairen">
           </div>
+          <div *ngIf="randomNumber == 4" class="frente-carta">
+            <img src="../../../assets/images/saribdemonio.webp" class="dorso" alt="carta de lairen">
+          </div>
           <div *ngIf="randomNumber == 5" class="frente-carta">
-            <img src="../../../assets/images/sarib.webp" class="dorso" alt="carta de lairen">
+            <img src="../../../assets/images/incubadoraethernal.webp" class="dorso" alt="carta de lairen">
+          </div>
+          <div *ngIf="randomNumber == 6" class="frente-carta">
+            <img src="../../../assets/images/discipulo.webp" class="dorso" alt="carta de lairen">
+          </div>
+          <div *ngIf="randomNumber == 7" class="frente-carta">
+            <img src="../../../assets/images/urlamok.webp" class="dorso" alt="carta de lairen">
           </div>
         </div>
       </div>

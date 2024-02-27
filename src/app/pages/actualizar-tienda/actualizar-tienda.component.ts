@@ -34,6 +34,8 @@ export class ActualizarTiendaComponent implements OnInit {
       formularioTiendaLogo: ['', [Validators.required, Validators.minLength(3)]],
       formularioTiendaMapa: ['', [Validators.required, Validators.minLength(3)]],
       formularioTiendaDireccion: ['', [Validators.required, Validators.minLength(3)]],
+      formularioTiendaProvincia: ['', [Validators.required, Validators.minLength(3)]],
+      formularioTiendaPais: ['', [Validators.required, Validators.minLength(3)]],
       formularioTiendaUrl: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
@@ -62,11 +64,11 @@ export class ActualizarTiendaComponent implements OnInit {
   actualizar() {
     this.tienda.nombreTienda = this.contactForm.value.formularioTiendaNombre;
     this.tienda.nombreTienda = this.tienda.nombreTienda.toUpperCase();
-    this.tienda.nombreTienda = this.contactForm.value.formularioTiendaNombre;
-    this.tienda.nombreTienda = this.tienda.nombreTienda.toUpperCase();
     this.tienda.logoTienda = this.contactForm.value.formularioTiendaLogo;
     this.tienda.mapaTienda = this.contactForm.value.formularioTiendaMapa;
     this.tienda.direccionTienda = this.contactForm.value.formularioTiendaDireccion;
+    this.tienda.provinciaTienda = this.contactForm.value.formularioTiendaProvincia.toUpperCase();
+    this.tienda.paisTienda = this.contactForm.value.formularioTiendaPais.toUpperCase();
     this.tienda.urlTienda = this.contactForm.value.formularioTiendaUrl;
 
     this.conexion.putTienda(this.id, this.tienda).subscribe((dato) => {

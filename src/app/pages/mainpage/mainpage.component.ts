@@ -36,7 +36,7 @@ export class MainpageComponent implements OnInit {
     }
 
     //this.posts$ = from(this.contentfulService.getBlogEntriesByCategoryAndOnlyThree("noticia"));
-    this.randomNumber = Math.floor(Math.random() * 5) + 1;
+    this.randomNumber = Math.floor(Math.random() * 7) + 1;
   }
 
   verEntrada(id: number) {
