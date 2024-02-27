@@ -5,4 +5,6 @@ export class Tienda {
   logoTienda!: string;
   mapaTienda!: string;
   urlTienda!: string;
+  provinciaTienda!: string;
+  paisTienda!: string;
 }

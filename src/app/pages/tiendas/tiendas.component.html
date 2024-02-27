@@ -19,9 +19,45 @@
 
   <div class="container text-center text-white">
     <div class="row justify-content-center">
-      <div *ngFor="let tienda of tiendas" class="col-12 col-sm-9 col-lg-4 col-xl-4 mb-4">
+      <div class="col-12 col-sm-6 col-lg-4 mb-4 d-flex justify-content-between" (click)="mostrarTiendasPorPais('ARGENTINA')">
+        <div class="portadaDeck">
+          <img src="../../../assets/images/flagargentina.webp">
+          <div class="overlay"></div>
+          <div class="text-container">
+            <h4>Argentina</h4>
+          </div>
+        </div>
+      </div>
 
-        <div >
+      <!-- <div class="col-12 col-sm-6 col-lg-4 mb-4" (click)="mostrarTiendasPorPais('MEXICO')">
+        <div class="portadaDeck">
+          <img src="../../../assets/images/flagmexico.webp">
+          <div class="overlay"></div>
+          <div class="text-container">
+            <h4>México</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-lg-4 mb-4" (click)="mostrarTiendasPorPais('COSTA RICA')">
+        <div class="portadaDeck">
+          <img src="../../../assets/images/flagcostarica.webp">
+          <div class="overlay"></div>
+          <div class="text-container">
+            <h4>Costa Rica</h4>
+          </div>
+        </div>
+      </div> -->
+
+    </div>
+  </div>
+
+
+  <div class="container text-center text-white">
+    <div *ngIf="tiendasSeleccionadas" class="row justify-content-center mt-3 ">
+      <h2>TIENDAS DE {{tiendasSeleccionadas[0].paisTienda}} </h2>
+      <div *ngFor="let tienda of tiendasSeleccionadas"  class="col-12 col-sm-9 col-lg-4 col-xl-4 mt-5 mb-4">
+        <div>
           <img (click)="mostrarDatosTienda(tienda)" width="300" [alt]="tienda.nombreTienda" [src]=tienda.logoTienda>
         </div>
 

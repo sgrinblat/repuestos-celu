@@ -21,6 +21,8 @@ SwiperCore.use([Pagination, Navigation]);
 export class TiendasComponent {
 
   tiendas!: Tienda[];
+  tiendasPorPais!: Tienda[];
+  tiendasSeleccionadas!: Tienda[];
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private conexion: ConexionService) { }
 
@@ -33,10 +35,9 @@ export class TiendasComponent {
   }
 
   obtenerTiendas() {
-    this.conexion.getTodasLasTiendas().subscribe((dato) => {
-      this.tiendas = dato;
+    this.conexion.getTodasLasTiendas().subscribe((datos) => {
+      this.tiendasPorPais = datos.flat();
     });
-
   }
 
   mostrarDatosTienda(tienda: Tienda) {
@@ -59,6 +60,13 @@ export class TiendasComponent {
       }
     })
   }
+
+  mostrarTiendasPorPais(pais: string) {
+    this.tiendasSeleccionadas = this.tiendasPorPais.filter(tienda => tienda.paisTienda === pais);
+  }
+
+
+
 
   onImageLoad(event: Event) {
     const imageElement = event.target as HTMLImageElement;

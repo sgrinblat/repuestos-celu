@@ -66,10 +66,39 @@
               {{contactForm.get('formularioTiendaDireccion')?.errors?.['minlength'].requiredLength}} letras</div>
           </div>
 
+          <div class="m-4">
+            <label class="form-label display-text" for="formularioTiendaProvincia">Provincia o ciudad</label><br>
+            <input [ngModel]="tienda.provinciaTienda" formControlName="formularioTiendaProvincia" name="formularioTiendaProvincia"
+              [class.is-invalid]="contactForm.get('formularioTiendaProvincia').invalid && contactForm.get('formularioTiendaProvincia').touched"
+              type="text" id="formularioTiendaProvincia" class="formulario-input bg-light form-control "
+              formControlName="formularioTiendaProvincia" required />
+            <div
+              *ngIf="contactForm.get('formularioTiendaProvincia')?.touched && contactForm.get('formularioTiendaProvincia')?.errors?.['required'] "
+              class="alert alert-danger formulario-error text-center mt-3">*El campo de Provincia es obligatorio</div>
+            <div
+              *ngIf="contactForm.get('formularioTiendaProvincia')?.touched && contactForm.get('formularioTiendaProvincia')?.errors?.['minlength'] "
+              class="alert alert-danger formulario-error mt-3">*El campo de Provincia debe contener al menos
+              {{contactForm.get('formularioTiendaProvincia')?.errors?.['minlength'].requiredLength}} letras</div>
+          </div>
+
+          <div class="m-4">
+            <label class="form-label display-text" for="formularioTiendaPais">País</label><br>
+            <input [ngModel]="tienda.paisTienda" formControlName="formularioTiendaPais" name="formularioTiendaPais"
+              [class.is-invalid]="contactForm.get('formularioTiendaPais').invalid && contactForm.get('formularioTiendaPais').touched"
+              type="text" id="formularioTiendaPais" class="formulario-input bg-light form-control "
+              formControlName="formularioTiendaPais" required />
+            <div
+              *ngIf="contactForm.get('formularioTiendaPais')?.touched && contactForm.get('formularioTiendaPais')?.errors?.['required'] "
+              class="alert alert-danger formulario-error text-center mt-3">*El campo de Pais es obligatorio</div>
+            <div
+              *ngIf="contactForm.get('formularioTiendaPais')?.touched && contactForm.get('formularioTiendaPais')?.errors?.['minlength'] "
+              class="alert alert-danger formulario-error mt-3">*El campo de Pais debe contener al menos
+              {{contactForm.get('formularioTiendaPais')?.errors?.['minlength'].requiredLength}} letras</div>
+          </div>
 
           <div class="m-4">
             <label class="form-label display-text" for="formularioTiendaUrl">Url (web o red social)</label><br>
-            <input formControlName="formularioTiendaUrl" name="formularioTiendaUrl"
+            <input [ngModel]="tienda.urlTienda" formControlName="formularioTiendaUrl" name="formularioTiendaUrl"
               [class.is-invalid]="contactForm.get('formularioTiendaUrl').invalid && contactForm.get('formularioTiendaUrl').touched"
               type="text" id="formularioTiendaUrl" class="formulario-input bg-light form-control "
               formControlName="formularioTiendaUrl" required />
