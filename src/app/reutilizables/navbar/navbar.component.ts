@@ -1,8 +1,6 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConexionService } from 'src/app/service/conexion.service';
-import { JugadorGuard } from 'src/app/service/jugador.guard';
-import { Usuario } from 'src/app/usuario';
+
 import Swal from 'sweetalert2';
 
 
@@ -13,24 +11,24 @@ import Swal from 'sweetalert2';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor( private renderer2 : Renderer2, private conexion: ConexionService, private route: Router) { }
+  constructor( private renderer2 : Renderer2, private route: Router) { }
 
   ngOnInit() {
   }
 
-  verElemento() {
-    if(this.conexion.sesionIniciadaJugador()){
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // verElemento() {
+  //   if(this.conexion.sesionIniciadaJugador()){
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
-  cerrarSesion() {
-    this.conexion.deslogear();
-    Swal.fire('Sesión cerrada',`Esperamos verte pronto!`, `info`);
-    this.route.navigate(['']);
-  }
+  // cerrarSesion() {
+  //   this.conexion.deslogear();
+  //   Swal.fire('Sesión cerrada',`Esperamos verte pronto!`, `info`);
+  //   this.route.navigate(['']);
+  // }
 
   @ViewChild('dropdownMenu', { static: false }) dropdownMenu: ElementRef;
 

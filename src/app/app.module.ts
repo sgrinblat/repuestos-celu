@@ -11,11 +11,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ReutilizablesModule } from './reutilizables/reutilizables.module';
 import { PagesModule } from './pages/pages.module';
-import { authInterceptorProviders } from './service/auth.interceptor';
-import { RedirectGuard } from './redirectGuard';
+
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
-import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
+
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { NavigationEnd, Router } from '@angular/router';
 
@@ -38,15 +37,13 @@ registerLocaleData(localeEs);
     ReutilizablesModule,
     LazyLoadImageModule,
     PagesModule,
-    NgxGoogleAnalyticsModule.forRoot('G-D3J1EYLZBS'),
-    NgxGoogleAnalyticsRouterModule
   ],
   exports: [
     ReactiveFormsModule,
     FormsModule,
 
   ],
-  providers: [authInterceptorProviders, RedirectGuard],
+  providers: [],
   bootstrap: [AppComponent]
 })
 

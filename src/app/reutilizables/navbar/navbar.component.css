@@ -1,120 +1,55 @@
-.top-5 {
-  top: 5px;
+body {
+  background-color: #eaeaea;
 }
 
-.fondo-header {
-  background-color: #212529;
+.container {
+  display: flex;
+  flex-direction: column; /* Cambia la dirección del flex a columna para apilar los elementos */
+  align-items: center; /* Centra los elementos horizontalmente */
 }
 
-.navbar-nav:hover {
-  cursor: pointer;
-}
-
-a {
-  font-size: 17px;
-}
-
-a:hover {
-  color: #f8a724 !important;
-  font-weight: bold;
-}
-
-a .sesion{
-  color: #f8a724;
-  font-weight: bold;
-}
-
-a span:hover{
-  color: #fff !important;
-}
-
-.logo {
-  max-height: 60px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.logo:hover {
-  filter: invert(15%);
-}
-
-.custom-dropdown-menu {
-  display: none;
-  position: absolute;
+.logo-and-icons {
   width: 100%;
-  left: 0;
-  background-color: #212529;  /* Mismo color que el navbar */
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.dropdown-item {
-  padding: 8px 16px;
-  display: block;
-  white-space: nowrap;
-  color: white;
-  text-decoration: none;
+.search-input-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-.dropdown-item:hover {
-  background-color: #f8a724;
+.search-input {
+  position: relative;
+  max-width: 500px;
 }
 
-.dropdown-item:hover span {
-  color: #ffffff;
+.search-input input {
+  width: 100%;
+  padding-right: 40px; /* Asegura espacio para el ícono de la lupa */
 }
 
-
-.yellow-divider {
-  background-color: #f8a724;  /* color amarillo */
-  height: 4px;                /* grosor de la línea */
-  width: 100%;                /* ancho completo de la pantalla */
-  transition: opacity 0.3s ease; /* transición suave */
-  opacity: 0;                 /* por defecto, la línea está oculta */
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-/* Cuando isDropdownVisible es verdadero, esta clase se aplica y muestra la línea */
-.yellow-divider {
-  opacity: 1;
+.nav-links-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-/* En dispositivos móviles */
-@media (max-width: 992px) {
-  .custom-dropdown-menu .dropdown-group {
-      display: none;
-  }
-  .custom-dropdown-menu .dropdown-group.active {
-      display: block;
-  }
+.navbar-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-
-
-/* Ocultar por defecto el botón */
-.back-button {
-  display: none;
+.nav-item:not(:last-child) {
+  margin-right: 20px;
 }
-
-/* Mostrar el botón en pantallas con ancho menor a 768px */
-@media screen and (max-width: 767px) {
-  .back-button {
-      display: block;
-      cursor: pointer; /* Cambia el cursor a mano cuando pasas por encima */
-      color: white; /* Color del texto/icono */
-      padding: 5px 10px; /* Espaciado interno para darle un poco de espacio */
-      border-radius: 4px; /* Bordes redondeados */
-      margin: 0 auto; /* Un poco de margen alrededor */
-      font-size: 1.5em; /* Ajusta el tamaño del texto/icono si es necesario */
-      text-align: center;
-  }
-}
-
-
-
-
-
-
-
-
-
-

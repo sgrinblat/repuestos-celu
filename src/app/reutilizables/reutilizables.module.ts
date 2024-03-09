@@ -9,7 +9,6 @@ import { SwiperModule } from "swiper/angular";
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { Page404Component } from './page404/page404.component';
-import { CarruselCartasComponent } from './carrusel-cartas/carrusel-cartas.component';
 import { PoliticaPrivacidadComponent } from './politica-privacidad/politica-privacidad.component';
 
 
@@ -18,14 +17,12 @@ import { PoliticaPrivacidadComponent } from './politica-privacidad/politica-priv
     NavbarComponent,
     FooterComponent,
     Page404Component,
-    CarruselCartasComponent,
     PoliticaPrivacidadComponent
   ],
   exports: [
     NavbarComponent,
     FooterComponent,
     Page404Component,
-    CarruselCartasComponent,
     PoliticaPrivacidadComponent
   ],
   imports: [

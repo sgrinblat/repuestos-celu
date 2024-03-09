@@ -1,0 +1,16 @@
+<swiper [slidesPerView]="5" [spaceBetween]="10" navigation pagination scrollbar>
+  <!-- Slides -->
+  <ng-template swiperSlide *ngFor="let producto of productos">
+    <div class="card">
+      <img class="card-img-top" [src]="producto.imagenUrl" alt="{{ producto.nombre }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ producto.nombre }}</h5>
+        <p class="card-price">${{ producto.precio }}</p>
+        <p class="card-subtitle mb-2 text-muted">{{ producto.sucursal }}</p>
+      </div>
+    </div>
+  </ng-template>
+  <!-- Add Arrows -->
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+</swiper>

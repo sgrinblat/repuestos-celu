@@ -1,24 +1,56 @@
-.logo{
-  max-height: 100px;
-  margin-top: 10px;
-  margin-bottom: 40px;
+.footer {
+  background-color: #ffff; /* Ajusta el color de fondo según tu diseño */
+  color: #000; /* Ajusta el color del texto según tu diseño */
+  font-family: Arial, sans-serif; /* Ajusta la fuente según tu diseño */
+  padding: 20px 0; /* Ajusta el padding según tu diseño */
+  display: flex;
+  justify-content: center;
+  font-size: 14px; /* Ajusta el tamaño de fuente según tu diseño */
 }
 
-.logo:hover {
-  filter: invert(15%);
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%; /* Ajusta el ancho según tu diseño */
+  margin: 0 auto;
 }
 
-a:hover {
-  color: #f8a724 !important;
-  font-weight: bold;
+.footer-left,
+.footer-center,
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-a span{
-  color: #f8a724;
-  font-weight: bold;
+.footer-center {
+  align-items: center;
 }
 
-a span:hover{
-  color: #fff !important;
+.footer-right {
+  align-items: flex-end;
 }
 
+.footer a {
+  color: #000; /* Ajusta el color de los enlaces según tu diseño */
+  text-decoration: none;
+  margin-bottom: 8px; /* Ajusta el margen según tu diseño */
+}
+
+.footer a:hover {
+  text-decoration: underline; /* O cualquier otro efecto de hover que prefieras */
+}
+
+.lock-icon {
+  /* Agrega estilos para tu icono de candado aquí */
+}
+
+.social-icons {
+  /* Agrega estilos para tus íconos de redes sociales aquí */
+}
+
+.copy-text {
+  margin-top: 8px; /* Ajusta el margen según tu diseño */
+  text-align: center;
+}

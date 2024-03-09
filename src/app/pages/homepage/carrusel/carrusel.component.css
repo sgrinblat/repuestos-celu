@@ -1,0 +1,67 @@
+/* Estilos generales del carrusel */
+.swiper-container {
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 50px;
+}
+
+/* Swiper utiliza Flexbox por defecto, por lo que no debería necesitar un ancho específico para .swiper-slide a menos que quieras un ancho fijo */
+.swiper-slide {
+  display: flex; /* Esto asegura que el contenido de la slide sea flexible */
+  justify-content: center; /* Esto centrará el contenido de la slide */
+  align-items: center; /* Esto alineará el contenido de la slide verticalmente */
+}
+
+
+/* Imagen del producto */
+.card-img-top {
+  width: 100%;
+  /* Ajusta la altura de la imagen según necesites, y asegúrate de que las imágenes sean del mismo tamaño */
+  height: 160px;
+  object-fit: cover;
+}
+
+/* Cuerpo de la tarjeta */
+.card-body {
+  padding: 15px;
+  text-align: center;
+}
+
+/* Título del producto */
+.card-title {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Precio del producto */
+.card-price {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+/* Subtítulo/Sucursal del producto */
+.card-subtitle {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+/* Botones de navegación */
+.swiper-button-next, .swiper-button-prev {
+  color: #000;
+  top: 50%;
+  width: 50px;
+  height: 50px;
+  margin-top: -20px; /* Ajusta este valor para que se alinee verticalmente */
+  background: none;
+  outline: none;
+  border: none;
+  /* Resto de estilos personalizados para tus flechas aquí */
+}
+
+.swiper-button-next:after, .swiper-button-prev:after {
+  font-size: 1.5rem;
+}

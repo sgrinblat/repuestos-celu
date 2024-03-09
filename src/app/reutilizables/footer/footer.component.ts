@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConexionService } from 'src/app/service/conexion.service';
-import { Usuario } from 'src/app/usuario';
+
 
 @Component({
   selector: 'app-footer',
@@ -9,18 +8,18 @@ import { Usuario } from 'src/app/usuario';
 })
 export class FooterComponent implements OnInit {
 
-  constructor(private conexion: ConexionService) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
-  verElemento() {
-    if(this.conexion.sesionIniciadaJugador()){
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // verElemento() {
+  //   if(this.conexion.sesionIniciadaJugador()){
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
 
 
