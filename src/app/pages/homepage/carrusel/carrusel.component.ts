@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import Swiper, { Navigation, Pagination } from 'swiper';
 
-// instala módulos de Swiper
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
+Swiper.use([Navigation, Pagination]);
+
 
 interface Producto {
   nombre: string;
@@ -19,6 +19,7 @@ interface Producto {
 })
 
 export class CarruselComponent implements OnInit {
+
   productos: Producto[] = [
     {
       nombre: 'Vidrio Lente De Cámara Trasera Para Samsung...',
@@ -106,20 +107,23 @@ export class CarruselComponent implements OnInit {
     },
     // ...otros productos
   ];
-  carrusel: any;
 
-
-  ngOnInit() {
-  }
-  private scrollJump: number = 200; // Este valor deberás ajustarlo a la anchura de tus tarjetas de producto
-
-  constructor() {}
-
-  next(): void {
-    this.carrusel.nativeElement.scrollLeft += this.scrollJump;
+  ngOnInit(): void {
   }
 
-  previous(): void {
-    this.carrusel.nativeElement.scrollLeft -= this.scrollJump;
+  ngAfterViewInit(): void {
+    this.initializeCarousel();
+  }
+
+  private initializeCarousel(): void {
+    const swiper = new Swiper('.mySwiper', {
+      slidesPerView: 3,
+      spaceBetween: 30,
+      // Activa la navegación
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
   }
 }
