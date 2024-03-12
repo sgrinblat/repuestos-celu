@@ -2,6 +2,10 @@
   border-radius:0.7rem;
 }
 
+.banner:hover {
+  cursor: pointer;
+}
+
 .swiper-container {
   /* Asegúrate de que .swiper-container tenga un ancho específico si es necesario */
   width: 100%;

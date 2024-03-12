@@ -23,42 +23,42 @@ export class CarruselComponent implements OnInit {
   productos: Producto[] = [
     {
       nombre: 'Vidrio Lente De Cámara Trasera Para Samsung...',
+      precio: 192680.81,
+      imagenUrl: 'https://definicion.de/wp-content/uploads/2009/06/producto.png',
+      sucursal: 'SUCURSAL CÓRDOBA'
+    },
+    {
+      nombre: 'Una cosa maravillosa',
       precio: 2222,
       imagenUrl: 'https://definicion.de/wp-content/uploads/2009/06/producto.png',
       sucursal: 'SUCURSAL CÓRDOBA'
     },
     {
-      nombre: 'V11111111111111111111',
+      nombre: 'Instrumento de precision',
       precio: 2222,
       imagenUrl: 'https://definicion.de/wp-content/uploads/2009/06/producto.png',
       sucursal: 'SUCURSAL CÓRDOBA'
     },
     {
-      nombre: '22222222222222222222',
+      nombre: 'Carcasa re loca',
       precio: 2222,
       imagenUrl: 'https://definicion.de/wp-content/uploads/2009/06/producto.png',
       sucursal: 'SUCURSAL CÓRDOBA'
     },
     {
-      nombre: '33333333333333333333333',
+      nombre: 'Amigo del rey',
       precio: 2222,
       imagenUrl: 'https://definicion.de/wp-content/uploads/2009/06/producto.png',
       sucursal: 'SUCURSAL CÓRDOBA'
     },
     {
-      nombre: '5555555555555555555555555555555555555',
+      nombre: 'Algo asi re brillante viste',
       precio: 2222,
       imagenUrl: 'https://definicion.de/wp-content/uploads/2009/06/producto.png',
       sucursal: 'SUCURSAL CÓRDOBA'
     },
     {
-      nombre: '66666666666666666666666',
-      precio: 2222,
-      imagenUrl: 'https://definicion.de/wp-content/uploads/2009/06/producto.png',
-      sucursal: 'SUCURSAL CÓRDOBA'
-    },
-    {
-      nombre: '55555555555555555555444444444444444',
+      nombre: 'y no se no me preguntes',
       precio: 2222,
       imagenUrl: 'https://definicion.de/wp-content/uploads/2009/06/producto.png',
       sucursal: 'SUCURSAL CÓRDOBA'
@@ -117,7 +117,7 @@ export class CarruselComponent implements OnInit {
 
   private initializeCarousel(): void {
     const swiper = new Swiper('.mySwiperCarrusel', {
-      slidesPerView: 3,
+      slidesPerView: 5,
       spaceBetween: 30,
       // Activa la navegación
       navigation: {

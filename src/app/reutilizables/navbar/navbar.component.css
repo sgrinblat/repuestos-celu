@@ -23,13 +23,13 @@ body {
 
 .search-input {
   position: relative;
-  max-width: 600px; /* Aumenta el ancho máximo aquí si lo deseas */
+  max-width: 600px;
 }
 
 .search-input input {
   width: 100%;
-  padding-right: 40px; /* Asegura espacio para el ícono de la lupa */
-  border-radius: 20px; /* Ajusta los bordes redondeados aquí */
+  padding-right: 200px;
+  border-radius: 20px;
 }
 
 .search-icon {
@@ -58,5 +58,10 @@ body {
 
 .icono-personalizado {
   color: #23462e; /* Cambia el color aquí */
-  font-size: 28px; /* O usa una clase de FontAwesome para el tamaño, como fa-2x */
+  font-size: 28px;
+}
+
+.icono-lupa {
+  color: #23462e; /* Cambia el color aquí */
+  font-size: 20px;
 }
