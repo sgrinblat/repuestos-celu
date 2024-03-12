@@ -1,3 +1,24 @@
 .banner {
   border-radius:0.7rem;
 }
+
+.swiper-container {
+  /* Asegúrate de que .swiper-container tenga un ancho específico si es necesario */
+  width: 100%;
+  height: auto; /* O un valor específico que prefieras */
+}
+
+.swiper-slide {
+  /* Propiedades de estilo para las diapositivas individuales */
+  height: auto; /* O un valor específico que prefieras */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Si aún ves múltiples slides, intenta establecer un ancho mínimo aquí */
+.swiper-slide {
+  width: 100%; /* Ajuste para la visualización de una sola diapositiva a la vez */
+}
+
+

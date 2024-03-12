@@ -23,12 +23,13 @@ body {
 
 .search-input {
   position: relative;
-  max-width: 500px;
+  max-width: 600px; /* Aumenta el ancho máximo aquí si lo deseas */
 }
 
 .search-input input {
   width: 100%;
   padding-right: 40px; /* Asegura espacio para el ícono de la lupa */
+  border-radius: 20px; /* Ajusta los bordes redondeados aquí */
 }
 
 .search-icon {
@@ -37,6 +38,7 @@ body {
   top: 50%;
   transform: translateY(-50%);
 }
+
 
 .nav-links-container {
   width: 100%;
@@ -52,4 +54,9 @@ body {
 
 .nav-item:not(:last-child) {
   margin-right: 20px;
+}
+
+.icono-personalizado {
+  color: #23462e; /* Cambia el color aquí */
+  font-size: 28px; /* O usa una clase de FontAwesome para el tamaño, como fa-2x */
 }

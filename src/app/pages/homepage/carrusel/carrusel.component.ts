@@ -116,7 +116,7 @@ export class CarruselComponent implements OnInit {
   }
 
   private initializeCarousel(): void {
-    const swiper = new Swiper('.mySwiper', {
+    const swiper = new Swiper('.mySwiperCarrusel', {
       slidesPerView: 3,
       spaceBetween: 30,
       // Activa la navegación

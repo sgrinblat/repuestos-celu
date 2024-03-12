@@ -1,4 +1,5 @@
 @import 'swiper/swiper-bundle.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 
 *::-webkit-scrollbar {
@@ -22,3 +23,8 @@
 .fondo-gris{
   background-color: #2e3031;
 }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+

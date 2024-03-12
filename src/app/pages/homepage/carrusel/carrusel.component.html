@@ -1,12 +1,14 @@
-<div class="container" >
+<div class="container mt-5 mb-5 pb-5" >
   <!-- Swiper -->
-  <div class="swiper mySwiper">
+  <h4 class="mb-2">Podría interesarte</h4>
+  <div class="swiper mySwiperCarrusel mt-3 ">
     <div class="swiper-wrapper">
       <!-- Usa *ngFor para iterar sobre los productos -->
       <div class="swiper-slide" *ngFor="let producto of productos">
         <img width="100" [src]="producto.imagenUrl" alt="{{ producto.nombre }}">
-        <div>{{ producto.nombre }}</div>
-        <div>{{ producto.precio | currency }}</div>
+        <p>{{ producto.nombre }}</p>
+        <p>{{ producto.precio | currency }}</p>
+        <p>Sucursal xxxx</p>
       </div>
     </div>
     <div class="swiper-button-next"></div>
