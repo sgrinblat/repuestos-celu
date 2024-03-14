@@ -16,12 +16,20 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
-  menuOpen = false;
+  menuVisible: boolean = false;
 
   toggleMenu() {
-    console.log("hhhh");
+    this.menuVisible = !this.menuVisible;
+    this.animateMenu();
+  }
 
-    this.menuOpen = !this.menuOpen;
+  animateMenu() {
+    const menuContainer = document.querySelector('.menu-container');
+    if (this.menuVisible) {
+      menuContainer.classList.add('visible');
+    } else {
+      menuContainer.classList.remove('visible');
+    }
   }
 
   // verElemento() {
@@ -37,42 +45,6 @@ export class NavbarComponent implements OnInit {
   //   Swal.fire('Sesión cerrada',`Esperamos verte pronto!`, `info`);
   //   this.route.navigate(['']);
   // }
-
-  @ViewChild('dropdownMenu', { static: false }) dropdownMenu: ElementRef;
-
-  toggleDropdown(): void {
-    const isDisplayed = this.dropdownMenu.nativeElement.style.display === 'block';
-    this.dropdownMenu.nativeElement.style.display = isDisplayed ? 'none' : 'block';
-  }
-
-  isDropdownVisible = false;
-
-  showDropdown(): void {
-    this.dropdownMenu.nativeElement.style.display = 'block';
-    this.isDropdownVisible = true;
-  }
-
-  hideDropdown(): void {
-    this.dropdownMenu.nativeElement.style.display = 'none';
-    this.isDropdownVisible = false;
-  }
-
-  showGroup(group: string) {
-    const groups = document.querySelectorAll('.dropdown-group');
-    groups.forEach(g => g.classList.remove('active'));
-
-    const selectedGroup = document.querySelector(`.dropdown-group[data-group="${group}"]`);
-    if (selectedGroup) {
-        selectedGroup.classList.add('active');
-    }
-  }
-
-
-  hideGroups() {
-      const groups = document.querySelectorAll('.dropdown-group');
-      groups.forEach(g => g.classList.remove('active'));
-  }
-
 
 
 }

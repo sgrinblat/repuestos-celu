@@ -26,16 +26,26 @@
       </div>
 
       <div class="search-input-container mt-3" id="navbarResponsive">
-        <div class="search-input-container-productos" >
-
-          <span class="ps-3" >
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <button class="btn btn-success menu-button" (click)="toggleMenu()">
+        <div class="search-input-container-productos menu-wrapper">
+          <div *ngIf="menuVisible" class="button-placeholder"></div>
+          <div class="menu-container" [class.visible]="menuVisible">
+            <!-- El botón ahora está dentro del contenedor desplegable -->
+            <button class="btn btn-success menu-button ms-auto me-auto mt-2 mb-2" (click)="toggleMenu()">
               <i class="fas fa-bars me-2"></i> Productos
             </button>
-          </span>
+            <ul class="navbar-nav-desplegable text-center justify-content-center">
+              <li class="nav-item-desplegable ">
+                <a class="nav-link-desplegable mt-2 mb-2" href="#"><b>Categorías</b></a>
+              </li>
+              <li class="nav-item-desplegable ">
+                <a class="nav-link-desplegable mt-2 mb-2" href="#"><b>Ubicación</b></a>
+              </li>
+            </ul>
+          </div>
+          <!-- El botón fuera del contenedor desplegable solo se muestra cuando el menú no está visible -->
+          <button *ngIf="!menuVisible" class="btn btn-success menu-button" (click)="toggleMenu()">
+            <i class="fas fa-bars me-2"></i> Productos
+          </button>
 
           <div class="center-container pe-5">
             <ul class="navbar-nav">
@@ -54,16 +64,15 @@
             </ul>
           </div>
 
-
         </div>
-
-
-
       </div>
-    </div>
 
+    </div>
   </nav>
+
 </body>
+
+
 
 
 <!-- <a class="navbar-brand" href="#"><img width="400" src="../../../assets/images/LOGO/Verde horizontal.png" alt="RepuestosCelu"></a> -->

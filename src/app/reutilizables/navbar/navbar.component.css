@@ -27,6 +27,7 @@ body {
   display: flex;
   justify-content: space-between; /* Esto separa los elementos a los extremos y al centro */
   align-items: center;
+  position: relative;
 }
 
 .search-input {
@@ -82,41 +83,58 @@ body {
 }
 
 
-
 .menu-button:hover {
   background-color: #1e603a;
+
 }
 
 
+.menu-wrapper {
+  position: relative; /* Este contenedor maneja el posicionamiento del menú desplegable */
+}
 
-.dropdown-menu {
-  display: none;
+.menu-container {
   position: absolute;
-  background-color: #f9f9f9;
-  min-width: 100px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 12px 16px;
-  z-index: 3;
-  top: 100%;
+  top: 30%; /* Asegúrate de que esto sea suficiente para que el menú aparezca justo debajo del botón */
+  left: 0;
+  width: 200px;
+  height: 0;
+  border-radius: 0.7rem;
+  background-color: grey;
+  z-index: 1000;
+  overflow: hidden;
+  transition: height 0.5s ease;
+}
+
+.menu-container.visible {
+  height: 200px; /* La altura final deseada */
+}
+
+.button-placeholder {
+  display: block;
+  width: 125px; /* Igual al ancho del botón */
+
 }
 
 
-.dropdown-item {
-  color: black;
-  padding: 5px 0;
+.navbar-nav-desplegable {
+  width: 100%; /* Asegura que la lista ocupe todo el ancho del contenedor */
+  list-style-type: none; /* Elimina los marcadores de la lista */
+  padding: 0; /* Elimina el padding por defecto */
+  margin: 0; /* Elimina el margen por defecto */
+}
+
+.nav-item-desplegable {
+  text-align: center; /* Centra el texto de los ítems */
+  width: 100%; /* Hace que cada ítem ocupe todo el ancho del contenedor */
+  margin-top: 15px;
+}
+
+.nav-link-desplegable {
+  display: block; /* Hace que los enlaces ocupen todo el ancho de su contenedor */
   text-decoration: none;
-  display: block;
-  width: 150px;
-  text-align: left;
-}
-
-.dropdown-item:hover {
-  background-color: #ddd;
-}
-
-
-.show-dropdown {
-  display: block;
+  color: #0c0c0c;
+  text-transform: uppercase;
 }
 
 
