@@ -9,6 +9,18 @@ body {
   align-items: center;
 }
 
+.navbar-nav {
+  display: flex;
+  justify-content: center; /* Mantiene los elementos de la lista centrados */
+  list-style-type: none; /* Elimina los marcadores de lista */
+  padding: 0; /* Elimina el padding por defecto de la `ul` */
+  margin: 0; /* Opcional: Ajusta el margen si es necesario */
+}
+
+.nav-item {
+  margin: 0 10px; /* Ajusta el espaciado entre elementos de la lista */
+}
+
 .logo-and-icons {
   width: 100%;
   display: flex;
@@ -52,18 +64,6 @@ body {
   display: flex; /* Habilita flexbox para este contenedor */
   justify-content: center; /* Centra sus elementos (en este caso, la `ul`) */
   flex-grow: 1; /* Permite que el contenedor crezca para ocupar el espacio disponible */
-}
-
-.navbar-nav {
-  display: flex;
-  justify-content: center; /* Mantiene los elementos de la lista centrados */
-  list-style-type: none; /* Elimina los marcadores de lista */
-  padding: 0; /* Elimina el padding por defecto de la `ul` */
-  margin: 0; /* Opcional: Ajusta el margen si es necesario */
-}
-
-.nav-item {
-  margin: 0 10px; /* Ajusta el espaciado entre elementos de la lista */
 }
 
 
@@ -148,6 +148,47 @@ body {
   color: #23462e;
   font-size: 20px;
 }
+
+.logorepuesto {
+  width: 350px;
+}
+
+@media (max-width: 500px) {
+  .logorepuesto {
+    width: 170px;
+  }
+
+  .nav-icons {
+    flex-grow: 1; /* Esto permite que el ul crezca para usar cualquier espacio disponible */
+  }
+
+  .nav-item {
+    margin: 0 5px; /* Reduce los márgenes entre íconos */
+  }
+
+  .navbar-nav {
+    flex-direction: row; /* Esto asegura que los nav-items estén en línea */
+    justify-content: flex-end; /* Alinea los ítems al final del contenedor */
+    flex-grow: 1; /* Permite que la navbar-nav crezca para usar cualquier espacio disponible */
+  }
+
+  .icono-personalizado {
+    font-size: 16px; /* Ajusta el tamaño de los iconos si es necesario */
+    margin-left: 8px;
+  }
+
+  .search-input input {
+    padding-right: 80px;
+    margin-top: 10px;
+  }
+
+  .search-icon {
+    top: 60%;
+  }
+
+
+}
+
 
 
 

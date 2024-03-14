@@ -117,13 +117,20 @@ export class CarruselComponent implements OnInit {
 
   private initializeCarousel(): void {
     const swiper = new Swiper('.mySwiperCarrusel', {
-      slidesPerView: 5,
-      spaceBetween: 30,
+      slidesPerView: 2,
+      spaceBetween: 20,
       // Activa la navegación
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
+      breakpoints: {
+        // cuando el ancho de la ventana es <= 500px
+        501: {
+          slidesPerView: 5,
+          spaceBetween: 30
+        }
+      }
     });
   }
 }

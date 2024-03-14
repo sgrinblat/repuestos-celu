@@ -1,3 +1,5 @@
+
+
 .banner {
   border-radius:0.7rem;
 }
@@ -24,5 +26,24 @@
 .swiper-slide {
   width: 100%; /* Ajuste para la visualización de una sola diapositiva a la vez */
 }
+
+@media (max-width: 500px) {
+  .swiper-container {
+    height: auto; /* Puedes reducir esta altura si las imágenes son demasiado grandes */
+  }
+
+  .swiper-slide {
+    height: auto; /* Ajusta la altura según sea necesario para móviles */
+  }
+
+  .banner {
+    height: auto; /* Esto ajustará la altura de la imagen para mantener la proporción */
+    max-height: 200px; /* Ajusta esto a la altura máxima deseada para móviles */
+    width: 95%;
+    margin-top: -20px !important;
+  }
+}
+
+
 
 

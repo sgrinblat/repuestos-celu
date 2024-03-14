@@ -38,3 +38,50 @@
   font-size: 20px;
   margin: 4px;
 }
+
+.podriaInteresarte {
+  margin-bottom: 10px;
+  margin-left: 50px;
+}
+
+@media (max-width: 500px) {
+
+  .swiper {
+    height: auto;
+  }
+
+  .swiper-slide img {
+    max-height: 100px;
+  }
+
+  .swiper-wrapper {
+    height: auto;
+  }
+
+  .podriaInteresarte {
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
+
+  .texto-nombre {
+    font-size: 14px;
+  }
+
+  .texto-sucursal {
+    font-size: 12px;
+  }
+
+  .texto-precio {
+    font-size: 14px;
+  }
+
+  .swiper-slide {
+    height: auto; /* Ajusta la altura según sea necesario para móviles */
+  }
+
+  .mySwiperCarrusel {
+    height: auto; /* Esto ajustará la altura de la imagen para mantener la proporción */
+    width: 100%;
+  }
+}
+
