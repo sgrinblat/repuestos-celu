@@ -1,11 +1,12 @@
+
 body {
   background-color: #eaeaea;
 }
 
 .container {
   display: flex;
-  flex-direction: column; /* Cambia la dirección del flex a columna para apilar los elementos */
-  align-items: center; /* Centra los elementos horizontalmente */
+  flex-direction: column;
+  align-items: center;
 }
 
 .logo-and-icons {
@@ -21,6 +22,13 @@ body {
   justify-content: center;
 }
 
+.search-input-container-productos {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* Esto separa los elementos a los extremos y al centro */
+  align-items: center;
+}
+
 .search-input {
   position: relative;
   max-width: 600px;
@@ -28,7 +36,7 @@ body {
 
 .search-input input {
   width: 100%;
-  padding-right: 200px;
+  padding-right: 250px;
   border-radius: 20px;
 }
 
@@ -39,29 +47,90 @@ body {
   transform: translateY(-50%);
 }
 
-
-.nav-links-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+.center-container {
+  display: flex; /* Habilita flexbox para este contenedor */
+  justify-content: center; /* Centra sus elementos (en este caso, la `ul`) */
+  flex-grow: 1; /* Permite que el contenedor crezca para ocupar el espacio disponible */
 }
 
 .navbar-nav {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Mantiene los elementos de la lista centrados */
+  list-style-type: none; /* Elimina los marcadores de lista */
+  padding: 0; /* Elimina el padding por defecto de la `ul` */
+  margin: 0; /* Opcional: Ajusta el margen si es necesario */
 }
 
-.nav-item:not(:last-child) {
-  margin-right: 20px;
+.nav-item {
+  margin: 0 10px; /* Ajusta el espaciado entre elementos de la lista */
 }
+
+
+.menu-button {
+  background-color: #499339;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+
+
+.menu-button:hover {
+  background-color: #1e603a;
+}
+
+
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 3;
+  top: 100%;
+}
+
+
+.dropdown-item {
+  color: black;
+  padding: 5px 0;
+  text-decoration: none;
+  display: block;
+  width: 150px;
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background-color: #ddd;
+}
+
+
+.show-dropdown {
+  display: block;
+}
+
+
 
 .icono-personalizado {
-  color: #23462e; /* Cambia el color aquí */
+  color: #23462e;
   font-size: 28px;
 }
 
 .icono-lupa {
-  color: #23462e; /* Cambia el color aquí */
+  color: #23462e;
   font-size: 20px;
 }
+
+
+
+

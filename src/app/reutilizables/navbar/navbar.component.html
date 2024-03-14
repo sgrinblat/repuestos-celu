@@ -2,10 +2,9 @@
   <nav class="navbar navbar-expand-lg">
     <div class="container">
 
-      <!-- Sección del logo e íconos -->
       <div class="logo-and-icons">
-        <a class="navbar-brand" href="#"><img src="../../../assets/images/LOGO/logoverdecompleto.webp" alt="RepuestosCelu"
-          style="width: 350px;"></a>
+        <a class="navbar-brand" href="#"><img src="../../../assets/images/LOGO/logoverdecompleto.webp"
+            alt="RepuestosCelu" style="width: 350px;"></a>
         <ul class="navbar-nav nav-icons ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="#"><i class="fas fa-shopping-cart icono-personalizado"></i></a>
@@ -17,10 +16,8 @@
             <a class="nav-link" href="#"><i class="fas fa-user icono-personalizado"></i></a>
           </li>
         </ul>
-
       </div>
 
-      <!-- Input de búsqueda en su propio contenedor -->
       <div class="search-input-container">
         <div class="search-input">
           <input type="search" class="form-control" placeholder="¿Qué estás buscando?">
@@ -28,20 +25,45 @@
         </div>
       </div>
 
-      <!-- Sección de enlaces de navegación -->
-      <div class="nav-links-container mt-3 mb-3">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link text-dark" href="#"><b>Inicio</b></a>
-          <a class="nav-item nav-link text-dark" href="#"><b>Nosotros</b></a>
-          <a class="nav-item nav-link text-dark" href="#"><b>FAQs</b></a>
-          <a class="nav-item nav-link text-dark" href="#"><b>Sucursales</b></a>
+      <div class="search-input-container mt-3" id="navbarResponsive">
+        <div class="search-input-container-productos" >
+
+          <span class="ps-3" >
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <button class="btn btn-success menu-button" (click)="toggleMenu()">
+              <i class="fas fa-bars me-2"></i> Productos
+            </button>
+          </span>
+
+          <div class="center-container pe-5">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#"><b>Inicio</b></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><b>Nosotros</b></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><b>FAQs</b></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><b>Sucursales</b></a>
+              </li>
+            </ul>
+          </div>
+
+
         </div>
+
+
+
       </div>
     </div>
+
   </nav>
 </body>
-
-
 
 
 <!-- <a class="navbar-brand" href="#"><img width="400" src="../../../assets/images/LOGO/Verde horizontal.png" alt="RepuestosCelu"></a> -->

@@ -16,6 +16,14 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  menuOpen = false;
+
+  toggleMenu() {
+    console.log("hhhh");
+
+    this.menuOpen = !this.menuOpen;
+  }
+
   // verElemento() {
   //   if(this.conexion.sesionIniciadaJugador()){
   //     return true;
