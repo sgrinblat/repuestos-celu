@@ -1,56 +1,46 @@
-.footer {
-  background-color: #ffff; /* Ajusta el color de fondo según tu diseño */
-  color: #000; /* Ajusta el color del texto según tu diseño */
-  font-family: Arial, sans-serif; /* Ajusta la fuente según tu diseño */
-  padding: 20px 0; /* Ajusta el padding según tu diseño */
-  display: flex;
-  justify-content: center;
-  font-size: 14px; /* Ajusta el tamaño de fuente según tu diseño */
+footer {
+  padding-bottom: 3rem;
+  background-color: #ffffff;
 }
 
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%; /* Ajusta el ancho según tu diseño */
-  margin: 0 auto;
+.footer-link {
+  color: #fff; /* Color de los enlaces */
+  margin-bottom: 0.5rem; /* Espaciado entre enlaces */
+  display: block; /* Hace que cada enlace sea de bloque para que se apile verticalmente */
 }
 
-.footer-left,
-.footer-center,
-.footer-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.footer-link:hover {
+  color: #aaa; /* Color al pasar el mouse sobre los enlaces */
 }
 
-.footer-center {
-  align-items: center;
+.footer-links a, .social-icons {
+  text-align: left; /* Alinea el texto a la izquierda */
 }
 
-.footer-right {
-  align-items: flex-end;
-}
-
-.footer a {
-  color: #000; /* Ajusta el color de los enlaces según tu diseño */
+.d-block {
   text-decoration: none;
-  margin-bottom: 8px; /* Ajusta el margen según tu diseño */
-}
-
-.footer a:hover {
-  text-decoration: underline; /* O cualquier otro efecto de hover que prefieras */
-}
-
-.lock-icon {
-  /* Agrega estilos para tu icono de candado aquí */
+  color: #000;
 }
 
 .social-icons {
-  /* Agrega estilos para tus íconos de redes sociales aquí */
+  /* Estilos para tus íconos sociales */
 }
 
-.copy-text {
-  margin-top: 8px; /* Ajusta el margen según tu diseño */
-  text-align: center;
+
+.footer-content {
+  max-width: 30%; /* Ajusta este valor según lo necesites para controlar el ancho del contenido */
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left; /* Asegura que el texto esté alineado a la izquierda dentro del contenedor */
+}
+
+
+/* Estilos responsivos */
+@media (max-width: 576px) {
+
+  .footer-content {
+    max-width: 100%; /* Puede que quieras permitir que el contenido ocupe más espacio en pantallas pequeñas */
+    text-align: center;
+  }
+
 }

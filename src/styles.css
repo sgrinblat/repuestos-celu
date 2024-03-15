@@ -26,5 +26,7 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
