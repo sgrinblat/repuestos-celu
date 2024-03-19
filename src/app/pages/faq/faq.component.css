@@ -1,0 +1,47 @@
+.textoTitular {
+  color: #1b4827;
+  text-transform: uppercase;
+  font-weight: bolder;
+  font-size: 24px;
+}
+
+.accordion {
+  background-color: white;
+  border-radius:0.7rem;
+}
+.accordion-button:not(.collapsed) {
+  color: inherit;
+
+  box-shadow: none;
+}
+
+.accordion-button::after {
+  display: none;
+}
+
+.accordion-button {
+  font-weight: normal;
+  color: #000000; /* Cambia este color según prefieras */
+  box-shadow: none !important;
+  background-color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.preguntaDelTitulo {
+  margin-left: 60px;
+}
+
+.accordion-item {
+  border: none;
+}
+
+/* Opcional: si deseas que el texto sea más distinguible como un enlace */
+.accordion-button:hover {
+  color: #151515; /* Cambia este color para el hover */
+  text-decoration: none;
+}
+
+.accordion-body {
+  margin-left: 60px;
+}

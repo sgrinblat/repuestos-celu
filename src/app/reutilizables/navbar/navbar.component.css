@@ -112,6 +112,10 @@ body {
 
 }
 
+.activeLink {
+  text-decoration: underline !important; /* Utiliza !important para asegurar que el estilo se aplique sobre otros estilos por defecto */
+  color: #1e603a;
+}
 
 .navbar-nav-desplegable {
   width: 100%; /* Asegura que la lista ocupe todo el ancho del contenedor */

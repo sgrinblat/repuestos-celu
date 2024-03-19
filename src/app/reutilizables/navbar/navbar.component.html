@@ -3,7 +3,7 @@
     <div class="container">
 
       <div class="logo-and-icons">
-        <a class="navbar-brand" href="#"><img class="logorepuesto" src="../../../assets/images/LOGO/logoverdecompleto.webp"
+        <a class="navbar-brand" routerLink="/"><img class="logorepuesto" src="../../../assets/images/LOGO/logoverdecompleto.webp"
             alt="RepuestosCelu"></a>
             <ul class="navbar-nav nav-icons ml-auto">
               <li class="nav-item">
@@ -16,17 +16,6 @@
                 <a class="nav-link" href="#"><img width="40" class="icono-personalizado" src="../../../assets/images/icons/user.png" alt="carrito"></a>
               </li>
             </ul>
-        <!-- <ul class="navbar-nav nav-icons ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-shopping-cart icono-personalizado"></i></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-heart icono-personalizado"></i></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-user icono-personalizado"></i></a>
-          </li>
-        </ul> -->
       </div>
 
       <div class="search-input-container">
@@ -61,16 +50,16 @@
           <div class="center-container pe-5">
             <ul class="navbar-nav">
               <li class="nav-item cuatroElementos">
-                <a class="nav-link" href="#"><b>Inicio</b></a>
+                <a class="nav-link" routerLink="/" routerLinkActive="activeLink" [routerLinkActiveOptions]="{exact: true}"><b>Inicio</b></a>
               </li>
               <li class="nav-item cuatroElementos">
-                <a class="nav-link" href="#"><b>Nosotros</b></a>
+                <a class="nav-link" routerLink="/nosotros" routerLinkActive="activeLink" [routerLinkActiveOptions]="{exact: true}"><b>Nosotros</b></a>
               </li>
               <li class="nav-item cuatroElementos">
-                <a class="nav-link" href="#"><b>FAQs</b></a>
+                <a routerLink="/faqs" class="nav-link" routerLinkActive="activeLink" [routerLinkActiveOptions]="{exact: true}"><b>FAQs</b></a>
               </li>
               <li class="nav-item cuatroElementos">
-                <a class="nav-link" href="#"><b>Sucursales</b></a>
+                <a class="nav-link" ><b>Sucursales</b></a>
               </li>
             </ul>
           </div>

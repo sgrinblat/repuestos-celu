@@ -18,18 +18,24 @@ import { OrderByPipe } from '../order-by.pipe';
 import { HomepageComponent } from './homepage/homepage.component';
 import { CarruselComponent } from './homepage/carrusel/carrusel.component';
 import { BannerhomepageComponent } from './homepage/bannerhomepage/bannerhomepage.component';
+import { FaqComponent } from './faq/faq.component';
+import { NosotrosComponent } from './nosotros/nosotros.component';
 
 
 @NgModule({
   declarations: [
     HomepageComponent,
     CarruselComponent,
-    BannerhomepageComponent
+    BannerhomepageComponent,
+    FaqComponent,
+    NosotrosComponent
   ],
   exports: [
     HomepageComponent,
     CarruselComponent,
-    BannerhomepageComponent
+    BannerhomepageComponent,
+    FaqComponent,
+    NosotrosComponent
   ],
   imports: [
     CommonModule,
