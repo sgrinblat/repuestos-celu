@@ -27,6 +27,21 @@
   width: 100%; /* Ajuste para la visualización de una sola diapositiva a la vez */
 }
 
+
+/* Angular ::ng-deep para sobrescribir estilos */
+::ng-deep .swiper-pagination-bullet {
+  width: 13px;
+  height: 13px;
+  background-color: rgb(211, 211, 211) !important;
+}
+
+::ng-deep .swiper-pagination-bullet-active {
+  background-color: #fff !important;
+}
+
+
+
+
 @media (max-width: 500px) {
   .swiper-container {
     height: auto; /* Puedes reducir esta altura si las imágenes son demasiado grandes */

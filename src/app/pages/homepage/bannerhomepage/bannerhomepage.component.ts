@@ -1,7 +1,9 @@
-import { Component, OnInit, AfterViewInit  } from '@angular/core';
-import Swiper, { Navigation, Pagination } from 'swiper';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+// Importa Swiper core y los componentes necesarios
+import SwiperCore, { Autoplay, Pagination, Navigation, Swiper } from 'swiper';
 
-Swiper.use([Navigation, Pagination]);
+// Instala los módulos de Swiper
+SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 @Component({
   selector: 'app-bannerhomepage',
@@ -14,7 +16,7 @@ export class BannerhomepageComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     new Swiper('.mySwiperBanner', {
-      modules: [Pagination], // Asegúrate de registrar el módulo Pagination si no lo has hecho globalmente
+      modules: [Pagination],
       slidesPerView: 1,
       pagination: {
         el: '.swiper-pagination',
@@ -36,6 +38,10 @@ export class BannerhomepageComponent implements AfterViewInit {
           slidesPerView: 1,
           spaceBetween: 30
         }
+      },
+      autoplay: {
+        delay: 2000,
+        disableOnInteraction: false, // Continúa el autoplay después de que el usuario interactúe con el Swiper
       },
       spaceBetween: 5, // Añade espacio entre diapositivas si es necesario
       loop: true, // Permite que el carrusel continúe de manera circular

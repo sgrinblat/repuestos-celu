@@ -23,6 +23,8 @@
   display: block;
   height: auto;
   object-fit: cover;
+  width: auto;
+  max-height: 100px;
 }
 
 .texto-nombre {
@@ -30,18 +32,22 @@
 }
 .texto-sucursal {
   font-weight: bold;
-  font-size: 12px;
+  font-size: 11px;
   margin: 4px;
 }
 .texto-precio {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 22px;
   margin: 4px;
 }
 
 .podriaInteresarte {
   margin-bottom: 10px;
   margin-left: 50px;
+}
+
+.swiper-button-next {
+  color: #4a933c !important; /* Cambia el color de la flecha a amarillo */
 }
 
 @media (max-width: 500px) {
