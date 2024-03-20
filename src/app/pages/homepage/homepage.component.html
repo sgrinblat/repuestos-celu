@@ -1,7 +1,25 @@
 <body>
   <app-bannerhomepage></app-bannerhomepage>
-  <app-carrusel></app-carrusel>
-  <app-carrusel></app-carrusel>
-  <app-carrusel></app-carrusel>
-  <app-carrusel></app-carrusel>
+  <div class="container mt-5 mb-5 pb-5">
+    <h5 class="podriaInteresarte"><i>Podría interesarte</i></h5>
+    <app-carrusel [productos]="productos1"></app-carrusel>
+
+    <div class="bannerdiv">
+      <img class="bannermobile" src="../../../assets/images/banners/bannerverdepc.png" alt="">
+    </div>
+    <h5 class="podriaInteresarte"><i>Ofertas</i></h5>
+    <app-carrusel [productos]="productos2"></app-carrusel>
+
+    <div class="bannerdiv">
+      <img class="bannermobile" src="../../../assets/images/banners/banneramarillopc.png" alt="">
+    </div>
+    <h5 class="podriaInteresarte"><i>Accesorios</i></h5>
+    <app-carrusel [productos]="productos1"></app-carrusel>
+
+    <div class="bannerdiv">
+      <img class="bannermobile" src="../../../assets/images/banners/bannergrispc.png" alt="">
+    </div>
+    <h5 class="podriaInteresarte"><i>Repuestos</i></h5>
+    <app-carrusel [productos]="productos2"></app-carrusel>
+  </div>
 </body>
