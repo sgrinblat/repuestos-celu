@@ -16,9 +16,22 @@ body {
   margin-bottom: 40px;
 }
 
-.bannermobile {
+.bannerpc {
   border-radius: 0.7rem;
   max-width: 1220px;
   max-height: 100px;
   height: auto;
+}
+
+.bannermobile {
+  border-radius: 0.4rem;
+  width: 99%;
+  max-height: 100px;
+  height: auto;
+}
+
+@media (max-width: 500px) {
+  .podriaInteresarte {
+    margin-left: 10px;
+  }
 }

@@ -1,23 +1,26 @@
 <body>
-  <app-bannerhomepage></app-bannerhomepage>
-  <div class="container mt-5 mb-5 pb-5">
-    <h5 class="podriaInteresarte"><i>Podría interesarte</i></h5>
+  <app-bannerhomepage *ngIf="!esCelular"></app-bannerhomepage>
+  <div class="container pt-2 mb-5 pb-5">
+    <h5 class="podriaInteresarte pt-2"><i>Podría interesarte</i></h5>
     <app-carrusel [productos]="productos1"></app-carrusel>
 
     <div class="bannerdiv">
-      <img class="bannermobile" src="../../../assets/images/banners/bannerverdepc.png" alt="">
+      <img *ngIf="!esCelular" class="bannerpc" src="../../../assets/images/banners/bannerverdepc.png" alt="">
+      <img *ngIf="esCelular" class="bannermobile" src="../../../assets/images/banners/bannerverdemobile.jpg" alt="">
     </div>
     <h5 class="podriaInteresarte"><i>Ofertas</i></h5>
     <app-carrusel [productos]="productos2"></app-carrusel>
 
     <div class="bannerdiv">
-      <img class="bannermobile" src="../../../assets/images/banners/banneramarillopc.png" alt="">
+      <img *ngIf="!esCelular" class="bannerpc" src="../../../assets/images/banners/banneramarillopc.png" alt="">
+      <img *ngIf="esCelular" class="bannermobile" src="../../../assets/images/banners/banneramarillomobile.png" alt="">
     </div>
     <h5 class="podriaInteresarte"><i>Accesorios</i></h5>
     <app-carrusel [productos]="productos1"></app-carrusel>
 
     <div class="bannerdiv">
-      <img class="bannermobile" src="../../../assets/images/banners/bannergrispc.png" alt="">
+      <img *ngIf="!esCelular" class="bannerpc" src="../../../assets/images/banners/bannergrispc.png" alt="">
+      <img *ngIf="esCelular" class="bannermobile" src="../../../assets/images/banners/bannergrismobile.jpg" alt="">
     </div>
     <h5 class="podriaInteresarte"><i>Repuestos</i></h5>
     <app-carrusel [productos]="productos2"></app-carrusel>

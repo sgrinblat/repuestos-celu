@@ -25,7 +25,7 @@ export class CarruselComponent implements OnInit {
   private initializeCarousel(): void {
     const swiper = new Swiper('.mySwiperCarrusel', {
       slidesPerView: 2,
-      spaceBetween: 20,
+      spaceBetween: 60,
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',

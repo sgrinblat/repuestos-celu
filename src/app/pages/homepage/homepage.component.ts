@@ -9,9 +9,19 @@ import { Producto } from 'src/app/models/producto.model';
 })
 export class HomepageComponent implements OnInit {
 
+  esCelular: boolean = false;
   constructor() { }
 
   ngOnInit() {
+    const width = window.innerWidth;
+
+    if (width < 768) {
+      // Función para dispositivos móviles
+      this.esCelular = true;
+    } else {
+      // Función para dispositivos no móviles
+      this.esCelular = false;
+    }
   }
 
   productos1: Producto[] = [

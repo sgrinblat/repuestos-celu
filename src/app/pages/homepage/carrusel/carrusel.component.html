@@ -4,7 +4,7 @@
     <div class="swiper-wrapper">
       <!-- Usa *ngFor para iterar sobre los productos -->
       <div class="swiper-slide" *ngFor="let producto of productos">
-        <img width="100" [src]="producto.imagenUrl" alt="{{ producto.nombre }}">
+        <img  [src]="producto.imagenUrl" alt="{{ producto.nombre }}">
         <p class="texto-nombre">{{ producto.nombre }}</p>
         <p class="texto-precio"> ${{ producto.precio | number }}</p>
         <p class="texto-sucursal"> {{producto.sucursal}} </p>
