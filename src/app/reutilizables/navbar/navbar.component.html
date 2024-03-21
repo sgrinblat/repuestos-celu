@@ -13,7 +13,7 @@
                 <a class="nav-link" href="#"><img width="40" class="icono-personalizado" src="../../../assets/images/icons/fav.png" alt="carrito"></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"><img width="40" class="icono-personalizado" src="../../../assets/images/icons/user.png" alt="carrito"></a>
+                <a (click)="abrirModalInicio()" class="nav-link" href="#"><img width="40" class="icono-personalizado" src="../../../assets/images/icons/user.png" alt="carrito"></a>
               </li>
             </ul>
       </div>
@@ -23,7 +23,7 @@
           <input type="search" class="form-control" placeholder="¿Qué estás buscando?">
           <i class="icono-lupa fas fa-search search-icon"></i>
         </div>
-        <img class="icono-ubicacion" src="../../../assets/images/icons/ubicacion.png" alt="">
+        <img (click)="abrirModalUbicacion()" class="icono-ubicacion" src="../../../assets/images/icons/ubicacion.png" alt="">
       </div>
 
       <div class="search-input-container mt-3" id="navbarResponsive">
@@ -39,7 +39,7 @@
                 <a class="nav-link-desplegable mt-2 mb-2" href="#"><b>Categorías</b></a>
               </li>
               <li class="nav-item-desplegable ">
-                <a class="nav-link-desplegable mt-2 mb-2" href="#"><b>Ubicación</b></a>
+                <a (click)="abrirModalUbicacion()" class="nav-link-desplegable mt-2 mb-2" href="#"><b>Ubicación</b></a>
               </li>
             </ul>
           </div>
@@ -60,7 +60,7 @@
                 <a routerLink="/faqs" class="nav-link" routerLinkActive="activeLink" [routerLinkActiveOptions]="{exact: true}"><b>FAQs</b></a>
               </li>
               <li class="nav-item cuatroElementos">
-                <a class="nav-link" ><b>Sucursales</b></a>
+                <a (click)="abrirModalUbicacion()" class="nav-link" ><b>Sucursales</b></a>
               </li>
             </ul>
           </div>

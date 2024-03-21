@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto } from 'src/app/models/producto.model';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -127,5 +128,6 @@ export class HomepageComponent implements OnInit {
     }
     // ...otros productos
   ];
+
 
 }

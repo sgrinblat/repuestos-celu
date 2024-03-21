@@ -33,6 +33,9 @@ body {
   height: 40px;
   margin-left: 10px;
 }
+.icono-ubicacion:hover {
+  cursor: pointer;
+}
 
 .search-input-container {
   width: 100%;
@@ -142,11 +145,17 @@ body {
   color: #0c0c0c;
   text-transform: uppercase;
 }
+.nav-link:hover {
+  cursor: pointer;
+}
 
 
 .icono-lupa {
   color: #23462e;
   font-size: 20px;
+}
+.icono-lupa:hover {
+  cursor: pointer;
 }
 
 .logorepuesto {
