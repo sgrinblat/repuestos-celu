@@ -1,0 +1,46 @@
+.product-title {
+  font-weight: bold;
+}
+
+.product-price {
+  color: #333;
+  font-size: 1.5em;
+}
+
+.stock {
+  color: green;
+  font-weight: bold;
+}
+
+.location {
+  font-weight: bold;
+  color: #666;
+}
+
+.product-description {
+  color: #0d0d0d;
+}
+
+.btn-success {
+  background-color: #28a745;
+}
+
+.card {
+  box-shadow: 0 2px 4px rgba(0,0,0,.2);
+}
+
+/* Ajustes responsivos pueden ser necesarios dependiendo de la imagen y la estructura exacta */
+@media (max-width: 768px) {
+  .product-title, .product-price, .stock, .location {
+    text-align: center;
+  }
+  .btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .img-fluid {
+    display: block;
+    margin: auto;
+  }
+}

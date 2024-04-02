@@ -10,6 +10,9 @@ import { PoliticaPrivacidadComponent } from "./reutilizables/politica-privacidad
 import { HomepageComponent } from "./pages/homepage/homepage.component";
 import { FaqComponent } from "./pages/faq/faq.component";
 import { NosotrosComponent } from "./pages/nosotros/nosotros.component";
+import { ProductoIndividualComponent } from "./pages/producto-individual/producto-individual.component";
+import { ItemsCarritoComponent } from "./pages/items-carrito/items-carrito.component";
+import { ItemsFavoritosComponent } from "./pages/items-favoritos/items-favoritos.component";
 
 
 
@@ -26,6 +29,18 @@ const routes: Routes = [
     {
       path: "nosotros",
       component: NosotrosComponent,
+    },
+    {
+      path: "producto",
+      component: ProductoIndividualComponent,
+    },
+    {
+      path: "carrito",
+      component: ItemsCarritoComponent,
+    },
+    {
+      path: "favoritos",
+      component: ItemsFavoritosComponent,
     },
     {
       path: `error`,

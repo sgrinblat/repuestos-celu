@@ -20,6 +20,9 @@ import { CarruselComponent } from './homepage/carrusel/carrusel.component';
 import { BannerhomepageComponent } from './homepage/bannerhomepage/bannerhomepage.component';
 import { FaqComponent } from './faq/faq.component';
 import { NosotrosComponent } from './nosotros/nosotros.component';
+import { ProductoIndividualComponent } from './producto-individual/producto-individual.component';
+import { ItemsCarritoComponent } from './items-carrito/items-carrito.component';
+import { ItemsFavoritosComponent } from './items-favoritos/items-favoritos.component';
 
 
 @NgModule({
@@ -28,14 +31,20 @@ import { NosotrosComponent } from './nosotros/nosotros.component';
     CarruselComponent,
     BannerhomepageComponent,
     FaqComponent,
-    NosotrosComponent
+    NosotrosComponent,
+    ProductoIndividualComponent,
+    ItemsCarritoComponent,
+    ItemsFavoritosComponent
   ],
   exports: [
     HomepageComponent,
     CarruselComponent,
     BannerhomepageComponent,
     FaqComponent,
-    NosotrosComponent
+    NosotrosComponent,
+    ProductoIndividualComponent,
+    ItemsCarritoComponent,
+    ItemsFavoritosComponent
   ],
   imports: [
     CommonModule,

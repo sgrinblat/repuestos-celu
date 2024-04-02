@@ -1,0 +1,57 @@
+.card-body {
+  position: relative;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.card-text {
+  margin-bottom: 0.5rem;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-controls .btn {
+  padding: 0.25rem 0.5rem;
+}
+
+.quantity-controls input {
+  max-width: 50px;
+  text-align: center;
+  margin: 0 5px;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.stock-status {
+  color: green;
+}
+
+.shipping {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.total {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.btn-block {
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+}
