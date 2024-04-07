@@ -23,11 +23,12 @@ import { NosotrosComponent } from './nosotros/nosotros.component';
 import { ProductoIndividualComponent } from './producto-individual/producto-individual.component';
 import { ItemsCarritoComponent } from './items-carrito/items-carrito.component';
 import { ItemsFavoritosComponent } from './items-favoritos/items-favoritos.component';
-
+import { HomeListingComponent } from './home-listing/home-listing.component';
 
 @NgModule({
   declarations: [
     HomepageComponent,
+    HomeListingComponent,
     CarruselComponent,
     BannerhomepageComponent,
     FaqComponent,
@@ -38,6 +39,7 @@ import { ItemsFavoritosComponent } from './items-favoritos/items-favoritos.compo
   ],
   exports: [
     HomepageComponent,
+    HomeListingComponent,
     CarruselComponent,
     BannerhomepageComponent,
     FaqComponent,

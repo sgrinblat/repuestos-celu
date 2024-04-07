@@ -1,0 +1,119 @@
+.products-container {
+  max-width: 1300px; /* O el ancho deseado */
+  margin: 0 auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 0.7rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.palabrabusqueda {
+  font-size: 19px;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.product-image img {
+  width: 50px; /* Ajusta al tamaño deseado */
+  height: 50px; /* Ajusta al tamaño deseado */
+  margin-right: 1rem;
+}
+
+.product-details {
+  flex-grow: 1;
+}
+
+.product-name {
+  font-weight: bold;
+}
+
+.product-price {
+  color: green;
+}
+
+.product-location {
+  font-style: italic;
+  color: #666;
+}
+
+.iconolistado {
+  font-size: 25px;
+  margin-right: 17px;
+}
+.iconogrilla {
+  font-size: 25px;
+}
+
+/* Agrega si necesitas más control sobre los íconos de la derecha */
+.fa-list, .fa-table-cells-large {
+  cursor: pointer; /* Cambia el cursor para indicar que son interactivos */
+  /* Agrega más estilos aquí si es necesario */
+}
+
+.active {
+  /* Estilos cuando el modo está activo, por ejemplo, un color diferente */
+  color: #f8c538; /* o cualquier color que desees */
+}
+
+
+/* Estilos específicos para el modo sábana que no afectarán al listado */
+.product-grid-container {
+  border-radius: 0.7rem;
+  background-color: #fff; /* Fondo blanco para las tarjetas de productos */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Se ajustará al número de columnas basado en el ancho del contenedor */
+  gap: 2rem; /* Espacio entre los elementos de la cuadrícula */
+  padding: 1rem; /* Espacio alrededor de toda la cuadrícula */
+}
+
+.product-grid-container .product-card {
+  border: 1px solid #eaeaea; /* Borde sutil para las tarjetas */
+  border-radius: 10px; /* Bordes redondeados */
+  overflow: hidden; /* Oculta cualquier contenido que se salga de los bordes redondeados */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra sutil */
+  transition: box-shadow 0.3s ease; /* Transición suave para el efecto de hover */
+}
+
+.product-grid-container .product-card:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Sombra más pronunciada en hover para efecto de elevación */
+}
+
+.product-grid-container .product-image {
+  width: 100%; /* Las imágenes cubren todo el ancho de la tarjeta */
+  max-width: 150px;
+  margin: auto;
+  display: block;
+  height: auto;
+  max-height: 150px;
+}
+
+.product-grid-container .product-info {
+  padding: 0.5rem; /* Espacio alrededor del contenido interno de la tarjeta */
+}
+
+.product-grid-container .product-title {
+  font-size: 1rem; /* Tamaño del texto para el título */
+  font-weight: 600; /* Fuente más gruesa para el título */
+  color: #333; /* Color oscuro para el texto */
+  margin-bottom: 0.25rem; /* Espacio debajo del título */
+}
+
+.product-grid-container .product-price {
+  font-size: 22px; /* Tamaño del texto para el precio */
+  color: #4CAF50; /* Color distintivo para el precio, ajusta a tu paleta de colores */
+  font-weight: bold; /* Fuente en negrita para el precio */
+  margin-bottom: 10px;
+}
+
+.product-grid-container .product-location {
+  font-size: 0.875rem; /* Tamaño más pequeño para la ubicación */
+  color: #666; /* Color gris para la ubicación */
+  text-transform: uppercase; /* En mayúsculas para la ubicación */
+}
+

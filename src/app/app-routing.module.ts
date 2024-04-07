@@ -13,6 +13,7 @@ import { NosotrosComponent } from "./pages/nosotros/nosotros.component";
 import { ProductoIndividualComponent } from "./pages/producto-individual/producto-individual.component";
 import { ItemsCarritoComponent } from "./pages/items-carrito/items-carrito.component";
 import { ItemsFavoritosComponent } from "./pages/items-favoritos/items-favoritos.component";
+import { HomeListingComponent } from "./pages/home-listing/home-listing.component";
 
 
 
@@ -21,6 +22,10 @@ const routes: Routes = [
       path: "",
       component: HomepageComponent,
       pathMatch: "full"
+    },
+    {
+      path: "busqueda",
+      component: HomeListingComponent,
     },
     {
       path: "faqs",

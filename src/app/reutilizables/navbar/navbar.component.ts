@@ -46,7 +46,6 @@ export class NavbarComponent implements OnDestroy {
     }
   }
 
-
   menuVisible: boolean = false;
   menuCategoriasVisible: boolean = false;
   menuRepuestosVisible: boolean = false;
@@ -186,6 +185,12 @@ export class NavbarComponent implements OnDestroy {
         });
       }
     });
+  }
+
+  buscarProducto() {
+    console.log("a");
+
+    this.route.navigate(['busqueda']);
   }
 
   // verElemento() {
