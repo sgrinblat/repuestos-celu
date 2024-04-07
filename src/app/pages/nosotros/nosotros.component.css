@@ -8,8 +8,17 @@
 .contenedor {
   background-color: white;
   border-radius:0.7rem;
+  font-size: 20px;
 }
 
+.contenedor p {
+  margin-bottom: 25px;
+}
+
+.contenedor p span {
+  color: #3e7a32 !important;
+  font-weight: bold;
+}
 
 .preguntaDelTitulo {
   margin-left: 60px;

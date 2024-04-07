@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild, ElementRef, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 
 import Swal from 'sweetalert2';
@@ -9,19 +9,89 @@ import Swal from 'sweetalert2';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnDestroy {
+  private listener: Function;
 
-  constructor( private renderer2 : Renderer2, private route: Router) { }
-
-  ngOnInit() {
+  constructor( private renderer : Renderer2, private route: Router, private cdr: ChangeDetectorRef) {
+    this.listener = this.renderer.listen('document', 'click', (event: Event) => {
+      this.handleDocumentClick(event);
+    });
   }
+
+  ngOnDestroy() {
+    // Remove the listener!
+    if (this.listener) {
+      this.listener();
+    }
+  }
+
+  handleDocumentClick(event: Event) {
+    const targetElement = event.target as HTMLElement;
+    const menuElement = document.querySelector('.menu-container');
+    const menuCategorias = document.querySelector('.menu-categorias-container');
+    const menuRepuestos = document.querySelector('.menu-repuestos-container');
+    const menuAccesorios = document.querySelector('.menu-accesorios-container');
+
+    // Comprueba si el clic fue dentro del menú o sus descendientes
+    if (menuElement && !menuElement.contains(targetElement)
+    && menuCategorias && !menuCategorias.contains(targetElement)
+    && menuRepuestos && !menuRepuestos.contains(targetElement)
+    && menuAccesorios && !menuAccesorios.contains(targetElement)  ) {
+      this.menuVisible = false;
+      this.menuCategoriasVisible = false;
+      this.menuRepuestosVisible = false;
+      this.menuAccesoriosVisible = false;
+      // Necesitas decirle a Angular que detecte los cambios ya que esto no ocurre en la zona de Angular
+      this.cdr.detectChanges();
+    }
+  }
+
 
   menuVisible: boolean = false;
+  menuCategoriasVisible: boolean = false;
+  menuRepuestosVisible: boolean = false;
+  menuAccesoriosVisible: boolean = false;
 
-  toggleMenu() {
+  toggleMenu(event: MouseEvent) {
+    event.stopPropagation();
     this.menuVisible = !this.menuVisible;
-    this.animateMenu();
+    if (this.menuCategoriasVisible) {
+      this.menuCategoriasVisible = false;
+      if(this.menuRepuestosVisible) {
+        this.menuRepuestosVisible = false;
+      }
+      if(this.menuAccesoriosVisible) {
+        this.menuAccesoriosVisible = false;
+      }
+    }
   }
+
+  toggleMenuCategorias(event: MouseEvent) {
+    event.stopPropagation();
+    this.menuCategoriasVisible = !this.menuCategoriasVisible;
+    if(this.menuRepuestosVisible) {
+      this.menuRepuestosVisible = false;
+    }
+    if(this.menuAccesoriosVisible) {
+      this.menuAccesoriosVisible = false;
+    }
+  }
+
+  toggleMenuRepuestos(event: MouseEvent) {
+    event.stopPropagation();
+    if(this.menuAccesoriosVisible) {
+      this.menuAccesoriosVisible = false;
+    }
+    this.menuRepuestosVisible = !this.menuRepuestosVisible;
+  }
+  toggleMenuAccesorios(event: MouseEvent) {
+    event.stopPropagation();
+    if(this.menuRepuestosVisible) {
+      this.menuRepuestosVisible = false;
+    }
+    this.menuAccesoriosVisible = !this.menuAccesoriosVisible;
+  }
+
 
   animateMenu() {
     const menuContainer = document.querySelector('.menu-container');

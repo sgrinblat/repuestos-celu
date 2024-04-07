@@ -102,17 +102,17 @@ body {
   position: absolute;
   top: 30%; /* Asegúrate de que esto sea suficiente para que el menú aparezca justo debajo del botón */
   left: 0;
-  width: 200px;
+  width: 220px;
   height: 0;
   border-radius: 0.7rem;
-  background-color: grey;
+  background-color: rgb(178, 178, 178);
   z-index: 1000;
   overflow: hidden;
   transition: height 0.5s ease;
 }
 
 .menu-container.visible {
-  height: 200px; /* La altura final deseada */
+  height: 250px; /* La altura final deseada */
 }
 
 .button-placeholder {
@@ -147,6 +147,64 @@ body {
 }
 .nav-link:hover {
   cursor: pointer;
+}
+
+
+.menu-categorias-container {
+  position: absolute;
+  top: 12px;
+  left: 195px;
+  width: 200px;
+  height: 0;
+  border-radius: 0.7rem;
+  background-color: rgb(197, 197, 197);
+  z-index: 1000;
+  overflow: hidden;
+  transition: height 0.5s ease;
+}
+
+.menu-categorias-container.visible {
+  height: 160px; /* Altura final deseada */
+}
+
+.menu-repuestos-container {
+  position: absolute;
+  top: 12px;
+  left: 380px;
+  width: 200px;
+  height: 0;
+  border-radius: 0.7rem;
+  background-color: rgb(225, 225, 225);
+  z-index: 1000;
+  overflow: hidden;
+  transition: height 0.5s ease;
+}
+
+.menu-repuestos-container.visible {
+  height: 470px; /* Altura final deseada */
+}
+
+.menu-accesorios-container {
+  position: absolute;
+  top: 12px;
+  left: 380px;
+  width: 200px;
+  height: 0;
+  border-radius: 0.7rem;
+  background-color: rgb(225, 225, 225);
+  z-index: 1000;
+  overflow: hidden;
+  transition: height 0.5s ease;
+}
+
+.menu-accesorios-container.visible {
+  height: 400px; /* Altura final deseada */
+}
+
+.titulocategoria {
+  color: #316040;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 

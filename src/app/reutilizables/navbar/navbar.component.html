@@ -31,20 +31,63 @@
           <div *ngIf="menuVisible" class="button-placeholder"></div>
           <div class="menu-container" [class.visible]="menuVisible">
             <!-- El botón ahora está dentro del contenedor desplegable -->
-            <button class="btn btn-success menu-button ms-auto me-auto mt-2 mb-2" (click)="toggleMenu()">
+            <button class="btn btn-success menu-button ms-auto me-auto mt-2 mb-2" (click)="toggleMenu($event)">
               <i class="fas fa-bars me-2"></i> Productos
             </button>
             <ul class="navbar-nav-desplegable text-center justify-content-center">
               <li class="nav-item-desplegable ">
-                <a class="nav-link-desplegable mt-2 mb-2" href="#"><b>Categorías</b></a>
+                <a (click)="toggleMenuCategorias($event)" class="nav-link-desplegable mt-2 mb-2"><b>Categorías</b>
+                  <i class="fa-solid fa-angle-right ms-3"></i></a>
               </li>
               <li class="nav-item-desplegable ">
-                <a (click)="abrirModalUbicacion()" class="nav-link-desplegable mt-2 mb-2" href="#"><b>Ubicación</b></a>
+                <a (click)="abrirModalUbicacion()" class="nav-link-desplegable mt-2 mb-2" ><b>Ubicación</b></a>
+              </li>
+              <li class="nav-item-desplegable ">
+                <a (click)="abrirModalUbicacion()" class="nav-link-desplegable mt-2 mb-2" ><b>Ofertas</b></a>
+              </li>
+              <li class="nav-item-desplegable ">
+                <a (click)="abrirModalUbicacion()" class="nav-link-desplegable mt-2 mb-2" ><b>Podría interesarte</b></a>
               </li>
             </ul>
           </div>
+
+          <div class="menu-categorias-container" [class.visible]="menuCategoriasVisible">
+            <p class="titulocategoria text-uppercase ms-4 mt-4">Categorías</p>
+            <p (click)="toggleMenuRepuestos($event)" class="text-uppercase ms-4"><b>Repuestos</b>
+              <i class="fa-solid fa-angle-right ms-3"></i></p>
+            <p (click)="toggleMenuAccesorios($event)" class="text-uppercase ms-4"><b>Accesorios</b>
+              <i class="fa-solid fa-angle-right ms-3"></i></p>
+          </div>
+
+          <div class="menu-repuestos-container" [class.visible]="menuRepuestosVisible">
+            <p class="titulocategoria text-uppercase ms-4 mt-4">Repuestos</p>
+            <p class="text-uppercase ms-4"><b>Bandeja de SIM</b></p>
+            <p class="text-uppercase ms-4"><b>Buzzer</b></p>
+            <p class="text-uppercase ms-4"><b>Display</b></p>
+            <p class="text-uppercase ms-4"><b>Flex home</b></p>
+            <p class="text-uppercase ms-4"><b>Lector de SIM</b></p>
+            <p class="text-uppercase ms-4"><b>Módulo</b></p>
+            <p class="text-uppercase ms-4"><b>Pin de carga</b></p>
+            <p class="text-uppercase ms-4"><b>Speakerphone</b></p>
+            <p class="text-uppercase ms-4"><b>Touch</b></p>
+            <p class="text-uppercase ms-4"><b>Vidrio touch</b></p>
+          </div>
+
+          <div class="menu-accesorios-container" [class.visible]="menuAccesoriosVisible">
+            <p class="titulocategoria text-uppercase ms-4 mt-4">Accesorios</p>
+            <p class="text-uppercase ms-4"><b>Auriculares</b></p>
+            <p class="text-uppercase ms-4"><b>Cable USB</b></p>
+            <p class="text-uppercase ms-4"><b>Cargadores</b></p>
+            <p class="text-uppercase ms-4"><b>Cortadora</b></p>
+            <p class="text-uppercase ms-4"><b>Glass</b></p>
+            <p class="text-uppercase ms-4"><b>Lámina</b></p>
+            <p class="text-uppercase ms-4"><b>Memorias</b></p>
+            <p class="text-uppercase ms-4"><b>Soporte</b></p>
+          </div>
+
+
           <!-- El botón fuera del contenedor desplegable solo se muestra cuando el menú no está visible -->
-          <button *ngIf="!menuVisible" class="btn btn-success menu-button" (click)="toggleMenu()">
+          <button *ngIf="!menuVisible" class="btn btn-success menu-button" (click)="toggleMenu($event)">
             <i class="fas fa-bars me-2"></i> Productos
           </button>
 
