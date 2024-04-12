@@ -14,6 +14,7 @@ import { ProductoIndividualComponent } from "./pages/producto-individual/product
 import { ItemsCarritoComponent } from "./pages/items-carrito/items-carrito.component";
 import { ItemsFavoritosComponent } from "./pages/items-favoritos/items-favoritos.component";
 import { HomeListingComponent } from "./pages/home-listing/home-listing.component";
+import { RegistroUsuarioComponent } from "./pages/registro-usuario/registro-usuario.component";
 
 
 
@@ -38,6 +39,10 @@ const routes: Routes = [
     {
       path: "producto",
       component: ProductoIndividualComponent,
+    },
+    {
+      path: "registro",
+      component: RegistroUsuarioComponent,
     },
     {
       path: "carrito",

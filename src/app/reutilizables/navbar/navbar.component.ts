@@ -137,7 +137,7 @@ export class NavbarComponent implements OnDestroy {
         const confirmButton = document.querySelector('.swal2-confirm');
         const modal = document.querySelector('.swal2-popup');
         if(modal) {
-          (modal as HTMLElement).style.borderRadius = '2rem';
+          (modal as HTMLElement).style.borderRadius = '1rem';
         }
 
         if (confirmButton) {
@@ -157,12 +157,12 @@ export class NavbarComponent implements OnDestroy {
     Swal.fire({
       title: 'Inicio de Sesión',
       html: `
-        <img src="ruta-a-tu-imagen.jpg" alt="imagen" style="max-width: 100%; margin-bottom: 1rem;">
-        <input id="email" class="swal2-input" placeholder="Dirección de email">
-        <input id="password" class="swal2-input" placeholder="Contraseña" type="password">
-        <button id="login-btn" class="swal2-confirm swal2-styled" style="display: block; margin: 0.5rem auto;">ENTRAR</button>
-        <button id="register-btn" class="swal2-confirm swal2-styled" style="display: block; background-color: #28a745; margin: 0.5rem auto;">REGISTRATE</button>
-        <p style="text-align: center;">¿Olvidaste tu contraseña? Te enviamos un email <a href="link-recuperacion">aquí</a></p>
+        <img width="50" src="../../../assets/images/icons/user.png" alt="imagen"><br>
+        <input id="email" class="swal2-input mt-3" placeholder="Dirección de email">
+        <input id="password" class="swal2-input mt-3" placeholder="Contraseña" type="password">
+        <button id="login-btn" class="swal2-confirm swal2-styled mt-3" style="display: block; background-color: #28a745; margin: 0.5rem auto;">ENTRAR</button>
+        <button id="register-btn" class="swal2-confirm swal2-styled mt-3" style="display: block;  margin: 0.5rem auto;">REGISTRATE</button>
+        <p class="mt-3" style="text-align: center;"><i>¿Olvidaste tu contraseña? Te enviamos un email <a style="text-decoration: none; color: #333" href="link-recuperacion"><b>aquí</b></i></a></p>
       `,
       showConfirmButton: false, // Oculta el botón de confirmar por defecto
       customClass: {
@@ -177,19 +177,22 @@ export class NavbarComponent implements OnDestroy {
           console.log('Intento de login con:', email, password);
           // Aquí debes añadir tu lógica de validación o autenticación
         });
+        const modal = document.querySelector('.swal2-popup');
+        if(modal) {
+          (modal as HTMLElement).style.borderRadius = '1rem';
+        }
 
         document.getElementById('register-btn').addEventListener('click', () => {
           // Lógica para manejar el evento de "REGISTRATE"
+          Swal.close();
           console.log('Ir al formulario de registro');
-          // Aquí debes añadir tu lógica para dirigir al usuario al registro
+          this.route.navigate(['/registro']);
         });
       }
     });
   }
 
   buscarProducto() {
-    console.log("a");
-
     this.route.navigate(['busqueda']);
   }
 

@@ -1,0 +1,54 @@
+<section class="pt-5 pb-5">
+  <div class="registro-container">
+    <form class="registro-form">
+      <img width="50" class="logo" src="../../../assets/images/icons/user.png" alt="">
+      <h2 class="form-title">Registro de Usuario</h2>
+      <div class="form-group">
+        <input type="text" class="form-control" id="nombre" placeholder="Nombre y Apellido / Empresa" required>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="dni" placeholder="DNI / CUIL / CUIT">
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-control" id="email" placeholder="Dirección de email" required>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" id="contrasena" placeholder="Contraseña" required>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="celular" placeholder="Celular">
+      </div>
+      <div class="form-group">
+        <select class="form-control" id="provincia" [(ngModel)]="provinciaSeleccionada" name="provincia">
+          <option value="Provincia" disabled selected>Provincia</option>
+          <option *ngFor="let provincia of provincias" [ngValue]="provincia">{{provincia}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <select class="form-control" id="ciudad">
+          <option disabled selected>Ciudad</option>
+          <!-- Opciones de ciudades -->
+        </select>
+      </div>
+      <div class="row">
+        <div class="col-sm-8 form-group">
+          <input type="text" class="form-control" id="calle" placeholder="Calle">
+        </div>
+        <div class="col-sm-4 form-group">
+          <input type="text" class="form-control" id="numero" placeholder="N°">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-control" id="piso" placeholder="Piso / Departamento">
+      </div>
+      <div class="form-terms">
+        <label>
+          <input type="checkbox" required> Al Entrar o Registrarte, aceptas las <a href="#">Condiciones de servicio</a> y la <a href="#">Política de privacidad</a>.
+        </label>
+      </div>
+      <button type="submit" class="btn-registro"><b>REGISTRARME</b></button>
+    </form>
+  </div>
+</section>

@@ -24,6 +24,7 @@ import { ProductoIndividualComponent } from './producto-individual/producto-indi
 import { ItemsCarritoComponent } from './items-carrito/items-carrito.component';
 import { ItemsFavoritosComponent } from './items-favoritos/items-favoritos.component';
 import { HomeListingComponent } from './home-listing/home-listing.component';
+import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { HomeListingComponent } from './home-listing/home-listing.component';
     NosotrosComponent,
     ProductoIndividualComponent,
     ItemsCarritoComponent,
-    ItemsFavoritosComponent
+    ItemsFavoritosComponent,
+    RegistroUsuarioComponent
   ],
   exports: [
     HomepageComponent,
@@ -46,7 +48,8 @@ import { HomeListingComponent } from './home-listing/home-listing.component';
     NosotrosComponent,
     ProductoIndividualComponent,
     ItemsCarritoComponent,
-    ItemsFavoritosComponent
+    ItemsFavoritosComponent,
+    RegistroUsuarioComponent
   ],
   imports: [
     CommonModule,
