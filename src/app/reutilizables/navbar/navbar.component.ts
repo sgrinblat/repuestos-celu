@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { ConexionService } from 'src/app/service/conexion.service';
 
 import Swal from 'sweetalert2';
 
@@ -9,14 +10,65 @@ import Swal from 'sweetalert2';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnDestroy {
+export class NavbarComponent implements OnDestroy, OnInit {
+
+
+  // provincias: string[] = [
+  //   'Buenos Aires', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba',
+  //   'Corrientes', 'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa',
+  //   'La Rioja', 'Mendoza', 'Misiones', 'Neuquén', 'Río Negro',
+  //   'Salta', 'San Juan', 'San Luis', 'Santa Cruz', 'Santa Fe',
+  //   'Santiago del Estero', 'Tierra del Fuego', 'Tucumán'
+  // ];
+
+  provincias: any[] = [];
+  ciudades: any[] = [];
+  idProvinciaSeleccionada: number | null = null;
+
   private listener: Function;
 
-  constructor( private renderer : Renderer2, private route: Router, private cdr: ChangeDetectorRef) {
+  constructor( private renderer : Renderer2, private route: Router, private cdr: ChangeDetectorRef, private conexionService: ConexionService) {
     this.listener = this.renderer.listen('document', 'click', (event: Event) => {
       this.handleDocumentClick(event);
     });
   }
+
+  ngOnInit(): void {
+    this.loadStates();
+  }
+
+  loadStates() {
+    this.conexionService.getStates().subscribe(
+      response => {
+        if (response.status) {
+          this.provincias = response.states; // Guarda los estados en el array Provincias
+          console.log(this.provincias);
+
+        }
+      },
+      error => {
+        console.error('Error: ', error); // Manejo de errores
+      }
+    );
+  }
+
+  loadCities(idState: number) {
+    console.log("??????");
+
+    this.conexionService.getCities(idState).subscribe(
+      response => {
+        if (response.status) {
+          this.ciudades = response.cities;
+          console.log(this.ciudades);
+
+        }
+      },
+      error => {
+        console.error('Error: ', error);
+      }
+    );
+  }
+
 
   ngOnDestroy() {
     // Remove the listener!
@@ -102,29 +154,21 @@ export class NavbarComponent implements OnDestroy {
   }
 
 
-  provincias: string[] = [
-    'Buenos Aires', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba',
-    'Corrientes', 'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa',
-    'La Rioja', 'Mendoza', 'Misiones', 'Neuquén', 'Río Negro',
-    'Salta', 'San Juan', 'San Luis', 'Santa Cruz', 'Santa Fe',
-    'Santiago del Estero', 'Tierra del Fuego', 'Tucumán'
-  ];
-
-  // Otro array para el segundo desplegable
-  otroArray: string[] = ['Opción 1', 'Opción 2', 'Opción 3'];
-
-
   abrirModalUbicacion() {
-    const { provincias, otroArray } = this;
+    const { provincias, ciudades } = this;
+    const screenWidth = window.innerWidth;
+
     Swal.fire({
       html: `
         <select id="swal-select1" class="swal2-input">
-          ${provincias.map(provincia => `<option value="${provincia}">${provincia}</option>`).join('')}
-        </select>
-        <select id="swal-select2" class="swal2-input">
-          ${otroArray.map(opcion => `<option value="${opcion}">${opcion}</option>`).join('')}
+          <option value="">Seleccione una provincia</option>
+          ${provincias.map(provincia => `<option value="${provincia.id}">${provincia.name}</option>`).join('')}
+        </select><br>
+        <select id="swal-select2" class="swal2-input" disabled>
+          <option value="">Elige una provincia primero</option>
         </select>
       `,
+      position: 'center',
       focusConfirm: false,
       preConfirm: () => {
         return [
@@ -134,15 +178,44 @@ export class NavbarComponent implements OnDestroy {
       },
       confirmButtonText: 'OK',
       didOpen: () => {
-        const confirmButton = document.querySelector('.swal2-confirm');
         const modal = document.querySelector('.swal2-popup');
-        if(modal) {
-          (modal as HTMLElement).style.borderRadius = '1rem';
+        const selects = document.querySelectorAll('.swal2-input'); // Selecciona todos los elementos con la clase swal2-input
+
+        if (modal) {
+          (modal as HTMLElement).style.borderRadius = '1rem'; // Aplica estilos al modal
         }
 
-        if (confirmButton) {
-          (confirmButton as HTMLElement).style.backgroundColor = '#DBB641'; // Ejemplo aplicando estilo directamente
+        if(screenWidth < 768) {
+          selects.forEach(select => {
+            (select as HTMLElement).style.fontSize = '11px'; // Aplica estilos a cada select encontrado
+          });
         }
+
+
+        const selectEstado = document.getElementById('swal-select1') as HTMLSelectElement;
+        const selectCiudad = document.getElementById('swal-select2') as HTMLSelectElement;
+
+        selectEstado.onchange = () => {
+          const selectedId = parseInt(selectEstado.value, 10);
+          if (selectedId) {
+            this.conexionService.getCities(selectedId).subscribe(response => {
+              if (response.status) {
+                selectCiudad.innerHTML = response.cities.map(ciudad => {
+                  // Reemplazar "Ciudad Autónoma de Buenos Aires" por "CABA"
+                  let cityName = ciudad.name;
+                  if (cityName === "Ciudad Autónoma de Buenos Aires") {
+                    cityName = "CABA";
+                  }
+                  return `<option value="${ciudad.id}">${cityName}</option>`;
+                }).join('');
+                selectCiudad.disabled = false;
+              }
+            });
+          } else {
+            selectCiudad.innerHTML = '<option value="">Elige una provincia primero</option>';
+            selectCiudad.disabled = true;
+          }
+        };
       }
     }).then((result) => {
       if (result.value) {
