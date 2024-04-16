@@ -25,6 +25,8 @@ import { ItemsCarritoComponent } from './items-carrito/items-carrito.component';
 import { ItemsFavoritosComponent } from './items-favoritos/items-favoritos.component';
 import { HomeListingComponent } from './home-listing/home-listing.component';
 import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
+import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha';
+import { RecaptchaCommonModule } from 'ng-recaptcha/lib/recaptcha-common.module';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,7 @@ import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.co
     ProductoIndividualComponent,
     ItemsCarritoComponent,
     ItemsFavoritosComponent,
-    RegistroUsuarioComponent
+    RegistroUsuarioComponent,
   ],
   imports: [
     CommonModule,
@@ -63,7 +65,8 @@ import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.co
     Ng2SearchPipeModule,
     ReutilizablesModule,
     LazyLoadImageModule,
-    DragDropModule
+    DragDropModule,
+    RecaptchaModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }]
 })

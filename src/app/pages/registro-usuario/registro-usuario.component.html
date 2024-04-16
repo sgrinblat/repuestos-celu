@@ -1,54 +1,174 @@
 <section class="pt-5 pb-5">
-  <div class="registro-container">
-    <form class="registro-form">
-      <img width="50" class="logo" src="../../../assets/images/icons/user.png" alt="">
-      <h2 class="form-title">Registro de Usuario</h2>
-      <div class="form-group">
-        <input type="text" class="form-control" id="nombre" placeholder="Nombre y Apellido / Empresa" required>
-      </div>
-      <div class="form-group">
-        <input type="text" class="form-control" id="dni" placeholder="DNI / CUIL / CUIT">
-      </div>
-      <div class="form-group">
-        <input type="email" class="form-control" id="email" placeholder="Dirección de email" required>
-      </div>
-      <div class="form-group">
-        <input type="password" class="form-control" id="contrasena" placeholder="Contraseña" required>
-      </div>
-      <div class="form-group">
-        <input type="text" class="form-control" id="celular" placeholder="Celular">
-      </div>
-      <div class="form-group">
-        <select class="form-control" id="provincia" [(ngModel)]="provinciaSeleccionada" name="provincia">
-          <option value="Provincia" disabled selected>Provincia</option>
-          <option *ngFor="let provincia of provincias" [ngValue]="provincia">{{provincia}}</option>
-        </select>
-      </div>
+  <div class="container">
+    <div class="registro-container">
 
-      <div class="form-group">
-        <select class="form-control" id="ciudad">
-          <option disabled selected>Ciudad</option>
-          <!-- Opciones de ciudades -->
-        </select>
-      </div>
-      <div class="row">
-        <div class="col-sm-8 form-group">
-          <input type="text" class="form-control" id="calle" placeholder="Calle">
-        </div>
-        <div class="col-sm-4 form-group">
-          <input type="text" class="form-control" id="numero" placeholder="N°">
-        </div>
-      </div>
+      <form [formGroup]="contactForm" class="registro-form">
 
-      <div class="form-group">
-        <input type="text" class="form-control" id="piso" placeholder="Piso / Departamento">
-      </div>
-      <div class="form-terms">
-        <label>
-          <input type="checkbox" required> Al Entrar o Registrarte, aceptas las <a href="#">Condiciones de servicio</a> y la <a href="#">Política de privacidad</a>.
-        </label>
-      </div>
-      <button type="submit" class="btn-registro"><b>REGISTRARME</b></button>
-    </form>
+        <img width="50" class="logo" src="../../../assets/images/icons/user.png" alt="">
+
+        <h2 class="form-title">Registro de Usuario</h2>
+
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Nombre y Apellido / Empresa"
+          formControlName="formularioNombreUsuario" name="formularioNombreUsuario"
+                [class.is-invalid]="contactForm.get('formularioNombreUsuario').invalid && contactForm.get('formularioNombreUsuario').touched"
+                id="formularioNombreUsuario" class="formulario-input bg-light form-control "
+                formControlName="formularioNombreUsuario" />
+                <div
+                *ngIf="contactForm.get('formularioNombreUsuario')?.touched && contactForm.get('formularioNombreUsuario')?.errors?.['required'] "
+                class="alert alert-danger formulario-error text-center mt-3">*El campo de Nombre y apellido es obligatorio</div>
+                <div
+                *ngIf="contactForm.get('formularioNombreUsuario')?.touched && contactForm.get('formularioNombreUsuario')?.errors?.['minlength'] "
+                class="alert alert-danger formulario-error mt-3">*El campo de Nombre y apellido debe contener al menos
+                {{contactForm.get('formularioNombreUsuario')?.errors?.['minlength'].requiredLength}} letras</div>
+        </div>
+
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="DNI / CUIL / CUIT"
+          formControlName="formularioDNIUsuario" name="formularioDNIUsuario"
+                [class.is-invalid]="contactForm.get('formularioDNIUsuario').invalid && contactForm.get('formularioDNIUsuario').touched"
+                id="formularioDNIUsuario" class="formulario-input bg-light form-control "
+                formControlName="formularioDNIUsuario" />
+                <div
+                *ngIf="contactForm.get('formularioDNIUsuario')?.touched && contactForm.get('formularioDNIUsuario')?.errors?.['required'] "
+                class="alert alert-danger formulario-error text-center mt-3">*El campo de DNI/CUIL/CUIT es obligatorio</div>
+                <div
+                *ngIf="contactForm.get('formularioDNIUsuario')?.touched && contactForm.get('formularioDNIUsuario')?.errors?.['minlength'] "
+                class="alert alert-danger formulario-error mt-3">*El campo de DNI/CUIL/CUIT debe contener al menos
+                {{contactForm.get('formularioDNIUsuario')?.errors?.['minlength'].requiredLength}} letras</div>
+        </div>
+
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Dirección de email"
+          formControlName="formularioEmailUsuario" name="formularioEmailUsuario"
+                [class.is-invalid]="contactForm.get('formularioEmailUsuario').invalid && contactForm.get('formularioEmailUsuario').touched"
+                id="formularioEmailUsuario" class="formulario-input bg-light form-control "
+                formControlName="formularioEmailUsuario"/>
+                <div
+                *ngIf="contactForm.get('formularioEmailUsuario')?.touched && contactForm.get('formularioEmailUsuario')?.errors?.['required'] "
+                class="alert alert-danger formulario-error text-center mt-3">*El campo de Email es obligatorio</div>
+                <div
+                *ngIf="contactForm.get('formularioEmailUsuario')?.touched && contactForm.get('formularioEmailUsuario')?.errors?.['minlength'] "
+                class="alert alert-danger formulario-error mt-3">*El campo de Email debe contener al menos
+                {{contactForm.get('formularioEmailUsuario')?.errors?.['minlength'].requiredLength}} letras</div>
+        </div>
+
+        <div class="form-group">
+          <input type="password" class="form-control"  placeholder="Contraseña"
+          formControlName="formularioPasswordUsuario" name="formularioPasswordUsuario"
+          [class.is-invalid]="contactForm.get('formularioPasswordUsuario').invalid && contactForm.get('formularioPasswordUsuario').touched"
+          id="formularioPasswordUsuario" class="formulario-input bg-light form-control "
+          formControlName="formularioPasswordUsuario"/>
+          <div
+          *ngIf="contactForm.get('formularioPasswordUsuario')?.touched && contactForm.get('formularioPasswordUsuario')?.errors?.['required'] "
+          class="alert alert-danger formulario-error text-center mt-3">*El campo de Contraseña es obligatorio</div>
+          <div
+          *ngIf="contactForm.get('formularioPasswordUsuario')?.touched && contactForm.get('formularioPasswordUsuario')?.errors?.['minlength'] "
+          class="alert alert-danger formulario-error mt-3">*El campo de Contraseña debe contener al menos
+          {{contactForm.get('formularioPasswordUsuario')?.errors?.['minlength'].requiredLength}} letras</div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4 form-group">
+            <input type="text" class="form-control"  placeholder="Código de area"
+            formControlName="formularioCodAreaUsuario" name="formularioCodAreaUsuario"
+            [class.is-invalid]="contactForm.get('formularioCodAreaUsuario').invalid && contactForm.get('formularioCodAreaUsuario').touched"
+            id="formularioCodAreaUsuario" class="formulario-input bg-light form-control "
+            formControlName="formularioCodAreaUsuario"/>
+            <div
+            *ngIf="contactForm.get('formularioCodAreaUsuario')?.touched && contactForm.get('formularioCodAreaUsuario')?.errors?.['required'] "
+            class="alert alert-danger formulario-error text-center mt-3">*Cod Área es obligatorio</div>
+            <div
+            *ngIf="contactForm.get('formularioCodAreaUsuario')?.touched && contactForm.get('formularioCodAreaUsuario')?.errors?.['minlength'] "
+            class="alert alert-danger formulario-error mt-3">*Cod Área debe contener al menos
+            {{contactForm.get('formularioCodAreaUsuario')?.errors?.['minlength'].requiredLength}} letras</div>
+          </div>
+
+          <div class="col-sm-8 form-group">
+            <input type="text" class="form-control"  placeholder="Celular"
+            formControlName="formularioNroTelUsuario" name="formularioNroTelUsuario"
+            [class.is-invalid]="contactForm.get('formularioNroTelUsuario').invalid && contactForm.get('formularioNroTelUsuario').touched"
+            id="formularioNroTelUsuario" class="formulario-input bg-light form-control "
+            formControlName="formularioNroTelUsuario"/>
+            <div
+            *ngIf="contactForm.get('formularioNroTelUsuario')?.touched && contactForm.get('formularioNroTelUsuario')?.errors?.['required'] "
+            class="alert alert-danger formulario-error text-center mt-3">*El campo de Celular es obligatorio</div>
+            <div
+            *ngIf="contactForm.get('formularioNroTelUsuario')?.touched && contactForm.get('formularioNroTelUsuario')?.errors?.['minlength'] "
+            class="alert alert-danger formulario-error mt-3">*El campo de Celular debe contener al menos
+            {{contactForm.get('formularioNroTelUsuario')?.errors?.['minlength'].requiredLength}} letras</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <select name="provinciaSeleccionada" id="provinciaSeleccionada" class="form-control" formControlName="provinciaSeleccionada">
+            <option value="none" disabled hidden>Provincia</option>
+            <option *ngFor="let provincia of provincias" [ngValue]="provincia.id">{{provincia.name}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <select name="ciudadSeleccionada" id="ciudadSeleccionada" class="form-control" formControlName="ciudadSeleccionada">
+            <option value="none" disabled hidden>Ciudad</option>
+            <option *ngFor="let ciudad of ciudades" [ngValue]="ciudad.id">{{ciudad.name}}</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-8 form-group">
+            <input type="text" class="form-control"  placeholder="Calle"
+            formControlName="formularioCalleDirUsuario" name="formularioCalleDirUsuario"
+            [class.is-invalid]="contactForm.get('formularioCalleDirUsuario').invalid && contactForm.get('formularioCalleDirUsuario').touched"
+            id="formularioCalleDirUsuario" class="formulario-input bg-light form-control "
+            formControlName="formularioCalleDirUsuario"/>
+            <div
+            *ngIf="contactForm.get('formularioCalleDirUsuario')?.touched && contactForm.get('formularioCalleDirUsuario')?.errors?.['required'] "
+            class="alert alert-danger formulario-error text-center mt-3">*El campo de Calle es obligatorio</div>
+            <div
+            *ngIf="contactForm.get('formularioCalleDirUsuario')?.touched && contactForm.get('formularioCalleDirUsuario')?.errors?.['minlength'] "
+            class="alert alert-danger formulario-error mt-3">*El campo de Calle debe contener al menos
+            {{contactForm.get('formularioCalleDirUsuario')?.errors?.['minlength'].requiredLength}} letras</div>
+          </div>
+
+          <div class="col-sm-4 form-group">
+            <input type="text" class="form-control" placeholder="N°"
+            formControlName="formularioCalleNroUsuario" name="formularioCalleNroUsuario"
+            [class.is-invalid]="contactForm.get('formularioCalleNroUsuario').invalid && contactForm.get('formularioCalleNroUsuario').touched"
+            id="formularioCalleNroUsuario" class="formulario-input bg-light form-control "
+            formControlName="formularioCalleNroUsuario"/>
+            <div
+            *ngIf="contactForm.get('formularioCalleNroUsuario')?.touched && contactForm.get('formularioCalleNroUsuario')?.errors?.['required'] "
+            class="alert alert-danger formulario-error text-center mt-3">*El campo de Nro de calle es obligatorio</div>
+            <div
+            *ngIf="contactForm.get('formularioCalleNroUsuario')?.touched && contactForm.get('formularioCalleNroUsuario')?.errors?.['minlength'] "
+            class="alert alert-danger formulario-error mt-3">*El campo de Nro de calle debe contener al menos
+            {{contactForm.get('formularioCalleNroUsuario')?.errors?.['minlength'].requiredLength}} letras</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Piso / Departamento"
+          formControlName="formularioPisoDeptoUsuario" name="formularioPisoDeptoUsuario"
+          [class.is-invalid]="contactForm.get('formularioPisoDeptoUsuario').invalid && contactForm.get('formularioPisoDeptoUsuario').touched"
+          type="text" id="formularioPisoDeptoUsuario" class="formulario-input bg-light form-control "
+          formControlName="formularioPisoDeptoUsuario"/>
+          <div
+          *ngIf="contactForm.get('formularioPisoDeptoUsuario')?.touched && contactForm.get('formularioPisoDeptoUsuario')?.errors?.['required'] "
+          class="alert alert-danger formulario-error text-center mt-3">*El campo de Piso/Depto es obligatorio</div>
+          <div
+          *ngIf="contactForm.get('formularioPisoDeptoUsuario')?.touched && contactForm.get('formularioPisoDeptoUsuario')?.errors?.['minlength'] "
+          class="alert alert-danger formulario-error mt-3">*El campo de Piso/Depto debe contener al menos
+          {{contactForm.get('formularioPisoDeptoUsuario')?.errors?.['minlength'].requiredLength}} letras</div>
+        </div>
+
+        <div class="form-terms">
+          <label>
+            <input formControlName="policies_agree" type="checkbox"> Al Entrar o Registrarte, aceptas las <a href="#">Condiciones de servicio</a> y la <a href="#">Política de privacidad</a>.
+          </label>
+        </div>
+
+        <button (click)="registrarse()" class="btn-registro"><b>REGISTRARME</b></button>
+      </form>
+    </div>
   </div>
 </section>

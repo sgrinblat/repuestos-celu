@@ -23,7 +23,6 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   provincias: any[] = [];
   ciudades: any[] = [];
-  idProvinciaSeleccionada: number | null = null;
 
   private listener: Function;
 
@@ -42,8 +41,6 @@ export class NavbarComponent implements OnDestroy, OnInit {
       response => {
         if (response.status) {
           this.provincias = response.states; // Guarda los estados en el array Provincias
-          console.log(this.provincias);
-
         }
       },
       error => {
@@ -53,14 +50,10 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   loadCities(idState: number) {
-    console.log("??????");
-
     this.conexionService.getCities(idState).subscribe(
       response => {
         if (response.status) {
           this.ciudades = response.cities;
-          console.log(this.ciudades);
-
         }
       },
       error => {

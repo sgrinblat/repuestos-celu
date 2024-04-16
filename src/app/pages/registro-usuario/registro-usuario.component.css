@@ -7,6 +7,12 @@
   margin: auto;
 }
 
+@media (max-width: 500px) {
+  .registro-container {
+    width: auto;
+  }
+}
+
 .registro-form {
   display: flex;
   flex-direction: column;

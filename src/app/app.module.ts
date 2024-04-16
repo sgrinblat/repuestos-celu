@@ -6,6 +6,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { SwiperModule } from "swiper/angular";
+import { RecaptchaModule, RecaptchaFormsModule, RecaptchaV3Module, RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -37,13 +38,19 @@ registerLocaleData(localeEs);
     ReutilizablesModule,
     LazyLoadImageModule,
     PagesModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
+    RecaptchaV3Module
   ],
   exports: [
     ReactiveFormsModule,
     FormsModule,
 
   ],
-  providers: [],
+  providers: [{
+    provide: RECAPTCHA_V3_SITE_KEY,
+    useValue: '6LcefLopAAAAAFN8sPSYSBNigqA22tCUW1O1JC49',
+  }],
   bootstrap: [AppComponent]
 })
 

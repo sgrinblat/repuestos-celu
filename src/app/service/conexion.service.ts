@@ -23,6 +23,19 @@ export class ConexionService {
     return this.http.get(`${this.baseUrl}/front/cities/${idState}`, { headers: this.headers });
   }
 
+  registrarUsuario(userData: any): Observable<any> {
+    const url = `${this.baseUrl}/front/register`;
+    return this.http.post<any>(url, userData, { headers: this.headers });
+  }
+
+  validarCodigo(email: string, validationCode: number): Observable<any> {
+    const url = `${this.baseUrl}/front/validate`;
+    const body = {
+      email: email,
+      validation_code: validationCode
+    };
+    return this.http.post<any>(url, body, { headers: this.headers });
+  }
 
 
 }
