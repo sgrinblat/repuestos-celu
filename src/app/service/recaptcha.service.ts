@@ -7,8 +7,8 @@ import { Observable, map, catchError, throwError } from 'rxjs';
 })
 export class RecaptchaService {
 
-  private secretKey = '6LcefLopAAAAACF2pgnrR6hytYfJLsoPAJcJvqX6';
-  private recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
+  private secretKey = '';
+  private recaptchaUrl = '';
 
   constructor(private http: HttpClient) { }
 
