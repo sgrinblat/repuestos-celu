@@ -27,6 +27,7 @@ import { HomeListingComponent } from './home-listing/home-listing.component';
 import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
 import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaCommonModule } from 'ng-recaptcha/lib/recaptcha-common.module';
+import { FinalizarOrdenComponent } from './finalizar-orden/finalizar-orden.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { RecaptchaCommonModule } from 'ng-recaptcha/lib/recaptcha-common.module'
     CarruselComponent,
     BannerhomepageComponent,
     FaqComponent,
+    FinalizarOrdenComponent,
     NosotrosComponent,
     ProductoIndividualComponent,
     ItemsCarritoComponent,
@@ -47,6 +49,7 @@ import { RecaptchaCommonModule } from 'ng-recaptcha/lib/recaptcha-common.module'
     CarruselComponent,
     BannerhomepageComponent,
     FaqComponent,
+    FinalizarOrdenComponent,
     NosotrosComponent,
     ProductoIndividualComponent,
     ItemsCarritoComponent,

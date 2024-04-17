@@ -1,57 +1,78 @@
-<section class="fondo-gris pt-5 pb-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8">
-        <!-- Producto -->
-        <div class="card mb-3">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-3">
-                <!-- Imagen del producto -->
-                <img src="https://rosariopacksrl.com.ar/wp-content/uploads/2017/10/DSC0093.jpg" alt="Producto" class="img-fluid">
-              </div>
-              <div class="col-md-6">
-                <!-- Nombre y opciones del producto -->
-                <h5 class="card-title">Nombre del Producto</h5>
-                <p class="price mt-2">$XX.XXX</p>
-                <!-- Controles para cambiar la cantidad -->
-                <div class="quantity-controls mt-2">
-                  <button class="btn btn-outline-secondary">-</button>
-                  <input type="text" value="1" class="form-control">
-                  <button class="btn btn-outline-secondary">+</button>
-                </div>
-                <p class="mt-2">Subtotal:</p>
-                <p class="price">$XX.XXX</p>
-              </div>
-              <div class="col-md-3 mt-2">
-                <!-- Precio y disponibilidad -->
-                <p class="price">SUCURSAL CORDOBA</p>
-                <button class="btn btn-warning mt-2">Ver producto</button><br>
-                <button class="btn btn-danger mt-3">Eliminar</button><br>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Repetir la tarjeta del producto para cada producto -->
+<div class="container mt-3">
+  <div class="card">
+      <div class="card-header text-center">
+          <h4>FINALIZAR ORDEN</h4>
+          <span>Nº 344</span>
       </div>
+      <div class="card-body">
+          <form>
+              <!-- Fila para Nombre y Email -->
+              <div class="row">
+                  <div class="col-md-6 form-group">
+                      <input type="text" class="form-control" placeholder="Nombre y Apellido / Empresa">
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <input type="email" class="form-control" placeholder="Dirección de email">
+                  </div>
+              </div>
 
-      <div class="col-md-4 carrito">
-        <!-- Resumen de compra -->
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Resumen del carrito</h5>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Productos (X) <span class="price">$XX.XXX</span></li>
-              <li class="list-group-item">Envío <span class="price">$XX.XXX</span></li>
-              <!-- Otros ítems del resumen -->
-            </ul>
-            <div class="card-text total">
-              Total <span class="price">$XX.XXX</span>
-            </div>
-            <button class="btn btn-success btn-block">Continuar compra</button>
-          </div>
-        </div>
+              <!-- Fila para DNI y Celular -->
+              <div class="row">
+                  <div class="col-md-6 form-group">
+                      <input type="text" class="form-control" placeholder="DNI / CUIL / CUIT">
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <input type="tel" class="form-control" placeholder="Celular">
+                  </div>
+              </div>
+
+              <!-- Fila para Provincia y Ciudad -->
+              <div class="row">
+                  <div class="col-md-6 form-group">
+                      <select class="form-control">
+                          <option selected disabled>Provincia</option>
+                          <!-- Opciones de provincias -->
+                      </select>
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <select class="form-control">
+                          <option selected disabled>Ciudad</option>
+                          <!-- Opciones de ciudades -->
+                      </select>
+                  </div>
+              </div>
+
+              <!-- Fila para Código Postal, Calle y Número -->
+              <div class="row">
+                  <div class="col-md-4 form-group">
+                      <input type="text" class="form-control" placeholder="Código postal">
+                  </div>
+                  <div class="col-md-4 form-group">
+                      <input type="text" class="form-control" placeholder="Calle">
+                  </div>
+                  <div class="col-md-4 form-group">
+                      <input type="text" class="form-control" placeholder="N°">
+                  </div>
+              </div>
+
+              <!-- Fila para Piso/Departamento -->
+              <div class="row">
+                  <div class="col-md-12 form-group">
+                      <input type="text" class="form-control" placeholder="Piso / Departamento">
+                  </div>
+              </div>
+
+              <!-- Sección de Formas de Pago -->
+              <h5 class="mt-4 mb-3">FORMAS DE PAGO</h5>
+              <div class="list-group mb-4">
+                  <!-- Opciones de pago -->
+              </div>
+
+              <!-- Botón para finalizar la orden -->
+              <div class="form-group">
+                  <button type="submit" class="btn btn-success btn-block">FINALIZAR ORDEN</button>
+              </div>
+          </form>
       </div>
-    </div>
   </div>
-</section>
+</div>

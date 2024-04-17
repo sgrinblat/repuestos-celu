@@ -15,6 +15,7 @@ import { ItemsCarritoComponent } from "./pages/items-carrito/items-carrito.compo
 import { ItemsFavoritosComponent } from "./pages/items-favoritos/items-favoritos.component";
 import { HomeListingComponent } from "./pages/home-listing/home-listing.component";
 import { RegistroUsuarioComponent } from "./pages/registro-usuario/registro-usuario.component";
+import { FinalizarOrdenComponent } from "./pages/finalizar-orden/finalizar-orden.component";
 
 
 
@@ -39,6 +40,10 @@ const routes: Routes = [
     {
       path: "producto",
       component: ProductoIndividualComponent,
+    },
+    {
+      path: "orden/finalizar",
+      component: FinalizarOrdenComponent,
     },
     {
       path: "registro",

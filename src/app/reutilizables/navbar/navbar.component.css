@@ -263,12 +263,16 @@ body {
   }
 
   .cuatroElementos {
-    font-size: 12px;
+    font-size: 11px;
+  }
+  .Puntosdeventa{
+    display: none !important;
   }
 
   .menu-button {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     margin-right: 5px;
+
   }
 
 }
