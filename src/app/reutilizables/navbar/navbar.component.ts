@@ -219,6 +219,11 @@ export class NavbarComponent implements OnDestroy, OnInit {
     });
   }
 
+  hola(){
+    console.log("hola");
+
+  }
+
   abrirModalInicio() {
     Swal.fire({
       title: 'Inicio de Sesión',
@@ -229,6 +234,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
         <button id="login-btn" class="swal2-confirm swal2-styled mt-3" style="display: block; background-color: #28a745; margin: 0.5rem auto;">ENTRAR</button>
         <button id="register-btn" class="swal2-confirm swal2-styled mt-3" style="display: block;  margin: 0.5rem auto;">REGISTRATE</button>
         <p class="mt-3" style="text-align: center;"><i>¿Olvidaste tu contraseña? Te enviamos un email <a style="text-decoration: none; color: #333" href="link-recuperacion"><b>aquí</b></i></a></p>
+        <p class="mt-3" style="text-align: center;"><a href="/validarcuenta">Necesito validar mi cuenta</a></p>
       `,
       showConfirmButton: false, // Oculta el botón de confirmar por defecto
       customClass: {

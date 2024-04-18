@@ -14,4 +14,5 @@ export class Usuario {
     floor_apartment: string;
     identity_number: string;
     policies_agree: boolean;
+    recaptcha_token: string;
 }

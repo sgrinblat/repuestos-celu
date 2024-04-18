@@ -88,20 +88,6 @@ export class FinalizarOrdenComponent implements OnInit {
   finalizarCompra() {
     const formModel = this.contactForm.value;
 
-    this.user = {
-      name: formModel.formularioNombreUsuario,
-      identity_number: formModel.formularioDNIUsuario,
-      email: formModel.formularioEmailUsuario,
-      password: formModel.formularioPasswordUsuario,
-      code_area: formModel.formularioCodAreaUsuario,
-      cel_phone: formModel.formularioNroTelUsuario,
-      state: formModel.provinciaSeleccionada,
-      city: formModel.ciudadSeleccionada,
-      street_address: formModel.formularioCalleDirUsuario,
-      number_address: formModel.formularioCalleNroUsuario,
-      floor_apartment: formModel.formularioPisoDeptoUsuario,
-      policies_agree: formModel.policies_agree
-    };
 
     console.log(this.user);
 

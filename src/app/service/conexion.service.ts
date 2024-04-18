@@ -28,14 +28,26 @@ export class ConexionService {
     return this.http.post<any>(url, userData, { headers: this.headers });
   }
 
-  validarCodigo(email: string, validationCode: number): Observable<any> {
+  validarCodigo(email: string, validationCode: number, recaptchaToken: string): Observable<any> {
     const url = `${this.baseUrl}/front/validate`;
     const body = {
       email: email,
-      validation_code: validationCode
+      validation_code: validationCode,
+      recaptcha_token: recaptchaToken
     };
     return this.http.post<any>(url, body, { headers: this.headers });
   }
 
+  revalidarCodigo(email: string, codeArea: number, celPhone: number, recaptchaToken: string): Observable<any> {
+    const url = `${this.baseUrl}/front/new_validation_code`;
+    const body = {
+      email: email,
+      code_area: codeArea,
+      cel_phone: celPhone,
+      recaptcha_token: recaptchaToken
+    };
+    return this.http.post<any>(url, body, { headers: this.headers });
+  }
 
 }
+

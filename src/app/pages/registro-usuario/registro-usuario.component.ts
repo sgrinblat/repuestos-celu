@@ -41,7 +41,7 @@ export class RegistroUsuarioComponent implements OnInit {
   ciudades: any[] = [];
   provinciaSeleccionada: any;
   ciudadSeleccionada: any = "null";
-  captchaResponse: any = "null";
+
 
   ngOnInit() {
     this.conexionService.getStates().subscribe(
@@ -54,46 +54,12 @@ export class RegistroUsuarioComponent implements OnInit {
       }
     );
 
-
-    this.robot = true;
-    this.presionado = false;
-
     this.contactForm.get('provinciaSeleccionada').valueChanges.subscribe(value => {
       this.onProvinciaChange(value);
     });
 
   }
 
-
-  getInfoRecaptcha() {
-    this.robot = true;
-    this.presionado = true;
-    this.recaptchaV3Service.execute('')
-      .subscribe((token) => {
-          const auxiliar = this.recaptchaService.getTokenClientModule(token)
-          auxiliar.subscribe( {
-            complete: () => {
-              this.presionado = false;
-            },
-            error: () => {
-              this.presionado = false;
-              this.robot = true;
-              alert('Tenemos un problema, recarga la página página para solucionarlo o contacta con 1938web@gmail.com');
-            },
-            next: (resultado: Boolean) => {
-              if (resultado === true) {
-                this.presionado = false;
-                this.robot = false;
-              } else {
-                alert('Error en el captcha. Eres un robot')
-                this.presionado = false;
-                this.robot = true;
-              }
-            }
-          });
-        }
-      );
-  }
 
   onProvinciaChange(provinciaId: number) {
     if (provinciaId) {
@@ -108,7 +74,6 @@ export class RegistroUsuarioComponent implements OnInit {
           }
         },
         error: (error) => {
-          console.error('Error al cargar las ciudades:', error);
           this.ciudades = []; // Limpiar las ciudades en caso de error
         }
       });
@@ -120,40 +85,45 @@ export class RegistroUsuarioComponent implements OnInit {
 
 
   registrarse() {
-    Loading.hourglass();
-    const formModel = this.contactForm.value;
+    this.recaptchaService.executeRecaptcha('registro').then(token => {
+      console.log('Recaptcha token:', token);
+      Loading.hourglass();
+      const formModel = this.contactForm.value;
 
-    this.user = {
-      name: formModel.formularioNombreUsuario,
-      identity_number: formModel.formularioDNIUsuario,
-      email: formModel.formularioEmailUsuario,
-      password: formModel.formularioPasswordUsuario,
-      code_area: formModel.formularioCodAreaUsuario,
-      cel_phone: formModel.formularioNroTelUsuario,
-      state: formModel.provinciaSeleccionada,
-      city: formModel.ciudadSeleccionada,
-      street_address: formModel.formularioCalleDirUsuario,
-      number_address: formModel.formularioCalleNroUsuario,
-      floor_apartment: formModel.formularioPisoDeptoUsuario,
-      policies_agree: formModel.policies_agree
-    };
+      this.user = {
+        name: formModel.formularioNombreUsuario,
+        identity_number: formModel.formularioDNIUsuario,
+        email: formModel.formularioEmailUsuario,
+        password: formModel.formularioPasswordUsuario,
+        code_area: formModel.formularioCodAreaUsuario,
+        cel_phone: formModel.formularioNroTelUsuario,
+        state: formModel.provinciaSeleccionada,
+        city: formModel.ciudadSeleccionada,
+        street_address: formModel.formularioCalleDirUsuario,
+        number_address: formModel.formularioCalleNroUsuario,
+        floor_apartment: formModel.formularioPisoDeptoUsuario,
+        policies_agree: formModel.policies_agree,
+        recaptcha_token: token
+      };
 
-    console.log(this.user);
+      console.log(this.user);
 
-
-    this.conexionService.registrarUsuario(this.user).subscribe({
-      next: (response) => {
-        Loading.remove(500);
-        console.log('Registro exitoso', response);
-        this.onRegistroExitoso(this.user.email)
-      },
-      error: (error) => {
-        Loading.remove(500);
-        console.error('Error en el registro', error);
-        // Mostrar mensaje de error
-      }
+      this.conexionService.registrarUsuario(this.user).subscribe({
+        next: (response) => {
+          Loading.remove(500);
+          console.log('Registro exitoso', response);
+          this.onRegistroExitoso(this.user.email)
+        },
+        error: (error) => {
+          Loading.remove(500);
+          console.error('Error en el registro', error);
+          // Mostrar mensaje de error
+        }
     });
 
+    }).catch(error => {
+      console.error('Recaptcha error:', error);
+    });
   }
 
 
@@ -180,14 +150,21 @@ export class RegistroUsuarioComponent implements OnInit {
       confirmButtonText: 'Validar'
     }).then((result) => {
       if (result.value) {
-        this.conexionService.validarCodigo(email, parseInt(result.value)).subscribe({
-          next: (response) => {
-            Swal.fire('¡Validación exitosa!', 'Tu número ha sido validado.', 'success');
-          },
-          error: (error) => {
-            Swal.fire('Error', 'Hubo un problema al validar el código.', 'error');
-          }
+        let numero = result.value;
+        this.recaptchaService.executeRecaptcha('login').then(token => {
+          console.log('Recaptcha token:', token);
+          this.conexionService.validarCodigo(email, parseInt(numero), token).subscribe({
+            next: (response) => {
+              Swal.fire('¡Validación exitosa!', 'Tu número ha sido validado.', 'success');
+            },
+            error: (error) => {
+              Swal.fire('Error', 'Hubo un problema al validar el código.', 'error');
+            }
+          });
+        }).catch(error => {
+          console.error('Recaptcha error:', error);
         });
+
       }
     });
 
@@ -207,10 +184,6 @@ export class RegistroUsuarioComponent implements OnInit {
       });
     }, 0);
   }
-
-
-
-
 
 
 
