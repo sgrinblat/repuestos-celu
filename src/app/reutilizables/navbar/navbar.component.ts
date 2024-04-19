@@ -83,7 +83,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
     if (menuElement && !menuElement.contains(targetElement)
     && menuCategorias && !menuCategorias.contains(targetElement)
     && menuRepuestos && !menuRepuestos.contains(targetElement)
-    && menuAccesorios && !menuAccesorios.contains(targetElement)  ) {
+    && menuAccesorios && !menuAccesorios.contains(targetElement)
+        ) {
       this.menuVisible = false;
       this.menuCategoriasVisible = false;
       this.menuRepuestosVisible = false;
@@ -97,6 +98,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
   menuCategoriasVisible: boolean = false;
   menuRepuestosVisible: boolean = false;
   menuAccesoriosVisible: boolean = false;
+  menuUsuarioLogueado: boolean = false;
+
 
   toggleMenu(event: MouseEvent) {
     event.stopPropagation();
@@ -227,11 +230,11 @@ export class NavbarComponent implements OnDestroy, OnInit {
       title: 'Inicio de Sesión',
       html: `
         <img width="50" src="../../../assets/images/icons/user.png" alt="imagen"><br>
-        <input id="email" class="swal2-input mt-3" placeholder="Dirección de email">
-        <input id="password" class="swal2-input mt-3" placeholder="Contraseña" type="password">
+        <input size="10" id="email" class="swal2-input mt-3" placeholder="Email">
+        <input size="10" id="password" class="swal2-input mt-3" placeholder="Contraseña" type="password">
         <button id="login-btn" class="swal2-confirm swal2-styled mt-3" style="display: block; background-color: #28a745; margin: 0.5rem auto;">ENTRAR</button>
-        <button id="register-btn" class="swal2-confirm swal2-styled mt-3" style="display: block;  margin: 0.5rem auto;">REGISTRATE</button>
-        <p class="mt-3" style="text-align: center;"><i>¿Olvidaste tu contraseña? Te enviamos un email <a style="text-decoration: none; color: #333" href="link-recuperacion"><b>aquí</b></i></a></p>
+        <button id="register-btn" class="swal2-confirm swal2-styled mt-3" style="display: block; margin: 0.5rem auto;">REGISTRATE</button>
+        <p class="mt-3" style="text-align: center;"><i>¿Olvidaste tu contraseña?<br> Te enviamos un email <a style="text-decoration: none; color: #333" href="link-recuperacion"><b>aquí</b></i></a></p>
         <p class="mt-3" style="text-align: center;"><a href="/validarcuenta">Necesito validar mi cuenta</a></p>
       `,
       showConfirmButton: false,
@@ -240,7 +243,22 @@ export class NavbarComponent implements OnDestroy, OnInit {
         document.getElementById('login-btn').addEventListener('click', () => {
           const email = (document.getElementById('email') as HTMLInputElement).value;
           const password = (document.getElementById('password') as HTMLInputElement).value;
-          console.log('Intento de login con:', email, password);
+          this.recaptchaService.executeRecaptcha('login').then(token => {
+            this.conexionService.loginUsuario(email, password, token).subscribe({
+              next: (response) => {
+                Swal.fire('¡Bienvenido!', 'Inicio de sesión exitoso.', 'success');
+                console.log(response);
+                localStorage.setItem("token", response.token);
+                // Aquí puedes redirigir al usuario o hacer otras acciones post-login
+              },
+              error: (error) => {
+                Swal.fire('Error', 'Hubo un problema al iniciar sesión.', 'error');
+                console.error('Error en el login', error);
+              }
+            });
+          }).catch(error => {
+            console.error('Recaptcha error:', error);
+          });
         });
 
         document.getElementById('register-btn').addEventListener('click', () => {
@@ -257,9 +275,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
         const modal = document.querySelector('.swal2-popup');
         if(modal) {
           (modal as HTMLElement).style.borderRadius = '1rem';
+
         }
       }
-
     });
   }
 
@@ -299,7 +317,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
       icon: 'info',
       title: 'Ingrese su email y código',
       html: `
-        <input id="email-code" class="swal2-input mb-4" placeholder="Dirección de email">
+        <input size="10" id="email-code" class="swal2-input mb-4" placeholder="Email">
         <div style="display: flex; justify-content: center;">${inputs}</div>
       `,
       focusConfirm: false,
@@ -351,9 +369,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
       icon: 'warning',
       title: 'Ingrese su email y celular',
       html: `
-        <input id="email-phone" class="swal2-input" placeholder="Email">
-        <input id="codarea" class="swal2-input" placeholder="Cod Area">
-        <input id="phone" class="swal2-input" placeholder="Número de celular">
+        <input size="10" id="email-phone" class="swal2-input" placeholder="Email">
+        <input size="10" id="codarea" class="swal2-input" placeholder="Cod Area">
+        <input size="10" id="phone" class="swal2-input" placeholder="Número de celular">
         <button style="background-color: #28a745;" class="swal2-confirm swal2-styled mt-3">Solicitar Nuevo Código</button>
       `,
       showConfirmButton: false,
@@ -461,19 +479,25 @@ export class NavbarComponent implements OnDestroy, OnInit {
     }, 0);
   }
 
-  // verElemento() {
-  //   if(this.conexion.sesionIniciadaJugador()){
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  verElemento() {
+    if(this.conexionService.sesionIniciada()){
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-  // cerrarSesion() {
-  //   this.conexion.deslogear();
-  //   Swal.fire('Sesión cerrada',`Esperamos verte pronto!`, `info`);
-  //   this.route.navigate(['']);
-  // }
+  cerrarSesion() {
+    this.conexionService.deslogear();
+    Swal.fire('Sesión cerrada',`Esperamos verte pronto!`, `info`);
+    this.route.navigate(['']);
+  }
+
+  abrirContainer(event: MouseEvent) {
+    event.stopPropagation();
+    this.menuUsuarioLogueado = !this.menuUsuarioLogueado;
+  }
+
 
 
 }

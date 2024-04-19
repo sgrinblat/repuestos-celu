@@ -49,5 +49,63 @@ export class ConexionService {
     return this.http.post<any>(url, body, { headers: this.headers });
   }
 
+  loginUsuario(email: string, password: string, recaptchaToken: string): Observable<any> {
+    const url = `${this.baseUrl}/front/login`;
+    const body = {
+      email: email,
+      password: password,
+      recaptcha_token: recaptchaToken
+    };
+    return this.http.post(url, body, { headers: this.headers });
+  }
+
+
+  // METODOS SOBRE INICIO DE SESIÓN
+
+  sesionIniciada() {
+    const tokenStr = localStorage.getItem('token');
+
+    if (tokenStr == undefined || tokenStr == '' || tokenStr == null) {
+      return false;
+    } else {
+      const payload = JSON.parse(atob(tokenStr.split('.')[1]));
+      const currentTime = Math.floor(Date.now() / 1000);
+
+      if (payload.exp < currentTime) {
+        // El token ha expirado, desloguear al usuario
+        this.deslogear();
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+
+
+  getToken() {
+    return localStorage.getItem("token");
+  }
+
+
+  // setUser(user: any) {
+  //   localStorage.setItem("user", JSON.stringify(user));
+  // }
+
+  // getUser() {
+  //   let userStr = localStorage.getItem("user");
+  //   if (userStr != null) {
+  //     return JSON.parse(userStr);
+  //   } else {
+  //     this.deslogear();
+  //     return null;
+  //   }
+  // }
+
+  deslogear() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    return true;
+  }
+
 }
 

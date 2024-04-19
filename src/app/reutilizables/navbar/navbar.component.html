@@ -12,11 +12,23 @@
               <li class="nav-item">
                 <a class="nav-link" routerLink="favoritos"><img width="40" class="icono-personalizado" src="../../../assets/images/icons/fav.png" alt="favoritos"></a>
               </li>
-              <li class="nav-item">
+              <li *ngIf="!verElemento()" class="nav-item">
                 <a (click)="abrirModalInicio()" class="nav-link" ><img width="40" class="icono-personalizado" src="../../../assets/images/icons/user.png" alt="usuario"></a>
+              </li>
+              <li *ngIf="verElemento()" class="nav-item">
+                <a (click)="abrirContainer($event)" class="nav-link" ><img width="40" class="icono-personalizado" src="../../../assets/images/icons/user.png" alt="usuario"></a>
+
+                <div *ngIf="menuUsuarioLogueado" class="menu-usuarioLogueado-container" [class.visible]="menuUsuarioLogueado">
+                  <p class="titulocategoria text-uppercase ms-4 mt-4">Hola fulano</p>
+                  <p>MI PERFIL</p>
+                  <p>MIS ÓRDENES</p>
+                  <p (click)="cerrarSesion()">SALIR</p>
+                </div>
               </li>
             </ul>
       </div>
+
+
 
       <div class="search-input-container">
         <div class="search-input">
@@ -43,10 +55,10 @@
                 <a (click)="abrirModalUbicacion()" class="nav-link-desplegable mt-2 mb-2" ><b>Ubicación</b></a>
               </li>
               <li class="nav-item-desplegable ">
-                <a routerLink="producto" class="nav-link-desplegable mt-2 mb-2" ><b>Ofertas</b></a>
+                <a routerLink="busqueda" class="nav-link-desplegable mt-2 mb-2" ><b>Ofertas</b></a>
               </li>
               <li class="nav-item-desplegable ">
-                <a routerLink="producto" class="nav-link-desplegable mt-2 mb-2" ><b>Podría interesarte</b></a>
+                <a routerLink="busqueda" class="nav-link-desplegable mt-2 mb-2" ><b>Podría interesarte</b></a>
               </li>
             </ul>
           </div>
