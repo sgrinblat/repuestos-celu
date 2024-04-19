@@ -1,6 +1,8 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { Loading } from 'notiflix';
 import { ConexionService } from 'src/app/service/conexion.service';
+import { RecaptchaService } from 'src/app/service/recaptcha.service';
 
 import Swal from 'sweetalert2';
 
@@ -26,7 +28,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   private listener: Function;
 
-  constructor( private renderer : Renderer2, private route: Router, private cdr: ChangeDetectorRef, private conexionService: ConexionService) {
+  constructor( private renderer : Renderer2, private recaptchaService: RecaptchaService, private route: Router, private cdr: ChangeDetectorRef, private conexionService: ConexionService) {
     this.listener = this.renderer.listen('document', 'click', (event: Event) => {
       this.handleDocumentClick(event);
     });
@@ -219,10 +221,6 @@ export class NavbarComponent implements OnDestroy, OnInit {
     });
   }
 
-  hola(){
-    console.log("hola");
-
-  }
 
   abrirModalInicio() {
     Swal.fire({
@@ -236,36 +234,231 @@ export class NavbarComponent implements OnDestroy, OnInit {
         <p class="mt-3" style="text-align: center;"><i>¿Olvidaste tu contraseña? Te enviamos un email <a style="text-decoration: none; color: #333" href="link-recuperacion"><b>aquí</b></i></a></p>
         <p class="mt-3" style="text-align: center;"><a href="/validarcuenta">Necesito validar mi cuenta</a></p>
       `,
-      showConfirmButton: false, // Oculta el botón de confirmar por defecto
-      customClass: {
-        popup: 'mi-modal-personalizado',
-        // Aquí puedes agregar más clases personalizadas si necesitas
-      },
+      showConfirmButton: false,
+      position: 'center',
       didOpen: () => {
         document.getElementById('login-btn').addEventListener('click', () => {
-          // Lógica para manejar el evento de "ENTRAR"
           const email = (document.getElementById('email') as HTMLInputElement).value;
           const password = (document.getElementById('password') as HTMLInputElement).value;
           console.log('Intento de login con:', email, password);
-          // Aquí debes añadir tu lógica de validación o autenticación
         });
-        const modal = document.querySelector('.swal2-popup');
-        if(modal) {
-          (modal as HTMLElement).style.borderRadius = '1rem';
-        }
 
         document.getElementById('register-btn').addEventListener('click', () => {
-          // Lógica para manejar el evento de "REGISTRATE"
           Swal.close();
           console.log('Ir al formulario de registro');
           this.route.navigate(['/registro']);
         });
+
+        document.querySelector('a[href="/validarcuenta"]').addEventListener('click', (event) => {
+          event.preventDefault();
+          this.abrirModalValidacion();
+        });
+
+        const modal = document.querySelector('.swal2-popup');
+        if(modal) {
+          (modal as HTMLElement).style.borderRadius = '1rem';
+        }
       }
+
     });
   }
 
   buscarProducto() {
     this.route.navigate(['busqueda']);
+  }
+
+  abrirModalValidacion() {
+    Swal.fire({
+      icon: 'info',
+      title: 'Validar cuenta',
+      html: `
+        <button id="ya-tengo-codigo" class="swal2-confirm swal2-styled mt-3" style="display: block; background-color: #28a745; margin: 0.5rem auto;">Ya tengo un código</button>
+        <button id="necesito-nuevo-codigo" class="swal2-confirm swal2-styled mt-3" style="display: block; background-color: #dab640; margin: 0.5rem auto;">Necesito un código nuevo</button>
+      `,
+      showConfirmButton: false,
+      position: 'center',
+      didOpen: () => {
+        document.getElementById('ya-tengo-codigo').addEventListener('click', () => {
+          Swal.close();
+          this.abrirModalYaTengoCodigo();
+        });
+        document.getElementById('necesito-nuevo-codigo').addEventListener('click', () => {
+          Swal.close();
+          this.abrirModalNecesitoNuevoCodigo();
+        });
+      }
+    });
+  }
+
+  abrirModalYaTengoCodigo() {
+    const inputs = Array.from({ length: 6 }, () =>
+      '<input type="text" class="form-control sw-input" style="width: 45px; height: 55px; font-size: 24px; text-align: center; margin: 0 5px;" maxlength="1">'
+    ).join('');
+
+    Swal.fire({
+      icon: 'info',
+      title: 'Ingrese su email y código',
+      html: `
+        <input id="email-code" class="swal2-input mb-4" placeholder="Dirección de email">
+        <div style="display: flex; justify-content: center;">${inputs}</div>
+      `,
+      focusConfirm: false,
+      position: 'center',
+      preConfirm: () => {
+        const values = Array.from(document.getElementsByClassName('sw-input'), (input) => input['value']);
+        if (values.some((value) => !value)) {
+          Swal.showValidationMessage("Todos los campos deben estar llenos");
+          return false; // Devuelve false si la validación falla
+        } else {
+          return values.join(''); // Devuelve el valor concatenado si pasa la validación
+        }
+      },
+      allowOutsideClick: false,
+      showCloseButton: true,
+      confirmButtonText: 'Validar'
+    }).then((result) => {
+      if (result.value) {
+        let numero = result.value;
+        // Asegurarse de que el email todavía existe en el DOM
+        const emailInput = document.getElementById('email-code') as HTMLInputElement;
+        if (!emailInput) {
+          console.error('El input de email ya no está disponible.');
+          return;
+        }
+        const email = emailInput.value;
+        this.recaptchaService.executeRecaptcha('validate').then(token => {
+          this.conexionService.validarCodigo(email, parseInt(numero), token).subscribe({
+            next: (response) => {
+              Swal.fire('¡Validación exitosa!', 'Tu número ha sido validado.', 'success');
+              console.log(response);
+            },
+            error: (error) => {
+              Swal.fire('Error', 'Hubo un problema al validar el código.', 'error');
+              console.log(error);
+            }
+          });
+        }).catch(error => {
+          console.error('Recaptcha error:', error);
+        });
+      }
+    });
+
+    this.autoTabInputs();
+  }
+
+  abrirModalNecesitoNuevoCodigo() {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Ingrese su email y celular',
+      html: `
+        <input id="email-phone" class="swal2-input" placeholder="Email">
+        <input id="codarea" class="swal2-input" placeholder="Cod Area">
+        <input id="phone" class="swal2-input" placeholder="Número de celular">
+        <button style="background-color: #28a745;" class="swal2-confirm swal2-styled mt-3">Solicitar Nuevo Código</button>
+      `,
+      showConfirmButton: false,
+      showCloseButton: true,
+      position: 'center',
+      didOpen: () => {
+        document.querySelector('.swal2-confirm').addEventListener('click', () => {
+          const email = document.getElementById('email-phone') as HTMLInputElement;
+          const codarea = document.getElementById('codarea') as HTMLInputElement;
+          const phone = document.getElementById('phone') as HTMLInputElement;
+
+          if (!email.value || !codarea.value || !phone.value) {
+            Swal.showValidationMessage("Por favor, complete todos los campos antes de continuar.");
+            return; // Previene la ejecución del resto del código si falta algún campo
+          }
+          const codAreaNum = parseInt(codarea.value);
+          const phoneNum = parseInt(phone.value);
+          if (isNaN(codAreaNum) || isNaN(phoneNum)) {
+            Swal.showValidationMessage("Por favor, introduzca números válidos en los campos de área y teléfono.");
+            return;
+          }
+
+          this.recaptchaService.executeRecaptcha('revalidate').then(token => {
+            this.conexionService.revalidarCodigo(email.value, codAreaNum, phoneNum, token).subscribe({
+              next: (response) => {
+                this.onRegistroExitoso(email.value);
+              },
+              error: (error) => {
+                console.error('Error en el revalidate', error);
+              }
+            });
+          }).catch(error => {
+            console.error('Recaptcha error:', error);
+          });
+        });
+      }
+    });
+  }
+
+  onRegistroExitoso(email: string) {
+    const inputs = Array.from({ length: 6 }, () =>
+      '<input type="text" class="form-control sw-input" style="width: 45px; height: 55px; font-size: 24px; text-align: center; margin: 0 5px;" maxlength="1">'
+    ).join('');
+
+    Swal.fire({
+      icon: 'info',
+      title: 'Envío exitoso. Valida tu celular con el sms que te enviamos!',
+      html: `<div style="display: flex; justify-content: center;">${inputs}</div>`,
+      focusConfirm: false,
+      showCloseButton: true,
+      preConfirm: () => {
+        const values = Array.from(document.getElementsByClassName('sw-input'), (input) => input['value']);
+        if (values.some((value) => !value)) {
+          Swal.showValidationMessage("Todos los campos deben estar llenos");
+          return false; // Devuelve false si la validación falla
+        } else {
+          return values.join(''); // Devuelve el valor concatenado si pasa la validación
+        }
+      },
+      allowOutsideClick: false,
+      confirmButtonText: 'Validar'
+    }).then((result) => {
+      if (result.value) {
+        let numero = result.value;
+        this.recaptchaService.executeRecaptcha('revalidate').then(token => {
+
+          const num = parseInt(numero);
+          if (isNaN(num)) {
+            Swal.showValidationMessage("Por favor, introduzca un número válido de código.");
+            return;
+          }
+
+          this.conexionService.validarCodigo(email, num, token).subscribe({
+            next: (response) => {
+              Swal.fire('¡Validación exitosa!', 'Tu número ha sido validado.', 'success');
+              console.log(response);
+
+            },
+            error: (error) => {
+              Swal.fire('Error', 'Hubo un problema al validar el código.', 'error');
+              console.log(error);
+            }
+          });
+        }).catch(error => {
+          console.error('Recaptcha error:', error);
+        });
+
+      }
+    });
+
+    this.autoTabInputs();
+  }
+
+
+  autoTabInputs() {
+    setTimeout(() => {
+      const inputs = Array.from(document.getElementsByClassName('sw-input') as HTMLCollectionOf<HTMLInputElement>);
+      inputs.forEach((input, idx) => {
+        input.addEventListener('input', () => {
+          if (input.value.length === 1 && idx < inputs.length - 1) {
+            inputs[idx + 1].focus();
+          }
+        });
+      });
+    }, 0);
   }
 
   // verElemento() {

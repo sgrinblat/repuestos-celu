@@ -83,47 +83,58 @@ export class RegistroUsuarioComponent implements OnInit {
     }
   }
 
+  // this.recaptchaService.executeRecaptcha('registro').then(token => {
+
+  // }).catch(error => {
+  //   console.error('Recaptcha error:', error);
+  // });
 
   registrarse() {
-    this.recaptchaService.executeRecaptcha('registro').then(token => {
-      console.log('Recaptcha token:', token);
-      Loading.hourglass();
-      const formModel = this.contactForm.value;
+    if (this.contactForm.valid) {
+      this.recaptchaService.executeRecaptcha('registro').then(token => {
+        Loading.hourglass();
+        const formModel = this.contactForm.value;
 
-      this.user = {
-        name: formModel.formularioNombreUsuario,
-        identity_number: formModel.formularioDNIUsuario,
-        email: formModel.formularioEmailUsuario,
-        password: formModel.formularioPasswordUsuario,
-        code_area: formModel.formularioCodAreaUsuario,
-        cel_phone: formModel.formularioNroTelUsuario,
-        state: formModel.provinciaSeleccionada,
-        city: formModel.ciudadSeleccionada,
-        street_address: formModel.formularioCalleDirUsuario,
-        number_address: formModel.formularioCalleNroUsuario,
-        floor_apartment: formModel.formularioPisoDeptoUsuario,
-        policies_agree: formModel.policies_agree,
-        recaptcha_token: token
-      };
+        this.user = {
+          name: formModel.formularioNombreUsuario,
+          identity_number: formModel.formularioDNIUsuario,
+          email: formModel.formularioEmailUsuario,
+          password: formModel.formularioPasswordUsuario,
+          code_area: formModel.formularioCodAreaUsuario,
+          cel_phone: formModel.formularioNroTelUsuario,
+          state: formModel.provinciaSeleccionada,
+          city: formModel.ciudadSeleccionada,
+          street_address: formModel.formularioCalleDirUsuario,
+          number_address: formModel.formularioCalleNroUsuario,
+          floor_apartment: formModel.formularioPisoDeptoUsuario,
+          policies_agree: formModel.policies_agree,
+          recaptcha_token: token
+        };
 
-      console.log(this.user);
+        console.log(this.user);
 
-      this.conexionService.registrarUsuario(this.user).subscribe({
-        next: (response) => {
-          Loading.remove(500);
-          console.log('Registro exitoso', response);
-          this.onRegistroExitoso(this.user.email)
-        },
-        error: (error) => {
-          Loading.remove(500);
-          console.error('Error en el registro', error);
-          // Mostrar mensaje de error
-        }
-    });
+        this.conexionService.registrarUsuario(this.user).subscribe({
+          next: (response) => {
+            Loading.remove(500);
+            console.log('Registro exitoso', response);
+            this.onRegistroExitoso(this.user.email)
+          },
+          error: (error) => {
+            Loading.remove(500);
+            console.error('Error en el registro', error);
+            Swal.fire({
+              icon: "error",
+              title: "Algo salió mal",
+              text: "¿Llenaste todos los campos?",
+            });
+          }
+      });
 
-    }).catch(error => {
-      console.error('Recaptcha error:', error);
-    });
+      }).catch(error => {
+        console.error('Recaptcha error:', error);
+      });
+    }
+
   }
 
 
@@ -150,10 +161,14 @@ export class RegistroUsuarioComponent implements OnInit {
       confirmButtonText: 'Validar'
     }).then((result) => {
       if (result.value) {
-        let numero = result.value;
+        let numero = parseInt(result.value);
+        if (isNaN(numero)) {
+          Swal.showValidationMessage("Por favor, introduzca números válidos en los campos de área y teléfono.");
+          return;
+        }
+
         this.recaptchaService.executeRecaptcha('login').then(token => {
-          console.log('Recaptcha token:', token);
-          this.conexionService.validarCodigo(email, parseInt(numero), token).subscribe({
+          this.conexionService.validarCodigo(email, numero, token).subscribe({
             next: (response) => {
               Swal.fire('¡Validación exitosa!', 'Tu número ha sido validado.', 'success');
             },

@@ -16,7 +16,6 @@ import { ItemsFavoritosComponent } from "./pages/items-favoritos/items-favoritos
 import { HomeListingComponent } from "./pages/home-listing/home-listing.component";
 import { RegistroUsuarioComponent } from "./pages/registro-usuario/registro-usuario.component";
 import { FinalizarOrdenComponent } from "./pages/finalizar-orden/finalizar-orden.component";
-import { ValidarCuentaComponent } from "./pages/validarCuenta/validarCuenta.component";
 
 
 
@@ -45,10 +44,6 @@ const routes: Routes = [
     {
       path: "orden/finalizar",
       component: FinalizarOrdenComponent,
-    },
-    {
-      path: "validarcuenta",
-      component: ValidarCuentaComponent,
     },
     {
       path: "registro",

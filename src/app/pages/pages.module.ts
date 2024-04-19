@@ -28,7 +28,6 @@ import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.co
 import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaCommonModule } from 'ng-recaptcha/lib/recaptcha-common.module';
 import { FinalizarOrdenComponent } from './finalizar-orden/finalizar-orden.component';
-import { ValidarCuentaComponent } from './validarCuenta/validarCuenta.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +39,6 @@ import { ValidarCuentaComponent } from './validarCuenta/validarCuenta.component'
     FinalizarOrdenComponent,
     NosotrosComponent,
     ProductoIndividualComponent,
-    ValidarCuentaComponent,
     ItemsCarritoComponent,
     ItemsFavoritosComponent,
     RegistroUsuarioComponent
@@ -52,7 +50,6 @@ import { ValidarCuentaComponent } from './validarCuenta/validarCuenta.component'
     BannerhomepageComponent,
     FaqComponent,
     FinalizarOrdenComponent,
-    ValidarCuentaComponent,
     NosotrosComponent,
     ProductoIndividualComponent,
     ItemsCarritoComponent,

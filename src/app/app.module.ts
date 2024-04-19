@@ -59,16 +59,8 @@ registerLocaleData(localeEs);
 export class AppModule {
 
   constructor(private router: Router) {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        gtag('config', 'G-D3J1EYLZBS', {
-          'page_path': event.urlAfterRedirects
-        });
-      }
-    });
+
   }
 }
 
-
-declare var gtag: any;
 

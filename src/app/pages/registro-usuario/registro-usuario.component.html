@@ -169,7 +169,7 @@
           </label>
         </div>
 
-        <button (click)="registrarse()" class="btn-registro"><b>REGISTRARME</b></button>
+        <button [disabled]="!contactForm.valid"  (click)="registrarse()" class="btn-registro"><b>REGISTRARME</b></button>
       </form>
     </div>
   </div>
