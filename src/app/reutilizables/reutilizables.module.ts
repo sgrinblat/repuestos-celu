@@ -10,6 +10,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { Page404Component } from './page404/page404.component';
 import { PoliticaPrivacidadComponent } from './politica-privacidad/politica-privacidad.component';
+import { TerminosCondicionesComponent } from './terminos-condiciones/terminos-condiciones.component';
+import { PoliticaDevolucionComponent } from './politica-devolucion/politica-devolucion.component';
 
 
 @NgModule({
@@ -17,13 +19,17 @@ import { PoliticaPrivacidadComponent } from './politica-privacidad/politica-priv
     NavbarComponent,
     FooterComponent,
     Page404Component,
-    PoliticaPrivacidadComponent
+    PoliticaPrivacidadComponent,
+    TerminosCondicionesComponent,
+    PoliticaDevolucionComponent
   ],
   exports: [
     NavbarComponent,
     FooterComponent,
     Page404Component,
-    PoliticaPrivacidadComponent
+    PoliticaPrivacidadComponent,
+    TerminosCondicionesComponent,
+    PoliticaDevolucionComponent
   ],
   imports: [
     BrowserModule,

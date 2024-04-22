@@ -23,6 +23,16 @@ export class ConexionService {
     return this.http.get(`${this.baseUrl}/front/cities/${idState}`, { headers: this.headers });
   }
 
+
+  getSalesPoints(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/front/sales_points`, { headers: this.headers });
+  }
+
+  getMenuCategories(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/front/menu_categories`, { headers: this.headers });
+  }
+
+
   registrarUsuario(userData: any): Observable<any> {
     const url = `${this.baseUrl}/front/register`;
     return this.http.post<any>(url, userData, { headers: this.headers });
@@ -58,6 +68,8 @@ export class ConexionService {
     };
     return this.http.post(url, body, { headers: this.headers });
   }
+
+
 
 
   // METODOS SOBRE INICIO DE SESIÓN

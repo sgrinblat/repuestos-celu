@@ -16,6 +16,8 @@ import { ItemsFavoritosComponent } from "./pages/items-favoritos/items-favoritos
 import { HomeListingComponent } from "./pages/home-listing/home-listing.component";
 import { RegistroUsuarioComponent } from "./pages/registro-usuario/registro-usuario.component";
 import { FinalizarOrdenComponent } from "./pages/finalizar-orden/finalizar-orden.component";
+import { PoliticaDevolucionComponent } from "./reutilizables/politica-devolucion/politica-devolucion.component";
+import { TerminosCondicionesComponent } from "./reutilizables/terminos-condiciones/terminos-condiciones.component";
 
 
 
@@ -36,6 +38,18 @@ const routes: Routes = [
     {
       path: "nosotros",
       component: NosotrosComponent,
+    },
+    {
+      path: "politica_de_privacidad",
+      component: PoliticaPrivacidadComponent,
+    },
+    {
+      path: "politica_de_devolucion",
+      component: PoliticaDevolucionComponent,
+    },
+    {
+      path: "terminos_condiciones",
+      component: TerminosCondicionesComponent,
     },
     {
       path: "producto",

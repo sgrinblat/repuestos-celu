@@ -63,6 +63,7 @@
             </ul>
           </div>
 
+
           <div class="menu-categorias-container" [class.visible]="menuCategoriasVisible">
             <p class="titulocategoria text-uppercase ms-4 mt-4">Categorías</p>
             <p (click)="toggleMenuRepuestos($event)" class="text-uppercase ms-4"><b>Repuestos</b>
@@ -71,30 +72,20 @@
               <i class="fa-solid fa-angle-right ms-3"></i></p>
           </div>
 
-          <div class="menu-repuestos-container" [class.visible]="menuRepuestosVisible">
+          <!-- Contenedor para Repuestos -->
+          <div *ngFor="let repuesto of repuestos" class="menu-repuestos-container" [class.visible]="menuRepuestosVisible">
             <p class="titulocategoria text-uppercase ms-4 mt-4">Repuestos</p>
-            <p class="text-uppercase ms-4"><b>Bandeja de SIM</b></p>
-            <p class="text-uppercase ms-4"><b>Buzzer</b></p>
-            <p class="text-uppercase ms-4"><b>Display</b></p>
-            <p class="text-uppercase ms-4"><b>Flex home</b></p>
-            <p class="text-uppercase ms-4"><b>Lector de SIM</b></p>
-            <p class="text-uppercase ms-4"><b>Módulo</b></p>
-            <p class="text-uppercase ms-4"><b>Pin de carga</b></p>
-            <p class="text-uppercase ms-4"><b>Speakerphone</b></p>
-            <p class="text-uppercase ms-4"><b>Touch</b></p>
-            <p class="text-uppercase ms-4"><b>Vidrio touch</b></p>
+            <p *ngFor="let subcategoria of repuesto.subcategories" class="text-uppercase ms-4">
+              <b>{{ subcategoria.name }}</b>
+            </p>
           </div>
 
-          <div class="menu-accesorios-container" [class.visible]="menuAccesoriosVisible">
+          <!-- Contenedor para Accesorios -->
+          <div *ngFor="let accesorio of accesorios" class="menu-accesorios-container" [class.visible]="menuAccesoriosVisible">
             <p class="titulocategoria text-uppercase ms-4 mt-4">Accesorios</p>
-            <p class="text-uppercase ms-4"><b>Auriculares</b></p>
-            <p class="text-uppercase ms-4"><b>Cable USB</b></p>
-            <p class="text-uppercase ms-4"><b>Cargadores</b></p>
-            <p class="text-uppercase ms-4"><b>Cortadora</b></p>
-            <p class="text-uppercase ms-4"><b>Glass</b></p>
-            <p class="text-uppercase ms-4"><b>Lámina</b></p>
-            <p class="text-uppercase ms-4"><b>Memorias</b></p>
-            <p class="text-uppercase ms-4"><b>Soporte</b></p>
+            <p *ngFor="let subcategoria of accesorio.subcategories" class="text-uppercase ms-4">
+              <b>{{ subcategoria.name }}</b>
+            </p>
           </div>
 
 
