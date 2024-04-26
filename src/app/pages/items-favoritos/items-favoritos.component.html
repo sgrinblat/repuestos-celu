@@ -3,35 +3,104 @@
     <div class="row">
       <div class="col-md-12">
         <!-- Producto -->
+        <button class="btn btn-success mt-3 mb-3">Agregar todo al carrito</button>
         <div class="card mb-3">
           <div class="card-body">
-            <div class="row">
+            <div class="row align-items-center">
+              <!-- Columna de imagen -->
               <div class="col-md-3">
-                <!-- Imagen del producto -->
-                <img src="https://rosariopacksrl.com.ar/wp-content/uploads/2017/10/DSC0093.jpg" alt="Producto" class="img-fluid">
+                <img src="https://rosariopacksrl.com.ar/wp-content/uploads/2017/10/DSC0093.jpg" alt="Producto" class="img-fluid fotoproducto">
               </div>
+              <!-- Columna de nombre y precio -->
               <div class="col-md-6">
-                <!-- Nombre y opciones del producto -->
-                <h5 class="card-title">Nombre del Producto</h5>
-                <p class="price mt-2">$XX.XXX</p>
-                <!-- Controles para cambiar la cantidad -->
-                <div class="quantity-controls mt-2">
-                  <button class="btn btn-outline-secondary">-</button>
-                  <input type="text" value="1" class="form-control">
-                  <button class="btn btn-outline-secondary">+</button>
+                <h5 class="card-title d-inline-block mb-0">Nombre del Producto</h5>
+                <span class="price ms-2">$XX.XXX</span>
+                <!-- Controles de cantidad alineados horizontalmente -->
+                <div class="d-flex align-items-center mt-2">
+                  <button class="btn btn-outline-secondary btn-sm">-</button>
+                  <input type="text" value="1" class="form-control mx-2" style="width: 60px;">
+                  <button class="btn btn-outline-secondary btn-sm">+</button>
                 </div>
-                <p class="mt-2">Subtotal:</p>
-                <p class="price">$XX.XXX</p>
+                <!-- Subtotal en la misma línea -->
+                <div class="mt-2 d-flex align-items-center">
+                  <span class="me-2">Subtotal:</span>
+                  <span class="price">$XX.XXX</span>
+                </div>
               </div>
-              <div class="col-md-3 mt-2">
-                <!-- Precio y disponibilidad -->
-                <button class="btn btn-success mt-3">Agregar al carrito</button><br>
-                <button class="btn btn-warning mt-3">Ver producto</button><br>
-                <button class="btn btn-danger mt-3">Eliminar</button><br>
+              <!-- Columna de acciones -->
+              <div class="col-md-3 d-flex flex-column mt-2">
+                <button class="btn btn-success mb-2">Agregar al carrito</button>
+                <button class="btn btn-warning mb-2">Ver producto</button>
+                <button class="btn btn-danger">Eliminar</button>
               </div>
             </div>
           </div>
         </div>
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <!-- Columna de imagen -->
+              <div class="col-md-3">
+                <img src="https://rosariopacksrl.com.ar/wp-content/uploads/2017/10/DSC0093.jpg" alt="Producto" class="img-fluid fotoproducto">
+              </div>
+              <!-- Columna de nombre y precio -->
+              <div class="col-md-6">
+                <h5 class="card-title d-inline-block mb-0">Nombre del Producto</h5>
+                <span class="price ms-2">$XX.XXX</span>
+                <!-- Controles de cantidad alineados horizontalmente -->
+                <div class="d-flex align-items-center mt-2">
+                  <button class="btn btn-outline-secondary btn-sm">-</button>
+                  <input type="text" value="1" class="form-control mx-2" style="width: 60px;">
+                  <button class="btn btn-outline-secondary btn-sm">+</button>
+                </div>
+                <!-- Subtotal en la misma línea -->
+                <div class="mt-2 d-flex align-items-center">
+                  <span class="me-2">Subtotal:</span>
+                  <span class="price">$XX.XXX</span>
+                </div>
+              </div>
+              <!-- Columna de acciones -->
+              <div class="col-md-3 d-flex flex-column mt-2">
+                <button class="btn btn-success mb-2">Agregar al carrito</button>
+                <button class="btn btn-warning mb-2">Ver producto</button>
+                <button class="btn btn-danger">Eliminar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <!-- Columna de imagen -->
+              <div class="col-md-3">
+                <img src="https://rosariopacksrl.com.ar/wp-content/uploads/2017/10/DSC0093.jpg" alt="Producto" class="img-fluid fotoproducto">
+              </div>
+              <!-- Columna de nombre y precio -->
+              <div class="col-md-6">
+                <h5 class="card-title d-inline-block mb-0">Nombre del Producto</h5>
+                <span class="price ms-2">$XX.XXX</span>
+                <!-- Controles de cantidad alineados horizontalmente -->
+
+                <!-- Subtotal en la misma línea -->
+                <div class="mt-2 d-flex align-items-center">
+                  <span class="me-2">Subtotal:</span>
+                  <span class="price">$XX.XXX</span>
+                </div>
+              </div>
+              <!-- Columna de acciones -->
+              <div class="col-md-3 d-flex flex-column mt-2">
+                <button class="btn btn-success mb-2">Agregar al carrito</button>
+                <button class="btn btn-warning mb-2">Ver producto</button>
+                <button class="btn btn-danger">Eliminar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <!-- Repetir la tarjeta del producto para cada producto -->
       </div>
 

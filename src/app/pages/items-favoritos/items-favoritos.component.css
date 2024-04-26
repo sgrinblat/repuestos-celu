@@ -55,3 +55,11 @@
     padding: 1rem;
   }
 }
+
+.fotoproducto {
+  display: block;
+  height: auto;
+  object-fit: cover;
+  width: auto;
+  max-height: 150px;
+}

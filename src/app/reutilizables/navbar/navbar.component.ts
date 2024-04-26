@@ -361,7 +361,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   abrirModalYaTengoCodigo() {
     const inputs = Array.from({ length: 6 }, () =>
-      '<input type="text" class="form-control sw-input" style="width: 45px; height: 55px; font-size: 24px; text-align: center; margin: 0 5px;" maxlength="1">'
+      '<input type="text" class="form-control sw-input" style="width: 35px; height: 55px; font-size: 18px; text-align: center; margin: 0 2px;" maxlength="1">'
     ).join('');
 
     Swal.fire({
