@@ -23,3 +23,9 @@
 .preguntaDelTitulo {
   margin-left: 60px;
 }
+
+@media (max-width: 768px) {
+  .contenedor {
+    font-size: 15px;
+  }
+}

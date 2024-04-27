@@ -11,7 +11,6 @@
 }
 .accordion-button:not(.collapsed) {
   color: inherit;
-
   box-shadow: none;
 }
 
@@ -44,4 +43,13 @@
 
 .accordion-body {
   margin-left: 60px;
+}
+
+@media (max-width: 768px) {
+  .accordion-body {
+    margin-left: 20px;
+  }
+  .preguntaDelTitulo {
+    margin-left: 20px;
+  }
 }

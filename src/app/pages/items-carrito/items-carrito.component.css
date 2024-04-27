@@ -49,6 +49,14 @@
   margin-top: 1rem;
 }
 
+.fotoproducto {
+  display: block;
+  height: auto;
+  object-fit: cover;
+  width: auto;
+}
+
+
 @media (max-width: 768px) {
   .card-body {
     padding: 1rem;
@@ -73,4 +81,22 @@
   body {
     padding-bottom: 150px; /* Ajusta este valor según la altura de tu tarjeta del carrito */
   }
+
+  .fotoproducto {
+    max-height: 150px;
+    margin: auto;
+    padding-bottom: 5px;
+  }
+
+  .sucursal {
+    font-size: 15px;
+  }
+
+  .quantity-controls {
+    justify-content: center;
+    display: flex;
+  }
+
 }
+
+

@@ -50,12 +50,6 @@
   margin-top: 1rem;
 }
 
-@media (max-width: 768px) {
-  .card-body {
-    padding: 1rem;
-  }
-}
-
 .fotoproducto {
   display: block;
   height: auto;
@@ -63,3 +57,18 @@
   width: auto;
   max-height: 150px;
 }
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+
+  .fotoproducto {
+    max-height: 150px;
+    margin: auto;
+    padding-bottom: 5px;
+  }
+
+}
+
+
