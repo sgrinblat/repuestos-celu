@@ -12,26 +12,26 @@
     </div>
 
     <div *ngIf="banderaListado" class="products-container">
-      <div class="product" *ngFor="let product of productos1">
+      <div class="product" *ngFor="let product of productos2">
         <div class="product-image">
-          <img routerLink="/producto" src="{{product.imagenUrl}}" alt="{{product.nombre}}">
+          <img routerLink="/producto" src="{{product.image}}" alt="{{product.title}}">
         </div>
         <div class="product-details">
-          <div class="product-name">{{product.nombre}}</div>
-          <div class="product-price">${{product.precio | number}}</div>
-          <div class="product-location">{{product.sucursal}}</div>
+          <div class="product-name">{{product.title}}</div>
+          <div class="product-price">${{product.price | number}}</div>
+          <div class="product-location">{{product.state}}</div>
         </div>
       </div>
     </div>
 
     <!-- Modo Sabana -->
     <div *ngIf="banderaSabana" class="product-grid-container text-center">
-      <div class="product-card" *ngFor="let product of productos1">
-        <img routerLink="/producto" src="{{product.imagenUrl}}" alt="{{product.nombre}}" class="product-image">
+      <div class="product-card" *ngFor="let product of productos2">
+        <img routerLink="/producto" src="{{product.image}}" alt="{{product.title}}" class="product-image">
         <div class="product-info">
-          <div class="product-title">{{product.nombre}}</div>
-          <div class="product-price">${{product.precio | number}}</div>
-          <div class="product-location">SUCURSAL {{product.sucursal}}</div>
+          <div class="product-title">{{product.title}}</div>
+          <div class="product-price">${{product.price | number}}</div>
+          <div class="product-location">state {{product.state}}</div>
         </div>
       </div>
     </div>

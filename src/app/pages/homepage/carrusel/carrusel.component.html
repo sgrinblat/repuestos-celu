@@ -1,16 +1,16 @@
 <div>
-  <!-- <h5 class="podriaInteresarte"><i>Podría interesarte</i></h5> -->
-  <div class="swiper mySwiperCarrusel mt-3 ">
+  <div class="swiper mySwiperCarrusel mt-3">
     <div class="swiper-wrapper">
-      <!-- Usa *ngFor para iterar sobre los productos -->
       <div class="swiper-slide" *ngFor="let producto of productos">
-        <img routerLink="producto" [src]="producto.imagenUrl" alt="{{ producto.nombre }}">
-        <p class="texto-nombre">{{ producto.nombre }}</p>
-        <p class="texto-precio"> ${{ producto.precio | number }}</p>
-        <p class="texto-sucursal"> {{producto.sucursal}} </p>
+        <img routerLink="producto" [src]="producto.image" alt="{{ producto.title }}">
+        <p class="texto-nombre">{{ producto.title }}</p>
+        <p class="texto-precio"> ${{ producto.price }}</p>
+        <p class="texto-sucursal"> Provincia: {{producto.state}}</p>
+        <p class="texto-sucursal"> Ciudad: {{producto.city}} </p>
       </div>
     </div>
     <div class="swiper-button-next"></div>
+    <!-- Si necesitas botón prev, simplemente descomenta la siguiente línea -->
     <!-- <div class="swiper-button-prev"></div> -->
   </div>
 </div>

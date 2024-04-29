@@ -32,6 +32,10 @@ export class ConexionService {
     return this.http.get(`${this.baseUrl}/front/menu_categories`, { headers: this.headers });
   }
 
+  getProductsCarrusel(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/front/products`, { headers: this.headers });
+  }
+
 
   registrarUsuario(userData: any): Observable<any> {
     const url = `${this.baseUrl}/front/register`;

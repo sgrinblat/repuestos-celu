@@ -1,6 +1,8 @@
 export interface Producto {
-  nombre: string;
-  precio: number;
-  imagenUrl: string;
-  sucursal: string;
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+  state: string;
+  city: string;
 }
