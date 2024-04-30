@@ -5,8 +5,8 @@
         <img routerLink="producto" [src]="producto.image" alt="{{ producto.title }}">
         <p class="texto-nombre">{{ producto.title }}</p>
         <p class="texto-precio"> ${{ producto.price }}</p>
-        <p class="texto-sucursal"> Provincia: {{producto.state}}</p>
-        <p class="texto-sucursal"> Ciudad: {{producto.city}} </p>
+        <p class="texto-sucursal"> Punto de venta:</p>
+        <p class="texto-sucursal">{{producto.state}} - {{producto.city}} </p>
       </div>
     </div>
     <div class="swiper-button-next"></div>

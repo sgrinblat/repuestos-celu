@@ -38,7 +38,7 @@ export class HomepageComponent implements OnInit {
       data.forEach(item => {
         const productsWithLimitedTitles = item.products.map(product => ({
           ...product,
-          title: product.title.length > 20 ? product.title.substring(0, 20) + '...' : product.title
+          title: product.title.length > 50 ? product.title.substring(0, 50) + '...' : product.title
         }));
 
         // Mezclar productos aleatoriamente
