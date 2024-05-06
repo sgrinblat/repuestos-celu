@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from 'src/app/models/producto.model';
 import Swiper, { Navigation, Pagination } from 'swiper';
 
@@ -14,12 +15,17 @@ Swiper.use([Navigation, Pagination]);
 export class CarruselComponent implements OnInit {
   @Input() productos: Producto[];
 
+  constructor(private router: ActivatedRoute, private route: Router) {}
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
     this.initializeCarousel();
+  }
+
+  verProducto(id: number) {
+    this.route.navigate(['producto', id]);
   }
 
   private initializeCarousel(): void {

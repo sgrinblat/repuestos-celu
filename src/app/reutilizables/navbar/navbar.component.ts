@@ -332,8 +332,22 @@ export class NavbarComponent implements OnDestroy, OnInit {
     });
   }
 
+  terminoBusqueda: string = '';
   buscarProducto() {
-    this.route.navigate(['busqueda']);
+    if (this.terminoBusqueda) {
+      this.conexionService.getProductoBySearching(this.terminoBusqueda).subscribe(response => {
+        if (response.status && response.products.length > 0) {
+          // Puedes cambiar este comportamiento según lo que necesites
+          // Por ejemplo, guardar los productos en un servicio de estado y navegar a la página de resultados
+          this.route.navigate(['busqueda'], { state: { products: response.products } });
+        } else {
+          console.log('No se encontraron productos.');
+          // Manejar la situación cuando no hay productos encontrados
+        }
+      }, error => {
+        console.error('Error buscando productos:', error);
+      });
+    }
   }
 
   abrirModalValidacion() {

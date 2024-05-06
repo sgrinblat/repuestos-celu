@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -34,6 +34,21 @@ export class ConexionService {
 
   getProductsCarrusel(): Observable<any> {
     return this.http.get(`${this.baseUrl}/front/products`, { headers: this.headers });
+  }
+
+  getProductById(productId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/front/product/${productId}`, { headers: this.headers });
+  }
+
+  getProductoBySearching(k?: string, c?: number, sc?: number, s?: number, ci?: number): Observable<any> {
+    let params = new HttpParams();
+    if (k) params = params.set('k', k);
+    if (c) params = params.set('c', c.toString());
+    if (sc) params = params.set('sc', sc.toString());
+    if (s) params = params.set('s', s.toString());
+    if (ci) params = params.set('ci', ci.toString());
+
+    return this.http.get(`${this.baseUrl}/front/search`, { params: params, headers: this.headers });
   }
 
 

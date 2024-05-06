@@ -52,7 +52,7 @@ const routes: Routes = [
       component: TerminosCondicionesComponent,
     },
     {
-      path: "producto",
+      path: "producto/:id",
       component: ProductoIndividualComponent,
     },
     {

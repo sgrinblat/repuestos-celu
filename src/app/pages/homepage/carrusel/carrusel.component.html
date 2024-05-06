@@ -2,7 +2,7 @@
   <div class="swiper mySwiperCarrusel mt-3">
     <div class="swiper-wrapper">
       <div class="swiper-slide" *ngFor="let producto of productos">
-        <img routerLink="producto" [src]="producto.image" alt="{{ producto.title }}">
+        <img (click)="verProducto(producto.id)" [src]="producto.image" alt="{{ producto.title }}">
         <p class="texto-nombre">{{ producto.title }}</p>
         <p class="texto-precio"> ${{ producto.price }}</p>
         <p class="texto-sucursal"> Punto de venta:</p>
@@ -10,7 +10,5 @@
       </div>
     </div>
     <div class="swiper-button-next"></div>
-    <!-- Si necesitas botón prev, simplemente descomenta la siguiente línea -->
-    <!-- <div class="swiper-button-prev"></div> -->
   </div>
 </div>

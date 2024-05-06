@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ConexionService } from 'src/app/service/conexion.service';
 
 @Component({
   selector: 'app-producto-individual',
@@ -6,10 +8,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./producto-individual.component.css']
 })
 export class ProductoIndividualComponent implements OnInit {
+  product: any;
 
-  constructor() { }
+  constructor(
+    private conexionService: ConexionService,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const productId = params['id']; // Asumiendo que la ruta es algo como '/products/:id'
+      this.loadProductDetails(productId);
+    });
+  }
+
+  loadProductDetails(productId: number) {
+    this.conexionService.getProductById(productId).subscribe(data => {
+      if (data.status) {
+        this.product = data.product;
+      } else {
+        console.error('No se pudo cargar los detalles del producto');
+      }
+    });
   }
 
 }
