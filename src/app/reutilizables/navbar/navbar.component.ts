@@ -4,7 +4,9 @@ import { Loading } from 'notiflix';
 import { ConexionService } from 'src/app/service/conexion.service';
 import { RecaptchaService } from 'src/app/service/recaptcha.service';
 
+
 import Swal from 'sweetalert2';
+import { ProductService } from '../../service/product.service';
 
 
 @Component({
@@ -33,7 +35,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   private listener: Function;
 
-  constructor( private renderer : Renderer2, private recaptchaService: RecaptchaService, private route: Router, private cdr: ChangeDetectorRef, private conexionService: ConexionService) {
+  constructor( private renderer : Renderer2, private recaptchaService: RecaptchaService, private route: Router, private cdr: ChangeDetectorRef, private conexionService: ConexionService, private productService: ProductService) {
     this.listener = this.renderer.listen('document', 'click', (event: Event) => {
       this.handleDocumentClick(event);
     });
@@ -333,22 +335,24 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   terminoBusqueda: string = '';
+  // Componente donde el usuario realiza la búsqueda
   buscarProducto() {
     if (this.terminoBusqueda) {
       this.conexionService.getProductoBySearching(this.terminoBusqueda).subscribe(response => {
         if (response.status && response.products.length > 0) {
-          // Puedes cambiar este comportamiento según lo que necesites
-          // Por ejemplo, guardar los productos en un servicio de estado y navegar a la página de resultados
-          this.route.navigate(['busqueda'], { state: { products: response.products } });
+          this.productService.changeProductData(response.products);
+          this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+          this.route.navigate(['busqueda']);
         } else {
           console.log('No se encontraron productos.');
-          // Manejar la situación cuando no hay productos encontrados
         }
       }, error => {
         console.error('Error buscando productos:', error);
       });
     }
   }
+
+
 
   abrirModalValidacion() {
     Swal.fire({

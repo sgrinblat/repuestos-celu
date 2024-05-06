@@ -1,9 +1,13 @@
 <section class="fondo-gris">
   <div class="container pb-5">
-
     <div class="row">
       <div class="col-11">
-        <p class="pt-4 palabrabusqueda"><i class="icono-lupa fas fa-search search-icon ms-4"></i> <i class="fa-solid fa-angle-right ms-2 me-3"></i> <i>vidrio templado Samsung</i></p>
+        <p class="pt-4 palabrabusqueda">
+          <i class="icono-lupa fas fa-search search-icon ms-4"></i>
+          <i class="fa-solid fa-angle-right ms-2 me-3"></i>
+          <i>{{ searchTerm }}</i>
+        </p>
+
       </div>
       <div class="col-1 pt-4">
         <i (click)="modoListado()" class="fa-solid fa-list iconolistado" [class.active]="banderaListado"></i>
@@ -11,15 +15,16 @@
       </div>
     </div>
 
+    <!-- Modo Listado -->
     <div *ngIf="banderaListado" class="products-container">
       <div class="product" *ngFor="let product of productos2">
         <div class="product-image">
-          <img routerLink="/producto" src="{{product.image}}" alt="{{product.title}}">
+          <img routerLink="/producto" [src]="product.image" alt="{{ product.title }}">
         </div>
         <div class="product-details">
-          <div class="product-name">{{product.title}}</div>
-          <div class="product-price">${{product.price | number}}</div>
-          <div class="product-location">{{product.state}}</div>
+          <div class="product-name">{{ product.title }}</div>
+          <div class="product-price">${{ product.price }}</div>
+          <div class="product-location">Punto de venta: {{ product.state }}, {{ product.city }}</div>
         </div>
       </div>
     </div>
@@ -27,14 +32,13 @@
     <!-- Modo Sabana -->
     <div *ngIf="banderaSabana" class="product-grid-container text-center">
       <div class="product-card" *ngFor="let product of productos2">
-        <img routerLink="/producto" src="{{product.image}}" alt="{{product.title}}" class="product-image">
+        <img routerLink="/producto" [src]="product.image" alt="{{ product.title }}" class="product-image">
         <div class="product-info">
-          <div class="product-title">{{product.title}}</div>
-          <div class="product-price">${{product.price | number}}</div>
-          <div class="product-location">state {{product.state}}</div>
+          <div class="product-title">{{ product.title }}</div>
+          <div class="product-price">${{ product.price }}</div>
+          <div class="product-location">Punto de venta: {{ product.state }}, {{ product.city }}</div>
         </div>
       </div>
     </div>
-
   </div>
 </section>

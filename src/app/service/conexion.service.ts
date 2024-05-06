@@ -48,7 +48,7 @@ export class ConexionService {
     if (s) params = params.set('s', s.toString());
     if (ci) params = params.set('ci', ci.toString());
 
-    return this.http.get(`${this.baseUrl}/front/search`, { params: params, headers: this.headers });
+    return this.http.get(`${this.baseUrl}/front/products/search`, { params: params, headers: this.headers });
   }
 
 
