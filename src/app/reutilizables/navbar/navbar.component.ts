@@ -25,7 +25,14 @@ export class NavbarComponent implements OnDestroy, OnInit {
   //   'Santiago del Estero', 'Tierra del Fuego', 'Tucumán'
   // ];
 
+  terminoBusqueda: string = undefined;
+  subcategoria: number = 0;
+  idProv: number = 0;
+  idCiudad: number = 0;
+  nombreCiudad: string = undefined;
+
   provincias: any[] = [];
+  provincias2: any[] = [];
   ciudades: any[] = [];
 
   categories = [];
@@ -194,6 +201,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
         if (data && data.sales_points && data.sales_points.length > 0) { // Corrección aquí
             console.log("Dato correcto y contiene elementos."); // Log para confirmar la validez de los datos
             const provincias = data.sales_points; // Acceso correcto a sales_points
+            this.provincias2 = provincias;
             console.log("Provincias extraídas:", provincias); // Log para ver las provincias
 
             Swal.fire({
@@ -206,7 +214,6 @@ export class NavbarComponent implements OnDestroy, OnInit {
                     <option value="">Elige una provincia primero</option>
                 </select>
                 `,
-                position: 'center',
                 focusConfirm: false,
                 preConfirm: () => {
                     return [
@@ -216,13 +223,23 @@ export class NavbarComponent implements OnDestroy, OnInit {
                 },
                 confirmButtonText: 'Buscar',
                 didOpen: () => {
-                    this.handleModalOpen(provincias); // Log en handleModalOpen para verificar provincias
-                }
+                  const modal = document.querySelector('.swal2-popup');
+                  // Verifica también si la URL termina con 'busqueda'
+                  if (modal && window.location.href.endsWith('busqueda')) {
+                      (modal as HTMLElement).style.borderRadius = '1rem';
+                      (modal as HTMLElement).style.width = '300px';
+                      (modal as HTMLElement).style.margin = '0 250px 500px 0';
+                  }
+                  this.handleModalOpen(provincias); // Log en handleModalOpen para verificar provincias
+              }
             }).then((result) => {
                 if (result.value) {
-                    const [provinciaId, ciudadId] = result.value;
-                    if (provinciaId && ciudadId) {
-                      this.buscarPorUbicacion(this.terminoBusqueda, parseInt(provinciaId), parseInt(ciudadId));
+                  console.log(result.value);
+                  const [provinciaId, ciudadId] = result.value;
+                  if (provinciaId && ciudadId) {
+                    let nombreCiudad = this.buscarCiudadPorIDs(parseInt(provinciaId), parseInt(ciudadId));
+                    this.buscarPorUbicacion(this.terminoBusqueda, parseInt(provinciaId), parseInt(ciudadId));
+                    console.log('Ciudad encontrada:', nombreCiudad);
                   }
                 }
             });
@@ -234,20 +251,51 @@ export class NavbarComponent implements OnDestroy, OnInit {
     });
   }
 
-  private buscarPorUbicacion(termino: string, provinciaId: number, ciudadId: number) {
-    this.conexionService.getProductoBySearching(termino, undefined, undefined, provinciaId, ciudadId).subscribe(response => {
-        if (response.status && response.products.length > 0) {
-          this.productService.changeProductData(response.products);
-          this.productService.changeSearchTerm(this.terminoBusqueda);
-          this.route.navigate(['busqueda']);
-        } else {
-          this.productService.changeProductData(response.products);
-          this.productService.changeSearchTerm(this.terminoBusqueda);
-          this.route.navigate(['busqueda']);
+  buscarCiudadPorIDs(provinciaId, ciudadId) {
+    // Recorrer el array de provincias
+    this.provincias2.forEach(provincia => {
+        if (provincia.id === provinciaId) {
+            // Recorrer el array de ciudades dentro de la provincia encontrada
+            provincia.cities.forEach(ciudad => {
+                if (ciudad.id === ciudadId) {
+                    this.nombreCiudad = ciudad.name;
+                }
+            });
         }
-    }, error => {
-        console.error('Error al buscar productos con ubicación:', error);
     });
+    return this.nombreCiudad;
+}
+
+  private buscarPorUbicacion(termino: string, provinciaId: number, ciudadId: number) {
+    this.idProv = provinciaId;
+    this.idCiudad = ciudadId;
+
+    if(this.subcategoria != 0) {
+      this.conexionService.getProductoBySearching(termino, undefined, this.subcategoria, provinciaId, ciudadId).subscribe(response => {
+        this.productService.changeProductData(response.products);
+        this.productService.changeSearchTerm(this.terminoBusqueda);
+        this.route.navigate(['busqueda']);
+    }, error => {
+      Swal.fire({
+        title: "Ups!",
+        text: "No se encontraron productos con la búsqueda realizada",
+        icon: "info"
+      });
+    });
+    } else {
+      this.conexionService.getProductoBySearching(termino, undefined, undefined, provinciaId, ciudadId).subscribe(response => {
+        this.productService.changeProductData(response.products);
+        this.productService.changeSearchTerm(this.terminoBusqueda);
+        this.route.navigate(['busqueda']);
+    }, error => {
+      Swal.fire({
+        title: "Ups!",
+        text: "No se encontraron productos con la búsqueda realizada",
+        icon: "info"
+      });
+    });
+    }
+
 }
 
   private handleModalOpen(provincias: any[]) {
@@ -278,9 +326,6 @@ export class NavbarComponent implements OnDestroy, OnInit {
         if (selectedProvincia) {
             selectCiudad.innerHTML = selectedProvincia.cities.map(ciudad => {
                 let cityName = ciudad.name;
-                if (cityName === "Ciudad Autónoma de Buenos Aires") {
-                    cityName = "CABA";
-                }
                 return `<option value="${ciudad.id}">${cityName}</option>`;
             }).join('');
             selectCiudad.disabled = false;
@@ -350,20 +395,105 @@ export class NavbarComponent implements OnDestroy, OnInit {
     });
   }
 
-  terminoBusqueda: string = '';
-  // Componente donde el usuario realiza la búsqueda
+
   buscarProducto() {
-    if (this.terminoBusqueda) {
+
+    if(this.idProv != 0 && this.idCiudad != 0 && this.subcategoria != 0) {
+      this.conexionService.getProductoBySearching(this.terminoBusqueda, undefined, this.subcategoria, this.idProv, this.idCiudad).subscribe(response => {
+        this.productService.changeProductData(response.products);
+        this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+        this.route.navigate(['busqueda']);
+      }, error => {
+        Swal.fire({
+          title: "Ups!",
+          text: "No se encontraron productos con la búsqueda realizada",
+          icon: "info"
+        });
+      });
+    } else if (this.subcategoria != 0) {
+      this.conexionService.getProductoBySearching(this.terminoBusqueda, undefined, this.subcategoria).subscribe(response => {
+        this.productService.changeProductData(response.products);
+        this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+        this.route.navigate(['busqueda']);
+      }, error => {
+        Swal.fire({
+          title: "Ups!",
+          text: "No se encontraron productos con la búsqueda realizada",
+          icon: "info"
+        });
+      });
+    } else if (this.idProv != 0 && this.idCiudad != 0) {
+      this.conexionService.getProductoBySearching(this.terminoBusqueda, undefined, undefined, this.idProv, this.idCiudad).subscribe(response => {
+        this.productService.changeProductData(response.products);
+        this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+        this.route.navigate(['busqueda']);
+      }, error => {
+        Swal.fire({
+          title: "Ups!",
+          text: "No se encontraron productos con la búsqueda realizada",
+          icon: "info"
+        });
+      });
+    } else {
       this.conexionService.getProductoBySearching(this.terminoBusqueda).subscribe(response => {
-        if (response.status && response.products.length > 0) {
-          this.productService.changeProductData(response.products);
-          this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
-          this.route.navigate(['busqueda']);
-        } else {
-          this.productService.changeProductData(response.products);
-          this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
-          this.route.navigate(['busqueda']);
-        }
+        this.productService.changeProductData(response.products);
+        this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+        this.route.navigate(['busqueda']);
+      }, error => {
+        Swal.fire({
+          title: "Ups!",
+          text: "No se encontraron productos con la búsqueda realizada",
+          icon: "info"
+        });
+      });
+    }
+
+  }
+
+  buscarProductoPorSubcategoria(idSubCategoria: number, nameSubCategoria: string) {
+    this.subcategoria = idSubCategoria;
+
+    if(this.idProv != 0 && this.idCiudad != 0 && this.subcategoria != 0) {
+      this.conexionService.getProductoBySearching(this.terminoBusqueda, undefined, this.subcategoria, this.idProv, this.idCiudad).subscribe(response => {
+        this.productService.changeProductData(response.products);
+        this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+        this.route.navigate(['busqueda']);
+      }, error => {
+        Swal.fire({
+          title: "Ups!",
+          text: "No se encontraron productos con la búsqueda realizada",
+          icon: "info"
+        });
+      });
+    } else if (this.subcategoria != 0) {
+      this.conexionService.getProductoBySearching(this.terminoBusqueda, undefined, this.subcategoria).subscribe(response => {
+        this.productService.changeProductData(response.products);
+        this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+        this.route.navigate(['busqueda']);
+      }, error => {
+        Swal.fire({
+          title: "Ups!",
+          text: "No se encontraron productos con la búsqueda realizada",
+          icon: "info"
+        });
+      });
+    } else if (this.idProv != 0 && this.idCiudad != 0) {
+      this.conexionService.getProductoBySearching(this.terminoBusqueda, undefined, undefined, this.idProv, this.idCiudad).subscribe(response => {
+        this.productService.changeProductData(response.products);
+        this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+        this.route.navigate(['busqueda']);
+      }, error => {
+        Swal.fire({
+          title: "Ups!",
+          text: "No se encontraron productos con la búsqueda realizada",
+          icon: "info"
+        });
+      });
+    } else {
+      this.conexionService.getProductoBySearching(this.terminoBusqueda).subscribe(response => {
+        this.productService.changeProductData(response.products);
+        this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+        this.route.navigate(['busqueda']);
       }, error => {
         Swal.fire({
           title: "Ups!",
@@ -376,7 +506,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
 
   buscarProductoPorOferta() {
-    this.conexionService.getProductoBySearching(null, 1).subscribe(response => {
+    this.conexionService.getProductoBySearching(undefined, undefined, undefined, undefined, undefined, 'ofertas').subscribe(response => {
       if (response.status && response.products.length > 0) {
         this.productService.changeProductData(response.products);
         this.route.navigate(['busqueda']);
@@ -391,7 +521,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   buscarProductoPorDestacado() {
-    this.conexionService.getProductoBySearching(null, 0).subscribe(response => {
+    this.conexionService.getProductoBySearching(undefined, undefined, undefined, undefined, undefined, 'destacados').subscribe(response => {
       if (response.status && response.products.length > 0) {
         this.productService.changeProductData(response.products);
         this.route.navigate(['busqueda']);

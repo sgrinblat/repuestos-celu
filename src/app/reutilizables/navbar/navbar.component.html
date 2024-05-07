@@ -37,6 +37,7 @@
         </div>
         <img (click)="abrirModalUbicacion()" class="icono-ubicacion" src="../../../assets/images/icons/ubicacion.png" alt="">
       </div>
+      <p class="pt-2" *ngIf="nombreCiudad">Productos filtrados por: <b>{{nombreCiudad}}</b> </p>
 
       <div class="search-input-container mt-3" id="navbarResponsive">
         <div class="search-input-container-productos menu-wrapper">
@@ -76,7 +77,7 @@
           <div *ngFor="let repuesto of repuestos" class="menu-repuestos-container" [class.visible]="menuRepuestosVisible">
             <p class="titulocategoria text-uppercase ms-4 mt-4">Repuestos</p>
             <p *ngFor="let subcategoria of repuesto.subcategories" class="text-uppercase ms-4">
-              <b>{{ subcategoria.name }}</b>
+              <b (click)="buscarProductoPorSubcategoria(subcategoria.id, subcategoria.name)">{{ subcategoria.name }}</b>
             </p>
           </div>
 
@@ -84,7 +85,7 @@
           <div *ngFor="let accesorio of accesorios" class="menu-accesorios-container" [class.visible]="menuAccesoriosVisible">
             <p class="titulocategoria text-uppercase ms-4 mt-4">Accesorios</p>
             <p *ngFor="let subcategoria of accesorio.subcategories" class="text-uppercase ms-4">
-              <b>{{ subcategoria.name }}</b>
+              <b (click)="buscarProductoPorSubcategoria(subcategoria.id, subcategoria.name)" >{{ subcategoria.name }}</b>
             </p>
           </div>
 

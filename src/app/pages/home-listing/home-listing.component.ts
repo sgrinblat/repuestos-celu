@@ -15,7 +15,7 @@ export class HomeListingComponent implements OnInit {
   banderaListado: boolean = true;
   banderaSabana: boolean = false;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router: ActivatedRoute, private route: Router) {}
 
   ngOnInit() {
     this.productService.currentProducts.subscribe(products => {
@@ -36,4 +36,9 @@ export class HomeListingComponent implements OnInit {
     this.banderaListado = false;
     this.banderaSabana = true;
   }
+
+  verProducto(id: number) {
+    this.route.navigate(['producto', id]);
+  }
+
 }
