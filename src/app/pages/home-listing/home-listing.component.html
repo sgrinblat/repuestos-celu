@@ -7,16 +7,20 @@
           <i class="fa-solid fa-angle-right ms-2 me-3"></i>
           <i>{{ searchTerm }}</i>
         </p>
-
       </div>
-      <div class="col-1 pt-4">
+
+      <div class="col-12 col-sm-1 pt-4 divdeiconitos">
         <i (click)="modoListado()" class="fa-solid fa-list iconolistado" [class.active]="banderaListado"></i>
         <i (click)="modoSabana()" class="fa-solid fa-table-cells-large iconogrilla" [class.active]="banderaSabana"></i>
       </div>
+
     </div>
 
     <!-- Modo Listado -->
     <div *ngIf="banderaListado" class="products-container">
+      <div *ngIf="productos2.length == 0">
+        <p>No existen productos para la búsqueda realizada</p>
+      </div>
       <div class="product" *ngFor="let product of productos2">
         <div class="product-image">
           <img routerLink="/producto" [src]="product.image" alt="{{ product.title }}">
@@ -31,6 +35,9 @@
 
     <!-- Modo Sabana -->
     <div *ngIf="banderaSabana" class="product-grid-container text-center">
+      <div *ngIf="productos2.length == 0">
+        <p>No existen productos para la búsqueda realizada</p>
+      </div>
       <div class="product-card" *ngFor="let product of productos2">
         <img routerLink="/producto" [src]="product.image" alt="{{ product.title }}" class="product-image">
         <div class="product-info">

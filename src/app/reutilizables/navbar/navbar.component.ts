@@ -221,7 +221,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
             }).then((result) => {
                 if (result.value) {
                     const [provinciaId, ciudadId] = result.value;
-                    console.log("Selecciones:", provinciaId, ciudadId); // Log para verificar las selecciones
+                    if (provinciaId && ciudadId) {
+                      this.buscarPorUbicacion(this.terminoBusqueda, parseInt(provinciaId), parseInt(ciudadId));
+                  }
                 }
             });
         } else {
@@ -232,7 +234,21 @@ export class NavbarComponent implements OnDestroy, OnInit {
     });
   }
 
-
+  private buscarPorUbicacion(termino: string, provinciaId: number, ciudadId: number) {
+    this.conexionService.getProductoBySearching(termino, undefined, undefined, provinciaId, ciudadId).subscribe(response => {
+        if (response.status && response.products.length > 0) {
+          this.productService.changeProductData(response.products);
+          this.productService.changeSearchTerm(this.terminoBusqueda);
+          this.route.navigate(['busqueda']);
+        } else {
+          this.productService.changeProductData(response.products);
+          this.productService.changeSearchTerm(this.terminoBusqueda);
+          this.route.navigate(['busqueda']);
+        }
+    }, error => {
+        console.error('Error al buscar productos con ubicación:', error);
+    });
+}
 
   private handleModalOpen(provincias: any[]) {
     console.log("Configurando modal con provincias:", provincias); // Log para ver provincias en modal
@@ -344,12 +360,49 @@ export class NavbarComponent implements OnDestroy, OnInit {
           this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
           this.route.navigate(['busqueda']);
         } else {
-          console.log('No se encontraron productos.');
+          this.productService.changeProductData(response.products);
+          this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+          this.route.navigate(['busqueda']);
         }
       }, error => {
-        console.error('Error buscando productos:', error);
+        Swal.fire({
+          title: "Ups!",
+          text: "No se encontraron productos con la búsqueda realizada",
+          icon: "info"
+        });
       });
     }
+  }
+
+
+  buscarProductoPorOferta() {
+    this.conexionService.getProductoBySearching(null, 1).subscribe(response => {
+      if (response.status && response.products.length > 0) {
+        this.productService.changeProductData(response.products);
+        this.route.navigate(['busqueda']);
+      }
+    }, error => {
+      Swal.fire({
+        title: "Ups!",
+        text: "Hubo un error",
+        icon: "error"
+      });
+    });
+  }
+
+  buscarProductoPorDestacado() {
+    this.conexionService.getProductoBySearching(null, 0).subscribe(response => {
+      if (response.status && response.products.length > 0) {
+        this.productService.changeProductData(response.products);
+        this.route.navigate(['busqueda']);
+      }
+    }, error => {
+      Swal.fire({
+        title: "Ups!",
+        text: "Hubo un error",
+        icon: "error"
+      });
+    });
   }
 
 

@@ -1,6 +1,3 @@
-import { City } from "./city";
-import { State } from "./state";
-
 export class Usuario {
     name: string;
     email: string;

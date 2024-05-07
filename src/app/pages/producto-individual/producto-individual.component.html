@@ -5,14 +5,14 @@
         <div class="row">
           <div class="col-md-4">
             <!-- Imagen del producto -->
-            <img *ngIf="product" [src]="product.images[0]?.image || 'https://www.multipoint.com.ar/Image/0/750_750-a124.jpg'" alt="{{ product.title }}" width="300" class="img-fluid">
+            <img *ngIf="product" [src]="product.images[0]?.image || 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'" alt="{{ product.title }}" width="300" class="img-fluid">
           </div>
           <div class="col-md-8 mt-1">
             <h3 class="product-title mt-4">{{ product.title }}</h3>
-            <h2 class="product-price mt-3">${{ product.price }}</h2>
+            <h2 class="product-price mt-3">${{ product.price | number}}</h2>
             <p class="stock mt-3"><i>¡Quedan 3 de este producto!</i></p> <!-- Asumiendo que tienes datos de stock -->
-            <p class="location mt-3">{{ product.state }} - {{ product.city }}</p>
-            <button class="btn btn-success mt-3">COMPRAR</button>
+            <p class="location mt-3">Punto de venta: {{ product.state }} - {{ product.city }}</p>
+            <button class="btn btn-success mt-3">AGREGAR AL CARRITO</button>
           </div>
           <div class="mt-3 ps-4 container">
             <h5 class="text-uppercase mb-3"><b>Descripción del producto</b></h5>

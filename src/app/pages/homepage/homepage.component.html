@@ -2,14 +2,14 @@
   <app-bannerhomepage *ngIf="!esCelular"></app-bannerhomepage>
   <div class="container pt-2 mb-5 pb-5">
     <h5 class="podriaInteresarte pt-2"><i>Podría interesarte</i></h5>
-    <app-carrusel [productos]="productos2"></app-carrusel>
+    <app-carrusel [productos]="destacados"></app-carrusel>
 
     <div class="bannerdiv">
       <img *ngIf="!esCelular" class="bannerpc" src="../../../assets/images/banners/bannerverdepc.png" alt="">
       <img *ngIf="esCelular" class="bannermobile" src="../../../assets/images/banners/bannerverdemobile.jpg" alt="">
     </div>
     <h5 class="podriaInteresarte"><i>Ofertas</i></h5>
-    <app-carrusel [productos]="productos2"></app-carrusel>
+    <app-carrusel [productos]="ofertas"></app-carrusel>
 
     <div class="bannerdiv">
       <img *ngIf="!esCelular" class="bannerpc" src="../../../assets/images/banners/banneramarillopc.png" alt="">

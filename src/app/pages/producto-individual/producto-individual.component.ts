@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Producto } from 'src/app/models/producto.model';
 import { ConexionService } from 'src/app/service/conexion.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ConexionService } from 'src/app/service/conexion.service';
   styleUrls: ['./producto-individual.component.css']
 })
 export class ProductoIndividualComponent implements OnInit {
-  product: any;
+  product: Producto;
 
   constructor(
     private conexionService: ConexionService,

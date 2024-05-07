@@ -117,3 +117,10 @@
   text-transform: uppercase; /* En mayúsculas para la ubicación */
 }
 
+@media (max-width: 768px) {
+  .divdeiconitos {
+    margin-left: 70%;
+    margin-top: -18% !important;
+  }
+}
+
