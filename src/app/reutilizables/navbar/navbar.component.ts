@@ -506,7 +506,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
 
   buscarProductoPorOferta() {
-    this.conexionService.getProductoBySearching(undefined, undefined, undefined, undefined, undefined, 'ofertas').subscribe(response => {
+    this.conexionService.getProductoBySearching(undefined, undefined, undefined, undefined, undefined, 'ofertas', 20).subscribe(response => {
       if (response.status && response.products.length > 0) {
         this.productService.changeProductData(response.products);
         this.route.navigate(['busqueda']);
@@ -520,8 +520,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
     });
   }
 
+
   buscarProductoPorDestacado() {
-    this.conexionService.getProductoBySearching(undefined, undefined, undefined, undefined, undefined, 'destacados').subscribe(response => {
+    this.conexionService.getProductoBySearching(undefined, undefined, undefined, undefined, undefined, 'destacados', 20).subscribe(response => {
       if (response.status && response.products.length > 0) {
         this.productService.changeProductData(response.products);
         this.route.navigate(['busqueda']);
@@ -534,6 +535,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
       });
     });
   }
+
 
 
 

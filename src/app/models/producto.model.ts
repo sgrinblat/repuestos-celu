@@ -10,4 +10,5 @@ export interface Producto {
   city: string;
   short_description: string;
   long_description: string;
+  disponible: number;
 }

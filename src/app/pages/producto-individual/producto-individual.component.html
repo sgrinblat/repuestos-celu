@@ -10,7 +10,8 @@
           <div class="col-md-8 mt-1">
             <h3 class="product-title mt-4">{{ product.title }}</h3>
             <h2 class="product-price mt-3">${{ product.price | number}}</h2>
-            <p class="stock mt-3"><i>¡Quedan 3 de este producto!</i></p> <!-- Asumiendo que tienes datos de stock -->
+            <p *ngIf="product.disponible > 5" class="stock mt-3"><i>{{product.disponible}} unidades disponibles</i></p>
+            <p *ngIf="product.disponible < 6" class="stock mt-3"><i>¡Quedan solo {{product.disponible}} unidades!</i></p>
             <p class="location mt-3">Punto de venta: {{ product.state }} - {{ product.city }}</p>
             <button class="btn btn-success mt-3">AGREGAR AL CARRITO</button>
           </div>

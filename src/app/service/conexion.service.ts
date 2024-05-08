@@ -40,7 +40,7 @@ export class ConexionService {
     return this.http.get(`${this.baseUrl}/front/product/${productId}`, { headers: this.headers });
   }
 
-  getProductoBySearching(k?: string, c?: number, sc?: number, s?: number, ci?: number, t?: string): Observable<any> {
+  getProductoBySearching(k?: string, c?: number, sc?: number, s?: number, ci?: number, t?: string, l?: number): Observable<any> {
     let params = new HttpParams();
     if (k) params = params.set('k', k);
     if (c) params = params.set('c', c.toString());
@@ -48,9 +48,11 @@ export class ConexionService {
     if (s) params = params.set('s', s.toString());
     if (ci) params = params.set('ci', ci.toString());
     if (t) params = params.set('t', t);
+    if (l) params = params.set('l', l.toString());
 
     return this.http.get(`${this.baseUrl}/front/products/search`, { params: params, headers: this.headers });
   }
+
 
 
   registrarUsuario(userData: any): Observable<any> {
