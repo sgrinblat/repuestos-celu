@@ -1,0 +1,81 @@
+.card-body {
+  position: relative;
+
+}
+
+.card{
+  border-radius: 0.9rem;
+}
+
+.textoTitular {
+  color: #1b4827 !important;
+  text-transform: uppercase;
+  font-weight: bolder;
+  font-size: 30px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.card-text {
+  margin-bottom: 0.5rem;
+}
+
+
+.price {
+  font-weight: bold;
+}
+
+.stock-status {
+  color: green;
+}
+
+.shipping {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.total {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.btn-block {
+  margin-top: 1rem;
+}
+
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+
+  .carrito .card {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    z-index: 1000; /* para asegurar que la tarjeta esté sobre otros elementos */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3); /* opcional, para darle un efecto elevado */
+  }
+
+  .carrito {
+    padding: 0 15px; /* Ajustar según tu propio diseño */
+  }
+
+  /* Asegúrate de que el contenido principal no queda oculto detrás del resumen del carrito */
+  body {
+    padding-bottom: 150px; /* Ajusta este valor según la altura de tu tarjeta del carrito */
+  }
+  .sucursal {
+    font-size: 15px;
+  }
+
+}
+
+

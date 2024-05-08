@@ -18,6 +18,7 @@ import { RegistroUsuarioComponent } from "./pages/registro-usuario/registro-usua
 import { FinalizarOrdenComponent } from "./pages/finalizar-orden/finalizar-orden.component";
 import { PoliticaDevolucionComponent } from "./reutilizables/politica-devolucion/politica-devolucion.component";
 import { TerminosCondicionesComponent } from "./reutilizables/terminos-condiciones/terminos-condiciones.component";
+import { MisordenesComponent } from "./pages/misordenes/misordenes.component";
 
 
 
@@ -58,6 +59,10 @@ const routes: Routes = [
     {
       path: "orden/finalizar",
       component: FinalizarOrdenComponent,
+    },
+    {
+      path: "orden/historial",
+      component: MisordenesComponent,
     },
     {
       path: "registro",

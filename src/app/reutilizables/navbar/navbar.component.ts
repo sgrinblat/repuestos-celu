@@ -225,7 +225,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
                 didOpen: () => {
                   const modal = document.querySelector('.swal2-popup');
                   // Verifica también si la URL termina con 'busqueda'
-                  if (modal && window.location.href.endsWith('busqueda')) {
+                  if (modal && window.location.href.endsWith('busqueda') && window.screen.width < 768) {
                       (modal as HTMLElement).style.borderRadius = '1rem';
                       (modal as HTMLElement).style.width = '300px';
                       (modal as HTMLElement).style.margin = '0 250px 500px 0';
