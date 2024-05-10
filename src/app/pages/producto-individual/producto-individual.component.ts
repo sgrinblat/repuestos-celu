@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Producto } from 'src/app/models/producto.model';
 import { ConexionService } from 'src/app/service/conexion.service';
+import { NotificationService } from 'src/app/service/notification.service';
 
 @Component({
   selector: 'app-producto-individual',
@@ -13,7 +14,8 @@ export class ProductoIndividualComponent implements OnInit {
 
   constructor(
     private conexionService: ConexionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +33,18 @@ export class ProductoIndividualComponent implements OnInit {
         console.error('No se pudo cargar los detalles del producto');
       }
     });
+  }
+
+  addToCart() {
+    // Lógica para añadir al carrito...
+    let newCount = 5; // Este valor debe ser dinámico basado en tu lógica
+    this.notificationService.updateCartCount(newCount);
+  }
+
+  addToFavorites() {
+    // Lógica para añadir a favoritos...
+    let newCount = 3; // Este valor debe ser dinámico basado en tu lógica
+    this.notificationService.updateFavCount(newCount);
   }
 
 }

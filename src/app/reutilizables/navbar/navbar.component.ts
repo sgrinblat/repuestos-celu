@@ -7,6 +7,7 @@ import { RecaptchaService } from 'src/app/service/recaptcha.service';
 
 import Swal from 'sweetalert2';
 import { ProductService } from '../../service/product.service';
+import { NotificationService } from 'src/app/service/notification.service';
 
 
 @Component({
@@ -40,9 +41,13 @@ export class NavbarComponent implements OnDestroy, OnInit {
   accesorios = [];
   repuestos = [];
 
+  cartCount: number = 0;
+  favCount: number = 0;
+  userName: string | null = null;
+
   private listener: Function;
 
-  constructor( private renderer : Renderer2, private recaptchaService: RecaptchaService, private route: Router, private cdr: ChangeDetectorRef, private conexionService: ConexionService, private productService: ProductService) {
+  constructor( private renderer : Renderer2, private recaptchaService: RecaptchaService, private route: Router, private cdr: ChangeDetectorRef, private conexionService: ConexionService, private productService: ProductService, private notificationService: NotificationService) {
     this.listener = this.renderer.listen('document', 'click', (event: Event) => {
       this.handleDocumentClick(event);
     });
@@ -50,10 +55,25 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.loadStates();
-
     this.loadCategories();
 
+    this.notificationService.cartCount$.subscribe(count => {
+      this.cartCount = count;
+    });
+
+    this.notificationService.favCount$.subscribe(count => {
+      this.favCount = count;
+    });
+
+    this.notificationService.userData$.subscribe(userData => {
+      if (userData) {
+        this.userName = userData.name;
+      } else {
+        this.userName = null;
+      }
+    });
   }
+
 
   loadCategories() {
     this.conexionService.getMenuCategories().subscribe(data => {
@@ -120,6 +140,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     const menuCategorias = document.querySelector('.menu-categorias-container');
     const menuRepuestos = document.querySelector('.menu-repuestos-container');
     const menuAccesorios = document.querySelector('.menu-accesorios-container');
+    const menuLogueado = document.querySelector('.menu-usuarioLogueado-container');
 
     // Comprueba si el clic fue dentro del menú o sus descendientes
     if (menuElement && !menuElement.contains(targetElement)
@@ -134,6 +155,12 @@ export class NavbarComponent implements OnDestroy, OnInit {
       // Necesitas decirle a Angular que detecte los cambios ya que esto no ocurre en la zona de Angular
       this.cdr.detectChanges();
     }
+
+    // Comprueba si el clic fue dentro del menú o sus descendientes
+    if (menuLogueado && !menuLogueado.contains(targetElement)) {
+        this.menuUsuarioLogueado = false;
+        this.cdr.detectChanges();
+      }
   }
 
   menuVisible: boolean = false;
@@ -361,9 +388,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
             this.conexionService.loginUsuario(email, password, token).subscribe({
               next: (response) => {
                 Swal.fire('¡Bienvenido!', 'Inicio de sesión exitoso.', 'success');
-                console.log(response);
                 localStorage.setItem("token", response.token);
-                // Aquí puedes redirigir al usuario o hacer otras acciones post-login
+                this.notificationService.setUserData(response.user_data);
               },
               error: (error) => {
                 Swal.fire('Error', 'Hubo un problema al iniciar sesión.', 'error');

@@ -6,23 +6,34 @@
         <a class="navbar-brand" routerLink="/"><img class="logorepuesto" src="../../../assets/images/LOGO/logoverdecompleto.webp"
             alt="RepuestosCelu"></a>
             <ul class="navbar-nav nav-icons ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" routerLink="carrito"><img width="40" class="icono-personalizado" src="../../../assets/images/icons/carrito.png" alt="carrito"></a>
+
+              <li class="nav-item position-relative">
+                <a class="nav-link" routerLink="carrito">
+                  <img width="40" class="icono-personalizado" src="../../../assets/images/icons/carrito.png" alt="carrito">
+                  <span class="badge position-absolute translate-middle" *ngIf="cartCount > 0">{{ cartCount }}</span>
+                </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" routerLink="favoritos"><img width="40" class="icono-personalizado" src="../../../assets/images/icons/fav.png" alt="favoritos"></a>
+              <li class="nav-item position-relative">
+                <a class="nav-link" routerLink="favoritos">
+                  <img width="40" class="icono-personalizado" src="../../../assets/images/icons/fav.png" alt="favoritos">
+                  <span class="badge position-absolute translate-middle" *ngIf="favCount > 0">{{ favCount }}</span>
+                </a>
               </li>
+
+
               <li *ngIf="!verElemento()" class="nav-item">
                 <a (click)="abrirModalInicio()" class="nav-link" ><img width="40" class="icono-personalizado" src="../../../assets/images/icons/user.png" alt="usuario"></a>
               </li>
               <li *ngIf="verElemento()" class="nav-item">
-                <a (click)="abrirContainer($event)" class="nav-link" ><img width="40" class="icono-personalizado" src="../../../assets/images/icons/user.png" alt="usuario"></a>
+                <a (click)="abrirContainer($event)" class="nav-link">
+                  <div class="user-icon text-uppercase" *ngIf="userName">{{ userName[0] }}</div>
+                </a>
 
                 <div *ngIf="menuUsuarioLogueado" class="menu-usuarioLogueado-container" [class.visible]="menuUsuarioLogueado">
-                  <p class="titulocategoria text-uppercase ms-4 mt-4">Hola fulano</p>
-                  <p>MI PERFIL</p>
-                  <p>MIS ÓRDENES</p>
-                  <p (click)="cerrarSesion()">SALIR</p>
+                  <p class="titulocategoria text-uppercase ms-4 mt-4">Hola {{userName}}! </p>
+                  <p routerLink="perfil" class="ms-4 opcionclickeable" >MI PERFIL</p>
+                  <p routerLink="orden/historial" class="ms-4 opcionclickeable">MIS ÓRDENES</p>
+                  <p class="ms-4 opcionclickeable" (click)="cerrarSesion()"><b>SALIR</b></p>
                 </div>
               </li>
             </ul>
@@ -32,13 +43,12 @@
 
       <div class="search-input-container">
         <div class="search-input">
-          <input type="search" class="form-control" [(ngModel)]="terminoBusqueda" placeholder="¿Qué estás buscando?">
+          <input type="text" class="form-control" [(ngModel)]="terminoBusqueda" placeholder="¿Qué estás buscando?">
           <i (click)="buscarProducto()" class="icono-lupa fas fa-search search-icon"></i>
         </div>
         <img (click)="abrirModalUbicacion()" class="icono-ubicacion" src="../../../assets/images/icons/ubicacion.png" alt="">
       </div>
       <p class="pt-2" *ngIf="nombreCiudad">Productos filtrados por: <b>{{nombreCiudad}}</b> </p>
-      <p routerLink="orden/historial" >ordenes borrar</p>
 
       <div class="search-input-container mt-3" id="navbarResponsive">
         <div class="search-input-container-productos menu-wrapper">

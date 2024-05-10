@@ -28,6 +28,7 @@ import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.co
 import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaCommonModule } from 'ng-recaptcha/lib/recaptcha-common.module';
 import { FinalizarOrdenComponent } from './finalizar-orden/finalizar-orden.component';
+import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { FinalizarOrdenComponent } from './finalizar-orden/finalizar-orden.compo
     ProductoIndividualComponent,
     ItemsCarritoComponent,
     ItemsFavoritosComponent,
-    RegistroUsuarioComponent
+    RegistroUsuarioComponent,
+    PerfilUsuarioComponent,
   ],
   exports: [
     HomepageComponent,
@@ -55,6 +57,7 @@ import { FinalizarOrdenComponent } from './finalizar-orden/finalizar-orden.compo
     ItemsCarritoComponent,
     ItemsFavoritosComponent,
     RegistroUsuarioComponent,
+    PerfilUsuarioComponent,
   ],
   imports: [
     CommonModule,

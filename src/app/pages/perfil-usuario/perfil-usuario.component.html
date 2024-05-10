@@ -1,0 +1,31 @@
+<section class="fondo-gris pt-5 pb-5 d-flex align-items-center justify-content-center">
+  <div class="container d-flex flex-column align-items-center">
+    <div class="contenedor text-center" *ngIf="userData">
+      <h2>Perfil de Usuario</h2>
+      <form (ngSubmit)="updateUserData()" #userForm="ngForm">
+        <div class="form-group">
+          <label>Nombre:</label>
+          <input [(ngModel)]="userData.name" name="name" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Email:</label>
+          <input [(ngModel)]="userData.email" name="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Teléfono:</label>
+          <input [(ngModel)]="userData.cel_phone" name="cel_phone" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Ciudad:</label>
+          <input [(ngModel)]="userData.city_name" name="city_name" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Estado:</label>
+          <input [(ngModel)]="userData.state_name" name="state_name" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
+      </form>
+    </div>
+  </div>
+</section>
+

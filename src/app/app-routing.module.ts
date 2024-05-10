@@ -19,6 +19,7 @@ import { FinalizarOrdenComponent } from "./pages/finalizar-orden/finalizar-orden
 import { PoliticaDevolucionComponent } from "./reutilizables/politica-devolucion/politica-devolucion.component";
 import { TerminosCondicionesComponent } from "./reutilizables/terminos-condiciones/terminos-condiciones.component";
 import { MisordenesComponent } from "./pages/misordenes/misordenes.component";
+import { PerfilUsuarioComponent } from "./pages/perfil-usuario/perfil-usuario.component";
 
 
 
@@ -55,6 +56,10 @@ const routes: Routes = [
     {
       path: "producto/:id",
       component: ProductoIndividualComponent,
+    },
+    {
+      path: "perfil",
+      component: PerfilUsuarioComponent,
     },
     {
       path: "orden/finalizar",

@@ -137,7 +137,7 @@ export class ConexionService {
 
   deslogear() {
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem("userName");
     return true;
   }
 

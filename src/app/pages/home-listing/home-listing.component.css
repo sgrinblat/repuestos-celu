@@ -119,7 +119,7 @@
 
 @media (max-width: 768px) {
   .divdeiconitos {
-    margin-left: 70%;
+    padding-left: 70%;
     margin-top: -18% !important;
   }
 }
