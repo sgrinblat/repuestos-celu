@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { ConexionService } from './conexion.service';
 
 interface UserData {
   cel_phone: string;
@@ -14,7 +15,7 @@ interface UserData {
   shop_cart: any[];
   state_id: number;
   state_name: string;
-  wish_list: any[];
+  favorite_list: any[];
 }
 
 @Injectable({
@@ -29,6 +30,8 @@ export class NotificationService {
   favCount$ = this.favCount.asObservable();
   userData$ = this.userData.asObservable();
 
+  constructor(private conexionService: ConexionService) { }
+
   updateCartCount(count: number) {
     this.cartCount.next(count);
   }
@@ -36,6 +39,20 @@ export class NotificationService {
   updateFavCount(count: number) {
     this.favCount.next(count);
   }
+
+  fetchFavCount() {
+    this.conexionService.getFavoriteList().subscribe({
+      next: (productos) => {
+        // No necesitas verificar si es un array; el servicio ya maneja eso.
+        this.updateFavCount(productos.length);  // Directamente usa la longitud del array de productos
+      },
+      error: (error) => {
+        console.error('Error fetching favorite list:', error);
+        this.updateFavCount(0);  // Considera resetear el contador si hay un error
+      }
+    });
+  }
+
 
   setUserData(data: UserData) {
     this.userData.next(data);

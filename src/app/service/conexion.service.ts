@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { Producto } from '../models/producto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,10 @@ export class ConexionService {
   private token = 'OTBmNGMxZjQtZjFmNS0xMWVlLWE4MzMtNjNlZjBlOGM3YjI1OmM4M2ExNDYxLWM5NDQtNDc4NS1iMzc2LWI0Njc0YzI2YmQ2Zg=='; // Token fijo
   private headers = new HttpHeaders({
     'Authorization': `Bearer ${this.token}`
+  });
+
+  private tokenUsuario = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem("token")}`
   });
 
   constructor(private http: HttpClient) { }
@@ -91,7 +96,20 @@ export class ConexionService {
     return this.http.post(url, body, { headers: this.headers });
   }
 
+  getFavoriteList(): Observable<Producto[]> {
+    return this.http.get<{ favorite_list: Producto[] }>(`${this.baseUrl}/customer/favorite/list`, { headers: this.tokenUsuario })
+      .pipe(
+        map(response => response.favorite_list || [])
+      );
+  }
 
+  agregarProductoFavorito(productId: number): Observable<any> {
+    console.log(this.tokenUsuario);
+    const body = {
+      product_id: productId
+    };
+    return this.http.post(`${this.baseUrl}/customer/favorite/add`, body, { headers: this.tokenUsuario });
+  }
 
 
   // METODOS SOBRE INICIO DE SESIÓN

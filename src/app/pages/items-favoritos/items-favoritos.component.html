@@ -2,22 +2,18 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <!-- Producto -->
         <button class="btn btn-success mt-3 mb-3">Agregar todo al carrito</button>
-        <div class="card mb-3">
+        <div *ngFor="let producto of productos" class="card mb-3">
           <div class="card-body">
             <div class="row align-items-center">
-              <!-- Columna de imagen -->
               <div class="col-md-3">
-                <img src="https://rosariopacksrl.com.ar/wp-content/uploads/2017/10/DSC0093.jpg" alt="Producto" class="img-fluid fotoproducto">
+                <img [src]="producto.image" alt="{{ producto.title }}" class="img-fluid fotoproducto">
               </div>
-              <!-- Columna de nombre y precio -->
-              <div class="col-md-6 ">
-                <h5 class="card-title d-inline-block mb-0 ">Nombre del Producto</h5> <br>
-                <h3 class="card-title d-inline-block mb-0">Punto de venta Buenos Aires - Martinez</h3> <br>
-                <span class="price">$XX.XXX</span>
+              <div class="col-md-6">
+                <h5 class="card-title d-inline-block mb-0">{{ producto.title }}</h5><br>
+                <h3 class="card-title d-inline-block mb-0">Punto de venta {{ producto.city }} - {{ producto.state }}</h3><br>
+                <span class="price">${{ producto.price }}</span>
               </div>
-              <!-- Columna de acciones -->
               <div class="col-md-3 d-flex flex-column mt-2">
                 <button class="btn btn-success mb-2">Agregar al carrito</button>
                 <button class="btn btn-warning mb-2">Ver producto</button>
@@ -26,14 +22,7 @@
             </div>
           </div>
         </div>
-
-
-
-
-        <!-- Repetir la tarjeta del producto para cada producto -->
       </div>
-
-
     </div>
   </div>
 </section>

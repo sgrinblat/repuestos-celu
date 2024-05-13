@@ -57,13 +57,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     this.loadStates();
     this.loadCategories();
 
-    this.notificationService.cartCount$.subscribe(count => {
-      this.cartCount = count;
-    });
-
-    this.notificationService.favCount$.subscribe(count => {
-      this.favCount = count;
-    });
+    this.notificationService.fetchFavCount();
 
     this.notificationService.userData$.subscribe(userData => {
       if (userData) {
@@ -72,6 +66,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
         this.userName = null;
       }
     });
+
   }
 
 

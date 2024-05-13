@@ -41,10 +41,17 @@ export class ProductoIndividualComponent implements OnInit {
     this.notificationService.updateCartCount(newCount);
   }
 
-  addToFavorites() {
-    // Lógica para añadir a favoritos...
-    let newCount = 3; // Este valor debe ser dinámico basado en tu lógica
-    this.notificationService.updateFavCount(newCount);
+  addToFavorites(productId: number) {
+    this.conexionService.agregarProductoFavorito(productId).subscribe({
+      next: (response) => {
+        console.log('Producto agregado a favoritos', response);
+        // Luego de añadir a favoritos, fetch el nuevo conteo
+        this.notificationService.fetchFavCount();
+      },
+      error: (error) => {
+        console.error('Error al añadir producto a favoritos', error);
+      }
+    });
   }
 
 }
