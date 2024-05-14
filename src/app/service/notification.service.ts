@@ -53,11 +53,16 @@ export class NotificationService {
     });
   }
 
-
   setUserData(data: UserData) {
     this.userData.next(data);
     localStorage.setItem('userData', JSON.stringify(data));
+
+    // Actualizar el contador de favoritos basado en la longitud del array favorite_list
+    const favCount = data.favorite_list ? data.favorite_list.length : 0;
+    this.updateFavCount(favCount);
   }
+
+
 
   loadUserData() {
     const storedData = localStorage.getItem('userData');

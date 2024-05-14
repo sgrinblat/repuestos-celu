@@ -67,6 +67,10 @@ export class NavbarComponent implements OnDestroy, OnInit {
       }
     });
 
+    this.notificationService.favCount$.subscribe(count => {
+      this.favCount = count;
+    });
+
   }
 
 
