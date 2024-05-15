@@ -1,23 +1,25 @@
 <section class="fondo-gris pt-5 pb-5">
-  <div class="container">
+
+  <div *ngIf="sesionIniciada" class="container">
     <div class="row">
       <div class="col-md-12">
-        <button class="btn btn-success mt-3 mb-3">Agregar todo al carrito</button>
-        <div *ngFor="let producto of productos" class="card mb-3">
+        <button class="btn btn-success mt-md-3 mb-md-3 me-2 mt-1 mb-1 me-2">Agregar todo al carrito</button>
+        <button (click)="eliminarTodo()" class="btn btn-danger mt-md-3 mb-md-3 mt-1 mb-1 me-2">Eliminar todos los productos</button>
+        <div *ngFor="let producto of productos1" class="card mb-3">
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-md-3">
                 <img [src]="producto.image" alt="{{ producto.title }}" class="img-fluid fotoproducto">
               </div>
-              <div class="col-md-6">
+              <div class="col-md-5">
                 <h5 class="card-title d-inline-block mb-0">{{ producto.title }}</h5><br>
                 <h3 class="card-title d-inline-block mb-0">Punto de venta {{ producto.city }} - {{ producto.state }}</h3><br>
                 <span class="price">${{ producto.price }}</span>
               </div>
               <div class="col-md-3 d-flex flex-column mt-2">
                 <button class="btn btn-success mb-2">Agregar al carrito</button>
-                <button class="btn btn-warning mb-2">Ver producto</button>
-                <button class="btn btn-danger">Eliminar</button>
+                <button (click)="verProducto(producto.id)" class="btn btn-warning mb-2">Ver producto</button>
+                <button (click)="eliminarProducto(producto.id)" class="btn btn-danger">Eliminar</button>
               </div>
             </div>
           </div>
@@ -25,4 +27,13 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="!sesionIniciada" class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Necesitas iniciar sesión para agregar productos a tu lista de favoritos</h2>
+      </div>
+    </div>
+  </div>
+
 </section>

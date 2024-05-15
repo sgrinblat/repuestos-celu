@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Producto } from 'src/app/models/producto.model';
 import { ConexionService } from 'src/app/service/conexion.service';
 import { NotificationService } from 'src/app/service/notification.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-producto-individual',
@@ -47,11 +48,34 @@ export class ProductoIndividualComponent implements OnInit {
         console.log('Producto agregado a favoritos', response);
         // Luego de añadir a favoritos, fetch el nuevo conteo
         this.notificationService.fetchFavCount();
+        this.arrojarToast("Producto agregado")
       },
       error: (error) => {
         console.error('Error al añadir producto a favoritos', error);
+        this.arrojarToast("El producto ya está en favoritos")
       }
     });
   }
+
+  arrojarToast(mensaje: string) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "center",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+
+    Toast.fire({
+      icon: "info",
+      title: mensaje
+    });
+  }
+
+
 
 }

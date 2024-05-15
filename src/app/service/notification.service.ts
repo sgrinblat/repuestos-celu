@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ConexionService } from './conexion.service';
+import { AuthService } from './auth.service';
 
 interface UserData {
   cel_phone: string;
@@ -30,7 +31,7 @@ export class NotificationService {
   favCount$ = this.favCount.asObservable();
   userData$ = this.userData.asObservable();
 
-  constructor(private conexionService: ConexionService) { }
+  constructor(private conexionService: ConexionService, private auth: AuthService) { }
 
   updateCartCount(count: number) {
     this.cartCount.next(count);
@@ -41,22 +42,23 @@ export class NotificationService {
   }
 
   fetchFavCount() {
-    this.conexionService.getFavoriteList().subscribe({
-      next: (productos) => {
-        // No necesitas verificar si es un array; el servicio ya maneja eso.
-        this.updateFavCount(productos.length);  // Directamente usa la longitud del array de productos
-      },
-      error: (error) => {
-        console.error('Error fetching favorite list:', error);
-        this.updateFavCount(0);  // Considera resetear el contador si hay un error
-      }
-    });
+    if(this.auth.sesionIniciada()) {
+      this.conexionService.getFavoriteList().subscribe({
+        next: (productos) => {
+          // No necesitas verificar si es un array; el servicio ya maneja eso.
+          this.updateFavCount(productos.length);  // Directamente usa la longitud del array de productos
+        },
+        error: (error) => {
+          console.error('Error fetching favorite list:', error);
+          this.updateFavCount(0);  // Considera resetear el contador si hay un error
+        }
+      });
+    }
   }
 
   setUserData(data: UserData) {
     this.userData.next(data);
     localStorage.setItem('userData', JSON.stringify(data));
-
     // Actualizar el contador de favoritos basado en la longitud del array favorite_list
     const favCount = data.favorite_list ? data.favorite_list.length : 0;
     this.updateFavCount(favCount);

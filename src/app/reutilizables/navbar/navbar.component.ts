@@ -8,6 +8,7 @@ import { RecaptchaService } from 'src/app/service/recaptcha.service';
 import Swal from 'sweetalert2';
 import { ProductService } from '../../service/product.service';
 import { NotificationService } from 'src/app/service/notification.service';
+import { AuthService } from '../../service/auth.service';
 
 
 @Component({
@@ -47,7 +48,12 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   private listener: Function;
 
-  constructor( private renderer : Renderer2, private recaptchaService: RecaptchaService, private route: Router, private cdr: ChangeDetectorRef, private conexionService: ConexionService, private productService: ProductService, private notificationService: NotificationService) {
+  constructor( private renderer : Renderer2, private recaptchaService: RecaptchaService, private route: Router,
+    private cdr: ChangeDetectorRef, private conexionService: ConexionService,
+    private productService: ProductService,
+    private notificationService: NotificationService,
+    private authService: AuthService
+  ) {
     this.listener = this.renderer.listen('document', 'click', (event: Event) => {
       this.handleDocumentClick(event);
     });
@@ -57,19 +63,22 @@ export class NavbarComponent implements OnDestroy, OnInit {
     this.loadStates();
     this.loadCategories();
 
-    this.notificationService.fetchFavCount();
+    if(this.authService.sesionIniciada()) {
+      this.notificationService.fetchFavCount();
 
-    this.notificationService.userData$.subscribe(userData => {
-      if (userData) {
-        this.userName = userData.name;
-      } else {
-        this.userName = null;
-      }
-    });
+      this.notificationService.userData$.subscribe(userData => {
+        if (userData) {
+          this.userName = userData.name;
+        } else {
+          this.userName = null;
+        }
+      });
 
-    this.notificationService.favCount$.subscribe(count => {
-      this.favCount = count;
-    });
+      this.notificationService.favCount$.subscribe(count => {
+        this.favCount = count;
+      });
+    }
+
 
   }
 
@@ -384,10 +393,10 @@ export class NavbarComponent implements OnDestroy, OnInit {
           const email = (document.getElementById('email') as HTMLInputElement).value;
           const password = (document.getElementById('password') as HTMLInputElement).value;
           this.recaptchaService.executeRecaptcha('login').then(token => {
-            this.conexionService.loginUsuario(email, password, token).subscribe({
+            this.authService.loginUsuario(email, password, token).subscribe({
               next: (response) => {
                 Swal.fire('¡Bienvenido!', 'Inicio de sesión exitoso.', 'success');
-                localStorage.setItem("token", response.token);
+                localStorage.setItem("tokenUser", response.token);
                 this.notificationService.setUserData(response.user_data);
               },
               error: (error) => {
@@ -759,7 +768,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   verElemento() {
-    if(this.conexionService.sesionIniciada()){
+    if(this.authService.sesionIniciada()){
       return true;
     } else {
       return false;
@@ -767,7 +776,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   cerrarSesion() {
-    this.conexionService.deslogear();
+    this.authService.deslogear();
     Swal.fire('Sesión cerrada',`Esperamos verte pronto!`, `info`);
     this.route.navigate(['']);
   }

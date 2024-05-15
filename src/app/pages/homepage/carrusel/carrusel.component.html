@@ -3,7 +3,7 @@
     <div class="swiper-wrapper">
       <div class="swiper-slide" *ngFor="let producto of productos">
         <img (click)="verProducto(producto.id)" [src]="producto.image" alt="{{ producto.title }}">
-        <p class="texto-nombre">{{ producto.title }}</p>
+        <p (click)="verProducto(producto.id)" class="texto-nombre">{{ producto.title }}</p>
         <p class="texto-precio"> ${{ producto.price }}</p>
         <p class="texto-sucursal"> Punto de venta:</p>
         <p class="texto-sucursal">{{producto.state}} - {{producto.city}} </p>

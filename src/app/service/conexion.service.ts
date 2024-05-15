@@ -14,7 +14,7 @@ export class ConexionService {
   });
 
   private tokenUsuario = new HttpHeaders({
-    'Authorization': `Bearer ${localStorage.getItem("token")}`
+    'Authorization': `Bearer ${localStorage.getItem("tokenUser")}`
   });
 
   constructor(private http: HttpClient) { }
@@ -86,17 +86,10 @@ export class ConexionService {
     return this.http.post<any>(url, body, { headers: this.headers });
   }
 
-  loginUsuario(email: string, password: string, recaptchaToken: string): Observable<any> {
-    const url = `${this.baseUrl}/front/login`;
-    const body = {
-      email: email,
-      password: password,
-      recaptcha_token: recaptchaToken
-    };
-    return this.http.post(url, body, { headers: this.headers });
-  }
 
   getFavoriteList(): Observable<Producto[]> {
+    console.log(this.tokenUsuario);
+
     return this.http.get<{ favorite_list: Producto[] }>(`${this.baseUrl}/customer/favorite/list`, { headers: this.tokenUsuario })
       .pipe(
         map(response => response.favorite_list || [])
@@ -111,53 +104,59 @@ export class ConexionService {
     return this.http.post(`${this.baseUrl}/customer/favorite/add`, body, { headers: this.tokenUsuario });
   }
 
+  quitarProductoFavorito(productId: number): Observable<any> {
+    const body = {
+      product_id: productId
+    };
+    return this.http.post(`${this.baseUrl}/customer/favorite/remove`, body, { headers: this.tokenUsuario });
+  }
+
+  eliminarFavoritos(): Observable<any> {
+    return this.http.post(`${this.baseUrl}/customer/favorite/removeAll`, { headers: this.tokenUsuario });
+  }
+
 
   // METODOS SOBRE INICIO DE SESIÓN
 
-  sesionIniciada() {
-    const tokenStr = localStorage.getItem('token');
-
-    if (tokenStr == undefined || tokenStr == '' || tokenStr == null) {
-      return false;
-    } else {
-      const payload = JSON.parse(atob(tokenStr.split('.')[1]));
-      const currentTime = Math.floor(Date.now() / 1000);
-
-      if (payload.exp < currentTime) {
-        // El token ha expirado, desloguear al usuario
-        this.deslogear();
-        return false;
-      } else {
-        return true;
-      }
-    }
-  }
-
-
-  getToken() {
-    return localStorage.getItem("token");
-  }
-
-
-  // setUser(user: any) {
-  //   localStorage.setItem("user", JSON.stringify(user));
+  // loginUsuario(email: string, password: string, recaptchaToken: string): Observable<any> {
+  //   const url = `${this.baseUrl}/front/login`;
+  //   const body = {
+  //     email: email,
+  //     password: password,
+  //     recaptcha_token: recaptchaToken
+  //   };
+  //   return this.http.post(url, body, { headers: this.headers });
   // }
 
-  // getUser() {
-  //   let userStr = localStorage.getItem("user");
-  //   if (userStr != null) {
-  //     return JSON.parse(userStr);
+  // sesionIniciada() {
+  //   const tokenStr = localStorage.getItem('token');
+
+  //   if (tokenStr == undefined || tokenStr == '' || tokenStr == null) {
+  //     return false;
   //   } else {
-  //     this.deslogear();
-  //     return null;
+  //     const payload = JSON.parse(atob(tokenStr.split('.')[1]));
+  //     const currentTime = Math.floor(Date.now() / 1000);
+
+  //     if (payload.exp < currentTime) {
+  //       // El token ha expirado, desloguear al usuario
+  //       this.deslogear();
+  //       return false;
+  //     } else {
+  //       return true;
+  //     }
   //   }
   // }
 
-  deslogear() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userName");
-    return true;
-  }
+
+  // getToken() {
+  //   return localStorage.getItem("token");
+  // }
+
+
+  // deslogear() {
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("userData");
+  //   return true;
+  // }
 
 }
-
