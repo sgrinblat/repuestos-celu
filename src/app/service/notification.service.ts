@@ -37,23 +37,34 @@ export class NotificationService {
     this.cartCount.next(count);
   }
 
+  fetchCartCount() {
+    this.conexionService.getCarritoList().subscribe({
+      next: (productos) => {
+        // No necesitas verificar si es un array; el servicio ya maneja eso.
+        this.updateCartCount(productos.length);  // Directamente usa la longitud del array de productos
+      },
+      error: (error) => {
+        console.error('Error fetching favorite list:', error);
+        this.updateCartCount(0);  // Considera resetear el contador si hay un error
+      }
+    });
+  }
+
   updateFavCount(count: number) {
     this.favCount.next(count);
   }
 
   fetchFavCount() {
-    if(this.auth.sesionIniciada()) {
-      this.conexionService.getFavoriteList().subscribe({
-        next: (productos) => {
-          // No necesitas verificar si es un array; el servicio ya maneja eso.
-          this.updateFavCount(productos.length);  // Directamente usa la longitud del array de productos
-        },
-        error: (error) => {
-          console.error('Error fetching favorite list:', error);
-          this.updateFavCount(0);  // Considera resetear el contador si hay un error
-        }
-      });
-    }
+    this.conexionService.getFavoriteList().subscribe({
+      next: (productos) => {
+        // No necesitas verificar si es un array; el servicio ya maneja eso.
+        this.updateFavCount(productos.length);  // Directamente usa la longitud del array de productos
+      },
+      error: (error) => {
+        console.error('Error fetching favorite list:', error);
+        this.updateFavCount(0);  // Considera resetear el contador si hay un error
+      }
+    });
   }
 
   setUserData(data: UserData) {

@@ -1,9 +1,14 @@
 <section class="fondo-gris pt-5 pb-5">
 
   <div *ngIf="sesionIniciada" class="container">
-    <div class="row">
+
+    <div *ngIf="productos1.length < 1">
+      <h2>No hay productos en favoritos actualmente!</h2>
+    </div>
+
+    <div *ngIf="productos1.length > 0" class="row">
       <div class="col-md-12">
-        <button class="btn btn-success mt-md-3 mb-md-3 me-2 mt-1 mb-1 me-2">Agregar todo al carrito</button>
+        <button (click)="agregarTodo()" class="btn btn-success mt-md-3 mb-md-3 me-2 mt-1 mb-1 me-2">Agregar todo al carrito</button>
         <button (click)="eliminarTodo()" class="btn btn-danger mt-md-3 mb-md-3 mt-1 mb-1 me-2">Eliminar todos los productos</button>
         <div *ngFor="let producto of productos1" class="card mb-3">
           <div class="card-body">
@@ -17,7 +22,7 @@
                 <span class="price">${{ producto.price }}</span>
               </div>
               <div class="col-md-3 d-flex flex-column mt-2">
-                <button class="btn btn-success mb-2">Agregar al carrito</button>
+                <button (click)="addToCarrito(producto.id)" class="btn btn-success mb-2">Agregar al carrito</button>
                 <button (click)="verProducto(producto.id)" class="btn btn-warning mb-2">Ver producto</button>
                 <button (click)="eliminarProducto(producto.id)" class="btn btn-danger">Eliminar</button>
               </div>

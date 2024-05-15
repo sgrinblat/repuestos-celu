@@ -25,11 +25,9 @@ export class ItemsFavoritosComponent implements OnInit {
   ngOnInit() {
 
     if(this.auth.sesionIniciada()) {
-      console.log("arre");
       this.sesionIniciada = true;
       this.fetchFavoriteProducts();
     } else {
-      console.log("dios no");
       this.sesionIniciada = false;
     }
 
@@ -48,6 +46,19 @@ export class ItemsFavoritosComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching favorite products:', error);
+      }
+    });
+  }
+
+  fetchCarritoProducts() {
+    this.conexionService.getCarritoList().subscribe({
+      next: (productos) => {
+        this.productos1 = productos;
+        console.log(this.productos1);
+        this.cdr.detectChanges();  // Forzar la detección de cambios
+      },
+      error: (error) => {
+        console.error('Error fetching carrito products:', error);
       }
     });
   }
@@ -81,6 +92,41 @@ export class ItemsFavoritosComponent implements OnInit {
       error: (error) => {
         console.error('Error al eliminar lista', error);
         this.arrojarToast("Error para eliminar el producto")
+      }
+    });
+  }
+
+  agregarTodo() {
+    this.conexionService.agregarTodoFavoritos().subscribe({
+      next: (response) => {
+        console.log('Lista vaciada', response);
+        this.arrojarToast("Se ha añadido todo")
+
+        this.notificationService.fetchFavCount();
+        this.fetchFavoriteProducts();
+
+        this.notificationService.fetchCartCount();
+        this.fetchCarritoProducts();
+        this.route.navigate(['carrito']);
+      },
+      error: (error) => {
+        console.error('Error al eliminar lista', error);
+        this.arrojarToast("Hubo un error")
+      }
+    });
+  }
+
+  addToCarrito(productId: number) {
+    this.conexionService.agregarProductoCarrito(productId).subscribe({
+      next: (response) => {
+        console.log('Producto agregado a carrito', response);
+        // Luego de añadir a favoritos, fetch el nuevo conteo
+        this.notificationService.fetchCartCount();
+        this.arrojarToast("Producto agregado")
+      },
+      error: (error) => {
+        console.error('Error al añadir producto al carrito', error);
+        this.arrojarToast("El producto ya está en el carrito")
       }
     });
   }

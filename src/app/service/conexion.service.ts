@@ -116,6 +116,48 @@ export class ConexionService {
   }
 
 
+
+  getCarritoList(): Observable<Producto[]> {
+    console.log(this.tokenUsuario);
+
+    return this.http.get<{ shop_cart_list: Producto[] }>(`${this.baseUrl}/customer/cart/list`, { headers: this.tokenUsuario })
+      .pipe(
+        map(response => response.shop_cart_list || [])
+      );
+  }
+
+  agregarProductoCarrito(productId: number): Observable<any> {
+    console.log(this.tokenUsuario);
+    const body = {
+      product_id: productId
+    };
+    return this.http.post(`${this.baseUrl}/customer/cart/add`, body, { headers: this.tokenUsuario });
+  }
+
+  quitarProductoCarrito(productId: number): Observable<any> {
+    const body = {
+      product_id: productId
+    };
+    return this.http.post(`${this.baseUrl}/customer/cart/remove`, body, { headers: this.tokenUsuario });
+  }
+
+  eliminarCarrito(): Observable<any> {
+    return this.http.post(`${this.baseUrl}/customer/cart/removeAll`, { headers: this.tokenUsuario });
+  }
+
+  agregarTodoFavoritos(): Observable<any> {
+    return this.http.post(`${this.baseUrl}/customer/cart/addAllFavorites`, { headers: this.tokenUsuario });
+  }
+
+
+
+
+
+
+
+
+
+
   // METODOS SOBRE INICIO DE SESIÓN
 
   // loginUsuario(email: string, password: string, recaptchaToken: string): Observable<any> {

@@ -65,6 +65,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
     if(this.authService.sesionIniciada()) {
       this.notificationService.fetchFavCount();
+      this.notificationService.fetchCartCount();
 
       this.notificationService.userData$.subscribe(userData => {
         if (userData) {
@@ -76,6 +77,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
       this.notificationService.favCount$.subscribe(count => {
         this.favCount = count;
+      });
+      this.notificationService.cartCount$.subscribe(count => {
+        this.cartCount = count;
       });
     }
 
@@ -398,6 +402,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
                 Swal.fire('¡Bienvenido!', 'Inicio de sesión exitoso.', 'success');
                 localStorage.setItem("tokenUser", response.token);
                 this.notificationService.setUserData(response.user_data);
+                this.ngOnInit();
+                this.cdr.detectChanges();
+                this.route.navigate(['']);
               },
               error: (error) => {
                 Swal.fire('Error', 'Hubo un problema al iniciar sesión.', 'error');
@@ -777,6 +784,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   cerrarSesion() {
     this.authService.deslogear();
+    this.notificationService.updateCartCount(0);
+    this.notificationService.updateFavCount(0);
     Swal.fire('Sesión cerrada',`Esperamos verte pronto!`, `info`);
     this.route.navigate(['']);
   }

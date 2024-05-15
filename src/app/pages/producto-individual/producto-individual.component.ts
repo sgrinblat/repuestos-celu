@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Producto } from 'src/app/models/producto.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { ConexionService } from 'src/app/service/conexion.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import Swal from 'sweetalert2';
@@ -16,7 +17,8 @@ export class ProductoIndividualComponent implements OnInit {
   constructor(
     private conexionService: ConexionService,
     private route: ActivatedRoute,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private auth: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -36,25 +38,42 @@ export class ProductoIndividualComponent implements OnInit {
     });
   }
 
-  addToCart() {
-    // Lógica para añadir al carrito...
-    let newCount = 5; // Este valor debe ser dinámico basado en tu lógica
-    this.notificationService.updateCartCount(newCount);
+  addToFavorites(productId: number) {
+    if(this.auth.sesionIniciada()) {
+      this.conexionService.agregarProductoFavorito(productId).subscribe({
+        next: (response) => {
+          console.log('Producto agregado a favoritos', response);
+          // Luego de añadir a favoritos, fetch el nuevo conteo
+          this.notificationService.fetchFavCount();
+          this.arrojarToast("Producto agregado")
+        },
+        error: (error) => {
+          console.error('Error al añadir producto a favoritos', error);
+          this.arrojarToast("El producto ya está en favoritos")
+        }
+      });
+    } else {
+      this.arrojarToast("Inicia sesión para agregar un producto a favoritos")
+    }
   }
 
-  addToFavorites(productId: number) {
-    this.conexionService.agregarProductoFavorito(productId).subscribe({
-      next: (response) => {
-        console.log('Producto agregado a favoritos', response);
-        // Luego de añadir a favoritos, fetch el nuevo conteo
-        this.notificationService.fetchFavCount();
-        this.arrojarToast("Producto agregado")
-      },
-      error: (error) => {
-        console.error('Error al añadir producto a favoritos', error);
-        this.arrojarToast("El producto ya está en favoritos")
-      }
-    });
+  addToCarrito(productId: number) {
+    if(this.auth.sesionIniciada()) {
+      this.conexionService.agregarProductoCarrito(productId).subscribe({
+        next: (response) => {
+          console.log('Producto agregado a carrito', response);
+          // Luego de añadir a favoritos, fetch el nuevo conteo
+          this.notificationService.fetchCartCount();
+          this.arrojarToast("Producto agregado")
+        },
+        error: (error) => {
+          console.error('Error al añadir producto al carrito', error);
+          this.arrojarToast("El producto ya está en el carrito")
+        }
+      });
+    } else {
+      this.arrojarToast("Inicia sesión para agregar un producto al carrito")
+    }
   }
 
   arrojarToast(mensaje: string) {

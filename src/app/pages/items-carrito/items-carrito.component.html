@@ -1,42 +1,44 @@
 <section class="fondo-gris pt-5 pb-5">
-  <div class="container">
-    <div class="row">
+
+  <div *ngIf="sesionIniciada" class="container">
+
+    <div *ngIf="productos1.length < 1">
+      <h2>No hay productos en el carrito actualmente!</h2>
+    </div>
+
+    <div *ngIf="productos1.length > 0" class="row">
       <div class="col-md-8">
         <!-- Producto -->
-
-        <div class="card mb-3">
+        <div class="card mb-3" *ngFor="let producto of productos1"> <!-- Iteración sobre cada producto -->
           <div class="card-body">
             <div class="row">
               <!-- Imagen del producto -->
               <div class="col-md-3 col-12 text-center">
-                <img src="https://rosariopacksrl.com.ar/wp-content/uploads/2017/10/DSC0093.jpg" alt="Producto" class="img-fluid fotoproducto">
+                <img [src]="producto.image" [alt]="producto.title" class="img-fluid fotoproducto">
               </div>
               <!-- Nombre y opciones del producto -->
               <div class="col-md-6 col-12 text-lg-start text-sm-center text-center">
-                <h5 class="card-title mt-2">Nombre del Producto</h5>
-                <p class="price mt-2">$XX.XXX</p>
-                <!-- Controles para cambiar la cantidad -->
+                <h5 class="card-title mt-2">{{ producto.title }}</h5>
+                <p class="price mt-2">${{ producto.price }}</p>
+                <!-- Controles para cambiar la cantidad (opcional, si necesitas cambiar cantidades) -->
                 <div class="quantity-controls mt-2">
-                  <button class="btn btn-outline-secondary">-</button>
-                  <input type="text" value="1" class="form-control mx-2" style="width: 50px;">
-                  <button class="btn btn-outline-secondary">+</button>
+                  <button class="btn btn-outline-secondary" (click)="decrementarCantidad(producto)">-</button>
+                  <input type="text" [(ngModel)]="producto.quantity" class="form-control mx-2" style="width: 50px;">
+                  <button class="btn btn-outline-secondary" (click)="incrementarCantidad(producto)">+</button>
                 </div>
-                <p class="mt-2">Subtotal:</p>
-                <p class="price">$XX.XXX</p>
+                <p class="price mt-2">Subtotal: ${{ (convertirPrecio(producto.price) * producto.quantity).toFixed(2) }}</p>
               </div>
               <!-- Precio y disponibilidad -->
               <div class="col-md-3 col-12 text-md-left text-center mt-2">
-                <p class="sucursal">Punto de venta Buenos Aires - San Luis del Valle</p>
+                <p class="sucursal">Punto de venta {{ producto.state }} - {{ producto.city }}</p>
                 <div class="d-md-block d-flex justify-content-center">
-                  <button class="btn btn-warning me-2 mt-2">Ver producto</button>
-                  <button class="btn btn-danger ml-md-2 ml-2 mt-2">Eliminar</button>
+                  <button (click)="verProducto(producto.id)" class="btn btn-warning me-2 mt-2">Ver producto</button>
+                  <button (click)="eliminarProducto(producto.id)" class="btn btn-danger ml-md-2 ml-2 mt-2">Eliminar</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Repetir la tarjeta del producto para cada producto -->
       </div>
 
       <div class="col-md-4 col-12 carrito">
@@ -45,18 +47,27 @@
           <div class="card-body text-lg-start text-center">
             <h5 class="card-title">Resumen del carrito</h5>
             <ul class="list-group list-group-flush text-left">
-              <li class="list-group-item">Productos (X) <span class="price">$XX.XXX</span></li>
-              <li class="list-group-item">Envío <span class="price">$XX.XXX</span></li>
-              <!-- Otros ítems del resumen -->
+              <li class="list-group-item">Productos ({{ productos1.length }})</li>
             </ul>
             <div class="card-text total">
-              Total <span class="price">$XX.XXX</span>
+              Total <span class="price">${{ calcularTotal().toFixed(2) }}</span>
             </div>
-            <button (click)="finalizarOrden()" class="btn btn-success btn-block">Continuar compra</button>
+            <button (click)="finalizarOrden()" class="btn btn-success btn-block me-2">Continuar compra</button>
+            <button (click)="eliminarTodo()" class="btn btn-danger btn-block">Vaciar carrito</button>
           </div>
         </div>
       </div>
 
     </div>
   </div>
+
+  <div *ngIf="!sesionIniciada" class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Necesitas iniciar sesión para agregar productos a tu carrito</h2>
+      </div>
+    </div>
+  </div>
+
+
 </section>
