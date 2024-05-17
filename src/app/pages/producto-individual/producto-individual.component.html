@@ -8,20 +8,16 @@
             <img *ngIf="product" [src]="product.images[0]?.image || 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'" alt="{{ product.title }}" width="300" class="img-fluid">
           </div>
           <div class="col-md-8 mt-1">
-            <h3 class="product-title mt-4">{{ product.title }}</h3>
-            <h2 class="product-price mt-3">${{ product.price | number}}</h2>
-
-            <p *ngIf="product.available > 5" class="stock mt-3"><i>{{product.available}} unidades disponibles</i></p>
-            <p *ngIf="product.available < 6 && product.available > 1" class="stock mt-3"><i>¡Quedan solo {{product.available}} unidades!</i></p>
-            <p *ngIf="product.available == 1" class="stock mt-3"><i>¡Última unidad!</i></p>
-
-            <p class="location mt-3">Punto de venta: {{ product.state }} - {{ product.city }}</p>
+            <h3 class="product-title mt-4">{{ product?.title }}</h3>
+            <h2 class="product-price mt-3">${{ product?.price | number}}</h2>
+            <p *ngIf="product?.available != null" class="stock mt-3"><i>{{ getAvailabilityMessage(product.available) }}</i></p>
+            <p class="location mt-3">Punto de venta: {{ product?.state }} - {{ product?.city }}</p>
             <button (click)="addToCarrito(product.id)" class="btn btn-success mt-3 me-2">AGREGAR AL CARRITO</button>
             <button (click)="addToFavorites(product.id)" class="btn btn-success mt-3 me-2">AGREGAR A FAVORITOS</button>
           </div>
-          <div class="mt-3 ps-4 container">
+          <div class="mt-5 ps-4 container">
             <h5 class="text-uppercase mb-3"><b>Descripción del producto</b></h5>
-            <p class="product-description">{{ product.short_description || 'No hay descripción disponible.' }}</p>
+            <p class="product-description">{{ product?.short_description || 'No hay descripción disponible.' }}</p>
           </div>
         </div>
       </div>

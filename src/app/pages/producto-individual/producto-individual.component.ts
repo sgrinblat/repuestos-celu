@@ -38,6 +38,18 @@ export class ProductoIndividualComponent implements OnInit {
     });
   }
 
+  getAvailabilityMessage(available: number): string {
+    if (available === 0) {
+        return 'Producto agotado';
+    } else if (available === 1) {
+        return '¡Última unidad!';
+    } else if (available < 6) {
+        return `¡Quedan solo ${available} unidades!`;
+    } else {
+        return `${available} unidades disponibles`;
+    }
+  }
+
   addToFavorites(productId: number) {
     if(this.auth.sesionIniciada()) {
       this.conexionService.agregarProductoFavorito(productId).subscribe({

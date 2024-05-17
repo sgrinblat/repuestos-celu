@@ -6,6 +6,8 @@ import { ConexionService } from 'src/app/service/conexion.service';
 import { RecaptchaService } from 'src/app/service/recaptcha.service';
 import { PasswordStrengthValidator } from '../registro-usuario/registro-usuario.component';
 import { ProductService } from 'src/app/service/product.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-finalizar-orden',
@@ -21,7 +23,9 @@ export class FinalizarOrdenComponent implements OnInit {
 
   constructor(private conexionService: ConexionService, private recaptchaService: RecaptchaService,
     private recaptchaV3Service: ReCaptchaV3Service, private readonly fb: FormBuilder,
-    private changeDetectorRef: ChangeDetectorRef, private productoService: ProductService) {
+    private changeDetectorRef: ChangeDetectorRef, private productoService: ProductService,
+    private route: Router
+    ) {
     this.contactForm = fb.group({
       name: ['', [Validators.required, Validators.minLength(5)]],
       identity_number: ['', [Validators.required, Validators.minLength(8)]],
@@ -123,13 +127,15 @@ export class FinalizarOrdenComponent implements OnInit {
     this.conexionService.enviarOrden(orderData).subscribe(
       response => {
         console.log('Orden completada:', response);
-        // Manejo del éxito
+        Swal.fire('Orden creada!', 'Ya puedes verla en tu perfil', 'success');
+        this.route.navigate(["orden/historial"])
       },
       error => {
         console.error('Error al enviar la orden:', error);
-        // Manejo de errores
+        Swal.fire('Error', 'Hubo un problema para finalizar la orden', 'error');
       }
     );
   }
+
 
 }

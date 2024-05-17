@@ -20,12 +20,13 @@
               <div class="col-md-6 col-12 text-lg-start text-sm-center text-center">
                 <h5 class="card-title mt-2">{{ producto.title }}</h5>
                 <p class="price mt-2">${{ producto.price }}</p>
-                <!-- Controles para cambiar la cantidad (opcional, si necesitas cambiar cantidades) -->
+
                 <div class="quantity-controls mt-2">
                   <button class="btn btn-outline-secondary" (click)="decrementarCantidad(producto)">-</button>
-                  <input type="text" [(ngModel)]="producto.quantity" class="form-control mx-2" style="width: 50px;">
+                  <input type="text" [(ngModel)]="producto.quantity" (ngModelChange)="validarCantidad(producto)" class="form-control mx-2" style="width: 50px;">
                   <button class="btn btn-outline-secondary" (click)="incrementarCantidad(producto)">+</button>
                 </div>
+
                 <p class="price mt-2">Subtotal: ${{ (convertirPrecio(producto.price) * producto.quantity).toFixed(2) }}</p>
               </div>
               <!-- Precio y disponibilidad -->

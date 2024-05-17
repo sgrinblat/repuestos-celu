@@ -162,8 +162,13 @@ export class ConexionService {
     return this.http.get(`${this.baseUrl}/customer/orders`, { headers: this.tokenUsuario });
   }
 
+  obtenerDetallesOrden(orderId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/customer/order/${orderId}`, { headers: this.tokenUsuario });
+  }
 
-
+  actualizarOrden(orderId: number, data: any): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/customer/order/${orderId}`, data, { headers: this.tokenUsuario });
+  }
 
 
 

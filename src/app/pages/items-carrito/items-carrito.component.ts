@@ -66,7 +66,7 @@ export class ItemsCarritoComponent implements OnInit {
       producto.quantity++;
       this.calcularTotal();  // Recalcula el total cada vez que la cantidad cambia
     } else {
-      alert('No puedes agregar más de este producto debido a la disponibilidad limitada.');
+      Swal.fire('Error', 'La cantidad seleccionada ha superado el stock disponible', 'error');
     }
   }
 
@@ -76,6 +76,19 @@ export class ItemsCarritoComponent implements OnInit {
       this.calcularTotal();  // Recalcula el total cada vez que la cantidad cambia
     }
   }
+
+  validarCantidad(producto: Producto): void {
+    const cantidad = Number(producto.quantity);
+    if (cantidad < 1) {
+      producto.quantity = 1;  // Asegura que la cantidad no sea menor que 1
+      Swal.fire('Aviso', 'La cantidad no puede ser menor que 1.', 'info');
+    } else if (cantidad > producto.available) {
+      producto.quantity = producto.available;  // Ajusta la cantidad al máximo disponible
+      Swal.fire('Error', 'La cantidad seleccionada ha superado el stock disponible', 'error');
+    }
+    this.calcularTotal();  // Recalcula el total después de ajustar la cantidad
+  }
+
 
   calcularTotal(): number {
     return this.productos1.reduce((acc, producto) => {

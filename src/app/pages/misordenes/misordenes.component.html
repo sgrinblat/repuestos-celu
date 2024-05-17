@@ -7,20 +7,21 @@
         <div class="card mb-3" *ngFor="let orden of ordenes">
           <div class="card-body">
             <div class="row">
-              <div class="col-md-8 col-8 text-lg-start text-sm-center text-center">
+              <div class="col-md-8 col-12 text-lg-start text-sm-center text-center">
                 <h5 class="card-title"><b>Orden N°</b> {{ orden.order_id }}</h5>
                 <p class="price"><b>Pedido realizado</b> {{ orden.created_at}}</p>
                 <p class="price"><b>Total</b> ${{ orden.total_order }}</p>
-                <p class="price"><b>Enviar a</b> {{ orden.order_data.street_address }} - {{ orden.order_data.city_id }}</p>
-                <p class="sucursal"><b>Punto de venta Buenos Aires - San Luis del Valle</b></p> <!-- Ajusta según necesidad -->
+                <p class="price"><b>Enviar a</b> {{ orden.order_data.street_address }}</p>
+                <p class="sucursal"><b>Punto de venta {{orden.order_data.state_name}} {{orden.order_data.city_name}}</b></p>
               </div>
 
               <div class="col-md-4 col-12 text-md-left text-center mt-5">
                 <div class="d-md-block d-flex justify-content-center">
-                  <button class="btn btn-success me-2 mt-2">Ver detalle de la orden</button>
-                  <button class="btn btn-warning me-2 mt-2">Subir comprobante de pago</button>
+                  <button (click)="cargarDetallesOrden(orden.order_id)" class="btn btn-success mt-md-2 me-2">Ver detalle de la orden</button>
+                  <button (click)="abrirModalSubirComprobante(orden.order_id, orden.created_at)" class="btn btn-warning mt-md-2 me-2">Subir comprobante de pago</button>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
