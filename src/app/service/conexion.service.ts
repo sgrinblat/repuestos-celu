@@ -150,6 +150,17 @@ export class ConexionService {
   }
 
 
+  obtenerMediosDePago(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/front/paymentsTypes`, { headers: this.headers });
+  }
+
+  enviarOrden(orderData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/customer/order`, orderData, { headers: this.tokenUsuario });
+  }
+
+  obtenerOrdenes(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/customer/orders`, { headers: this.tokenUsuario });
+  }
 
 
 

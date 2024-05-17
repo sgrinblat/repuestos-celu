@@ -3,72 +3,28 @@
     <h2 class="textoTitular text-center mb-3">TUS ORDENES</h2>
     <div class="row justify-content-center">
       <div class="col-md-8">
-
-        <div class="card mb-3">
+        <!-- Itera sobre cada orden usando *ngFor -->
+        <div class="card mb-3" *ngFor="let orden of ordenes">
           <div class="card-body">
             <div class="row">
-              <div class="col-md-9 col-9 text-lg-start text-sm-center text-center">
-                <h5 class="card-title"><b>Orden N°</b> 344</h5>
-                <p class="price"><b>Pedido realizado</b> 10/02/2024</p>
-                <p class="price"><b>Total</b> $XX.XXX</p>
-                <p class="price"><b>Enviar a</b> Jujuy 222 - Cordoba capital</p>
-                <p class="sucursal"><b>Punto de venta Buenos Aires - San Luis del Valle</b></p>
+              <div class="col-md-8 col-8 text-lg-start text-sm-center text-center">
+                <h5 class="card-title"><b>Orden N°</b> {{ orden.order_id }}</h5>
+                <p class="price"><b>Pedido realizado</b> {{ orden.created_at}}</p>
+                <p class="price"><b>Total</b> ${{ orden.total_order }}</p>
+                <p class="price"><b>Enviar a</b> {{ orden.order_data.street_address }} - {{ orden.order_data.city_id }}</p>
+                <p class="sucursal"><b>Punto de venta Buenos Aires - San Luis del Valle</b></p> <!-- Ajusta según necesidad -->
               </div>
 
-              <div class="col-md-3 col-12 text-md-left text-center mt-5">
+              <div class="col-md-4 col-12 text-md-left text-center mt-5">
                 <div class="d-md-block d-flex justify-content-center">
-                  <button class="btn btn-success me-2 mt-2">Ver detalle</button>
+                  <button class="btn btn-success me-2 mt-2">Ver detalle de la orden</button>
+                  <button class="btn btn-warning me-2 mt-2">Subir comprobante de pago</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-
-        <div class="card mb-3">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-9 col-9 text-lg-start text-sm-center text-center">
-                <h5 class="card-title"><b>Orden N°</b> 344</h5>
-                <p class="price"><b>Pedido realizado</b> 10/02/2024</p>
-                <p class="price"><b>Total</b> $XX.XXX</p>
-                <p class="price"><b>Enviar a</b> Jujuy 222 - Cordoba capital</p>
-                <p class="sucursal"><b>Punto de venta Buenos Aires - San Luis del Valle</b></p>
-              </div>
-
-              <div class="col-md-3 col-12 text-md-left text-center mt-5">
-                <div class="d-md-block d-flex justify-content-center">
-                  <button class="btn btn-success me-2 mt-2">Ver detalle</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card mb-3">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-9 col-9 text-lg-start text-sm-center text-center">
-                <h5 class="card-title"><b>Orden N°</b> 344</h5>
-                <p class="price"><b>Pedido realizado</b> 10/02/2024</p>
-                <p class="price"><b>Total</b> $XX.XXX</p>
-                <p class="price"><b>Enviar a</b> Jujuy 222 - Cordoba capital</p>
-                <p class="sucursal"><b>Punto de venta Buenos Aires - San Luis del Valle</b></p>
-              </div>
-
-              <div class="col-md-3 col-12 text-md-left text-center mt-5">
-                <div class="d-md-block d-flex justify-content-center">
-                  <button class="btn btn-success me-2 mt-2">Ver detalle</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <!-- Repetir la tarjeta del producto para cada producto -->
       </div>
-
     </div>
   </div>
 </section>

@@ -5,6 +5,7 @@ import { Usuario } from 'src/app/models/usuario';
 import { ConexionService } from 'src/app/service/conexion.service';
 import { RecaptchaService } from 'src/app/service/recaptcha.service';
 import { PasswordStrengthValidator } from '../registro-usuario/registro-usuario.component';
+import { ProductService } from 'src/app/service/product.service';
 
 @Component({
   selector: 'app-finalizar-orden',
@@ -18,30 +19,37 @@ export class FinalizarOrdenComponent implements OnInit {
   public robot: boolean;
   public presionado: boolean;
 
-  constructor(private conexionService: ConexionService, private recaptchaService: RecaptchaService,  private recaptchaV3Service: ReCaptchaV3Service, private readonly fb: FormBuilder, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(private conexionService: ConexionService, private recaptchaService: RecaptchaService,
+    private recaptchaV3Service: ReCaptchaV3Service, private readonly fb: FormBuilder,
+    private changeDetectorRef: ChangeDetectorRef, private productoService: ProductService) {
     this.contactForm = fb.group({
-      formularioNombreUsuario: ['', [Validators.required, Validators.minLength(5)]],
-      formularioDNIUsuario: ['', [Validators.required, Validators.minLength(8)]],
-      formularioEmailUsuario: ['', [Validators.required, Validators.minLength(6), Validators.email]],
-      formularioCodAreaUsuario: ['', [Validators.required, Validators.minLength(2)]],
-      formularioNroTelUsuario: ['', [Validators.required, Validators.minLength(5)]],
-      formularioCalleDirUsuario: ['', [Validators.required, Validators.minLength(3)]],
-      formularioCalleNroUsuario: ['', [Validators.required, Validators.minLength(1)]],
-      formularioPisoDeptoUsuario: ['', [Validators.required, Validators.minLength(2)]],
-      provinciaSeleccionada: ['none', Validators.required],
-      ciudadSeleccionada: ['none', Validators.required],
-      metodoDePago: ['none', Validators.required],
-      policies_agree: [false, Validators.requiredTrue]
+      name: ['', [Validators.required, Validators.minLength(5)]],
+      identity_number: ['', [Validators.required, Validators.minLength(8)]],
+      email: ['', [Validators.required, Validators.minLength(6), Validators.email]],
+      code_area: ['', [Validators.required, Validators.minLength(2)]],
+      phone_number: ['', [Validators.required, Validators.minLength(5)]],
+      street_address: ['', [Validators.required, Validators.minLength(3)]],
+      number_address: ['', [Validators.required, Validators.minLength(1)]],
+      postal_code: ['', [Validators.required, Validators.minLength(2)]],
+      floor_apartment: ['', [Validators.required, Validators.minLength(2)]],
+      state_id: ['none', Validators.required],
+      city_id: ['none', Validators.required],
+      payment_type_id: ['none', Validators.required],
     });
   }
+
 
   provincias: any[] = [];
   ciudades: any[] = [];
   provinciaSeleccionada: any;
   ciudadSeleccionada: any = "null";
   captchaResponse: any = "null";
+  paymentMethods: any[] = [];
+
+  productos: any[] = [];
 
   ngOnInit() {
+
     this.conexionService.getStates().subscribe(
       data => {
         this.provincias = data.states;
@@ -52,12 +60,28 @@ export class FinalizarOrdenComponent implements OnInit {
       }
     );
 
+    if (this.contactForm.get('state_id')) {
+      this.contactForm.get('state_id').valueChanges.subscribe(value => {
+        this.onProvinciaChange(value);
+      });
+    }
 
-    this.robot = true;
-    this.presionado = false;
 
-    this.contactForm.get('provinciaSeleccionada').valueChanges.subscribe(value => {
-      this.onProvinciaChange(value);
+    this.conexionService.obtenerMediosDePago().subscribe(data => {
+      if (data.status) {
+        this.paymentMethods = data.paymentsTypes;
+        console.log(this.paymentMethods);
+
+      }
+    });
+
+    console.log("casi");
+
+    this.productoService.getProducts().subscribe(products => {
+      console.log("se");
+
+      this.productos = products;
+      console.log('Productos recuperados para finalizar la orden:', this.productos);
     });
   }
 
@@ -86,21 +110,26 @@ export class FinalizarOrdenComponent implements OnInit {
 
 
   finalizarCompra() {
-    const formModel = this.contactForm.value;
+    // Prepara los datos del formulario como antes, añade los productos y envía todo al servidor
+    const orderData = {
+      ...this.contactForm.value,
+      products: this.productos.map(p => ({ product_id: p.id, quantity: p.quantity }))
+    };
+
+    console.log("esto es lo que estoy intentando mandar:");
+    console.log(orderData);
 
 
-    console.log(this.user);
-
-
-    this.conexionService.registrarUsuario(this.user).subscribe({
-      next: (response) => {
-
+    this.conexionService.enviarOrden(orderData).subscribe(
+      response => {
+        console.log('Orden completada:', response);
+        // Manejo del éxito
       },
-      error: (error) => {
-
+      error => {
+        console.error('Error al enviar la orden:', error);
+        // Manejo de errores
       }
-    });
-
+    );
   }
 
 }

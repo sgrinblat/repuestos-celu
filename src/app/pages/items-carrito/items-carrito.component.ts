@@ -4,6 +4,7 @@ import { Producto } from 'src/app/models/producto.model';
 import { AuthService } from 'src/app/service/auth.service';
 import { ConexionService } from 'src/app/service/conexion.service';
 import { NotificationService } from 'src/app/service/notification.service';
+import { ProductService } from 'src/app/service/product.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,7 +20,8 @@ export class ItemsCarritoComponent implements OnInit {
     private notificationService: NotificationService,
     private cdr: ChangeDetectorRef,
     private route: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private productoService: ProductService
     ) { }
 
 
@@ -83,6 +85,7 @@ export class ItemsCarritoComponent implements OnInit {
   }
 
   finalizarOrden() {
+    this.productoService.updateProducts(this.productos1);
     this.route.navigate(["orden/finalizar"])
   }
 
