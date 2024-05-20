@@ -7,7 +7,7 @@
 
         <div class="row" >
           <div class="col-6 form-group">
-            <input type="text" class="form-control" placeholder="Nombre y Apellido / Empresa"
+            <input [(ngModel)]="userData.name" type="text" class="form-control" placeholder="Nombre y Apellido / Empresa"
             formControlName="name" name="name"
                   [class.is-invalid]="contactForm.get('name').invalid && contactForm.get('name').touched"
                   id="name" class="formulario-input bg-light form-control "
@@ -22,6 +22,7 @@
           </div>
 
           <div class="col-6 form-group">
+            <label for="state_id" class="ms-2 mb-1"> {{userData.state_name}} </label>
             <select name="state_id" id="state_id" class="form-control" formControlName="state_id">
               <option value="none" disabled hidden>Provincia</option>
               <option *ngFor="let provincia of provincias" [ngValue]="provincia.id">{{provincia.name}}</option>
@@ -31,7 +32,7 @@
 
         <div class="row" >
           <div class="col-6 form-group">
-            <input type="text" class="form-control" placeholder="DNI / CUIL / CUIT"
+            <input [(ngModel)]="userData.identity_number" type="text" class="form-control" placeholder="DNI / CUIL / CUIT"
             formControlName="identity_number" name="identity_number"
                   [class.is-invalid]="contactForm.get('identity_number').invalid && contactForm.get('identity_number').touched"
                   id="identity_number" class="formulario-input bg-light form-control "
@@ -46,6 +47,7 @@
           </div>
 
           <div class="col-6 form-group">
+            <label for="city_id" class="ms-2 mb-1"> {{userData.city_name}} </label>
             <select name="city_id" id="city_id" class="form-control" formControlName="city_id">
               <option value="none" disabled hidden>Ciudad</option>
               <option *ngFor="let ciudad of ciudades" [ngValue]="ciudad.id">{{ciudad.name}}</option>
@@ -55,7 +57,7 @@
 
         <div class="row">
           <div class="col-sm-4 form-group">
-            <input type="text" class="form-control"  placeholder="Código de area"
+            <input [(ngModel)]="userData.code_area" type="text" class="form-control"  placeholder="Código de area"
             formControlName="code_area" name="code_area"
             [class.is-invalid]="contactForm.get('code_area').invalid && contactForm.get('code_area').touched"
             id="code_area" class="formulario-input bg-light form-control "
@@ -70,7 +72,7 @@
           </div>
 
           <div class="col-sm-8 form-group">
-            <input type="text" class="form-control"  placeholder="Celular"
+            <input [(ngModel)]="userData.cel_phone" type="text" class="form-control"  placeholder="Celular"
             formControlName="phone_number" name="phone_number"
             [class.is-invalid]="contactForm.get('phone_number').invalid && contactForm.get('phone_number').touched"
             id="phone_number" class="formulario-input bg-light form-control "
@@ -88,7 +90,7 @@
 
         <div class="row">
           <div class="col-sm-7 form-group">
-            <input type="text" class="form-control"  placeholder="Calle"
+            <input [(ngModel)]="userData.street_address" type="text" class="form-control"  placeholder="Calle"
             formControlName="street_address" name="street_address"
             [class.is-invalid]="contactForm.get('street_address').invalid && contactForm.get('street_address').touched"
             id="street_address" class="formulario-input bg-light form-control "
@@ -103,7 +105,7 @@
           </div>
 
           <div class="col-sm-2 form-group">
-            <input type="text" class="form-control" placeholder="N°"
+            <input [(ngModel)]="userData.number_address" type="text" class="form-control" placeholder="N°"
             formControlName="number_address" name="number_address"
             [class.is-invalid]="contactForm.get('number_address').invalid && contactForm.get('number_address').touched"
             id="number_address" class="formulario-input bg-light form-control "
@@ -118,7 +120,7 @@
           </div>
 
           <div class="col-sm-3 form-group">
-            <input type="text" class="form-control" placeholder="Código postal"
+            <input [(ngModel)]="userData.postal_code" type="text" class="form-control" placeholder="Código postal"
             formControlName="postal_code" name="postal_code"
             [class.is-invalid]="contactForm.get('postal_code').invalid && contactForm.get('postal_code').touched"
             type="text" id="postal_code" class="formulario-input bg-light form-control "
@@ -137,7 +139,7 @@
         <div class="row" >
 
           <div class="col-6 form-group">
-            <input type="email" class="form-control" placeholder="Dirección de email"
+            <input [(ngModel)]="userData.email" type="email" class="form-control" placeholder="Dirección de email"
             formControlName="email" name="email"
                   [class.is-invalid]="contactForm.get('email').invalid && contactForm.get('email').touched"
                   id="email" class="formulario-input bg-light form-control "

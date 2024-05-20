@@ -9,16 +9,18 @@
             <div class="row">
               <div class="col-md-8 col-12 text-lg-start text-sm-center text-center">
                 <h5 class="card-title"><b>Orden N°</b> {{ orden.order_id }}</h5>
+                <p class="price"> Estado: {{ orden.status_order_name }}</p>
                 <p class="price"><b>Pedido realizado</b> {{ orden.created_at}}</p>
                 <p class="price"><b>Total</b> ${{ orden.total_order }}</p>
-                <p class="price"><b>Enviar a</b> {{ orden.order_data.street_address }}</p>
-                <p class="sucursal"><b>Punto de venta {{orden.order_data.state_name}} {{orden.order_data.city_name}}</b></p>
+                <p class="price"><b>Enviar a</b> {{ orden.order_data.street_address }}  {{ orden.order_data.number_address }} | CP: {{ orden.order_data.postal_code }}</p>
+                <p class="sucursal"><b>Provincia: {{orden.order_data.state_name}} | Ciudad: {{orden.order_data.city_name}}</b></p>
+                <p class="sucursal"><b>Punto de venta: {{orden.order_data.sale_point_state_name}} - {{orden.order_data.sale_point_city_name}}</b></p>
               </div>
 
               <div class="col-md-4 col-12 text-md-left text-center mt-5">
                 <div class="d-md-block d-flex justify-content-center">
-                  <button (click)="cargarDetallesOrden(orden.order_id)" class="btn btn-success mt-md-2 me-2">Ver detalle de la orden</button>
-                  <button (click)="abrirModalSubirComprobante(orden.order_id, orden.created_at)" class="btn btn-warning mt-md-2 me-2">Subir comprobante de pago</button>
+                  <button (click)="cargarDetallesOrden(orden.order_id)" class="btn btn-success mt-md-1 me-2">Ver detalle de la orden</button>
+                  <button *ngIf="orden.status_order_id == 1" (click)="abrirModalSubirComprobante(orden, orden.order_id, orden.created_at)" class="btn btn-warning mt-md-4 me-2">Subir comprobante de pago</button>
                 </div>
               </div>
 

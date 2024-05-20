@@ -15,12 +15,15 @@ export class MisordenesComponent implements OnInit {
   constructor(private conexionService: ConexionService) { }
 
   ngOnInit() {
+    this.recuperarOrdenes();
+  }
+
+  recuperarOrdenes() {
     this.conexionService.obtenerOrdenes().subscribe({
       next: (response) => {
         if (response.status) {
           this.ordenes = response.orders;
           console.log(this.ordenes);
-
         }
       },
       error: (error) => {
@@ -51,17 +54,17 @@ export class MisordenesComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-
-  abrirModalSubirComprobante(orderId: number, orderDate: string): void {
+  abrirModalSubirComprobante(orden, ordenId, orderDate: string): void {
     const normalizedOrderDate = this.normalizeDate(orderDate);
-
+    const htmlContent = this.createPaymentsListHtml(orden);
     Swal.fire({
       title: 'Subir Comprobante de Pago',
       html: `
         <input id="swal-input-amount" class="swal2-input" placeholder="Monto pagado" type="number">
         <input id="swal-input-date" class="swal2-input" placeholder="Fecha de pago" type="date" max="${this.formatDate(new Date())}">
-        <input id="swal-input-file" class="swal2-input" type="file" accept=".jpg, .jpeg, .png, .pdf">
-      `,
+        <button id="custom-file-button" class="swal2-input" onclick="document.getElementById('swal-input-file').click()">Seleccionar archivo</button>
+        <input id="swal-input-file" type="file" accept=".jpg, .jpeg, .png, .pdf" style="display:none;">
+        ${htmlContent}`,
       focusConfirm: false,
       preConfirm: () => {
         const amount = (Swal.getPopup()!.querySelector('#swal-input-amount') as HTMLInputElement).value;
@@ -81,18 +84,27 @@ export class MisordenesComponent implements OnInit {
             return Promise.reject(null);
           });
       },
-      showCancelButton: true,
-      confirmButtonText: 'Subir',
-      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed && result.value) {
-        this.subirComprobante(orderId, result.value);
+        this.subirComprobante(ordenId, result.value);
       }
     }).catch(error => {
       console.error('Error en el proceso de subida:', error);
     });
   }
 
+
+  createPaymentsListHtml(order: any): string {
+    if (order.payments_files.length > 0) {
+      let paymentsHtml = '<h4>Comprobantes Subidos:</h4><ul>';
+      order.payments_files.forEach(file => {
+        paymentsHtml += `<li><a href="${file.payment_file}" target="_blank">Ver comprobante (${new Date(file.created_at).toLocaleDateString()} ${new Date(file.created_at).toLocaleTimeString()})</a></li>`;
+      });
+      paymentsHtml += '</ul>';
+      return paymentsHtml;
+    }
+    return '';
+  }
 
 
   validarYConvertirArchivo(file: File, date_paid: string, orderDate: string): Promise<string|null> {
@@ -153,8 +165,19 @@ export class MisordenesComponent implements OnInit {
   subirComprobante(orderId: number, data: { payment_file: string, amount: string, date_paid: string }): void {
     this.conexionService.actualizarOrden(orderId, data).subscribe({
       next: (response) => {
+        this.recuperarOrdenes();
         console.log('Comprobante subido exitosamente:', response);
         Swal.fire('¡Éxito!', 'Comprobante subido correctamente.', 'success');
+
+        // Actualizar la lista de comprobantes de pago si la respuesta es exitosa y contiene la información necesaria
+        if (response.payment_file) {
+          const newPayment = {
+            id: response.id,  // Asegúrate de que el backend devuelva un ID si es necesario
+            payment_file: data.payment_file,
+            created_at: new Date().toISOString() // O usa la fecha de pago si el servidor la devuelve
+          };
+          this.orderDetails.payments_files.push(newPayment);
+        }
       },
       error: (error) => {
         console.error('Error al subir el comprobante:', error);
@@ -162,6 +185,7 @@ export class MisordenesComponent implements OnInit {
       }
     });
   }
+
 
 
 }

@@ -110,7 +110,7 @@ export class ItemsCarritoComponent implements OnInit {
         console.log('Producto eliminado', response);
         // Luego de añadir a favoritos, fetch el nuevo conteo
         this.notificationService.fetchCartCount();
-        this.arrojarToast("Producto eliminado")
+        this.arrojarToast("Producto eliminado");
         this.fetchCarritoProducts();
         this.cdr.detectChanges();
       },
@@ -126,7 +126,7 @@ export class ItemsCarritoComponent implements OnInit {
       next: (response) => {
         console.log('Lista vaciada', response);
         this.notificationService.fetchCartCount();
-        this.arrojarToast("Lista vaciada")
+        this.arrojarToast("Lista vaciada");
         this.fetchCarritoProducts();
         this.cdr.detectChanges();
       },
