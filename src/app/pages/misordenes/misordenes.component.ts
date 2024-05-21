@@ -60,12 +60,34 @@ export class MisordenesComponent implements OnInit {
     Swal.fire({
       title: 'Subir Comprobante de Pago',
       html: `
-        <input id="swal-input-amount" class="swal2-input" placeholder="Monto pagado" type="number">
+        <style>
+          @media (max-width: 768px) {
+            .swal2-input.swal-input-amount { width: 80%; } /* Ajusta según necesidad */
+          }
+        </style>
+        <input id="swal-input-amount" class="swal2-input swal-input-amount" placeholder="Monto pagado" type="number">
         <input id="swal-input-date" class="swal2-input" placeholder="Fecha de pago" type="date" max="${this.formatDate(new Date())}">
         <button id="custom-file-button" class="swal2-input" onclick="document.getElementById('swal-input-file').click()">Seleccionar archivo</button>
         <input id="swal-input-file" type="file" accept=".jpg, .jpeg, .png, .pdf" style="display:none;">
         ${htmlContent}`,
       focusConfirm: false,
+      didOpen: () => {
+        const inputDate = document.getElementById('swal-input-date') as HTMLInputElement; // Casting aquí
+        inputDate.addEventListener('focus', function (e) {
+          const target = e.target as HTMLInputElement; // Casting dentro del manejador
+          if (target.value === '') {
+            target.type = 'text';
+            target.placeholder = 'dd/mm/aaaa';
+          }
+        });
+        inputDate.addEventListener('blur', function (e) {
+          const target = e.target as HTMLInputElement; // Casting dentro del manejador
+          if (target.value === '') {
+            target.type = 'date';
+            target.placeholder = '';
+          }
+        });
+      },
       preConfirm: () => {
         const amount = (Swal.getPopup()!.querySelector('#swal-input-amount') as HTMLInputElement).value;
         const date_paid = (Swal.getPopup()!.querySelector('#swal-input-date') as HTMLInputElement).value;
@@ -92,6 +114,7 @@ export class MisordenesComponent implements OnInit {
       console.error('Error en el proceso de subida:', error);
     });
   }
+
 
 
   createPaymentsListHtml(order: any): string {

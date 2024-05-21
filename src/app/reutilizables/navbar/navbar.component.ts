@@ -100,10 +100,6 @@ export class NavbarComponent implements OnDestroy, OnInit {
         data.categories.forEach(category => {
           this.subcategoriesMap.set(category.id, category.subcategories);
         });
-
-        console.log("Accesorios:", this.accesorios);
-        console.log("Repuestos:", this.repuestos);
-        console.log("Mapa de subcategorías:", this.subcategoriesMap);
       } else {
         console.log("Error en la carga de categorías: La respuesta no tiene status true.");
       }
@@ -455,6 +451,11 @@ export class NavbarComponent implements OnDestroy, OnInit {
       this.conexionService.getProductoBySearching(this.terminoBusqueda, undefined, this.subcategoria).subscribe(response => {
         this.productService.changeProductData(response.products);
         this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+        this.menuVisible = false;
+        this.menuCategoriasVisible = false;
+        this.menuRepuestosVisible = false;
+        this.menuAccesoriosVisible = false;
+        this.menuUsuarioLogueado = false;
         this.route.navigate(['busqueda']);
       }, error => {
         Swal.fire({
@@ -498,6 +499,11 @@ export class NavbarComponent implements OnDestroy, OnInit {
       this.conexionService.getProductoBySearching(this.terminoBusqueda, undefined, this.subcategoria, this.idProv, this.idCiudad).subscribe(response => {
         this.productService.changeProductData(response.products);
         this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+        this.menuVisible = false;
+        this.menuCategoriasVisible = false;
+        this.menuRepuestosVisible = false;
+        this.menuAccesoriosVisible = false;
+        this.menuUsuarioLogueado = false;
         this.route.navigate(['busqueda']);
       }, error => {
         Swal.fire({
@@ -510,6 +516,11 @@ export class NavbarComponent implements OnDestroy, OnInit {
       this.conexionService.getProductoBySearching(this.terminoBusqueda, undefined, this.subcategoria).subscribe(response => {
         this.productService.changeProductData(response.products);
         this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+        this.menuVisible = false;
+        this.menuCategoriasVisible = false;
+        this.menuRepuestosVisible = false;
+        this.menuAccesoriosVisible = false;
+        this.menuUsuarioLogueado = false;
         this.route.navigate(['busqueda']);
       }, error => {
         Swal.fire({
@@ -522,6 +533,11 @@ export class NavbarComponent implements OnDestroy, OnInit {
       this.conexionService.getProductoBySearching(this.terminoBusqueda, undefined, undefined, this.idProv, this.idCiudad).subscribe(response => {
         this.productService.changeProductData(response.products);
         this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+        this.menuVisible = false;
+        this.menuCategoriasVisible = false;
+        this.menuRepuestosVisible = false;
+        this.menuAccesoriosVisible = false;
+        this.menuUsuarioLogueado = false;
         this.route.navigate(['busqueda']);
       }, error => {
         Swal.fire({
@@ -534,6 +550,11 @@ export class NavbarComponent implements OnDestroy, OnInit {
       this.conexionService.getProductoBySearching(this.terminoBusqueda).subscribe(response => {
         this.productService.changeProductData(response.products);
         this.productService.changeSearchTerm(this.terminoBusqueda);  // Guardar el término de búsqueda
+        this.menuVisible = false;
+        this.menuCategoriasVisible = false;
+        this.menuRepuestosVisible = false;
+        this.menuAccesoriosVisible = false;
+        this.menuUsuarioLogueado = false;
         this.route.navigate(['busqueda']);
       }, error => {
         Swal.fire({
@@ -554,6 +575,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
         this.menuCategoriasVisible = false;
         this.menuRepuestosVisible = false;
         this.menuAccesoriosVisible = false;
+        this.menuUsuarioLogueado = false;
 
         this.arrojarToast("Buscando por oferta");
         this.productService.changeProductData(response.products);
@@ -577,6 +599,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
         this.menuCategoriasVisible = false;
         this.menuRepuestosVisible = false;
         this.menuAccesoriosVisible = false;
+        this.menuUsuarioLogueado = false;
 
         this.arrojarToast("Buscando por 'Podría interesarte'");
         this.productService.changeProductData(response.products);
@@ -826,7 +849,23 @@ export class NavbarComponent implements OnDestroy, OnInit {
     this.menuUsuarioLogueado = !this.menuUsuarioLogueado;
   }
 
+  verPerfil() {
+    this.menuVisible = false;
+    this.menuCategoriasVisible = false;
+    this.menuRepuestosVisible = false;
+    this.menuAccesoriosVisible = false;
+    this.menuUsuarioLogueado = false;
+    this.route.navigate(['perfil']);
+  }
 
+  verHistorialOrdenes() {
+    this.menuVisible = false;
+    this.menuCategoriasVisible = false;
+    this.menuRepuestosVisible = false;
+    this.menuAccesoriosVisible = false;
+    this.menuUsuarioLogueado = false;
+    this.route.navigate(['orden/historial']);
+  }
 
 }
 

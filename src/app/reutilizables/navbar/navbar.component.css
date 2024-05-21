@@ -374,6 +374,29 @@ body {
 }
 
 
+.whatsapp-icon {
+  position: fixed;  /* Posicionamiento fijo en la pantalla */
+  right: 200px;      /* A la derecha del todo */
+  top: 80%;         /* Aproximadamente al 70% del alto del viewport */
+  z-index: 1000;    /* Asegura que esté sobre otros elementos */
+}
+
+.whatsapp-icon img {
+  width: 100px;      /* Tamaño inicial del icono */
+  height: auto;     /* Mantener la proporción del icono */
+  transition: width 0.3s ease-in-out; /* Transición suave al cambiar el tamaño */
+}
+
+/* Media query para pantallas menores de 768px */
+@media (max-width: 768px) {
+  .whatsapp-icon img {
+    width: 70px;    /* Tamaño reducido en móviles */
+
+  }
+  .whatsapp-icon {
+    right: 30px;
+  }
+}
 
 
 

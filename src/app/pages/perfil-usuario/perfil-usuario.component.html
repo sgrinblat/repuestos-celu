@@ -56,14 +56,12 @@
 
         <div class="row" >
           <div class="col-6 form-group">
-            <label for="state_id" class="ms-2 mb-1"> {{userData.state_name}} </label>
             <select name="state_id" id="state_id" class="form-control" formControlName="state_id">
               <option value="none" disabled hidden>Provincia</option>
               <option *ngFor="let provincia of provincias" [ngValue]="provincia.id">{{provincia.name}}</option>
             </select>
           </div>
           <div class="col-6 form-group">
-            <label for="state_id" class="ms-2 mb-1"> {{userData.city_name}} </label>
             <select name="city_id" id="city_id" class="form-control" formControlName="city_id">
               <option value="none" disabled hidden>Ciudad</option>
               <option *ngFor="let ciudad of ciudades" [ngValue]="ciudad.id">{{ciudad.name}}</option>

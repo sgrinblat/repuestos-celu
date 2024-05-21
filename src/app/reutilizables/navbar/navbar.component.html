@@ -31,8 +31,8 @@
 
                 <div *ngIf="menuUsuarioLogueado" class="menu-usuarioLogueado-container" [class.visible]="menuUsuarioLogueado">
                   <p class="titulocategoria text-uppercase ms-4 mt-4">Hola {{userName}}! </p>
-                  <p routerLink="perfil" class="ms-4 opcionclickeable" >MI PERFIL</p>
-                  <p routerLink="orden/historial" class="ms-4 opcionclickeable">MIS ÓRDENES</p>
+                  <p (click)="verPerfil()" class="ms-4 opcionclickeable" >MI PERFIL</p>
+                  <p (click)="verHistorialOrdenes()" class="ms-4 opcionclickeable">MIS ÓRDENES</p>
                   <p class="ms-4 opcionclickeable" (click)="cerrarSesion()"><b>SALIR</b></p>
                 </div>
               </li>
@@ -128,6 +128,11 @@
 
     </div>
   </nav>
+
+  <a href="https://wa.me/5491132379619" class="whatsapp-icon" target="_blank">
+    <img src="../../../assets/images/LOGO/iconwpp.webp" alt="Contactar via WhatsApp">
+  </a>
+
 
 </body>
 
