@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { Usuario } from 'src/app/models/usuario';
 import { ConexionService } from 'src/app/service/conexion.service';
@@ -21,21 +22,20 @@ export class PerfilUsuarioComponent implements OnInit {
 
   constructor(private conexionService: ConexionService, private recaptchaService: RecaptchaService,
     private recaptchaV3Service: ReCaptchaV3Service, private readonly fb: FormBuilder,
-    private changeDetectorRef: ChangeDetectorRef, private notificationService: NotificationService
+    private changeDetectorRef: ChangeDetectorRef, private notificationService: NotificationService,
+    private router: Router
     ) {
     this.contactForm = fb.group({
-      formularioNombreUsuario: ['', [Validators.required, Validators.minLength(5)]],
-      formularioDNIUsuario: ['', [Validators.required, Validators.minLength(8)]],
-      formularioEmailUsuario: ['', [Validators.required, Validators.minLength(6), Validators.email]],
-      formularioCodAreaUsuario: ['', [Validators.required, Validators.minLength(2)]],
-      formularioNroTelUsuario: ['', [Validators.required, Validators.minLength(5)]],
-      formularioCalleDirUsuario: ['', [Validators.required, Validators.minLength(3)]],
-      formularioCalleNroUsuario: ['', [Validators.required, Validators.minLength(1)]],
-      formularioPisoDeptoUsuario: ['', [Validators.required, Validators.minLength(2)]],
-      provinciaSeleccionada: ['none', Validators.required],
-      ciudadSeleccionada: ['none', Validators.required],
-      metodoDePago: ['none', Validators.required],
-      policies_agree: [false, Validators.requiredTrue]
+      name: ['', [Validators.required, Validators.minLength(5)]],
+      identity_number: ['', [Validators.required, Validators.minLength(8)]],
+      email: ['', [Validators.required, Validators.minLength(6), Validators.email]],
+      code_area: ['', [Validators.required, Validators.minLength(2)]],
+      cel_phone: ['', [Validators.required, Validators.minLength(5)]],
+      street_address: ['', [Validators.required, Validators.minLength(3)]],
+      number_address: ['', [Validators.required, Validators.minLength(1)]],
+      floor_apartment: ['', [Validators.required, Validators.minLength(2)]],
+      state_id: ['none', Validators.required],
+      city_id: ['none', Validators.required],
     });
   }
 
@@ -61,11 +61,19 @@ export class PerfilUsuarioComponent implements OnInit {
       this.userData = data;
     });
 
+    this.conexionService.obtenerDataUsuario().subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.error('Error: ', error);
+      }
+    );
 
     this.robot = true;
     this.presionado = false;
 
-    this.contactForm.get('provinciaSeleccionada').valueChanges.subscribe(value => {
+    this.contactForm.get('state_id').valueChanges.subscribe(value => {
       this.onProvinciaChange(value);
     });
   }
@@ -77,7 +85,7 @@ export class PerfilUsuarioComponent implements OnInit {
         next: (response) => {
           if (response && response.status && Array.isArray(response.cities)) {
             this.ciudades = response.cities; // Asegurándote de que es un array
-            this.contactForm.get('ciudadSeleccionada').setValue('none');; // Opcional: Resetear la selección de ciudad
+            this.contactForm.get('city_id').setValue('none');; // Opcional: Resetear la selección de ciudad
           } else {
             this.ciudades = []; // En caso de que la respuesta no sea el formato esperado
           }
@@ -89,7 +97,65 @@ export class PerfilUsuarioComponent implements OnInit {
       });
     } else {
       this.ciudades = []; // Si no hay una provincia válida seleccionada, limpiar las ciudades
-      this.contactForm.get('ciudadSeleccionada').setValue('none');
+      this.contactForm.get('city_id').setValue('none');
     }
   }
+
+  cambiarDatos() {
+    if (this.contactForm.valid) {
+      const formData = this.contactForm.value;
+      this.conexionService.cambiarDataUsuario(formData).subscribe(
+        data => {
+          console.log('Datos actualizados:', data);
+          Swal.fire('Listo!', 'Datos actualizados!', 'success');
+          this.router.navigate([""])
+        },
+        error => {
+          console.error('Error al actualizar los datos:', error);
+          Swal.fire('Error', 'Algo salió mal!', 'error');
+        }
+      );
+    } else {
+      // Manejar la validación del formulario si es necesario
+      console.error('Formulario no válido:', this.contactForm.errors);
+    }
+  }
+
+  cambiarPassword() {
+    Swal.fire({
+      title: 'Cambiar Contraseña',
+      html: `
+        <input type="password" id="password" class="swal2-input" placeholder="Nueva contraseña">
+        <input type="password" id="repassword" class="swal2-input" placeholder="Confirmar nueva contraseña">
+      `,
+      focusConfirm: false,
+      preConfirm: () => {
+        const password = (Swal.getPopup()!.querySelector('#password') as HTMLInputElement).value;
+        const repassword = (Swal.getPopup()!.querySelector('#repassword') as HTMLInputElement).value;
+
+        if (!password || !repassword || password !== repassword) {
+          Swal.showValidationMessage("Las contraseñas no coinciden o están vacías");
+          return Promise.reject(null);
+        }
+        return { password, repassword };
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Cambiar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed && result.value) {
+        this.conexionService.cambiarContraseña(result.value).subscribe(
+          response => {
+            Swal.fire('Éxito', 'La contraseña ha sido cambiada correctamente.', 'success');
+          },
+          error => {
+            Swal.fire('Error', 'No se pudo cambiar la contraseña.', 'error');
+          }
+        );
+      }
+    }).catch(error => {
+      console.error('Error en el proceso:', error);
+    });
+  }
+
 }

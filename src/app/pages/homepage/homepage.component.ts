@@ -63,10 +63,6 @@ export class HomepageComponent implements OnInit {
             console.log('Categoría no reconocida:', item.title);
         }
       });
-      console.log('Ofertas:', this.ofertas);
-      console.log('Accesorios:', this.accesorios);
-      console.log('Repuestos:', this.repuestos);
-      console.log('Destacados:', this.destacados);
     }, error => {
       console.error('Error al obtener los productos del carrusel:', error);
     });

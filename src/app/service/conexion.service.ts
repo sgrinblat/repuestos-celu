@@ -171,8 +171,16 @@ export class ConexionService {
   }
 
 
+  obtenerDataUsuario(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/customer/data`, { headers: this.tokenUsuario });
+  }
+  cambiarDataUsuario(data: any): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/customer/data`, data, { headers: this.tokenUsuario });
+  }
 
-
+  cambiarContraseña(data: { password: string, repassword: string }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/customer/changePassword`, data, { headers: this.tokenUsuario });
+  }
 
   // METODOS SOBRE INICIO DE SESIÓN
 

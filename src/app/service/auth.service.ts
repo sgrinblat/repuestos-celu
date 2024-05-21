@@ -46,6 +46,7 @@ export class AuthService {
     return localStorage.getItem('tokenUser');
   }
 
+
   // Método para cerrar sesión
   deslogear() {
     localStorage.removeItem('tokenUser');

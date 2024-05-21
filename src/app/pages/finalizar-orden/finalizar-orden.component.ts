@@ -34,7 +34,7 @@ export class FinalizarOrdenComponent implements OnInit {
       identity_number: ['', [Validators.required, Validators.minLength(8)]],
       email: ['', [Validators.required, Validators.minLength(6), Validators.email]],
       code_area: ['', [Validators.required, Validators.minLength(2)]],
-      phone_number: ['', [Validators.required, Validators.minLength(5)]],
+      cel_phone: ['', [Validators.required, Validators.minLength(5)]],
       street_address: ['', [Validators.required, Validators.minLength(3)]],
       number_address: ['', [Validators.required, Validators.minLength(1)]],
       postal_code: ['', [Validators.required, Validators.minLength(2)]],
@@ -117,31 +117,28 @@ export class FinalizarOrdenComponent implements OnInit {
 
 
   finalizarCompra() {
-    // Prepara los datos del formulario como antes, añade los productos y envía todo al servidor
-    const orderData = {
-      ...this.contactForm.value,
-      products: this.productos.map(p => ({ product_id: p.id, quantity: p.quantity }))
-    };
+    if(this.contactForm.invalid) {
+      Swal.fire('Error', 'Hay campos sin completar', 'error');
+    } else {
+      const orderData = {
+        ...this.contactForm.value,
+        products: this.productos.map(p => ({ product_id: p.id, quantity: p.quantity }))
+      };
 
-    console.log("esto es lo que estoy intentando mandar:");
-    console.log(orderData);
+      this.conexionService.enviarOrden(orderData).subscribe(
+        response => {
+          this.notificationService.fetchCartCount();
+          this.fetchCarritoProducts();
+          Swal.fire('Orden creada!', 'Ya puedes verla en tu perfil', 'success');
+          this.route.navigate(["orden/historial"])
+        },
+        error => {
+          console.error('Error al enviar la orden:', error);
+          Swal.fire('Error', 'Hubo un problema para finalizar la orden', 'error');
+        }
+      );
+    }
 
-
-    this.conexionService.enviarOrden(orderData).subscribe(
-      response => {
-        console.log('Orden completada:', response);
-
-        this.notificationService.fetchCartCount();
-        this.fetchCarritoProducts();
-
-        Swal.fire('Orden creada!', 'Ya puedes verla en tu perfil', 'success');
-        this.route.navigate(["orden/historial"])
-      },
-      error => {
-        console.error('Error al enviar la orden:', error);
-        Swal.fire('Error', 'Hubo un problema para finalizar la orden', 'error');
-      }
-    );
   }
 
   fetchCarritoProducts() {

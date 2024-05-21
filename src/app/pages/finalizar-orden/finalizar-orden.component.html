@@ -22,16 +22,6 @@
           </div>
 
           <div class="col-6 form-group">
-            <label for="state_id" class="ms-2 mb-1"> {{userData.state_name}} </label>
-            <select name="state_id" id="state_id" class="form-control" formControlName="state_id">
-              <option value="none" disabled hidden>Provincia</option>
-              <option *ngFor="let provincia of provincias" [ngValue]="provincia.id">{{provincia.name}}</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row" >
-          <div class="col-6 form-group">
             <input [(ngModel)]="userData.identity_number" type="text" class="form-control" placeholder="DNI / CUIL / CUIT"
             formControlName="identity_number" name="identity_number"
                   [class.is-invalid]="contactForm.get('identity_number').invalid && contactForm.get('identity_number').touched"
@@ -45,9 +35,18 @@
                   class="alert alert-danger formulario-error mt-3">*El campo de DNI/CUIL/CUIT debe contener al menos
                   {{contactForm.get('identity_number')?.errors?.['minlength'].requiredLength}} letras</div>
           </div>
+        </div>
 
+        <div class="row" >
           <div class="col-6 form-group">
-            <label for="city_id" class="ms-2 mb-1"> {{userData.city_name}} </label>
+            <label for="state_id" class="ms-2 mb-1"> {{userData.state_name}} </label>
+            <select name="state_id" id="state_id" class="form-control" formControlName="state_id">
+              <option value="none" disabled hidden>Provincia</option>
+              <option *ngFor="let provincia of provincias" [ngValue]="provincia.id">{{provincia.name}}</option>
+            </select>
+          </div>
+          <div class="col-6 form-group">
+            <label for="state_id" class="ms-2 mb-1"> {{userData.city_name}} </label>
             <select name="city_id" id="city_id" class="form-control" formControlName="city_id">
               <option value="none" disabled hidden>Ciudad</option>
               <option *ngFor="let ciudad of ciudades" [ngValue]="ciudad.id">{{ciudad.name}}</option>
@@ -56,7 +55,7 @@
         </div>
 
         <div class="row">
-          <div class="col-sm-4 form-group">
+          <div class="col-sm-3 form-group">
             <input [(ngModel)]="userData.code_area" type="text" class="form-control"  placeholder="Código de area"
             formControlName="code_area" name="code_area"
             [class.is-invalid]="contactForm.get('code_area').invalid && contactForm.get('code_area').touched"
@@ -71,25 +70,22 @@
             {{contactForm.get('code_area')?.errors?.['minlength'].requiredLength}} letras</div>
           </div>
 
-          <div class="col-sm-8 form-group">
+          <div class="col-sm-4 form-group">
             <input [(ngModel)]="userData.cel_phone" type="text" class="form-control"  placeholder="Celular"
-            formControlName="phone_number" name="phone_number"
-            [class.is-invalid]="contactForm.get('phone_number').invalid && contactForm.get('phone_number').touched"
-            id="phone_number" class="formulario-input bg-light form-control "
-            formControlName="phone_number"/>
+            formControlName="cel_phone" name="cel_phone"
+            [class.is-invalid]="contactForm.get('cel_phone').invalid && contactForm.get('cel_phone').touched"
+            id="cel_phone" class="formulario-input bg-light form-control "
+            formControlName="cel_phone"/>
             <div
-            *ngIf="contactForm.get('phone_number')?.touched && contactForm.get('phone_number')?.errors?.['required'] "
+            *ngIf="contactForm.get('cel_phone')?.touched && contactForm.get('cel_phone')?.errors?.['required'] "
             class="alert alert-danger formulario-error text-center mt-3">*El campo de Celular es obligatorio</div>
             <div
-            *ngIf="contactForm.get('phone_number')?.touched && contactForm.get('phone_number')?.errors?.['minlength'] "
+            *ngIf="contactForm.get('cel_phone')?.touched && contactForm.get('cel_phone')?.errors?.['minlength'] "
             class="alert alert-danger formulario-error mt-3">*El campo de Celular debe contener al menos
-            {{contactForm.get('phone_number')?.errors?.['minlength'].requiredLength}} letras</div>
+            {{contactForm.get('cel_phone')?.errors?.['minlength'].requiredLength}} letras</div>
           </div>
-        </div>
 
-
-        <div class="row">
-          <div class="col-sm-7 form-group">
+          <div class="col-sm-5 form-group">
             <input [(ngModel)]="userData.street_address" type="text" class="form-control"  placeholder="Calle"
             formControlName="street_address" name="street_address"
             [class.is-invalid]="contactForm.get('street_address').invalid && contactForm.get('street_address').touched"
@@ -104,7 +100,12 @@
             {{contactForm.get('street_address')?.errors?.['minlength'].requiredLength}} letras</div>
           </div>
 
-          <div class="col-sm-2 form-group">
+        </div>
+
+
+        <div class="row">
+
+          <div class="col-sm-4 form-group">
             <input [(ngModel)]="userData.number_address" type="text" class="form-control" placeholder="N°"
             formControlName="number_address" name="number_address"
             [class.is-invalid]="contactForm.get('number_address').invalid && contactForm.get('number_address').touched"
@@ -119,7 +120,22 @@
             {{contactForm.get('number_address')?.errors?.['minlength'].requiredLength}} letras</div>
           </div>
 
-          <div class="col-sm-3 form-group">
+          <div class="col-sm-4 form-group">
+            <input [(ngModel)]="userData.floor_apartment" type="text" class="form-control"  placeholder="Piso / Departamento"
+            formControlName="floor_apartment" name="floor_apartment"
+            [class.is-invalid]="contactForm.get('floor_apartment').invalid && contactForm.get('floor_apartment').touched"
+            id="floor_apartment" class="formulario-input bg-light form-control "
+            formControlName="floor_apartment"/>
+            <div
+            *ngIf="contactForm.get('floor_apartment')?.touched && contactForm.get('floor_apartment')?.errors?.['required'] "
+            class="alert alert-danger formulario-error text-center mt-3">*El campo de Piso / Departamento es obligatorio</div>
+            <div
+            *ngIf="contactForm.get('floor_apartment')?.touched && contactForm.get('floor_apartment')?.errors?.['minlength'] "
+            class="alert alert-danger formulario-error mt-3">*El campo de Piso / Departamento debe contener al menos
+            {{contactForm.get('floor_apartment')?.errors?.['minlength'].requiredLength}} letras</div>
+          </div>
+
+          <div class="col-sm-4 form-group">
             <input [(ngModel)]="userData.postal_code" type="text" class="form-control" placeholder="Código postal"
             formControlName="postal_code" name="postal_code"
             [class.is-invalid]="contactForm.get('postal_code').invalid && contactForm.get('postal_code').touched"
