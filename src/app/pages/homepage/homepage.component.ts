@@ -16,6 +16,8 @@ export class HomepageComponent implements OnInit {
   repuestos = [];
   destacados = [];
   esCelular: boolean = false;
+  loading: boolean = true;  // Declarar la variable si aún no está declarada
+
 
   constructor(private conexionService: ConexionService) { }
 
@@ -62,11 +64,15 @@ export class HomepageComponent implements OnInit {
           default:
             console.log('Categoría no reconocida:', item.title);
         }
+
+        this.loading = false;
       });
     }, error => {
       console.error('Error al obtener los productos del carrusel:', error);
+      this.loading = false;
     });
   }
+
 
   private shuffleArray(array: any[]): any[] {
     for (let i = array.length - 1; i > 0; i--) {

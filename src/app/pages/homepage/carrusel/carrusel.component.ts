@@ -14,6 +14,7 @@ Swiper.use([Navigation, Pagination]);
 
 export class CarruselComponent implements OnInit {
   @Input() productos: Producto[];
+  @Input() loading: boolean = false;
 
   constructor(private router: ActivatedRoute, private route: Router) {}
 

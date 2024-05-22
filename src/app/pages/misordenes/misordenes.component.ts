@@ -62,7 +62,8 @@ export class MisordenesComponent implements OnInit {
       html: `
         <style>
           @media (max-width: 768px) {
-            .swal2-input.swal-input-amount { width: 80%; } /* Ajusta según necesidad */
+            .swal2-input.swal-input-amount { width: 80%; }
+            .swal2-input.swal-input-date { width: 100%; }
           }
         </style>
         <input id="swal-input-amount" class="swal2-input swal-input-amount" placeholder="Monto pagado" type="number">
@@ -71,23 +72,6 @@ export class MisordenesComponent implements OnInit {
         <input id="swal-input-file" type="file" accept=".jpg, .jpeg, .png, .pdf" style="display:none;">
         ${htmlContent}`,
       focusConfirm: false,
-      didOpen: () => {
-        const inputDate = document.getElementById('swal-input-date') as HTMLInputElement; // Casting aquí
-        inputDate.addEventListener('focus', function (e) {
-          const target = e.target as HTMLInputElement; // Casting dentro del manejador
-          if (target.value === '') {
-            target.type = 'text';
-            target.placeholder = 'dd/mm/aaaa';
-          }
-        });
-        inputDate.addEventListener('blur', function (e) {
-          const target = e.target as HTMLInputElement; // Casting dentro del manejador
-          if (target.value === '') {
-            target.type = 'date';
-            target.placeholder = '';
-          }
-        });
-      },
       preConfirm: () => {
         const amount = (Swal.getPopup()!.querySelector('#swal-input-amount') as HTMLInputElement).value;
         const date_paid = (Swal.getPopup()!.querySelector('#swal-input-date') as HTMLInputElement).value;
@@ -114,6 +98,7 @@ export class MisordenesComponent implements OnInit {
       console.error('Error en el proceso de subida:', error);
     });
   }
+
 
 
 

@@ -48,9 +48,21 @@
   margin-left: 50px;
 }
 
+.swiper-button-prev {
+  color: #4a933c !important; /* Cambia el color de la flecha a amarillo */
+}
 .swiper-button-next {
   color: #4a933c !important; /* Cambia el color de la flecha a amarillo */
 }
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* Ajusta según tus necesidades */
+  font-size: 20px;
+}
+
 
 @media (max-width: 500px) {
 

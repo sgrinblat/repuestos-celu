@@ -117,10 +117,25 @@
   text-transform: uppercase; /* En mayúsculas para la ubicación */
 }
 
+
+.divdeiconitos {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Alinea todo a la derecha en pantallas grandes */
+  padding-right: 30px;
+}
+
+
 @media (max-width: 768px) {
   .divdeiconitos {
-    padding-left: 70%;
-    margin-top: -18% !important;
+    justify-content: flex-end; /* Mantiene los elementos alineados a la derecha */
+    padding-right: 20px;
+    padding-bottom: 20px;
+  }
+  .iconos-orden {
+    justify-content: flex-end; /* Asegura que dentro del contenedor, todo esté a la derecha */
   }
 }
+
+
 

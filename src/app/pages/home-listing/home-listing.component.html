@@ -1,20 +1,26 @@
 <section class="fondo-gris">
   <div class="container pb-5">
+
     <div class="row">
-      <div class="col-11">
+      <div class="col-12">
         <p class="pt-4 palabrabusqueda">
           <i class="icono-lupa fas fa-search search-icon ms-4"></i>
           <i class="fa-solid fa-angle-right ms-2 me-3"></i>
           <i>{{ searchTerm }}</i>
         </p>
       </div>
+    </div>
 
-      <div class="col-12 col-sm-1 pt-4 divdeiconitos">
+    <div class="row">
+      <div class="col-6">
+        <p (click)="toggleSortPrice()">{{ sortOrder ? 'Ordenar: Menor precio ▼'  : 'Ordenar: Mayor precio ▲' }}</p>
+      </div>
+      <div class="col-6 divdeiconitos">
         <i (click)="modoListado()" class="fa-solid fa-list iconolistado" [class.active]="banderaListado"></i>
         <i (click)="modoSabana()" class="fa-solid fa-table-cells-large iconogrilla" [class.active]="banderaSabana"></i>
       </div>
-
     </div>
+
 
     <!-- Modo Listado -->
     <div *ngIf="banderaListado" class="products-container">
