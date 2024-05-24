@@ -44,7 +44,6 @@ export class NotificationService {
         this.updateCartCount(productos.length);  // Directamente usa la longitud del array de productos
       },
       error: (error) => {
-        console.error('Error fetching favorite list:', error);
         this.updateCartCount(0);  // Considera resetear el contador si hay un error
       }
     });
@@ -61,7 +60,6 @@ export class NotificationService {
         this.updateFavCount(productos.length);  // Directamente usa la longitud del array de productos
       },
       error: (error) => {
-        console.error('Error fetching favorite list:', error);
         this.updateFavCount(0);  // Considera resetear el contador si hay un error
       }
     });

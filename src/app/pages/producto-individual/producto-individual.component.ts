@@ -33,7 +33,7 @@ export class ProductoIndividualComponent implements OnInit {
       if (data.status) {
         this.product = data.product;
       } else {
-        console.error('No se pudo cargar los detalles del producto');
+        Swal.fire('Error', `No se pudo recuperar el producto`, 'error');
       }
     });
   }
@@ -54,13 +54,11 @@ export class ProductoIndividualComponent implements OnInit {
     if(this.auth.sesionIniciada()) {
       this.conexionService.agregarProductoFavorito(productId).subscribe({
         next: (response) => {
-          console.log('Producto agregado a favoritos', response);
           // Luego de añadir a favoritos, fetch el nuevo conteo
           this.notificationService.fetchFavCount();
           this.arrojarToast("Producto agregado")
         },
         error: (error) => {
-          console.error('Error al añadir producto a favoritos', error);
           this.arrojarToast("El producto ya está en favoritos")
         }
       });
@@ -73,13 +71,11 @@ export class ProductoIndividualComponent implements OnInit {
     if(this.auth.sesionIniciada()) {
       this.conexionService.agregarProductoCarrito(productId).subscribe({
         next: (response) => {
-          console.log('Producto agregado a carrito', response);
           // Luego de añadir a favoritos, fetch el nuevo conteo
           this.notificationService.fetchCartCount();
           this.arrojarToast("Producto agregado")
         },
         error: (error) => {
-          console.error('Error al añadir producto al carrito', error);
           this.arrojarToast("El producto ya está en el carrito")
         }
       });

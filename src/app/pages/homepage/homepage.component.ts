@@ -16,8 +16,6 @@ export class HomepageComponent implements OnInit {
   repuestos = [];
   destacados = [];
   esCelular: boolean = false;
-  loading: boolean = true;  // Declarar la variable si aún no está declarada
-
 
   constructor(private conexionService: ConexionService) { }
 
@@ -37,8 +35,6 @@ export class HomepageComponent implements OnInit {
 
   obtenerProductos(): void {
     this.conexionService.getProductsCarrusel().subscribe(data => {
-      console.log(data);
-
       data.forEach(item => {
         const productsWithLimitedTitles = item.products.map(product => ({
           ...product,
@@ -65,11 +61,9 @@ export class HomepageComponent implements OnInit {
             console.log('Categoría no reconocida:', item.title);
         }
 
-        this.loading = false;
       });
     }, error => {
-      console.error('Error al obtener los productos del carrusel:', error);
-      this.loading = false;
+      Swal.fire('Error', `No se pudo cargar productos en el carrusel`, 'error');
     });
   }
 

@@ -23,11 +23,10 @@ export class MisordenesComponent implements OnInit {
       next: (response) => {
         if (response.status) {
           this.ordenes = response.orders;
-          console.log(this.ordenes);
         }
       },
       error: (error) => {
-        console.error('Error al obtener las órdenes:', error);
+        Swal.fire('Error', `No se pudo obtener tus órdenes realizadas`, 'error');
       }
     });
   }
@@ -38,14 +37,13 @@ export class MisordenesComponent implements OnInit {
       next: (response) => {
         if (response.status) {
           this.orderDetails = response.order;
-          console.log(this.orderDetails);
           if (this.orderDetails.bill_file) {
             this.abrirPDF(this.orderDetails.bill_file);
           }
         }
       },
       error: (error) => {
-        console.error('Error al obtener detalles de la orden:', error);
+        Swal.fire('Error', `No se pudo obtener detalles de la orden`, 'error');
       }
     });
   }
@@ -63,21 +61,19 @@ export class MisordenesComponent implements OnInit {
         <style>
           @media (max-width: 768px) {
             .swal2-input.swal-input-amount { width: 80%; }
-            .swal2-input.swal-input-date { width: 100%; }
           }
         </style>
         <input id="swal-input-amount" class="swal2-input swal-input-amount" placeholder="Monto pagado" type="number">
-        <input id="swal-input-date" class="swal2-input" placeholder="Fecha de pago" type="date" max="${this.formatDate(new Date())}">
         <button id="custom-file-button" class="swal2-input" onclick="document.getElementById('swal-input-file').click()">Seleccionar archivo</button>
         <input id="swal-input-file" type="file" accept=".jpg, .jpeg, .png, .pdf" style="display:none;">
         ${htmlContent}`,
       focusConfirm: false,
       preConfirm: () => {
         const amount = (Swal.getPopup()!.querySelector('#swal-input-amount') as HTMLInputElement).value;
-        const date_paid = (Swal.getPopup()!.querySelector('#swal-input-date') as HTMLInputElement).value;
         const fileInput = (Swal.getPopup()!.querySelector('#swal-input-file') as HTMLInputElement).files![0];
+        const date_paid = this.formatDate(new Date()); // Usamos la fecha y hora actual
 
-        if (!fileInput || !amount || !date_paid) {
+        if (!fileInput || !amount) {
           Swal.showValidationMessage("Todos los campos son obligatorios");
           return Promise.reject(null);
         }
@@ -95,9 +91,10 @@ export class MisordenesComponent implements OnInit {
         this.subirComprobante(ordenId, result.value);
       }
     }).catch(error => {
-      console.error('Error en el proceso de subida:', error);
+
     });
   }
+
 
 
 
@@ -106,7 +103,7 @@ export class MisordenesComponent implements OnInit {
     if (order.payments_files.length > 0) {
       let paymentsHtml = '<h4>Comprobantes Subidos:</h4><ul>';
       order.payments_files.forEach(file => {
-        paymentsHtml += `<li><a href="${file.payment_file}" target="_blank">Ver comprobante (${new Date(file.created_at).toLocaleDateString()} ${new Date(file.created_at).toLocaleTimeString()})</a></li>`;
+        paymentsHtml += `<li><a href="${file.payment_file}" target="_blank">Ver comprob. (${new Date(file.created_at).toLocaleDateString()} ${new Date(file.created_at).toLocaleTimeString()})</a></li>`;
       });
       paymentsHtml += '</ul>';
       return paymentsHtml;
@@ -116,12 +113,10 @@ export class MisordenesComponent implements OnInit {
 
 
   validarYConvertirArchivo(file: File, date_paid: string, orderDate: string): Promise<string|null> {
-    console.log(`Archivo: ${file.type}, Fecha de pago: ${date_paid}, Fecha de orden: ${orderDate}`);
-
     return new Promise((resolve, reject) => {
         const validFormats = ['image/jpeg', 'image/png', 'application/pdf'];
         if (!validFormats.includes(file.type)) {
-            console.log("Formato de archivo no válido");
+          Swal.fire('Error', `No es un tipo de archivo admitido (jpg, png, pdf)`, 'error');
             reject("Formato no válido");
             return;
         }
@@ -129,7 +124,6 @@ export class MisordenesComponent implements OnInit {
         const normalizedOrderDate = this.normalizeDate(orderDate);
         const normalizedDatePaid = this.normalizeDate(date_paid);
         const todayStr = this.formatDate(new Date());
-        console.log(`Fechas para comparación - Hoy: ${todayStr}, Fecha de pago: ${normalizedDatePaid}, Fecha de orden: ${normalizedOrderDate}`);
 
         if (normalizedDatePaid > todayStr || normalizedDatePaid < normalizedOrderDate) {
             Swal.fire('Error', `La fecha ingresada es anterior a la de la generación de la orden: ${normalizedOrderDate}`, 'error');
@@ -140,12 +134,9 @@ export class MisordenesComponent implements OnInit {
         const reader = new FileReader();
         reader.onload = () => {
             const base64String = reader.result as string;
-            console.log("Archivo leído correctamente");
-            console.log("Muestra de base64:", base64String.substring(0, 30)); // Muestra los primeros 30 caracteres del string base64
             resolve(base64String);
         };
         reader.onerror = error => {
-            console.error("Error al leer el archivo", error);
             reject(error);
         };
         reader.readAsDataURL(file);
@@ -158,14 +149,12 @@ export class MisordenesComponent implements OnInit {
     const month = date.getMonth() + 1;  // getMonth() devuelve un índice basado en cero, por lo que sumamos uno.
     const day = date.getDate();
     const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-    console.log(`formatDate: ${formattedDate}`);
     return formattedDate;
   }
 
   normalizeDate(dateStr: string): string {
     const date = new Date(dateStr);
     const normalizedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-    console.log(`normalizeDate: input=${dateStr}, output=${normalizedDate}`);
     return normalizedDate;
   }
 
@@ -174,7 +163,6 @@ export class MisordenesComponent implements OnInit {
     this.conexionService.actualizarOrden(orderId, data).subscribe({
       next: (response) => {
         this.recuperarOrdenes();
-        console.log('Comprobante subido exitosamente:', response);
         Swal.fire('¡Éxito!', 'Comprobante subido correctamente.', 'success');
 
         // Actualizar la lista de comprobantes de pago si la respuesta es exitosa y contiene la información necesaria
@@ -188,7 +176,6 @@ export class MisordenesComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.error('Error al subir el comprobante:', error);
         Swal.fire('Error', 'Error al subir el comprobante.', 'error');
       }
     });

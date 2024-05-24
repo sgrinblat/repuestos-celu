@@ -41,11 +41,10 @@ export class ItemsFavoritosComponent implements OnInit {
     this.conexionService.getFavoriteList().subscribe({
       next: (productos) => {
         this.productos1 = productos;
-        console.log(this.productos1);
         this.cdr.detectChanges();  // Forzar la detección de cambios
       },
       error: (error) => {
-        console.error('Error fetching favorite products:', error);
+        Swal.fire('Error', `Recargue la página`, 'error');
       }
     });
   }
@@ -54,11 +53,10 @@ export class ItemsFavoritosComponent implements OnInit {
     this.conexionService.getCarritoList().subscribe({
       next: (productos) => {
         this.productos1 = productos;
-        console.log(this.productos1);
         this.cdr.detectChanges();  // Forzar la detección de cambios
       },
       error: (error) => {
-        console.error('Error fetching carrito products:', error);
+        Swal.fire('Error', `Recargue la página`, 'error');
       }
     });
   }
@@ -66,7 +64,6 @@ export class ItemsFavoritosComponent implements OnInit {
   eliminarProducto(productId: number) {
     this.conexionService.quitarProductoFavorito(productId).subscribe({
       next: (response) => {
-        console.log('Producto eliminado', response);
         // Luego de añadir a favoritos, fetch el nuevo conteo
         this.notificationService.fetchFavCount();
         this.arrojarToast("Producto eliminado")
@@ -74,7 +71,6 @@ export class ItemsFavoritosComponent implements OnInit {
         this.cdr.detectChanges();
       },
       error: (error) => {
-        console.error('Error al eliminar producto de favoritos', error);
         this.arrojarToast("Error para eliminar el producto")
       }
     });
@@ -83,14 +79,12 @@ export class ItemsFavoritosComponent implements OnInit {
   eliminarTodo() {
     this.conexionService.eliminarFavoritos().subscribe({
       next: (response) => {
-        console.log('Lista vaciada', response);
         this.notificationService.fetchFavCount();
         this.arrojarToast("Lista vaciada")
         this.fetchFavoriteProducts();
         this.cdr.detectChanges();
       },
       error: (error) => {
-        console.error('Error al eliminar lista', error);
         this.arrojarToast("Error para eliminar el producto")
       }
     });
@@ -99,7 +93,6 @@ export class ItemsFavoritosComponent implements OnInit {
   agregarTodo() {
     this.conexionService.agregarTodoFavoritos().subscribe({
       next: (response) => {
-        console.log('Lista vaciada', response);
         this.arrojarToast("Se ha añadido todo")
 
         this.notificationService.fetchFavCount();
@@ -110,7 +103,6 @@ export class ItemsFavoritosComponent implements OnInit {
         this.route.navigate(['carrito']);
       },
       error: (error) => {
-        console.error('Error al eliminar lista', error);
         this.arrojarToast("Hubo un error")
       }
     });
@@ -119,13 +111,11 @@ export class ItemsFavoritosComponent implements OnInit {
   addToCarrito(productId: number) {
     this.conexionService.agregarProductoCarrito(productId).subscribe({
       next: (response) => {
-        console.log('Producto agregado a carrito', response);
         // Luego de añadir a favoritos, fetch el nuevo conteo
         this.notificationService.fetchCartCount();
         this.arrojarToast("Producto agregado")
       },
       error: (error) => {
-        console.error('Error al añadir producto al carrito', error);
         this.arrojarToast("El producto ya está en el carrito")
       }
     });

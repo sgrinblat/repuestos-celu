@@ -43,12 +43,11 @@ export class ItemsCarritoComponent implements OnInit {
           quantity: 1
         }));
 
-        console.log(this.productos1);
         this.calcularTotal();
         this.cdr.detectChanges();  // Forzar la detección de cambios
       },
       error: (error) => {
-        console.error('Error fetching carrito products:', error);
+        Swal.fire('Error', `No se pudo recuperar los productos`, 'error');
       }
     });
   }
@@ -107,7 +106,6 @@ export class ItemsCarritoComponent implements OnInit {
   eliminarProducto(productId: number) {
     this.conexionService.quitarProductoCarrito(productId).subscribe({
       next: (response) => {
-        console.log('Producto eliminado', response);
         // Luego de añadir a favoritos, fetch el nuevo conteo
         this.notificationService.fetchCartCount();
         this.arrojarToast("Producto eliminado");
@@ -115,7 +113,6 @@ export class ItemsCarritoComponent implements OnInit {
         this.cdr.detectChanges();
       },
       error: (error) => {
-        console.error('Error al eliminar producto de carrito', error);
         this.arrojarToast("Error para eliminar el producto")
       }
     });
@@ -124,14 +121,12 @@ export class ItemsCarritoComponent implements OnInit {
   eliminarTodo() {
     this.conexionService.eliminarCarrito().subscribe({
       next: (response) => {
-        console.log('Lista vaciada', response);
         this.notificationService.fetchCartCount();
         this.arrojarToast("Lista vaciada");
         this.fetchCarritoProducts();
         this.cdr.detectChanges();
       },
       error: (error) => {
-        console.error('Error al eliminar lista', error);
         this.arrojarToast("Error para eliminar el producto")
       }
     });

@@ -88,8 +88,6 @@ export class ConexionService {
 
 
   getFavoriteList(): Observable<Producto[]> {
-    console.log(this.tokenUsuario);
-
     return this.http.get<{ favorite_list: Producto[] }>(`${this.baseUrl}/customer/favorite/list`, { headers: this.tokenUsuario })
       .pipe(
         map(response => response.favorite_list || [])
@@ -97,7 +95,6 @@ export class ConexionService {
   }
 
   agregarProductoFavorito(productId: number): Observable<any> {
-    console.log(this.tokenUsuario);
     const body = {
       product_id: productId
     };
@@ -118,8 +115,6 @@ export class ConexionService {
 
 
   getCarritoList(): Observable<Producto[]> {
-    console.log(this.tokenUsuario);
-
     return this.http.get<{ shop_cart_list: Producto[] }>(`${this.baseUrl}/customer/cart/list`, { headers: this.tokenUsuario })
       .pipe(
         map(response => response.shop_cart_list || [])
@@ -127,7 +122,6 @@ export class ConexionService {
   }
 
   agregarProductoCarrito(productId: number): Observable<any> {
-    console.log(this.tokenUsuario);
     const body = {
       product_id: productId
     };

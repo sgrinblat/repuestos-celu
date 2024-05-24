@@ -376,7 +376,7 @@ body {
 
 .whatsapp-icon {
   position: fixed;  /* Posicionamiento fijo en la pantalla */
-  right: 200px;      /* A la derecha del todo */
+  right: 13%;      /* A la derecha del todo */
   top: 80%;         /* Aproximadamente al 70% del alto del viewport */
   z-index: 1000;    /* Asegura que esté sobre otros elementos */
 }
@@ -394,7 +394,7 @@ body {
 
   }
   .whatsapp-icon {
-    right: 20px;
+    right: 5%;
   }
 }
 

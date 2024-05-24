@@ -53,7 +53,7 @@ export class PerfilUsuarioComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
       },
       error => {
-        console.error('Error: ', error);
+        Swal.fire('Error', `Recargue la página`, 'error');
       }
     );
 
@@ -63,10 +63,10 @@ export class PerfilUsuarioComponent implements OnInit {
 
     this.conexionService.obtenerDataUsuario().subscribe(
       data => {
-        console.log(data);
+
       },
       error => {
-        console.error('Error: ', error);
+        Swal.fire('Error', `Recargue la página`, 'error');
       }
     );
 
@@ -91,7 +91,6 @@ export class PerfilUsuarioComponent implements OnInit {
           }
         },
         error: (error) => {
-          console.error('Error al cargar las ciudades:', error);
           this.ciudades = []; // Limpiar las ciudades en caso de error
         }
       });
@@ -106,18 +105,15 @@ export class PerfilUsuarioComponent implements OnInit {
       const formData = this.contactForm.value;
       this.conexionService.cambiarDataUsuario(formData).subscribe(
         data => {
-          console.log('Datos actualizados:', data);
           Swal.fire('Listo!', 'Datos actualizados!', 'success');
           this.router.navigate([""])
         },
         error => {
-          console.error('Error al actualizar los datos:', error);
           Swal.fire('Error', 'Algo salió mal!', 'error');
         }
       );
     } else {
       // Manejar la validación del formulario si es necesario
-      console.error('Formulario no válido:', this.contactForm.errors);
     }
   }
 
@@ -154,7 +150,7 @@ export class PerfilUsuarioComponent implements OnInit {
         );
       }
     }).catch(error => {
-      console.error('Error en el proceso:', error);
+      Swal.fire('Error', `Recargue la página`, 'error');
     });
   }
 

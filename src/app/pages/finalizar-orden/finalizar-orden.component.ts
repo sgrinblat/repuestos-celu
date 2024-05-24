@@ -63,7 +63,7 @@ export class FinalizarOrdenComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
       },
       error => {
-        console.error('Error: ', error);
+        Swal.fire('Error', `Recargue la página`, 'error');
       }
     );
 
@@ -77,8 +77,6 @@ export class FinalizarOrdenComponent implements OnInit {
     this.conexionService.obtenerMediosDePago().subscribe(data => {
       if (data.status) {
         this.paymentMethods = data.paymentsTypes;
-        console.log(this.paymentMethods);
-
       }
     });
 
@@ -88,7 +86,6 @@ export class FinalizarOrdenComponent implements OnInit {
 
     this.productoService.getProducts().subscribe(products => {
       this.productos = products;
-      console.log('Productos recuperados para finalizar la orden:', this.productos);
     });
   }
 
@@ -105,7 +102,6 @@ export class FinalizarOrdenComponent implements OnInit {
           }
         },
         error: (error) => {
-          console.error('Error al cargar las ciudades:', error);
           this.ciudades = []; // Limpiar las ciudades en caso de error
         }
       });
@@ -133,7 +129,6 @@ export class FinalizarOrdenComponent implements OnInit {
           this.route.navigate(["orden/historial"])
         },
         error => {
-          console.error('Error al enviar la orden:', error);
           Swal.fire('Error', 'Hubo un problema para finalizar la orden', 'error');
         }
       );
@@ -145,11 +140,10 @@ export class FinalizarOrdenComponent implements OnInit {
     this.conexionService.getCarritoList().subscribe({
       next: (productos) => {
         this.productos1 = productos;
-        console.log(this.productos1);
         this.changeDetectorRef.detectChanges();  // Forzar la detección de cambios
       },
       error: (error) => {
-        console.error('Error fetching carrito products:', error);
+        Swal.fire('Error', `No se pudo obtener productos del carrito`, 'error');
       }
     });
   }

@@ -50,7 +50,7 @@ export class RegistroUsuarioComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
       },
       error => {
-        console.error('Error: ', error);
+        Swal.fire('Error', `Recargue la página`, 'error');
       }
     );
 
@@ -83,11 +83,7 @@ export class RegistroUsuarioComponent implements OnInit {
     }
   }
 
-  // this.recaptchaService.executeRecaptcha('registro').then(token => {
 
-  // }).catch(error => {
-  //   console.error('Recaptcha error:', error);
-  // });
 
   registrarse() {
     if (this.contactForm.valid) {
@@ -111,17 +107,14 @@ export class RegistroUsuarioComponent implements OnInit {
           recaptcha_token: token
         };
 
-        console.log(this.user);
-
         this.conexionService.registrarUsuario(this.user).subscribe({
           next: (response) => {
             Loading.remove(500);
-            console.log('Registro exitoso', response);
+            Swal.fire('Listo!', `Usuario registrado`, 'success');
             this.onRegistroExitoso(this.user.email)
           },
           error: (error) => {
             Loading.remove(500);
-            console.error('Error en el registro', error);
             Swal.fire({
               icon: "error",
               title: "Algo salió mal",
@@ -131,7 +124,7 @@ export class RegistroUsuarioComponent implements OnInit {
       });
 
       }).catch(error => {
-        console.error('Recaptcha error:', error);
+        Swal.fire('Error', `Recargue la página`, 'error');
       });
     }
 
@@ -177,7 +170,7 @@ export class RegistroUsuarioComponent implements OnInit {
             }
           });
         }).catch(error => {
-          console.error('Recaptcha error:', error);
+          Swal.fire('Error', `Recargue la página`, 'error');
         });
 
       }

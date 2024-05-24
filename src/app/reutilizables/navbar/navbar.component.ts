@@ -101,10 +101,10 @@ export class NavbarComponent implements OnDestroy, OnInit {
           this.subcategoriesMap.set(category.id, category.subcategories);
         });
       } else {
-        console.log("Error en la carga de categorías: La respuesta no tiene status true.");
+
       }
     }, error => {
-      console.error("Error al cargar categorías desde el servicio:", error);
+      Swal.fire('Error', `Recargue la página`, 'error');
     });
   }
 
@@ -116,7 +116,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
         }
       },
       error => {
-        console.error('Error: ', error); // Manejo de errores
+
       }
     );
   }
@@ -129,7 +129,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
         }
       },
       error => {
-        console.error('Error: ', error);
+
       }
     );
   }
@@ -230,14 +230,10 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
 
   abrirModalUbicacion() {
-    console.log("Invocando getSalesPoints"); // Log para verificar la invocación del método
     this.conexionService.getSalesPoints().subscribe(data => {
-        console.log("Datos recibidos de getSalesPoints:", data); // Log para inspeccionar los datos recibidos
         if (data && data.sales_points && data.sales_points.length > 0) { // Corrección aquí
-            console.log("Dato correcto y contiene elementos."); // Log para confirmar la validez de los datos
             const provincias = data.sales_points; // Acceso correcto a sales_points
             this.provincias2 = provincias;
-            console.log("Provincias extraídas:", provincias); // Log para ver las provincias
 
             Swal.fire({
                 html: `
@@ -269,20 +265,18 @@ export class NavbarComponent implements OnDestroy, OnInit {
               }
             }).then((result) => {
                 if (result.value) {
-                  console.log(result.value);
                   const [provinciaId, ciudadId] = result.value;
                   if (provinciaId && ciudadId) {
                     let nombreCiudad = this.buscarCiudadPorIDs(parseInt(provinciaId), parseInt(ciudadId));
                     this.buscarPorUbicacion(this.terminoBusqueda, parseInt(provinciaId), parseInt(ciudadId));
-                    console.log('Ciudad encontrada:', nombreCiudad);
                   }
                 }
             });
         } else {
-            console.log("Datos no contienen elementos o no están presentes."); // Log para errores en datos
+
         }
     }, error => {
-        console.error("Error al obtener datos de getSalesPoints", error); // Log para capturar errores
+      Swal.fire('Error', `Recargue la página`, 'error');
     });
   }
 
@@ -334,7 +328,6 @@ export class NavbarComponent implements OnDestroy, OnInit {
 }
 
   private handleModalOpen(provincias: any[]) {
-    console.log("Configurando modal con provincias:", provincias); // Log para ver provincias en modal
     const screenWidth = window.innerWidth;
     const modal = document.querySelector('.swal2-popup');
     const selects = document.querySelectorAll('.swal2-input');
@@ -353,11 +346,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
     const selectCiudad = document.getElementById('swal-select2') as HTMLSelectElement;
 
     selectEstado.onchange = () => {
-        console.log("Cambio en selectEstado con valor:", selectEstado.value); // Log para seguimiento de cambio
         const selectedId = parseInt(selectEstado.value, 10);
         const selectedProvincia = provincias.find(provincia => provincia.id === selectedId);
-        console.log("Provincia seleccionada:", selectedProvincia); // Log para inspeccionar provincia seleccionada
-
         if (selectedProvincia) {
             selectCiudad.innerHTML = selectedProvincia.cities.map(ciudad => {
                 let cityName = ciudad.name;
@@ -404,17 +394,15 @@ export class NavbarComponent implements OnDestroy, OnInit {
               },
               error: (error) => {
                 Swal.fire('Error', 'Hubo un problema al iniciar sesión.', 'error');
-                console.error('Error en el login', error);
               }
             });
           }).catch(error => {
-            console.error('Recaptcha error:', error);
+            Swal.fire('Error', `Recargue la página`, 'error');
           });
         });
 
         document.getElementById('register-btn').addEventListener('click', () => {
           Swal.close();
-          console.log('Ir al formulario de registro');
           this.route.navigate(['/registro']);
         });
 
@@ -689,7 +677,6 @@ export class NavbarComponent implements OnDestroy, OnInit {
         // Asegurarse de que el email todavía existe en el DOM
         const emailInput = document.getElementById('email-code') as HTMLInputElement;
         if (!emailInput) {
-          console.error('El input de email ya no está disponible.');
           return;
         }
         const email = emailInput.value;
@@ -697,15 +684,13 @@ export class NavbarComponent implements OnDestroy, OnInit {
           this.conexionService.validarCodigo(email, parseInt(numero), token).subscribe({
             next: (response) => {
               Swal.fire('¡Validación exitosa!', 'Tu número ha sido validado.', 'success');
-              console.log(response);
             },
             error: (error) => {
               Swal.fire('Error', 'Hubo un problema al validar el código.', 'error');
-              console.log(error);
             }
           });
         }).catch(error => {
-          console.error('Recaptcha error:', error);
+          Swal.fire('Error', `Recargue la página`, 'error');
         });
       }
     });
@@ -749,11 +734,11 @@ export class NavbarComponent implements OnDestroy, OnInit {
                 this.onRegistroExitoso(email.value);
               },
               error: (error) => {
-                console.error('Error en el revalidate', error);
+                Swal.fire('Error', `Recargue la página`, 'error');
               }
             });
           }).catch(error => {
-            console.error('Recaptcha error:', error);
+            Swal.fire('Error', `Recargue la página`, 'error');
           });
         });
       }
@@ -796,16 +781,14 @@ export class NavbarComponent implements OnDestroy, OnInit {
           this.conexionService.validarCodigo(email, num, token).subscribe({
             next: (response) => {
               Swal.fire('¡Validación exitosa!', 'Tu número ha sido validado.', 'success');
-              console.log(response);
 
             },
             error: (error) => {
               Swal.fire('Error', 'Hubo un problema al validar el código.', 'error');
-              console.log(error);
             }
           });
         }).catch(error => {
-          console.error('Recaptcha error:', error);
+          Swal.fire('Error', `Recargue la página`, 'error');
         });
 
       }

@@ -13,15 +13,5 @@ export class FooterComponent implements OnInit {
   ngOnInit() {
   }
 
-  // verElemento() {
-  //   if(this.conexion.sesionIniciadaJugador()){
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
-
-
 
 }
