@@ -176,6 +176,20 @@ export class ConexionService {
     return this.http.post(`${this.baseUrl}/customer/changePassword`, data, { headers: this.tokenUsuario });
   }
 
+
+  requestPasswordReset(email: string) {
+    const payload = { email };
+    return this.http.post(`${this.baseUrl}/front/forgotPassword`, payload, { headers: this.headers });
+  }
+
+  updatePassword(token: string, password: string) {
+    const url = `${this.baseUrl}/front/forgotPassword`;
+    return this.http.patch(url, { token, password }, { headers: this.headers });
+  }
+
+
+
+
   // METODOS SOBRE INICIO DE SESIÓN
 
   // loginUsuario(email: string, password: string, recaptchaToken: string): Observable<any> {

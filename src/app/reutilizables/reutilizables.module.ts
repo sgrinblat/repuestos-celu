@@ -12,6 +12,7 @@ import { Page404Component } from './page404/page404.component';
 import { PoliticaPrivacidadComponent } from './politica-privacidad/politica-privacidad.component';
 import { TerminosCondicionesComponent } from './terminos-condiciones/terminos-condiciones.component';
 import { PoliticaDevolucionComponent } from './politica-devolucion/politica-devolucion.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PoliticaDevolucionComponent } from './politica-devolucion/politica-devo
     Page404Component,
     PoliticaPrivacidadComponent,
     TerminosCondicionesComponent,
-    PoliticaDevolucionComponent
+    PoliticaDevolucionComponent,
+    ResetPasswordComponent
   ],
   exports: [
     NavbarComponent,
@@ -29,7 +31,8 @@ import { PoliticaDevolucionComponent } from './politica-devolucion/politica-devo
     Page404Component,
     PoliticaPrivacidadComponent,
     TerminosCondicionesComponent,
-    PoliticaDevolucionComponent
+    PoliticaDevolucionComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

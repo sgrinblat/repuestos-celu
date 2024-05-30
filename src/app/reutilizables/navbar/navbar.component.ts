@@ -373,52 +373,75 @@ export class NavbarComponent implements OnDestroy, OnInit {
         <input size="10" id="password" class="swal2-input mt-3" placeholder="Contraseña" type="password">
         <button id="login-btn" class="swal2-confirm swal2-styled mt-3" style="display: block; background-color: #28a745; margin: 0.5rem auto;">ENTRAR</button>
         <button id="register-btn" class="swal2-confirm swal2-styled mt-3" style="display: block; margin: 0.5rem auto;">REGISTRATE</button>
-        <p class="mt-3" style="text-align: center;"><i>¿Olvidaste tu contraseña?<br> Te enviamos un email <a style="text-decoration: none; color: #333" href="link-recuperacion"><b>aquí</b></i></a></p>
+        <p class="mt-3" style="text-align: center;"><i>¿Olvidaste tu contraseña?<br> Te enviamos un email <a style="text-decoration: none; color: #333; cursor: pointer" id="forgot-password-link"><b>aquí</b></a></i></p>
         <p class="mt-3" style="text-align: center;"><a href="/validarcuenta">Necesito validar mi cuenta</a></p>
       `,
       showConfirmButton: false,
       position: 'center',
       didOpen: () => {
-        document.getElementById('login-btn').addEventListener('click', () => {
-          const email = (document.getElementById('email') as HTMLInputElement).value;
-          const password = (document.getElementById('password') as HTMLInputElement).value;
-          this.recaptchaService.executeRecaptcha('login').then(token => {
-            this.authService.loginUsuario(email, password, token).subscribe({
-              next: (response) => {
-                Swal.fire('¡Bienvenido!', 'Inicio de sesión exitoso.', 'success');
-                localStorage.setItem("tokenUser", response.token);
-                this.notificationService.setUserData(response.user_data);
-                this.ngOnInit();
-                this.cdr.detectChanges();
-                this.route.navigate(['']);
-              },
-              error: (error) => {
-                Swal.fire('Error', 'Hubo un problema al iniciar sesión.', 'error');
-              }
-            });
-          }).catch(error => {
-            Swal.fire('Error', `Recargue la página`, 'error');
-          });
-        });
-
-        document.getElementById('register-btn').addEventListener('click', () => {
-          Swal.close();
-          this.route.navigate(['/registro']);
-        });
-
-        document.querySelector('a[href="/validarcuenta"]').addEventListener('click', (event) => {
-          event.preventDefault();
-          this.abrirModalValidacion();
-        });
-
-        const modal = document.querySelector('.swal2-popup');
-        if(modal) {
-          (modal as HTMLElement).style.borderRadius = '1rem';
-
-        }
+        document.getElementById('login-btn').addEventListener('click', this.handleLogin.bind(this));
+        document.getElementById('register-btn').addEventListener('click', this.handleRegister.bind(this));
+        document.getElementById('forgot-password-link').addEventListener('click', this.handleForgotPassword.bind(this));
+        this.adjustModalStyle();
       }
     });
-  }
+}
+
+handleLogin() {
+    const email = (document.getElementById('email') as HTMLInputElement).value;
+    const password = (document.getElementById('password') as HTMLInputElement).value;
+    this.recaptchaService.executeRecaptcha('login').then(token => {
+      this.authService.loginUsuario(email, password, token).subscribe({
+        next: (response) => {
+          Swal.fire('¡Bienvenido!', 'Inicio de sesión exitoso.', 'success');
+          localStorage.setItem("tokenUser", response.token);
+          this.notificationService.setUserData(response.user_data);
+          this.ngOnInit();
+          this.cdr.detectChanges();
+          this.route.navigate(['']);
+        },
+        error: (error) => {
+          Swal.fire('Error', 'Hubo un problema al iniciar sesión.', 'error');
+        }
+      });
+    }).catch(error => {
+      Swal.fire('Error', `Recargue la página`, 'error');
+    });
+}
+
+handleRegister() {
+    Swal.close();
+    this.route.navigate(['/registro']);
+}
+
+handleForgotPassword() {
+    Swal.fire({
+        title: 'Ingresa tu mail para recuperar la contraseña',
+        input: 'email',
+        inputAttributes: {
+            autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Enviar',
+        showLoaderOnConfirm: true,
+        preConfirm: (email) => {
+            return this.conexionService.requestPasswordReset(email).toPromise()
+                .then(response => Swal.fire('¡Listo!', 'Revisa tu correo para restablecer tu contraseña.', 'success'))
+                .catch(error => {
+                    Swal.showValidationMessage(`Request failed: ${error}`);
+                });
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    });
+}
+
+adjustModalStyle() {
+    const modal = document.querySelector('.swal2-popup');
+    if (modal) {
+        (modal as HTMLElement).style.borderRadius = '1rem';
+    }
+}
+
 
 
   buscarProducto() {

@@ -44,7 +44,7 @@
       <div class="search-input-container">
         <div class="search-input">
           <input type="text" class="form-control" [(ngModel)]="terminoBusqueda" placeholder="¿Qué estás buscando?"
-                 (keyup.enter)="buscarProducto()">
+                (keyup.enter)="buscarProducto()">
           <i (click)="buscarProducto()" class="icono-lupa fas fa-search search-icon"></i>
         </div>
         <img (click)="abrirModalUbicacion()" class="icono-ubicacion" src="../../../assets/images/icons/ubicacion.png" alt="">

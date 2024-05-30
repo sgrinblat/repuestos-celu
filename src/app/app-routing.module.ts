@@ -20,6 +20,7 @@ import { PoliticaDevolucionComponent } from "./reutilizables/politica-devolucion
 import { TerminosCondicionesComponent } from "./reutilizables/terminos-condiciones/terminos-condiciones.component";
 import { MisordenesComponent } from "./pages/misordenes/misordenes.component";
 import { PerfilUsuarioComponent } from "./pages/perfil-usuario/perfil-usuario.component";
+import { ResetPasswordComponent } from "./reutilizables/reset-password/reset-password.component";
 
 
 
@@ -52,6 +53,10 @@ const routes: Routes = [
     {
       path: "terminos_condiciones",
       component: TerminosCondicionesComponent,
+    },
+    {
+      path: "resetPassword",
+      component: ResetPasswordComponent,
     },
     {
       path: "producto/:id",
